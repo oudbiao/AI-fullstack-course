@@ -49,7 +49,7 @@ git pull origin master 2>/dev/null || git pull origin main 2>/dev/null || true
 
 # 2. 先构建新镜像，旧容器继续服务
 echo "🧹 清理本地构建产物..."
-rm -rf node_modules build
+rm -rf node_modules dist .astro
 cleanup_docker_space
 echo "🔨 构建 Docker 镜像（构建期间旧容器仍在服务）..."
 $COMPOSE build ai-course
@@ -81,26 +81,32 @@ check_preflight_html() {
 }
 
 echo "🌐 检查多语言构建产物..."
-if ! check_preflight_html "/" 'name="docusaurus_locale" content="en"'; then
+if ! check_preflight_html "/" 'lang="en-US"'; then
   echo "❌ 根路径不是英文默认语言，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
   cleanup_preflight
   exit 1
 fi
-if ! check_preflight_html "/" 'href="/zh-Hans/"' || ! check_preflight_html "/" 'href="/ja/"'; then
+if ! check_preflight_html "/" 'value="/zh-cn"' || ! check_preflight_html "/" 'value="/ja"'; then
   echo "❌ 根路径语言切换链接缺失，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
   cleanup_preflight
   exit 1
 fi
-if ! check_preflight_html "/zh-Hans/" 'name="docusaurus_locale" content="zh-Hans"'; then
+if ! check_preflight_html "/zh-cn/" 'lang="zh-CN"'; then
   echo "❌ 中文路径构建异常，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
   cleanup_preflight
   exit 1
 fi
-if ! check_preflight_html "/ja/" 'name="docusaurus_locale" content="ja"'; then
+if ! check_preflight_html "/ja/" 'lang="ja-JP"'; then
   echo "❌ 日文路径构建异常，停止替换线上容器"
+  docker logs --tail=50 ai-fullstack-course-preflight || true
+  cleanup_preflight
+  exit 1
+fi
+if ! check_preflight_html "/zh-Hans/" 'href="/zh-cn"'; then
+  echo "❌ 旧中文路径兼容跳转异常，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
   cleanup_preflight
   exit 1

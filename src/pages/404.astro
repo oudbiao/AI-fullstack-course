@@ -1,0 +1,133 @@
+---
+const languageLinks = [
+  { href: "/", label: "English" },
+  { href: "/zh-cn/", label: "简体中文" },
+  { href: "/ja/", label: "日本語" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Page not found | AI Full-Stack Course</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f5ef;
+        --panel: #ffffff;
+        --text: #171717;
+        --muted: #626262;
+        --line: #d9d5ca;
+        --accent: #0f766e;
+        --accent-strong: #0b4f4a;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #101312;
+          --panel: #171c1b;
+          --text: #f4f1ea;
+          --muted: #bbb5aa;
+          --line: #333a36;
+          --accent: #5eead4;
+          --accent-strong: #99f6e4;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent 32rem),
+          var(--bg);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(100%, 680px);
+        padding: clamp(28px, 6vw, 48px);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--panel) 92%, transparent);
+        box-shadow: 0 24px 70px color-mix(in srgb, var(--text) 12%, transparent);
+      }
+
+      .code {
+        margin: 0 0 14px;
+        color: var(--accent);
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 12ch;
+        font-size: clamp(2.4rem, 7vw, 4.75rem);
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      p {
+        margin: 20px 0 0;
+        max-width: 58ch;
+        color: var(--muted);
+        font-size: 1.0625rem;
+        line-height: 1.7;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 42px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        color: var(--accent-strong);
+        font-weight: 700;
+        text-decoration: none;
+        background: color-mix(in srgb, var(--panel) 80%, transparent);
+      }
+
+      a:hover,
+      a:focus-visible {
+        border-color: var(--accent);
+        outline: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="code">404</p>
+      <h1>Page not found</h1>
+      <p>
+        This course page may have moved during the site migration. Choose a language below and continue
+        from the course map.
+      </p>
+      <nav aria-label="Course language links">
+        {languageLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      </nav>
+    </main>
+  </body>
+</html>

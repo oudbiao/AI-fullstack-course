@@ -86,14 +86,14 @@ Treat the course as a project-upgrade path:
 | Locale | URL pattern | Role |
 |---|---|---|
 | English | `/` | Default language and canonical root experience |
-| Simplified Chinese | `/zh-Hans/` | Full localized course content and localized visuals |
+| Simplified Chinese | `/zh-cn/` | Full localized course content and localized visuals |
 | Japanese | `/ja/` | Full localized course content and localized visuals |
 
-Default English content lives in `docs/`. Localized content lives under `i18n/zh-Hans/` and `i18n/ja/`.
+Default English content lives in `src/content/docs/`. Localized content lives under `src/content/docs/zh-cn/` and `src/content/docs/ja/`.
 
 ## Visual Learning Assets
 
-The course includes many static diagrams, comics, and localized images under `static/img/course/`. These visuals are part of the learning experience, especially for math, machine learning, deep learning, LLMs, RAG, Agent systems, and AI history.
+The course includes many static diagrams, comics, and localized images under `public/img/course/`. These visuals are part of the learning experience, especially for math, machine learning, deep learning, LLMs, RAG, Agent systems, and AI history.
 
 README intentionally stays mostly text-based so it remains fast to load, easy to maintain, and easy to read in package managers, GitHub previews, and terminals. Course visuals belong in the website pages where they can support the lesson context directly.
 
@@ -101,11 +101,10 @@ README intentionally stays mostly text-based so it remains fast to load, easy to
 
 | Path | Purpose |
 |---|---|
-| `docs/` | Default English course content |
-| `i18n/zh-Hans/` | Simplified Chinese localized content and theme strings |
-| `i18n/ja/` | Japanese localized content and theme strings |
-| `static/img/course/` | Course diagrams, comics, and localized images |
-| `src/css/custom.css` | Site-level style customizations |
+| `src/content/docs/` | Starlight course content, including English root docs and localized `zh-cn` / `ja` docs |
+| `public/img/course/` | Course diagrams, comics, and localized images |
+| `src/styles/starlight.css` | Site-level style customizations |
+| `astro.config.mjs` | Astro Starlight configuration, locales, sidebar, sitemap, and metadata |
 | `scripts/` | Validation, sitemap, image-generation, and maintenance scripts |
 | `docker/` | Nginx runtime configuration for Docker deployment |
 | `.github/workflows/` | GitHub Actions deployment workflow |
@@ -120,30 +119,16 @@ Install dependencies:
 npm install
 ```
 
-Run the default English development site:
+Run the development site:
 
 ```bash
 npm run dev
-```
-
-Run localized development sites:
-
-```bash
-npm run dev:en
-npm run dev:ja
-npm run dev -- --locale zh-Hans
 ```
 
 Build the full static site:
 
 ```bash
 npm run build
-```
-
-Build one non-default locale for focused checks:
-
-```bash
-npm run build:ja
 ```
 
 Validate course structure and internal links:
@@ -162,7 +147,7 @@ npm run serve
 
 The deployment flow builds a new image while the old container keeps serving traffic. It then runs a preflight check against the new image and only replaces the production container after the new build is ready. This reduces downtime compared with stopping the old container before compilation.
 
-The production build also strips unexpected NUL bytes from generated HTML and merges localized sitemap files so English, Simplified Chinese, and Japanese pages are discoverable from the root sitemap.
+The production build also removes legacy `/zh-Hans/` redirect URLs from the sitemap and strips unexpected NUL bytes from generated HTML. English, Simplified Chinese, and Japanese pages are generated together from Astro Starlight.
 
 ## License
 

@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const docs = await getCollection("docs");
+  const zhCnEntries = docs.filter((entry) => entry.id === "zh-cn" || entry.id.startsWith("zh-cn/"));
+  const pathsBySlug = new Map();
+
+  for (const entry of zhCnEntries) {
+    let slug = entry.id.replace(/^zh-cn\/?/, "");
+    if (slug === "index") slug = "";
+    slug = slug.replace(/\/index$/, "");
+
+    pathsBySlug.set(slug, {
+      params: { slug },
+      props: { target: slug ? `/zh-cn/${slug}` : "/zh-cn" },
+    });
+  }
+
+  return [
+    ...pathsBySlug.values(),
+  ];
+}
+
+const { target } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <link rel="canonical" href={target} />
+    <script is:inline define:vars={{ target }}>location.replace(target);</script>
+  </head>
+  <body>
+    <a href={target}>Continue to the Chinese course</a>
+  </body>
+</html>

@@ -4,8 +4,8 @@ import re
 import sys
 
 root = os.environ.get('COURSE_ROOT') or os.getcwd()
-docs = os.path.join(root, 'docs')
-static = os.path.join(root, 'static')
+docs = os.environ.get('COURSE_DOCS') or os.path.join(root, 'src', 'content', 'docs')
+public = os.path.join(root, 'public')
 existing = set()
 
 for dirpath, _, files in os.walk(docs):
@@ -14,17 +14,17 @@ for dirpath, _, files in os.walk(docs):
             continue
         rel = os.path.relpath(os.path.join(dirpath, filename), docs)
         noext = re.sub(r'\.mdx?$', '', rel)
-        stripped_parts = [re.sub(r'^\d+-', '', part) for part in noext.split(os.sep)]
-        existing.add('/' + '/'.join(stripped_parts))
-        existing.add('/' + noext.replace(os.sep, '/'))
+        route = '/' + noext.replace(os.sep, '/')
+        existing.add(route)
+        if noext == 'index':
+            existing.add('/')
         if noext.endswith('/index'):
             existing.add('/' + noext[:-6].replace(os.sep, '/'))
-            existing.add('/' + '/'.join(stripped_parts)[:-6])
 
-if os.path.isdir(static):
-    for dirpath, _, files in os.walk(static):
+if os.path.isdir(public):
+    for dirpath, _, files in os.walk(public):
         for filename in files:
-            rel = os.path.relpath(os.path.join(dirpath, filename), static)
+            rel = os.path.relpath(os.path.join(dirpath, filename), public)
             existing.add('/' + rel.replace(os.sep, '/'))
 
 missing = []

@@ -16,8 +16,8 @@ from pathlib import Path
 from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-COURSE_IMG_ROOT = PROJECT_ROOT / "static" / "img" / "course"
-DOCS_I18N_ROOT = PROJECT_ROOT / "i18n"
+COURSE_IMG_ROOT = PROJECT_ROOT / "public" / "img" / "course"
+DOCS_ROOT = PROJECT_ROOT / "src" / "content" / "docs"
 IMAGE_RE = re.compile(r"!\[([^\]]*)]\((/img/course/[^)\s]+)([^)]*)\)")
 HOMEPAGE_BASE_RE = re.compile(r"^homepage-ai-history-comic-(\d{2}-.+\.png)$")
 HOMEPAGE_LOCALIZED_RE = re.compile(r"^homepage-ai-history-comic-(en|ja)-(\d{2}-.+\.png)$")
@@ -43,7 +43,7 @@ def is_localized(filename: str, locale: str) -> bool:
 
 
 def iter_locale_markdown(locale: str) -> list[Path]:
-    root = DOCS_I18N_ROOT / locale / "docusaurus-plugin-content-docs" / "current"
+    root = DOCS_ROOT / locale
     if not root.exists():
         return []
     return sorted(path for path in root.rglob("*") if path.suffix.lower() in {".md", ".mdx"})

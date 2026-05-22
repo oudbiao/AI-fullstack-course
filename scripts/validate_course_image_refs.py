@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate course image references before a Docusaurus build.
+"""Validate course image references before an Astro Starlight build.
 
 The build already fails on broken Markdown images, but this script makes the
 failure faster and easier to read. It also reports currently unused course
@@ -16,18 +16,16 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-STATIC_ROOT = PROJECT_ROOT / "static"
-COURSE_IMAGE_DIR = STATIC_ROOT / "img" / "course"
+PUBLIC_ROOT = PROJECT_ROOT / "public"
+COURSE_IMAGE_DIR = PUBLIC_ROOT / "img" / "course"
 GENERATION_ERRORS = PROJECT_ROOT / "reports" / "course-images" / "generation-errors.json"
 
 SOURCE_ROOTS = [
-    PROJECT_ROOT / "docs",
-    PROJECT_ROOT / "i18n" / "zh-Hans" / "docusaurus-plugin-content-docs" / "current",
-    PROJECT_ROOT / "i18n" / "ja" / "docusaurus-plugin-content-docs" / "current",
+    PROJECT_ROOT / "src" / "content" / "docs",
     PROJECT_ROOT / "src",
     PROJECT_ROOT / "README.md",
-    PROJECT_ROOT / "docusaurus.config.js",
-    PROJECT_ROOT / "sidebars.js",
+    PROJECT_ROOT / "astro.config.mjs",
+    PROJECT_ROOT / "src" / "content.config.ts",
 ]
 
 SOURCE_SUFFIXES = {".md", ".mdx", ".js", ".jsx", ".ts", ".tsx", ".json"}
@@ -63,7 +61,7 @@ def find_refs() -> tuple[list[tuple[Path, str]], list[tuple[Path, str]]]:
         for match in COURSE_IMAGE_RE.finditer(text):
             url = match.group(0).rstrip(".,;`")
             refs.append((source, url))
-            image_path = STATIC_ROOT / url.lstrip("/")
+            image_path = PUBLIC_ROOT / url.lstrip("/")
             if not image_path.exists():
                 missing.append((source, url))
     return refs, missing
@@ -94,7 +92,7 @@ def main() -> int:
     parser.add_argument(
         "--fail-on-unused",
         action="store_true",
-        help="Treat unreferenced files in static/img/course as errors.",
+        help="Treat unreferenced files in public/img/course as errors.",
     )
     parser.add_argument(
         "--show-unused",

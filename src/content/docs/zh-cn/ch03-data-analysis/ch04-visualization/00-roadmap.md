@@ -1,0 +1,99 @@
+---
+title: "3.4.1 可视化路线图：先选图表，再调样式"
+description: "紧凑版可视化路线图：为趋势、对比、分布、关系和报告选择合适图表。"
+sidebar:
+  order: 16
+head:
+  - tag: meta
+    attrs:
+      name: keywords
+      content: "数据可视化, 图表选择, matplotlib, seaborn, plotly, 可视化路线图"
+---
+
+# 3.4.1 可视化路线图：先选图表，再调样式
+
+可视化不是装饰。它把分析结果变成别人能快速看懂的图。
+
+## 先看选图地图
+
+![数据可视化路线图](/img/course/ch03-visualization-roadmap.webp)
+
+先用这个判断：
+
+| 想表达... | 先用... |
+|---|---|
+| 随时间变化 | 折线图 |
+| 类别对比 | 柱状图 |
+| 分布 | 直方图或箱线图 |
+| 两个数值的关系 | 散点图 |
+| 相关矩阵 | 热力图 |
+
+图表类型选对之后，再处理标题、坐标轴、图例、颜色和标注。
+
+## 先跑一次图表
+
+创建 `visual_first_loop.py`，安装 `pandas` 和 `matplotlib` 后运行。
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+sales = pd.DataFrame(
+    {
+        "month": ["2026-01", "2026-02", "2026-03", "2026-04"],
+        "amount": [120, 180, 160, 220],
+    }
+)
+
+ax = sales.plot(x="month", y="amount", marker="o", legend=False)
+ax.set_title("Monthly sales")
+ax.set_xlabel("Month")
+ax.set_ylabel("Amount")
+plt.tight_layout()
+plt.savefig("sales_trend.png", dpi=150)
+
+print("saved: sales_trend.png")
+```
+
+预期输出：
+
+```text
+saved: sales_trend.png
+```
+
+打开图片，只检查一件事：读者能不能在三秒内看出趋势？
+
+## 按这个顺序学
+
+| 顺序 | 阅读 | 练什么 |
+|---|---|---|
+| 1 | [3.4.2 Matplotlib 基础](./01-matplotlib.md) | Figure、Axes、折线/柱状/散点 |
+| 2 | [3.4.3 Seaborn 统计可视化](./02-seaborn.md) | 更快做探索性图表 |
+| 3 | [3.4.5 可视化最佳实践](./04-best-practices.md) | 选图、标签、颜色、误导性图表 |
+| 4 | [3.4.4 Plotly 交互式可视化](./03-plotly.md) | 项目需要交互时再用 |
+
+## 通过标准
+
+能从一个数据集做出 4 张有用图表，并说清楚每张图为什么这样选，就算通过。
+
+<details>
+<summary>检查思路与讲解</summary>
+
+1. 合格答案要先说清问题，再指出需要的表、DataFrame 或 SQL 查询，并让清洗步骤可以复现。
+2. 证据至少包含一小段输出、必要的图表或查询结果，以及一句对结果的解释。
+3. 自检时要能说出一个数据质量风险，例如缺失值、重复行、错误 join、聚合误导或图表难读。
+
+</details>
+
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+问题：这张图表回答的是比较、分布、趋势，还是关系
+图表选择：折线图、柱状图、散点图、直方图、箱线图、热力图或交互式仪表板
+工件：保存的图表图片/html 以及所用的数据切片
+失败检查：尺度误导、图表过载、聚合错误或缺少标签
+期望产出：带有一句说明洞察的图表成果
+```

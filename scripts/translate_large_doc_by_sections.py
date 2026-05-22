@@ -2,9 +2,9 @@
 """Translate one large Markdown document by top-level sections.
 
 This is a fallback for long docs that are too large for a single chat
-completion request. It preserves the existing Docusaurus i18n destination
-layout and reuses the same translation prompt/validation helpers as the
-main batch translator.
+completion request. It writes into the Starlight localized content tree and
+reuses the same translation prompt/validation helpers as the main batch
+translator.
 """
 
 from __future__ import annotations
@@ -90,9 +90,14 @@ def main() -> int:
     if not api_key:
         raise SystemExit("OPENAI_API_KEY is not set.")
 
-    rel_path = Path(args.path).as_posix().removeprefix("docs/")
+    rel_path = (
+        Path(args.path)
+        .as_posix()
+        .removeprefix("src/content/docs/")
+        .removeprefix("docs/")
+    )
     src_path = batch.DOCS_ROOT / rel_path
-    out_path = batch.PROJECT_ROOT / "i18n" / args.locale / batch.I18N_DOCS_DIR / rel_path
+    out_path = batch.DOCS_ROOT / args.locale / rel_path
     if out_path.exists() and not args.overwrite:
         print(f"{args.locale}: skipped: {rel_path}")
         return 0

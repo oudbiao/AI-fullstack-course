@@ -90,7 +90,7 @@ def image_job_map() -> dict[str, dict[str, Any]]:
 
 
 def referenced_alt_texts(locale: str) -> dict[str, str]:
-    root = PROJECT_ROOT / "i18n" / locale / "docusaurus-plugin-content-docs" / "current"
+    root = PROJECT_ROOT / "src" / "content" / "docs" / locale
     alt_map: dict[str, str] = {}
     if not root.exists():
         return alt_map

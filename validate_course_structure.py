@@ -4,7 +4,7 @@ import re
 import sys
 
 root = os.environ.get('COURSE_ROOT') or os.getcwd()
-docs = os.path.join(root, 'docs')
+docs = os.environ.get('COURSE_DOCS') or os.path.join(root, 'src', 'content', 'docs')
 errors = []
 
 chapter_dirs = [
@@ -76,6 +76,10 @@ required_project_sections = [
         '## Project Delivery Standards',
         '## Project Delivery Standard',
         '## 项目交付物标准',
+        '## 项目交付标准',
+        '## プロジェクト成果物基準',
+        '## プロジェクト納品基準',
+        '## プロジェクト納品物の基準',
     ),
 ]
 

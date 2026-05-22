@@ -1,0 +1,103 @@
+---
+title: "5.1.1 Machine Learning Basics Roadmap: Task, Data, Model, Score"
+description: "A compact machine learning basics roadmap: task types, data split, fit/predict/score, baseline, and sklearn workflow."
+sidebar:
+  order: 0
+head:
+  - tag: meta
+    attrs:
+      name: keywords
+      content: "machine learning guide, ML introduction, sklearn guide, supervised learning, unsupervised learning"
+---
+
+# 5.1.1 Machine Learning Basics Roadmap: Task, Data, Model, Score
+
+Machine learning starts when you stop hand-writing every rule and let a model learn patterns from data. The first habit is not algorithm memorization. It is a small project loop.
+
+## Look at the Map First
+
+![Machine Learning Basics Learning Map](/img/course/ml-basics-roadmap-en.webp)
+
+![Machine Learning Basics Chapter Flow](/img/course/ch05-basics-chapter-flow-en.webp)
+
+Keep this loop:
+
+```text
+define task -> split data -> fit model -> predict -> score -> decide next step
+```
+
+| Word | First meaning |
+|---|---|
+| feature | input column used by the model |
+| label / target | answer the model learns to predict |
+| train set | data used to learn |
+| test set | data kept aside to check generalization |
+| baseline | a simple first model used for comparison |
+
+## Run the Smallest sklearn Loop
+
+Create `ml_first_loop.py` and run it after installing `scikit-learn`.
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+model = LogisticRegression(max_iter=200)
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+
+print("task: classification")
+print("test_accuracy:", round(model.score(X_test, y_test), 3))
+print("prediction_count:", len(predictions))
+```
+
+Expected output:
+
+```text
+task: classification
+test_accuracy: 0.967
+prediction_count: 30
+```
+
+This is the smallest useful machine learning loop: split first, train only on the training set, evaluate on the test set.
+
+## Learn in This Order
+
+| Order | Read | What to practice |
+|---|---|---|
+| 1 | [5.1.2 What Is Machine Learning?](./01-what-is-ml.md) | task types, features, labels |
+| 2 | [5.1.3 Scikit-learn Introduction](./02-sklearn-intro.md) | `fit`, `predict`, `score` |
+| 3 | [5.1.4 How Math Flows Into ML](./03-math-to-ml-bridge.md) | vectors, probability, loss, optimization |
+| 4 | [5.1.5 Machine Learning History](./04-history-breakthroughs.md) | why major algorithms appeared |
+| 5 | [5.1.6 sklearn and Matplotlib Workshop](./05-sklearn-matplotlib-workshop.md) | run, plot, explain a baseline |
+
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+ml_problem: supervised, unsupervised, evaluation, or feature-engineering task
+baseline: simplest sklearn/modeling loop and fixed train/test split
+output: prediction, metric, chart, or model decision note
+failure_check: data leakage, unclear target, weak baseline, or metric mismatch
+Expected_output: minimal ML loop with metric and one failure observation
+```
+
+## Pass Check
+
+You pass this roadmap when you can name the task type, identify `X` and `y`, explain why train/test split matters, and keep one baseline score as evidence.
+
+<details>
+<summary>Check reasoning and explanation</summary>
+
+1. `X` is the feature matrix: rows are samples and columns are inputs the model can use. `y` is the label or target the model learns to predict.
+2. Train/test split matters because the test set simulates new data. If the model sees test information during training, the score is no longer evidence of generalization.
+3. A passing baseline record should include the task type, split settings, model, metric, and one sentence about what could still fail.
+
+</details>

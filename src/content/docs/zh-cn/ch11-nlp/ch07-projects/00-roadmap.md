@@ -1,0 +1,100 @@
+---
+title: "11.7.1 项目路线图：构建可评估 NLP 流水线"
+description: "NLP 项目的简短实操路线：定义任务边界，构建 baseline，评估输出，分析失败，并打包证据。"
+sidebar:
+  order: 0
+head:
+  - tag: meta
+    attrs:
+      name: keywords
+      content: "NLP 项目指南, QA, 总结, 信息抽取, NLP 作品集"
+---
+
+# 11.7.1 项目路线图：构建可评估 NLP 流水线
+
+NLP 项目不是一段流畅输出，而是清晰任务边界、数据来源、baseline、评估方法、失败分析和结构化交付物。
+
+## 先看项目证据闭环
+
+![NLP 项目交付闭环](/img/course/ch11-projects-delivery-loop.webp)
+
+![NLP 证据包图](/img/course/ch11-nlp-evidence-pack.webp)
+
+![工作坊文本到产物流水线图](/img/course/ch11-workshop-text-to-artifacts-pipeline-map.webp)
+
+如果要清晰标签，从信息抽取或分类开始。能评估事实性、拒答、引用和边界后，再做总结和问答。
+
+## 跑一个项目就绪检查
+
+```python
+project = {
+    "task": "information extraction",
+    "has_schema": True,
+    "has_baseline": True,
+    "has_eval_cases": True,
+    "has_failure_case": True,
+}
+
+ready = all(project[key] for key in ["has_schema", "has_baseline", "has_eval_cases", "has_failure_case"])
+
+print("task:", project["task"])
+print("portfolio_ready:", ready)
+```
+
+预期输出：
+
+```text
+task: information extraction
+portfolio_ready: True
+```
+
+如果标签、字段或知识边界不清楚，先修任务定义，再换模型。
+
+## 按这个顺序学
+
+| 步骤 | 项目 | 证据 |
+|---|---|---|
+| 1 | 信息抽取 | Schema、字段边界、precision/recall、失败样例 |
+| 2 | 文本分类 | 标签、baseline、F1、歧义案例 |
+| 3 | 文本总结 | 压缩率、事实性、可读性、遗漏事实 |
+| 4 | 问答 | 检索、引用、拒答、无答案评估 |
+| 5 | 实操工作坊 | 在大项目页前先跑可复现迷你流水线 |
+
+扩展项目前，先运行 [11.7.6 实操：构建可复现 NLP 迷你流水线](./05-hands-on-nlp-workshop.md)。
+
+## 项目交付物标准
+
+| 交付物 | 最低要求 | 更强的作品集版本 |
+|---|---|---|
+| README | 目标、运行命令、依赖、示例 | 增加任务边界、数据来源、方案取舍、复盘总结 |
+| 标签/schema | 标签、实体边界或输出字段 | 增加正例、反例、边界例、一致性说明 |
+| 基线 | 关键词、TF-IDF、规则或简单模型 | 增加模型对比和错误归因 |
+| 评估 | Accuracy、recall、F1、人工评分或事实性检查 | 按标签、长度、领域、噪声类型分析 |
+| 失败案例 | 至少 1 个真实失败 | 增加原因、修复动作、回归检查 |
+| 展示 | 截图或短 GIF 证明能运行 | 构建清晰的文本理解项目页面 |
+
+## 通过标准
+
+如果你的 NLP 项目有任务定义、数据示例、评估指标、基线、失败案例和下一步改进计划，就通过了本章。
+
+<details>
+<summary>检查思路与讲解</summary>
+
+1. 合格答案要从文本单元和输出类型说起：token、span、句子标签、序列、embedding 或生成文本。
+2. 证据应包含小样本、模型或 pipeline 选择、评价指标，以及至少一个被检查过的错误案例。
+3. 自检时要能区分预处理问题和模型问题，例如分词错误、标签歧义、数据不平衡或生成幻觉。
+
+</details>
+
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+任务输出：标签、实体字段、摘要、答案、检索结果或语义图
+工件：原始文本、处理后文本、预测、指标和失败案例
+指标：准确率/F1、精确率/召回率、检索命中率、忠实度或 schema 有效性
+失败检查：标签不清、过度清洗、边界错误、幻觉或答案无依据
+期望产出：可复现的文本流程文件夹，包含指标和示例
+```

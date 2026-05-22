@@ -1,0 +1,479 @@
+---
+title: "2.1.3 演算子と式"
+description: "Python におけるさまざまな演算子と式を理解する"
+sidebar:
+  order: 3
+---
+
+# 2.1.3 演算子と式
+
+![演算子と条件分岐のフローチャート](/img/course/ch02-operators-decision-flow-ja.webp)
+
+## 残す証拠
+
+このページを終えたら、この evidence card を残します。
+
+```text
+概念: 変数、型、演算子、入力/出力、分岐、ループ、構造、関数、またはモジュール
+コード：この概念のための最小限の実行可能な Python スニペット
+出力：印字値、型、branch結果、loop trace、または返り値
+失敗確認: 型不一致、インデント、オフバイワン、可変データ、または import パスの問題
+期待される成果：概念が機能することを証明するコードと出力結果
+```
+
+## この節の位置づけ
+
+この節では、データに対して計算や判定を行う方法を学びます。演算子は数学計算だけでなく、モデル指標の計算、条件による絞り込み、ループの判定、データクレンジングのロジックにもよく使われます。変数を組み合わせてプログラムのロジックを作るための、最初の一歩です。
+
+## 学習目標
+
+- 算術演算子、比較演算子、論理演算子を理解する
+- 演算子の優先順位を理解する
+- 代入演算子とメンバーシップ演算子の使い方を学ぶ
+- 正しい条件式を書けるようになる
+
+---
+
+| 何をしたいか | よく使う演算子 |
+|---|---|
+| 数値を計算する | `+`、`-`、`*`、`/` |
+| 大きさを比べる | `>`、`>=`、`==`、`!=` |
+| 条件を組み合わせる | `and`、`or`、`not` |
+| 含まれているか判定する | `in`、`not in` |
+
+## まずは場面を見てみよう
+
+AI のデータ処理スクリプトを開発しているとします。次のような処理が必要です。
+- モデルの正解率を計算する：`correct / total * 100`
+- 目標を満たすかを判定する：`accuracy >= 60`
+- 2つの条件を確認する：`accuracy >= 60 and loss < 0.5`
+
+これらの操作はすべて**演算子**なしではできません。演算子とは、Python に「データに対して何をするか」を伝える記号です。
+
+---
+
+## 算術演算子
+
+いちばん基本的な数学演算です。
+
+| 演算子 | 意味 | 例 | 結果 |
+|--------|------|------|------|
+| `+` | 足し算 | `5 + 3` | `8` |
+| `-` | 引き算 | `5 - 3` | `2` |
+| `*` | 掛け算 | `5 * 3` | `15` |
+| `/` | 割り算 | `5 / 3` | `1.6667` |
+| `//` | 切り捨て除算 | `5 // 3` | `1` |
+| `%` | 余り | `5 % 3` | `2` |
+| `**` | べき乗 | `5 ** 3` | `125` |
+
+### 実際の例
+
+```python
+# シーン：AI モデル学習のいくつかの指標を計算する
+
+total_samples = 1000     # 総サンプル数
+correct = 873            # 正しく予測できた数
+epochs = 50              # 学習回数
+batch_size = 32          # バッチサイズ
+
+# 正解率を計算する
+accuracy = correct / total_samples * 100
+print(f"正解率: {accuracy}%")  # 87.3%
+
+# 1 epoch を終えるのに必要なバッチ数を計算する
+batches_per_epoch = total_samples // batch_size
+remaining = total_samples % batch_size
+
+print(f"各 epoch の完全なバッチ数: {batches_per_epoch}")  # 31
+print(f"最後のバッチのサンプル数: {remaining}")              # 8
+
+# 指数減衰する学習率を計算する
+initial_lr = 0.01
+decay = 0.95
+current_lr = initial_lr * (decay ** epochs)
+print(f"{epochs} 回目の学習の学習率: {current_lr:.6f}")  # 0.000769
+```
+
+:::note[この例に出てくる AI 学習用語]
+- **epoch（エポック、学習回数）**：学習データを最初から最後まで 1 回見ることです。1000 件のサンプルがあれば、1 epoch はモデルが 1000 件すべてを 1 回見たという意味です。
+- **batch（バッチ）**：まとめて処理する小さなサンプルのかたまりです。`batch_size = 32` は、モデルが全データを一度に見るのではなく、32 件ずつ見るという意味です。
+- **learning rate / lr（学習率）**：モデルのパラメータを更新するときの一歩の大きさです。大きすぎると不安定になり、小さすぎると学習が遅くなります。
+- **decay（減衰）**：値を少しずつ小さくすることです。学習が進むにつれて学習率を下げるときによく使います。
+:::
+### 割り算の2つの形
+
+ここは初心者がよく混乱するところです。
+
+```python
+print(7 / 2)    # 3.5   ← 通常の割り算。結果は float
+print(7 // 2)   # 3     ← 切り捨て除算。小数部分を捨てる
+print(-7 // 2)  # -4    ← 注意！0 方向ではなく、下方向に切り捨てる
+
+# 余りの使いどころ
+print(10 % 3)   # 1    ← 10 を 3 で割ると余りは 1
+print(15 % 5)   # 0    ← 割り切れると余りは 0
+
+# 奇数・偶数の判定
+number = 42
+if number % 2 == 0:
+    print(f"{number} は偶数です")  # 42 は偶数
+```
+
+---
+
+## 比較演算子
+
+比較演算子の結果は常に真偽値（`True` または `False`）です。
+
+| 演算子 | 意味 | 例 | 結果 |
+|--------|------|------|------|
+| `==` | 等しい | `5 == 5` | `True` |
+| `!=` | 等しくない | `5 != 3` | `True` |
+| `>` | より大きい | `5 > 3` | `True` |
+| `<` | より小さい | `5 < 3` | `False` |
+| `>=` | 以上 | `5 >= 5` | `True` |
+| `<=` | 以下 | `5 <= 3` | `False` |
+
+```python
+# シーン：モデルの性能を判定する
+accuracy = 87.3
+loss = 0.35
+
+print(accuracy > 90)      # False —— 正解率は 90 を超えていない
+print(accuracy >= 80)      # True  —— 正解率は 80 以上ある
+print(loss < 0.5)          # True  —— 損失値は 0.5 未満
+print(accuracy == 87.3)    # True  —— 正解率はちょうど 87.3
+```
+
+:::caution[よくある間違い: `=` と `==` の違い]
+- `=` は**代入**です：`x = 5` は 5 を x に入れる
+- `==` は**比較**です：`x == 5` は x が 5 と等しいかを判定する
+
+初学者がいちばん間違えやすいのは、判定のときに `==` ではなく `=` と書いてしまうことです。
+:::
+### 連鎖比較（Python 特有）
+
+Python では連鎖比較ができます。これは他の言語ではできないことがあります。
+
+```python
+latency_ms = 185
+
+# レイテンシが API の許容範囲内かを判定する
+print(50 <= latency_ms <= 200)   # True
+
+# 同じ意味
+print(50 <= latency_ms and latency_ms <= 200)   # True。ただし上の書き方のほうが簡潔
+
+# さらに例
+x = 5
+print(1 < x < 10)      # True
+print(1 < x < 3)       # False
+```
+
+---
+
+## 論理演算子
+
+論理演算子は、複数の条件を組み合わせるために使います。
+
+| 演算子 | 意味 | 説明 |
+|--------|------|------|
+| `and` | かつ | **両方が真**のときだけ真 |
+| `or` | または | **少なくとも1つが真**なら真 |
+| `not` | ではない | **反転**する。真は偽に、偽は真になる |
+
+```python
+tests_passed = True
+has_review = True
+has_rollback_plan = False
+
+# and: 2つの条件を両方満たす
+can_release = tests_passed and has_review
+print(f"リリースできるか: {can_release}")   # True（テストが通り、レビューも完了）
+
+# or: 少なくとも1つの条件を満たす
+has_safety_net = has_review or has_rollback_plan
+print(f"安全策があるか: {has_safety_net}")  # True（レビューが1つの確認になる）
+
+# not: 反転する
+needs_attention = not tests_passed
+print(f"注意が必要か: {needs_attention}")   # False
+```
+
+### 実際の例: AI モデル評価
+
+```python
+accuracy = 92.5
+loss = 0.15
+training_time = 3.5  # 時間
+
+# 良いモデルの条件: 正解率 > 90 かつ 損失 < 0.3
+is_good_model = accuracy > 90 and loss < 0.3
+print(f"良いモデルですか: {is_good_model}")  # True
+
+# 再学習が必要: 正解率が低すぎる、または 損失が高すぎる
+need_retrain = accuracy < 80 or loss > 1.0
+print(f"再学習が必要ですか: {need_retrain}")  # False
+
+# 実用的なモデル: 良いモデル かつ 学習時間が妥当
+is_practical = is_good_model and not (training_time > 24)
+print(f"実用的ですか: {is_practical}")  # True
+```
+
+### 短絡評価
+
+![短絡評価の安全チェック図解](/img/course/ch02-short-circuit-safety-check-ja.webp)
+
+Python の `and` と `or` には、**短絡評価**という賢い性質があります。
+
+```python
+# and: 1つ目の条件が False なら、2つ目は確認しない
+# 1つ目がすでに False なので、結果は必ず False
+False and print("この文は実行されません")
+
+# or: 1つ目の条件が True なら、2つ目は確認しない
+# 1つ目がすでに True なので、結果は必ず True
+True or print("この文も実行されません")
+```
+
+この性質は、実際のプログラミングで**安全確認**によく使います。
+
+```python
+# 先にリストが空かどうかを確認してから要素にアクセスする（エラー防止）
+data = []
+# data が空なら len(data) > 0 は False なので、後ろは実行されない
+if len(data) > 0 and data[0] > 10:
+    print("最初の要素は 10 より大きい")
+```
+
+---
+
+## 代入演算子
+
+基本の `=` 以外にも、短く書ける形があります。
+
+| 演算子 | 同じ意味 | 例 |
+|--------|---------|------|
+| `+=` | `a = a + b` | `a += 5` |
+| `-=` | `a = a - b` | `a -= 3` |
+| `*=` | `a = a * b` | `a *= 2` |
+| `/=` | `a = a / b` | `a /= 4` |
+| `//=` | `a = a // b` | `a //= 3` |
+| `%=` | `a = a % b` | `a %= 2` |
+| `**=` | `a = a ** b` | `a **= 3` |
+
+```python
+completed_tasks = 0
+
+completed_tasks += 2   # completed_tasks = 0 + 2 = 2
+completed_tasks += 3   # completed_tasks = 2 + 3 = 5
+completed_tasks -= 1   # completed_tasks = 5 - 1 = 4
+completed_tasks *= 2   # completed_tasks = 4 * 2 = 8
+
+print(f"完了タスクポイント: {completed_tasks}")  # 8
+```
+
+これらの短縮形は、ループで特によく使います。
+
+```python
+# 1 から 100 までを足し合わせる
+total = 0
+for i in range(1, 101):
+    total += i
+print(f"1 から 100 までの合計: {total}")  # 5050
+```
+
+---
+
+## メンバーシップ演算子
+
+`in` と `not in` は、ある値が集合の中に**含まれているかどうか**を調べます。
+
+```python
+# 文字列の中から探す
+print("Python" in "I love Python")     # True
+print("Java" in "I love Python")       # False
+print("Java" not in "I love Python")   # True
+
+# リストの中から探す
+services = ["login-api", "search-api", "worker"]
+print("login-api" in services)      # True
+print("billing-api" in services)    # False
+
+# 実用例: ファイル拡張子を確認する
+filename = "model.py"
+if ".py" in filename:
+    print("これは Python ファイルです")
+```
+
+---
+
+## 同一性演算子
+
+`is` と `is not` は、2つの変数が**同じオブジェクト**かどうかを調べます。値が同じかどうかではなく、メモリ上の同じものかどうかを見ます。
+
+```python
+a = None
+
+# None かどうかを確認する（== ではなく is を使うのが推奨）
+print(a is None)       # True
+print(a is not None)   # False
+
+# is と == の違い
+x = [1, 2, 3]
+y = [1, 2, 3]
+z = x
+
+print(x == y)    # True  —— 値が同じ
+print(x is y)    # False —— 同じオブジェクトではない（別のリスト）
+print(x is z)    # True  —— z は x を指しているので同じオブジェクト
+```
+
+:::tip[いつ `is` を使う？]
+99% の場面では `==` で十分です。`is` は主に `None` との比較に使います。
+- 良い例: `if x is None:`
+- よくない例: `if x == None:`
+:::
+---
+
+## 演算子の優先順位
+
+1つの式に複数の演算子があるとき、Python は**優先順位**の高いものから順に計算します。
+
+| 優先順位（高→低） | 演算子 |
+|-----------------|--------|
+| 1（最高） | `**` べき乗 |
+| 2 | `+x`, `-x` 正負記号 |
+| 3 | `*`, `/`, `//`, `%` |
+| 4 | `+`, `-` |
+| 5 | `==`, `!=`, `>`, `<`, `>=`, `<=` |
+| 6 | `not` |
+| 7 | `and` |
+| 8（最低） | `or` |
+
+```python
+# 括弧なし
+result = 2 + 3 * 4      # 先に掛け算、その後に足し算: 2 + 12 = 14
+result = 2 ** 3 ** 2     # べき乗は右から左: 2 ** 9 = 512
+
+# 括弧をつけるとわかりやすい（おすすめ）
+result = (2 + 3) * 4     # 20
+result = (2 ** 3) ** 2   # 64
+```
+
+:::tip[実用的なアドバイス]
+**優先順位がわからないときは、括弧をつけましょう！** 括弧は計算順序を正しくするだけでなく、コードを読みやすくもします。括弧を多く書いたからといって、誰かに笑われることはありません。
+:::
+---
+
+## 総合例: API レイテンシ確認
+
+今日学んだ演算子をまとめて使ってみましょう。
+
+```python
+# API レイテンシ確認
+service = "ログイン API"
+db_latency = 70       # ms
+api_latency = 45      # ms
+ui_latency = 80       # ms
+
+# 平均レイテンシを計算する
+total_latency = db_latency + api_latency + ui_latency
+average_latency = total_latency / 3
+print(f"{service} の平均レイテンシ: {average_latency:.1f} ms")  # 65.0
+
+# サービス状態を判定する
+is_fast = average_latency < 100
+is_acceptable = 100 <= average_latency < 250
+is_slow = 250 <= average_latency < 500
+is_incident_risk = average_latency >= 500
+
+print(f"高速: {is_fast}")                  # True
+print(f"許容範囲: {is_acceptable}")        # False
+print(f"遅い: {is_slow}")                  # False
+print(f"障害リスク: {is_incident_risk}")   # False
+
+# 総合判定
+is_ready = is_fast and not is_incident_risk
+print(f"デモ可能か: {is_ready}")           # True
+```
+
+---
+
+## 手を動かしてみよう
+
+### 練習 1: レイテンシ状態の判定
+
+比較演算子と論理演算子を使ってレイテンシ状態を判定しましょう。
+
+```python
+latency_ms = 185
+
+is_fast = latency_ms < 100                         # 高速
+is_acceptable = latency_ms >= 100 and latency_ms < 250
+is_slow = latency_ms >= 250 and latency_ms < 500
+is_incident_risk = latency_ms >= 500
+
+# 結果を表示する
+print(f"レイテンシ: {latency_ms} ms")
+print(f"高速: {is_fast}")
+print(f"許容範囲: {is_acceptable}")
+print(f"遅い: {is_slow}")
+print(f"障害リスク: {is_incident_risk}")
+```
+
+`latency_ms` の値を変えて、いろいろなレイテンシの結果を試してみましょう。
+
+### 練習 2: うるう年の判定
+
+うるう年のルール: 4 で割り切れるが 100 では割り切れない、または 400 で割り切れる。
+
+```python
+year = 2024
+
+# ヒント: % を使って割り切れるかを判定し、and、or で条件を組み合わせる
+is_leap = ___  # この式を完成させる
+
+print(f"{year} はうるう年ですか？ {is_leap}")
+```
+
+### 練習 3: 三角形の判定
+
+3辺で三角形を作れるか判定しましょう（どの2辺の和も他の1辺より大きい）。
+
+```python
+a, b, c = 3, 4, 5
+
+# 判定条件を完成させる
+is_triangle = ___
+
+print(f"辺の長さ {a}, {b}, {c} で三角形を作れますか？ {is_triangle}")
+```
+
+<details>
+<summary>参考実装と解説</summary>
+
+1. `latency_ms = 185` のときは「許容範囲」の分岐だけが真になります。`80`、`320`、`650` でも試して他の分岐を確認します。
+2. うるう年の式は `year % 4 == 0 and year % 100 != 0 or year % 400 == 0` のように書けます。括弧を加えるとさらに読みやすくなります。
+3. 三角形の条件は `a + b > c and a + c > b and b + c > a` です。
+4. 反例と正例を両方試します。`1, 2, 3` は false、`3, 4, 5` は true、`2, 2, 3` は true です。
+5. 長い論理式では、優先順位だけに頼らず括弧を使うと読み間違いを減らせます。
+
+</details>
+
+---
+
+## まとめ
+
+| 演算子の種類 | よく使う記号 | 用途 |
+|-----------|---------|------|
+| **算術** | `+`, `-`, `*`, `/`, `//`, `%`, `**` | 数学計算 |
+| **比較** | `==`, `!=`, `>`, `<`, `>=`, `<=` | 条件判定、結果は True/False |
+| **論理** | `and`, `or`, `not` | 複数条件の組み合わせ |
+| **代入** | `=`, `+=`, `-=`, `*=` など | 変数に値を入れる |
+| **メンバーシップ** | `in`, `not in` | 要素が集合に含まれるか調べる |
+| **同一性** | `is`, `is not` | 同じオブジェクトか調べる |
+
+:::tip[核心の理解]
+演算子は、プログラミングの基本となる「動詞」です。変数やデータは「名詞」、演算子は「動詞」です。これらが組み合わさって「式」になります。つまり、コンピュータに何をさせたいかを伝えるのが式です。
+:::

@@ -1,0 +1,606 @@
+---
+title: "2.1.7 函数基础"
+description: "掌握函数的定义、参数、返回值和作用域"
+sidebar:
+  order: 7
+---
+
+# 2.1.7 函数基础
+
+![函数调用、参数与作用域图](/img/course/ch02-function-call-scope.webp)
+
+## 本节定位
+
+这一节让你学会把重复逻辑封装起来。函数是从“写脚本”走向“写可维护程序”的关键，也是后面组织数据处理流程、模型训练流程和 Web API 逻辑的基础。
+
+## 学习目标
+
+- 理解函数是什么，为什么需要函数
+- 掌握函数的定义和调用
+- 理解参数（位置参数、默认参数、关键字参数）
+- 掌握返回值的使用
+- 理解变量作用域
+
+---
+
+## 为什么需要函数？
+
+假设你在写一个数据处理脚本，需要多次计算 API 平均延迟：
+
+```python
+# 第一次计算
+api_latencies = [120, 95, 240, 180, 310]
+total1 = sum(api_latencies)
+avg1 = total1 / len(api_latencies)
+print(f"平均延迟: {avg1:.1f} ms")
+
+# 第二次计算（又写一遍一模一样的逻辑）
+worker_latencies = [80, 76, 95, 110, 140, 90]
+total2 = sum(worker_latencies)
+avg2 = total2 / len(worker_latencies)
+print(f"平均延迟: {avg2:.1f} ms")
+
+# 第三次计算（再写一遍……）
+batch_latencies = [450, 510, 480, 530, 470]
+total3 = sum(batch_latencies)
+avg3 = total3 / len(batch_latencies)
+print(f"平均延迟: {avg3:.1f} ms")
+```
+
+同样的逻辑写了 3 遍——如果以后要改计算方式（比如去掉最高和最低读数），你得改 3 个地方。
+
+用函数解决：
+
+```python
+def calculate_average(values):
+    """计算平均值"""
+    return sum(values) / len(values)
+
+# 现在一行搞定
+print(f"平均延迟: {calculate_average([120, 95, 240, 180, 310]):.1f} ms")
+print(f"平均延迟: {calculate_average([80, 76, 95, 110, 140, 90]):.1f} ms")
+print(f"平均延迟: {calculate_average([450, 510, 480, 530, 470]):.1f} ms")
+```
+
+**函数的核心价值：**
+
+| 好处 | 说明 |
+|------|------|
+| **复用** | 写一次，用多次 |
+| **抽象** | 把复杂逻辑藏在函数名后面，调用时只需要知道"做什么"，不用管"怎么做" |
+| **维护** | 要改逻辑只改一个地方 |
+| **可读** | 函数名就是注释，`calculate_average(latencies_ms)` 一目了然 |
+
+---
+
+## 定义和调用函数
+
+### 基本语法
+
+```python
+def greet(name):
+    """向某人打招呼"""  # 文档字符串（docstring），描述函数做什么
+    print(f"你好，{name}！欢迎进入项目工作区！")
+
+# 调用函数
+greet("Mina")     # 你好，Mina！欢迎进入项目工作区！
+greet("Kai")      # 你好，Kai！欢迎进入项目工作区！
+```
+
+语法解读：
+- `def` 关键字表示"定义一个函数"
+- `greet` 是函数名（命名规则和变量一样，小写加下划线）
+- `(name)` 是参数列表
+- `:` 冒号不能忘
+- 函数体需要缩进
+- `"""..."""` 是文档字符串，描述函数的功能
+
+### 没有参数的函数
+
+```python
+def say_hello():
+    print("Hello, World!")
+
+say_hello()  # Hello, World!
+```
+
+### 多个参数的函数
+
+```python
+def add(a, b):
+    result = a + b
+    print(f"{a} + {b} = {result}")
+
+add(3, 5)    # 3 + 5 = 8
+add(10, 20)  # 10 + 20 = 30
+```
+
+---
+
+## 返回值
+
+函数可以用 `return` 把结果返回给调用者：
+
+```python
+def add(a, b):
+    return a + b
+
+# 函数的返回值可以赋给变量
+result = add(3, 5)
+print(result)       # 8
+
+# 也可以直接使用返回值
+print(add(10, 20))  # 30
+
+# 在表达式中使用
+total = add(1, 2) + add(3, 4)
+print(total)  # 10
+```
+
+### 返回多个值
+
+```python
+def get_min_max(numbers):
+    """返回列表中的最小值和最大值"""
+    return min(numbers), max(numbers)
+
+# 用元组解包接收
+smallest, largest = get_min_max([3, 1, 4, 1, 5, 9])
+print(f"最小值: {smallest}, 最大值: {largest}")
+# 最小值: 1, 最大值: 9
+```
+
+### 没有 return 的函数
+
+如果函数没有 `return` 语句，或者 `return` 后面没有值，函数返回 `None`：
+
+```python
+def greet(name):
+    print(f"你好，{name}！")
+    # 没有 return
+
+result = greet("Mina")   # 打印: 你好，Mina！
+print(result)            # None
+```
+
+### return 的另一个用途：提前结束函数
+
+```python
+def divide(a, b):
+    if b == 0:
+        print("错误：除数不能为 0！")
+        return None   # 提前结束函数
+    return a / b
+
+print(divide(10, 3))   # 3.333...
+print(divide(10, 0))   # 错误：除数不能为 0！ 然后返回 None
+```
+
+---
+
+## 参数详解
+
+### 位置参数
+
+按顺序传入的参数：
+
+```python
+def describe_task(task, owner):
+    print(f"{task} 分配给 {owner}")
+
+describe_task("登录 API", "Mina")   # 登录 API 分配给 Mina
+describe_task("Mina", "登录 API")   # Mina 分配给 登录 API —— 顺序错了！
+```
+
+### 关键字参数
+
+通过参数名传值，不用在乎顺序：
+
+```python
+def describe_task(task, owner):
+    print(f"{task} 分配给 {owner}")
+
+# 用关键字参数，顺序无所谓
+describe_task(owner="Mina", task="登录 API")   # 登录 API 分配给 Mina
+describe_task(task="仪表盘 UI", owner="Kai")   # 仪表盘 UI 分配给 Kai
+```
+
+### 默认参数
+
+给参数一个默认值，调用时可以不传：
+
+```python
+def train_model(epochs=10, lr=0.001, batch_size=32):
+    print(f"训练参数: epochs={epochs}, lr={lr}, batch_size={batch_size}")
+
+# 使用全部默认值
+train_model()
+# 训练参数: epochs=10, lr=0.001, batch_size=32
+
+# 只修改部分参数
+train_model(epochs=50)
+# 训练参数: epochs=50, lr=0.001, batch_size=32
+
+train_model(epochs=100, lr=0.01)
+# 训练参数: epochs=100, lr=0.01, batch_size=32
+```
+
+:::caution[默认参数的陷阱]
+![可变默认参数陷阱图解](/img/course/ch02-mutable-default-trap.webp)
+
+默认参数的值在函数定义时就确定了。不要用可变对象（如列表、字典）作为默认值：
+
+```python
+# 错误做法 ❌
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+print(add_item("a"))  # ['a']
+print(add_item("b"))  # ['a', 'b'] —— 出bug了！上次的 'a' 还在
+
+# 正确做法 ✅
+def add_item(item, items=None):
+    if items is None:
+        items = []
+    items.append(item)
+    return items
+```
+:::
+### *args：接收任意数量的位置参数
+
+```python
+def calculate_sum(*numbers):
+    """计算任意数量数字的和"""
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+print(calculate_sum(1, 2))           # 3
+print(calculate_sum(1, 2, 3, 4, 5))  # 15
+print(calculate_sum(10))             # 10
+```
+
+### **kwargs：接收任意数量的关键字参数
+
+```python
+def print_info(**info):
+    """打印任意数量的信息"""
+    for key, value in info.items():
+        print(f"{key}: {value}")
+
+print_info(name="登录 API", owner="Mina", status="进行中")
+# name: 登录 API
+# owner: Mina
+# status: 进行中
+```
+
+### 参数顺序规则
+
+当多种参数混合使用时，顺序是：
+
+```python
+def func(pos_arg, default_arg=10, *args, **kwargs):
+    print(f"pos_arg={pos_arg}")
+    print(f"default_arg={default_arg}")
+    print(f"args={args}")
+    print(f"kwargs={kwargs}")
+
+func(1, 2, 3, 4, name="test")
+# pos_arg=1
+# default_arg=2
+# args=(3, 4)
+# kwargs={'name': 'test'}
+```
+
+---
+
+## 变量作用域
+
+变量的"作用域"就是它的**生效范围**。
+
+### 局部变量 vs 全局变量
+
+```python
+# 全局变量：定义在函数外面
+message = "我是全局变量"
+
+def my_function():
+    # 局部变量：定义在函数里面
+    local_var = "我是局部变量"
+    print(message)      # 可以读取全局变量
+    print(local_var)    # 可以读取局部变量
+
+my_function()
+print(message)          # 可以访问全局变量
+# print(local_var)      # 报错！局部变量在函数外不存在
+```
+
+### 同名变量
+
+```python
+x = 10  # 全局变量
+
+def my_function():
+    x = 20  # 这是一个新的局部变量，不是修改全局变量
+    print(f"函数内的 x: {x}")  # 20
+
+my_function()
+print(f"函数外的 x: {x}")    # 10（全局变量没有被修改）
+```
+
+### global 关键字
+
+如果你确实需要在函数内修改全局变量（一般不推荐）：
+
+```python
+count = 0
+
+def increment():
+    global count   # 声明要使用全局变量 count
+    count += 1
+
+increment()
+increment()
+increment()
+print(count)  # 3
+```
+
+:::tip[最佳实践]
+尽量**不要使用全局变量**。函数应该通过参数接收数据，通过返回值传出结果。这样的函数更容易测试、更容易理解。
+:::
+---
+
+## 文档字符串（docstring）
+
+好的函数应该有清晰的文档说明：
+
+```python
+def calculate_success_rate(success_count, total_count):
+    """
+    计算任务或 API 检查的成功率。
+
+    参数:
+        success_count (int): 成功运行次数
+        total_count (int): 总运行次数
+
+    返回:
+        float: 0 到 1 之间的成功率
+
+    示例:
+        >>> calculate_success_rate(18, 20)
+        0.9
+    """
+    if total_count == 0:
+        return 0
+    return success_count / total_count
+
+# 查看函数的文档
+help(calculate_success_rate)
+```
+
+---
+
+## 综合案例
+
+### 案例 1：API 延迟分析工具
+
+```python
+def analyze_latencies(latencies_ms, service="未知服务"):
+    """
+    分析一组 API 延迟，返回统计信息。
+
+    参数:
+        latencies_ms: 延迟列表，单位毫秒
+        service: 服务名称
+    返回:
+        字典，包含统计信息
+    """
+    if not latencies_ms:
+        return {"error": "延迟列表为空"}
+
+    avg = sum(latencies_ms) / len(latencies_ms)
+    slow = [ms for ms in latencies_ms if ms >= 200]
+    normal = [ms for ms in latencies_ms if ms < 200]
+
+    return {
+        "service": service,
+        "count": len(latencies_ms),
+        "average_ms": round(avg, 1),
+        "max_ms": max(latencies_ms),
+        "min_ms": min(latencies_ms),
+        "slow_rate": f"{len(slow) / len(latencies_ms):.1%}",
+        "slow_requests": len(slow),
+        "normal_requests": len(normal)
+    }
+
+def print_report(stats):
+    """打印格式化的延迟报告"""
+    print(f"\n{'='*30}")
+    print(f"  {stats['service']} 延迟报告")
+    print(f"{'='*30}")
+    print(f"  样本数:       {stats['count']}")
+    print(f"  平均延迟:     {stats['average_ms']} ms")
+    print(f"  最高延迟:     {stats['max_ms']} ms")
+    print(f"  最低延迟:     {stats['min_ms']} ms")
+    print(f"  慢请求比例:   {stats['slow_rate']}")
+    print(f"  慢请求数:     {stats['slow_requests']}")
+    print(f"  正常请求数:   {stats['normal_requests']}")
+    print(f"{'='*30}")
+
+# 使用
+login_latencies = [120, 95, 240, 180, 310, 150, 88, 205, 260, 170]
+worker_latencies = [80, 76, 95, 110, 140, 90, 105, 118, 130, 85]
+
+login_stats = analyze_latencies(login_latencies, "登录 API")
+worker_stats = analyze_latencies(worker_latencies, "后台 Worker")
+
+print_report(login_stats)
+print_report(worker_stats)
+```
+
+### 案例 2：简单的密码生成器
+
+```python
+import random
+import string
+
+def generate_password(length=12, use_upper=True, use_digits=True, use_special=True):
+    """
+    生成随机密码。
+
+    参数:
+        length: 密码长度，默认 12
+        use_upper: 是否包含大写字母
+        use_digits: 是否包含数字
+        use_special: 是否包含特殊字符
+    """
+    chars = string.ascii_lowercase  # 小写字母
+
+    if use_upper:
+        chars += string.ascii_uppercase
+    if use_digits:
+        chars += string.digits
+    if use_special:
+        chars += "!@#$%^&*"
+
+    password = ''.join(random.choice(chars) for _ in range(length))
+    return password
+
+# 生成不同类型的密码
+print(f"默认密码: {generate_password()}")
+print(f"纯字母:   {generate_password(length=8, use_digits=False, use_special=False)}")
+print(f"超强密码: {generate_password(length=20)}")
+```
+
+---
+
+## 动手练习
+
+### 练习 1：延迟单位转换函数
+
+写两个函数，实现毫秒和秒之间的互相转换：
+
+```python
+def ms_to_seconds(milliseconds):
+    """毫秒 → 秒"""
+    return milliseconds / 1000
+
+def seconds_to_ms(seconds):
+    """秒 → 毫秒"""
+    return seconds * 1000
+
+# 测试
+print(ms_to_seconds(2500))  # 应该输出 2.5
+print(seconds_to_ms(1.2))   # 应该输出 1200.0
+```
+
+### 练习 2：列表统计函数
+
+写一个函数，接收一个数字列表，返回最大值、最小值、平均值、中位数：
+
+```python
+def list_stats(numbers):
+    """
+    返回列表的统计信息。
+    不要使用 max()、min()、sum() 内置函数，自己实现！
+    """
+    if not numbers:
+        return None
+
+    maximum = numbers[0]
+    minimum = numbers[0]
+    total = 0
+    for value in numbers:
+        if value > maximum:
+            maximum = value
+        if value < minimum:
+            minimum = value
+        total += value
+
+    sorted_numbers = sorted(numbers)
+    n = len(sorted_numbers)
+    if n % 2 == 1:
+        median = sorted_numbers[n // 2]
+    else:
+        median = (sorted_numbers[n // 2 - 1] + sorted_numbers[n // 2]) / 2
+
+    average = total / len(numbers)
+    return {
+        "max": maximum,
+        "min": minimum,
+        "average": average,
+        "median": median,
+    }
+
+# 测试
+stats = list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])
+print(stats)
+```
+
+### 练习 3：延迟阈值检查器
+
+把可复用的延迟检查封装成函数：
+
+```python
+def check_latency(service, latency_ms, threshold_ms=200):
+    """返回某个服务是否在延迟阈值内。"""
+    is_ok = latency_ms <= threshold_ms
+    status = "ok" if is_ok else "slow"
+    return {
+        "service": service,
+        "latency_ms": latency_ms,
+        "threshold_ms": threshold_ms,
+        "status": status,
+        "within_threshold": is_ok,
+    }
+
+# 测试多个服务
+print(check_latency("登录 API", 185))
+print(check_latency("搜索 API", 260, threshold_ms=250))
+```
+
+试着修改阈值，观察返回状态如何变化。
+
+<details>
+<summary>参考实现与讲解</summary>
+
+1. 延迟单位转换测试应得到：`2500` 毫秒转成 `2.5` 秒，`1.2` 秒转成 `1200.0` 毫秒。再加一个如 `375` 毫秒的往返测试会更稳。
+2. `list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])` 应返回最大值 `9`、最小值 `1`、平均值 `4.0`、中位数 `4`。
+3. 空列表返回 `None` 是可以的，前提是调用者会检查；另一种合理设计是抛出 `ValueError`。
+4. 延迟检查器应返回字典，这样测试代码既能检查可读的 `status`，也能检查布尔值 `within_threshold`。
+5. 除非函数目的就是和用户交互，否则好函数应尽量避免隐藏的输入和输出；像 `check_latency()` 这样的纯函数更容易测试。
+
+</details>
+
+---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+概念：变量、类型、运算符、输入/输出、分支、循环、结构、函数或模块
+代码：用于说明该概念的最小可运行 Python 代码片段
+输出：打印值、类型、分支结果、循环 trace，或返回值
+失败检查：类型不匹配、缩进错误、越界、可变数据或导入路径问题
+期望产出：代码和打印结果，证明概念可行
+```
+
+## 小结
+
+| 概念 | 说明 | 示例 |
+|------|------|------|
+| **定义函数** | `def 函数名(参数):` | `def add(a, b):` |
+| **返回值** | `return 值` | `return a + b` |
+| **默认参数** | 参数有默认值 | `def f(x=10):` |
+| **关键字参数** | 按名字传参 | `f(x=5, y=10)` |
+| **`*args`** | 接收任意位置参数 | `def f(*args):` |
+| **`**kwargs`** | 接收任意关键字参数 | `def f(**kwargs):` |
+| **局部变量** | 函数内定义，函数外不可用 | — |
+| **全局变量** | 函数外定义，函数内可读 | — |
+
+:::tip[核心理解]
+函数是编程中的**基本积木**。好的代码应该由一个个小函数组成，每个函数只做一件事，做好一件事。如果你的函数超过 20 行，考虑把它拆成更小的函数。
+:::

@@ -1,0 +1,431 @@
+---
+title: "2.1.1 Python 简介"
+description: "了解 Python 语言的特点、应用领域和开发环境"
+sidebar:
+  order: 1
+---
+
+# 2.1.1 Python 简介
+
+![Python 到 AI 应用工作流](/img/course/ch02-python-ai-workflow.webp)
+
+## 本节定位
+
+这一节是 Python 学习的入口。你不需要马上掌握复杂语法，先理解 Python 为什么适合 AI、它能做哪些事情，并亲手运行第一个程序，建立“代码可以解决真实问题”的第一印象。
+
+## 学习目标
+
+- 了解 Python 是什么，为什么它这么受欢迎
+- 理解 Python 在 AI 领域的核心地位
+- 写出并运行你的第一个 Python 程序
+- 理解 Python 代码的基本结构
+
+---
+
+## 为什么学 Python？
+
+如果编程语言是工具，那 Python 就是**瑞士军刀**——什么都能干，而且上手简单。
+
+先看几个数据：
+
+| 维度 | 说明 |
+|------|------|
+| **流行度** | 连续多年蝉联 TIOBE 编程语言排行榜第一 |
+| **AI 首选** | 几乎所有 AI/机器学习框架（PyTorch、TensorFlow）都以 Python 为主 |
+| **就业市场** | 数据科学、AI 工程师、后端开发岗位的必备技能 |
+| **学习曲线** | 语法接近自然语言，初学者最容易上手的语言之一 |
+
+一句话总结：**如果你想做 AI，Python 是唯一的起点。**
+
+---
+
+## Python 到底是什么？
+
+Python 是一门**高级编程语言**，由 Guido van Rossum（吉多·范罗苏姆）于 1991 年发布。
+
+"高级"是什么意思？编程语言离硬件越远、越接近人类语言，就越"高级"。比较一下：
+
+```
+# 机器语言（二进制，计算机直接执行）
+10110000 01100001
+
+# C 语言（需要手动管理很多细节）
+#include <stdio.h>
+int main() {
+    printf("Hello World\n");
+    return 0;
+}
+
+# Python（简洁明了）
+print("Hello World")
+```
+
+同样是打印一句话，Python 只需要 **1 行**，而 C 语言需要 5 行。这就是 Python 的设计哲学：**简洁优雅，让你专注于解决问题，而不是语法细节。**
+
+### Python 的核心特点
+
+| 特点 | 说明 | 对你的好处 |
+|------|------|-----------|
+| **语法简洁** | 用缩进代替大括号，代码像英语 | 学得快，写得少 |
+| **解释型语言** | 写完直接运行，不需要编译 | 调试方便，马上看结果 |
+| **动态类型** | 不需要声明变量类型 | 代码更简短灵活 |
+| **生态丰富** | 超过 40 万个第三方库 | 别人造好的轮子，拿来就用 |
+| **跨平台** | Windows、macOS、Linux 都能跑 | 一份代码，到处运行 |
+
+---
+
+## Python 能做什么？
+
+Python 的应用范围非常广泛，以下是几个最重要的方向：
+
+### AI 和机器学习（这门课的核心）
+
+:::tip[运行本段示例前请先安装 scikit-learn]
+在 Colab 或 Jupyter 中运行下面代码前，先执行安装（只需一次）：
+```bash
+!pip install scikit-learn
+```
+在本地终端或 Conda 环境中则用：`pip install scikit-learn`
+:::
+```python
+# 用几行代码训练一个简单的线性回归模型（示例数据，可直接运行）
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+X_train = np.array([[1], [2], [3], [4], [5]])   # 特征
+y_train = np.array([2, 4, 6, 8, 10])             # 标签（y ≈ 2*x）
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+# 训练完成后可用 model.predict() 做预测
+```
+
+主流框架：PyTorch、TensorFlow、scikit-learn、Hugging Face Transformers
+
+### 数据分析和可视化
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 示例数据（实际项目中可用 pd.read_csv("sales.csv") 读取自己的文件）
+data = pd.DataFrame({"month": ["1月", "2月", "3月"], "revenue": [100, 150, 120]})
+
+# 一行代码画图
+data.plot(x="month", y="revenue", kind="bar")
+plt.show()
+```
+
+主流库：pandas、NumPy、Matplotlib、Seaborn
+
+### Web 后端开发
+
+用 Python 可以快速写一个提供 API 的网站后端，例如：
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/hello")
+def say_hello():
+    return {"message": "你好，世界！"}
+```
+
+**把服务跑起来并访问：**
+
+1. 先把上面代码保存到一个文件（如 `main.py`），在终端进入该目录后执行：
+   ```bash
+   pip install fastapi uvicorn
+   uvicorn main:app --reload
+   ```
+2. 终端里出现 `Uvicorn running on http://127.0.0.1:8000` 后，在浏览器打开：
+   - **http://127.0.0.1:8000/hello** → 会返回 `{"message":"你好，世界！"}`
+   - **http://127.0.0.1:8000/docs** → 自动生成的 API 文档页面，可直接点接口调试
+
+主流框架：FastAPI、Django、Flask
+
+### 自动化脚本
+
+```python
+import os
+
+# 示例：批量重命名文件夹中的图片（先建一个测试目录再运行，避免 FileNotFoundError）
+os.makedirs("photos", exist_ok=True)
+for i in range(3):
+    open(f"photos/old_{i}.jpg", "w").close()   # 创建 3 个空文件当示例
+
+for i, filename in enumerate(os.listdir("photos/")):
+    new_name = f"photo_{i+1}.jpg"
+    os.rename(f"photos/{filename}", f"photos/{new_name}")
+
+# 查看结果（实际项目中可删掉测试目录：os.removedirs 等）
+print(os.listdir("photos/"))   # ['photo_1.jpg', 'photo_2.jpg', 'photo_3.jpg']
+```
+
+### 网络爬虫
+
+```python
+# 先安装：!pip install beautifulsoup4
+from bs4 import BeautifulSoup
+
+# 用一段示例 HTML 演示解析（不依赖外网，可直接运行）
+html = """
+<html><body>
+  <h1>欢迎学习 Python</h1>
+  <p>第一段</p>
+  <p>第二段</p>
+</body></html>
+"""
+soup = BeautifulSoup(html, "html.parser")
+title = soup.find("h1").text
+paragraphs = soup.find_all("p")
+print(f"网页标题: {title}")
+print(f"共 {len(paragraphs)} 个段落")
+```
+
+---
+
+## 写你的第一个 Python 程序
+
+### 方式一：在终端中使用 Python 交互模式
+
+打开终端（在第 1 站你已经学过了），输入：
+
+```bash
+python
+```
+
+你会看到类似这样的提示符：
+
+```
+Python 3.11.5 (main, Sep 11 2023, 08:31:25)
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+```
+
+`>>>` 就是 Python 的交互提示符，表示它在等你输入命令。
+
+试试这些：
+
+```python
+>>> print("Hello, World!")
+Hello, World!
+
+>>> 1 + 1
+2
+
+>>> "AI" * 3
+'AIAIAI'
+
+>>> len("Python")
+6
+```
+
+输入 `exit()` 或按 `Ctrl+D` 退出交互模式。
+
+:::tip[交互模式的用途]
+交互模式非常适合**快速实验**——比如你不确定一个函数怎么用，可以先在交互模式里试试，确认没问题再写到文件里。
+:::
+### 方式二：在 VS Code 中编写并运行
+
+1. 打开 VS Code（在第 1 站里已经装好了）
+2. 创建一个新文件 `hello.py`（注意后缀是 `.py`）
+3. 输入以下代码：
+
+```python
+# 这是我的第一个 Python 程序
+print("Hello, World!")
+print("我正在学习 Python！")
+print("1 + 1 =", 1 + 1)
+```
+
+4. 保存文件（`Ctrl+S` / `Cmd+S`）
+5. 在终端中运行：
+
+```bash
+python hello.py
+```
+
+输出：
+
+```
+Hello, World!
+我正在学习 Python！
+1 + 1 = 2
+```
+
+恭喜你，你的第一个 Python 程序诞生了！
+
+### 方式三：在 Jupyter Notebook 中运行
+
+在第 1 站里你已经装了 Jupyter。打开它：
+
+```bash
+jupyter notebook
+```
+
+创建一个新 Notebook，在代码单元格里输入 `print("Hello from Jupyter!")` 然后按 `Shift+Enter` 运行。
+
+:::note[三种方式怎么选？]
+- **交互模式**：快速测试一小段代码
+- **VS Code + .py 文件**：写正式的项目代码
+- **Jupyter Notebook**：数据分析、学习实验（我们这门课主要用这种）
+:::
+---
+
+## Python 代码的基本规则
+
+在深入学习之前，先了解几个最基本的规则：
+
+### 缩进很重要
+
+Python 用**缩进**（通常是 4 个空格）来表示代码块，而不是像其他语言那样用大括号 `{}`。
+
+```python
+# 正确 ✅
+if True:
+    print("缩进了 4 个空格")
+    print("同一个代码块")
+```
+
+下面这个例子是故意写错的，会报 `IndentationError`：
+
+```text
+if True:
+print("没有缩进，Python 会报错")
+```
+
+:::caution[注意]
+缩进错误是新手最常见的错误。VS Code 会帮你自动缩进，但如果你复制粘贴代码，要注意检查缩进是否正确。
+:::
+### 注释用 `#`
+
+```python
+# 这是一行注释，Python 会忽略它
+print("这行代码会执行")  # 行尾也可以写注释
+
+# 多行注释就是多个 # 开头的行
+# 第一行注释
+# 第二行注释
+```
+
+注释是写给人看的，帮助你（和别人）理解代码。好的注释解释**为什么**这么做，而不是**做了什么**。
+
+### 大小写敏感
+
+```python
+service_name = "登录 API"
+Service_Name = "搜索 API"
+SERVICE_NAME = "Worker"
+# 这是三个不同的变量！
+
+print(service_name)   # 登录 API
+Print(service_name)   # 报错！Python 没有 Print，只有 print
+```
+
+### 文件以 `.py` 结尾
+
+Python 脚本文件的后缀是 `.py`，比如 `hello.py`、`train.py`、`model.py`。
+
+---
+
+## Python 2 还是 Python 3？
+
+简短的回答：**用 Python 3，不要用 Python 2。**
+
+Python 2 已经在 2020 年 1 月 1 日正式停止维护。所有新项目、所有现代库都只支持 Python 3。本课程使用 **Python 3.10+**。
+
+确认你的 Python 版本：
+
+```bash
+python --version
+# 应该输出 Python 3.10.x 或更高
+```
+
+如果输出是 `Python 2.x`，你需要使用 `python3` 命令，或者检查你在第 1 站中配置的 conda 环境是否正确激活。
+
+---
+
+## 动手练习
+
+### 练习 1：Hello World 升级版
+
+创建文件 `about_me.py`，让它输出你的个人介绍：
+
+```python
+print("=== 个人介绍 ===")
+print("姓名：[你的名字]")
+print("目标：成为 AI 工程师")
+print("正在学习：Python 编程")
+print("=" * 20)
+```
+
+运行它，看看输出。试着修改内容，加上更多信息。
+
+### 练习 2：Python 当计算器
+
+在 Python 交互模式中，尝试以下运算：
+
+```python
+>>> 100 + 200
+>>> 10 * 3.14
+>>> 2 ** 10        # ** 是幂运算，2的10次方
+>>> 17 / 5         # 除法
+>>> 17 // 5        # 整除（去掉小数部分）
+>>> 17 % 5         # 取余数
+```
+
+记下每个运算的结果，想想为什么。
+
+### 练习 3：探索 print()
+
+试试以下代码，观察 `print()` 的不同用法：
+
+```python
+print("Hello")
+print("Hello", "World")           # 多个参数用逗号分隔
+print("Hello", "World", sep="-")  # 用 - 连接
+print("Hello", end=" ")           # 不换行
+print("World")
+print("价格:", 99.9, "元")
+```
+
+<details>
+<summary>参考实现与讲解</summary>
+
+1. `about_me.py` 应该能在终端运行，并打印清楚的多行自我介绍；修改介绍内容时，不应该需要改 Python 语法。
+2. 计算器输出应包含 `300`、`31.400000000000002` 或接近的浮点数、`1024`、`3.4`、`3`、`2`。
+3. `print("Hello", "World")` 会自动插入空格；`sep="-"` 会改变分隔符；`end=" "` 会让下一次 `print()` 接在同一行。
+4. 如果脚本不能运行，先检查文件名、当前目录、Python 3 解释器，以及引号和括号是否配对。
+5. 证据不要只保存代码，还要保留运行命令和输出结果。
+
+</details>
+
+---
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+概念：变量、类型、运算符、输入/输出、分支、循环、结构、函数或模块
+代码：用于说明该概念的最小可运行 Python 代码片段
+输出：打印值、类型、分支结果、循环 trace，或返回值
+失败检查：类型不匹配、缩进错误、越界、可变数据或导入路径问题
+期望产出：代码和打印结果，证明概念可行
+```
+
+## 小结
+
+| 要点 | 说明 |
+|------|------|
+| Python 是 AI 开发的首选语言 | 几乎所有 AI 框架都基于 Python |
+| 语法简洁，接近自然语言 | 降低学习门槛，让你专注于逻辑 |
+| 生态丰富 | 40 万+ 第三方库，绝大部分需求都有现成方案 |
+| 三种运行方式 | 交互模式、.py 文件、Jupyter Notebook |
+| 缩进是 Python 的灵魂 | 用 4 个空格缩进，不要用 Tab |
+
+:::tip[学习建议]
+编程是一门**手艺**，光看不练是学不会的。每一节课的练习都要动手敲一遍——不是复制粘贴，而是一个字一个字敲出来。打字的过程中你会犯错、会调试、会理解得更深。
+:::

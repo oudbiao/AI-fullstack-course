@@ -4,7 +4,7 @@ import re
 import sys
 
 root = os.environ.get('COURSE_ROOT') or os.getcwd()
-docs = os.path.join(root, 'docs')
+docs = os.environ.get('COURSE_DOCS') or os.path.join(root, 'src', 'content', 'docs')
 errors = []
 
 for dirpath, _, files in os.walk(docs):

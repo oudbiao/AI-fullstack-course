@@ -140,13 +140,20 @@ def clean_chunk(
 
 
 def localized_root(locale: str) -> Path:
-    return batch.PROJECT_ROOT / "i18n" / locale / batch.I18N_DOCS_DIR
+    return batch.DOCS_ROOT / locale
 
 
 def iter_targets(locale: str, only: list[str]) -> list[Path]:
     root = localized_root(locale)
     if only:
-        return [root / Path(path).as_posix().removeprefix("docs/") for path in only]
+        return [
+            root
+            / Path(path)
+            .as_posix()
+            .removeprefix("src/content/docs/")
+            .removeprefix("docs/")
+            for path in only
+        ]
     return sorted(path for path in root.rglob("*") if path.suffix.lower() in {".md", ".mdx"})
 
 

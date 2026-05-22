@@ -3,9 +3,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const buildRoot = path.resolve(process.argv[2] || "build");
+const buildRoot = path.resolve(process.argv[2] || "dist");
 const rootSitemap = path.join(buildRoot, "sitemap.xml");
-const localeSitemaps = ["zh-Hans", "ja"].map((locale) =>
+const localeSitemaps = ["zh-cn", "ja"].map((locale) =>
   path.join(buildRoot, locale, "sitemap.xml"),
 );
 

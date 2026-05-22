@@ -1,0 +1,103 @@
+---
+title: "5.1.1 机器学习基础路线图：任务、数据、模型、分数"
+description: "紧凑版机器学习基础路线图：任务类型、数据划分、fit/predict/score、baseline 和 sklearn 工作流。"
+sidebar:
+  order: 0
+head:
+  - tag: meta
+    attrs:
+      name: keywords
+      content: "机器学习指南, ML 入门, sklearn 指南, 监督学习, 无监督学习"
+---
+
+# 5.1.1 机器学习基础路线图：任务、数据、模型、分数
+
+机器学习从不再手写所有规则开始，而是让模型从数据中学习规律。第一习惯不是背算法，而是跑通小项目闭环。
+
+## 先看地图
+
+![机器学习基础学习地图](/img/course/ml-basics-roadmap.webp)
+
+![机器学习基础章节流程](/img/course/ch05-basics-chapter-flow.webp)
+
+记住这个闭环：
+
+```text
+定义任务 -> 划分数据 -> 训练模型 -> 预测 -> 评分 -> 决定下一步
+```
+
+| 词 | 第一层意思 |
+|---|---|
+| feature | 模型使用的输入列 |
+| label / target | 模型要预测的答案 |
+| train set | 用来学习的数据 |
+| test set | 留出来检查泛化的数据 |
+| baseline | 用来比较的简单首版模型 |
+
+## 跑最小 sklearn 闭环
+
+创建 `ml_first_loop.py`，安装 `scikit-learn` 后运行。
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+model = LogisticRegression(max_iter=200)
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+
+print("task: classification")
+print("test_accuracy:", round(model.score(X_test, y_test), 3))
+print("prediction_count:", len(predictions))
+```
+
+预期输出：
+
+```text
+task: classification
+test_accuracy: 0.967
+prediction_count: 30
+```
+
+这就是最小有用机器学习闭环：先划分数据，只用训练集训练，再用测试集评估。
+
+## 按这个顺序学
+
+| 顺序 | 阅读 | 练什么 |
+|---|---|---|
+| 1 | [5.1.2 什么是机器学习](./01-what-is-ml.md) | 任务类型、特征、标签 |
+| 2 | [5.1.3 Scikit-learn 入门](./02-sklearn-intro.md) | `fit`、`predict`、`score` |
+| 3 | [5.1.4 数学如何进入机器学习](./03-math-to-ml-bridge.md) | 向量、概率、loss、优化 |
+| 4 | [5.1.5 机器学习发展史](./04-history-breakthroughs.md) | 主要算法为什么出现 |
+| 5 | [5.1.6 sklearn 与 Matplotlib 工作坊](./05-sklearn-matplotlib-workshop.md) | 运行、画图、解释 baseline |
+
+## 通过标准
+
+能说出任务类型，识别 `X` 和 `y`，解释为什么要划分训练集/测试集，并保留一个 baseline 分数作为证据，就算通过。
+
+<details>
+<summary>检查思路与讲解</summary>
+
+1. `X` 是特征矩阵：行是样本，列是模型可使用的输入。`y` 是标签或目标，也就是模型要学习预测的答案。
+2. 训练集/测试集划分很重要，因为测试集模拟新数据。如果模型训练时看到了测试信息，分数就不能证明泛化能力。
+3. 一份合格 baseline 记录应包含任务类型、划分方式、模型、指标，以及一句可能失败的原因。
+
+</details>
+
+## 留下的证据
+
+学完这一页，至少保留这张证据卡：
+
+```text
+机器学习问题：监督学习、无监督学习、评估或特征工程任务
+基线：最简单的 sklearn/建模循环和固定的训练/测试划分
+输出：预测、指标、图表，或模型决策备注
+失败检查：数据泄漏、目标不清、基线薄弱或指标不匹配
+期望产出：带指标和一个失败观察的最小 ML 循环
+```

@@ -19,7 +19,7 @@ function readOption(name, fallback) {
   return fallback;
 }
 
-const root = path.resolve(readOption("root", process.env.STATIC_ROOT || "build"));
+const root = path.resolve(readOption("root", process.env.STATIC_ROOT || "dist"));
 const host = readOption("host", process.env.HOST || "127.0.0.1");
 const port = Number(readOption("port", process.env.PORT || 3000));
 

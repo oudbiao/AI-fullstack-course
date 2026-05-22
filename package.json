@@ -3,43 +3,23 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "docusaurus": "docusaurus",
     "start": "npm run build && npm run serve",
-    "dev": "docusaurus start --host 0.0.0.0 --no-open",
-    "dev:en": "docusaurus start --host 0.0.0.0 --no-open --locale en",
-    "dev:ja": "docusaurus start --host 0.0.0.0 --no-open --locale ja",
-    "build": "docusaurus build && node scripts/strip_build_null_bytes.js build && node scripts/merge_localized_sitemaps.js build",
+    "dev": "astro dev --host 0.0.0.0",
+    "preview": "astro preview --host 0.0.0.0",
+    "build": "astro build && node scripts/filter_sitemap_redirects.mjs dist && node scripts/strip_build_null_bytes.js dist",
     "build:docker": "node scripts/build_docker_low_memory.js",
-    "build:en": "docusaurus build --locale en && node scripts/strip_build_null_bytes.js build",
-    "build:ja": "docusaurus build --locale ja && node scripts/strip_build_null_bytes.js build",
-    "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
-    "clear": "docusaurus clear",
-    "serve": "node scripts/serve_static_build.js",
-    "write-translations": "docusaurus write-translations",
-    "write-translations:en": "docusaurus write-translations --locale en",
-    "write-translations:ja": "docusaurus write-translations --locale ja",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "clean": "docusaurus clear && rm -rf .docusaurus build",
-    "dev:clean": "npm run clean && npm start",
+    "serve": "astro preview --host 0.0.0.0",
+    "serve:static": "node scripts/serve_static_build.js --root dist",
+    "clean": "rm -rf .astro dist",
+    "dev:clean": "npm run clean && npm run dev",
     "images:dry-run": "python3 scripts/generate_course_images.py --dry-run",
     "images:placeholders": "python3 scripts/generate_course_images.py --ensure-placeholders",
     "images:generate": "python3 scripts/generate_course_images.py",
-    "validate:docs": "python3 validate_markdown_fences.py && python3 validate_internal_links.py && python3 validate_sidebars.py && python3 validate_course_structure.py && python3 scripts/validate_course_image_refs.py && python3 scripts/audit_code_blocks.py && node -c sidebars.js"
+    "validate:docs": "npm run build"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.7.0",
-    "@docusaurus/preset-classic": "^3.7.0",
-    "@docusaurus/theme-mermaid": "^3.9.2",
-    "@mdx-js/react": "^3.0.0",
-    "clsx": "^2.0.0",
-    "prism-react-renderer": "^2.3.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
-  },
-  "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.7.0",
-    "@docusaurus/types": "^3.7.0"
+    "@astrojs/starlight": "^0.39.2",
+    "astro": "^6.3.7"
   },
   "browserslist": {
     "production": [

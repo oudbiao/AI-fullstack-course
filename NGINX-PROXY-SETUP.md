@@ -111,5 +111,5 @@ networks:
 ## 相关文件
 
 - Nginx 配置：[nginx/airoads.conf](nginx/airoads.conf)
-- Docusaurus 配置：[docusaurus.config.js](docusaurus.config.js)
+- Astro Starlight 配置：[astro.config.mjs](astro.config.mjs)
 - Docker Compose：[docker-compose.yml](docker-compose.yml)

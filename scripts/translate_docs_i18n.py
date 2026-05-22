@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Translate Docusaurus docs into locale folders with an OpenAI-compatible API.
+"""Translate Starlight docs into locale folders with an OpenAI-compatible API.
 
 The script is intentionally resumable:
 - Existing translated files are skipped unless --overwrite is used.
-- Failed files are recorded in static/i18n-translation-failures.jsonl.
+- Failed files are recorded in reports/i18n-translation-failures.jsonl.
 - Markdown fences are checked before writing to avoid obvious broken output.
 
 It translates visible Markdown/MDX text, including headings, paragraphs,
 frontmatter title/description/keywords, table text, Mermaid labels, comments,
 and learner-facing strings. It asks the model to preserve code syntax, paths,
-URLs, image references, and MDX/Docusaurus structure.
+URLs, image references, and Markdown/MDX structure.
 """
 
 from __future__ import annotations
@@ -25,9 +25,8 @@ from pathlib import Path
 from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DOCS_ROOT = PROJECT_ROOT / "docs"
-I18N_DOCS_DIR = Path("docusaurus-plugin-content-docs") / "current"
-FAILURE_LOG = PROJECT_ROOT / "static" / "i18n-translation-failures.jsonl"
+DOCS_ROOT = PROJECT_ROOT / "src" / "content" / "docs"
+FAILURE_LOG = PROJECT_ROOT / "reports" / "i18n-translation-failures.jsonl"
 
 LOCALE_CONFIG = {
     "en": {
@@ -67,7 +66,10 @@ def iter_docs() -> list[Path]:
     return sorted(
         path
         for path in DOCS_ROOT.rglob("*")
-        if path.is_file() and path.suffix.lower() in {".md", ".mdx"}
+        if path.is_file()
+        and path.suffix.lower() in {".md", ".mdx"}
+        and "zh-cn" not in path.relative_to(DOCS_ROOT).parts
+        and "ja" not in path.relative_to(DOCS_ROOT).parts
     )
 
 
@@ -174,7 +176,7 @@ def translate_one(
     dry_run: bool,
 ) -> str:
     rel = src_path.relative_to(DOCS_ROOT)
-    out_path = PROJECT_ROOT / "i18n" / locale / I18N_DOCS_DIR / rel
+    out_path = DOCS_ROOT / locale / rel
     if out_path.exists() and not overwrite:
         return "skipped"
 
@@ -252,7 +254,13 @@ def main() -> int:
 
     docs = iter_docs()
     if args.only:
-        wanted = {Path(p).as_posix().removeprefix("docs/") for p in args.only}
+        wanted = {
+            Path(p)
+            .as_posix()
+            .removeprefix("src/content/docs/")
+            .removeprefix("docs/")
+            for p in args.only
+        }
         docs = [p for p in docs if p.relative_to(DOCS_ROOT).as_posix() in wanted]
     if args.max_bytes:
         docs = [p for p in docs if p.stat().st_size <= args.max_bytes]

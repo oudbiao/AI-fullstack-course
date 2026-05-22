@@ -29,9 +29,7 @@ from pathlib import Path
 
 
 ROOTS = [
-    Path("docs"),
-    Path("i18n/zh-Hans/docusaurus-plugin-content-docs/current"),
-    Path("i18n/ja/docusaurus-plugin-content-docs/current"),
+    Path("src/content/docs"),
 ]
 
 PYTHON_LANGS = {"python", "py"}
@@ -420,7 +418,7 @@ def main() -> int:
         "roots",
         nargs="*",
         type=Path,
-        help="Markdown roots to audit. Defaults to docs plus zh-Hans and ja localized docs.",
+        help="Markdown roots to audit. Defaults to the Starlight content tree.",
     )
     parser.add_argument("--max-findings", type=int, default=200)
     args = parser.parse_args()

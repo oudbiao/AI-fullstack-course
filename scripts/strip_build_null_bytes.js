@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const root = path.resolve(process.argv[2] || "build");
+const root = path.resolve(process.argv[2] || "dist");
 let checked = 0;
 let cleaned = 0;
 let removed = 0;

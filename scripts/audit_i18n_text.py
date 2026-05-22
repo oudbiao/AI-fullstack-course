@@ -25,7 +25,7 @@ SOURCE_PHRASES_RE = re.compile(
 SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.IGNORECASE | re.DOTALL)
 TAG_RE = re.compile(r"<[^>]+>")
 SPACE_RE = re.compile(r"\s+")
-LOCALIZED_BUILD_DIRS = {"zh-Hans", "ja"}
+LOCALIZED_BUILD_DIRS = {"zh-cn", "ja"}
 
 ALLOW_TERMS = {
     "中文",
@@ -143,7 +143,7 @@ def iter_locale_html(build_dir: Path, locale: str) -> tuple[Path, list[Path]] | 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--build-dir", default="build")
+    parser.add_argument("--build-dir", default="dist")
     parser.add_argument("--locales", nargs="+", default=["en", "ja"])
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()

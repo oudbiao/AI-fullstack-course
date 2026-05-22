@@ -2,7 +2,7 @@
 """Audit course images for localization work.
 
 This script does not modify images. It maps Markdown image references to files
-under static/img/course and reports whether English/Japanese localized variants
+under public/img/course and reports whether English/Japanese localized variants
 already exist. If tesseract is available, it also tries English OCR as a weak
 signal for images that likely contain only English text.
 
@@ -21,8 +21,8 @@ import tempfile
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DOCS_ROOT = PROJECT_ROOT / "docs"
-COURSE_IMG_ROOT = PROJECT_ROOT / "static" / "img" / "course"
+DOCS_ROOT = PROJECT_ROOT / "src" / "content" / "docs"
+COURSE_IMG_ROOT = PROJECT_ROOT / "public" / "img" / "course"
 REPORT_DIR = PROJECT_ROOT / "reports" / "course-images"
 IMAGE_RE = re.compile(r"!\[[^\]]*]\((/img/course/[^)\s]+)[^)]*\)")
 HOMEPAGE_BASE_RE = re.compile(r"^homepage-ai-history-comic-(\d{2}-.+\.png)$")
@@ -32,8 +32,8 @@ HOMEPAGE_LOCALIZED_RE = re.compile(r"^homepage-ai-history-comic-(en|ja)-(\d{2}-.
 def iter_markdown_files() -> list[Path]:
     roots = [
         DOCS_ROOT,
-        PROJECT_ROOT / "i18n" / "en" / "docusaurus-plugin-content-docs" / "current",
-        PROJECT_ROOT / "i18n" / "ja" / "docusaurus-plugin-content-docs" / "current",
+        DOCS_ROOT / "zh-cn",
+        DOCS_ROOT / "ja",
     ]
     files: list[Path] = []
     for root in roots:
