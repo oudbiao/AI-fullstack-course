@@ -7,6 +7,10 @@ import { fileURLToPath } from "node:url";
 const siteDescription =
   "A complete free learning path from AI fundamentals to AI Agent development, covering Python, data analysis, machine learning, deep learning, LLMs, RAG, and AI Agents.";
 
+const siteUrl = "https://airoads.org";
+const siteTitle = "AI Roads";
+const socialCardUrl = `${siteUrl}/img/social-card.png`;
+
 const docsRoot = fileURLToPath(new URL("./src/content/docs/", import.meta.url));
 
 const localeLanguageTags = {
@@ -448,13 +452,17 @@ const sidebarGroups = sectionDefinitions.map((section) => ({
 }));
 
 export default defineConfig({
-  site: "https://learning.airoads.org",
+  site: siteUrl,
   trailingSlash: "ignore",
   integrations: [
     starlight({
-      title: "AI Full-Stack Course",
+      title: siteTitle,
       description: siteDescription,
-      favicon: "/img/favicon.ico",
+      logo: {
+        src: "./src/assets/logo.svg",
+        alt: "AI Roads",
+      },
+      favicon: "/img/favicon.svg",
       locales: {
         root: { label: "English", lang: "en-US" },
         "zh-cn": { label: "简体中文", lang: "zh-CN" },
@@ -486,7 +494,7 @@ export default defineConfig({
           tag: "meta",
           attrs: {
             name: "author",
-            content: "AI Full-Stack Learning Course",
+            content: "AI Roads",
           },
         },
         {
@@ -500,7 +508,35 @@ export default defineConfig({
           tag: "meta",
           attrs: {
             property: "og:site_name",
-            content: "AI Full-Stack Course",
+            content: siteTitle,
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image",
+            content: socialCardUrl,
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image:width",
+            content: "1200",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image:height",
+            content: "630",
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image:alt",
+            content: "AI Roads practical AI learning path",
           },
         },
         {
@@ -511,16 +547,31 @@ export default defineConfig({
           },
         },
         {
+          tag: "meta",
+          attrs: {
+            name: "twitter:image",
+            content: socialCardUrl,
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "twitter:image:alt",
+            content: "AI Roads practical AI learning path",
+          },
+        },
+        {
           tag: "script",
           attrs: { type: "application/ld+json" },
           content: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Course",
-            name: "AI Full-Stack Course",
+            name: "AI Roads",
             description: siteDescription,
             provider: {
               "@type": "Organization",
-              name: "AI Full-Stack Course",
+              name: "AI Roads",
+              url: siteUrl,
               sameAs: "https://github.com/oudbiao/AI-fullstack-course",
             },
             educationalLevel: "Beginner",

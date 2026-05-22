@@ -1,16 +1,16 @@
-# AI Full-Stack Learning Course
+# AI Roads
 
 > A free, beginner-friendly AI engineering curriculum that starts with developer foundations and grows into machine learning, deep learning, LLM applications, RAG, AI Agents, and multimodal AIGC.
 
 ## Official Site
 
-[https://learning.airoads.org](https://learning.airoads.org)
+[https://airoads.org](https://airoads.org)
 
 The website defaults to English. Learners can switch to Simplified Chinese or Japanese from the language dropdown in the navigation bar.
 
 ## What This Project Is
 
-This repository powers the AI Full-Stack Learning Course website. It is designed for beginners who want a practical, project-driven path into modern AI engineering rather than a scattered list of articles.
+This repository powers the AI Roads learning website. It is designed for beginners who want a practical, project-driven path into modern AI engineering rather than a scattered list of articles.
 
 The course combines:
 

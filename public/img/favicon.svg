@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0F1D2E"/>
+      <stop offset="0.58" stop-color="#07111F"/>
+      <stop offset="1" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="road" x1="16" y1="49" x2="48" y2="15" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5EEAD4"/>
+      <stop offset="0.54" stop-color="#60A5FA"/>
+      <stop offset="1" stop-color="#F7C948"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bg)"/>
+  <path d="M18 48L31.2 17.2C31.6 16.2 32.9 16.2 33.3 17.2L46 48" fill="none" stroke="url(#road)" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24.4 37.2H39.7" fill="none" stroke="#DFF7FF" stroke-width="3.1" stroke-linecap="round"/>
+  <path d="M32 22.4C30.5 29.3 30.5 39.9 32 48.2" fill="none" stroke="#F8FAFC" stroke-width="1.45" stroke-linecap="round" stroke-dasharray="3.4 4.4" opacity="0.72"/>
+  <circle cx="32.2" cy="17.2" r="3.2" fill="#F8FAFC"/>
+</svg>

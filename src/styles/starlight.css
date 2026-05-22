@@ -84,6 +84,16 @@ body {
   letter-spacing: 0;
 }
 
+.site-title img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.45rem;
+}
+
+.site-title span {
+  font-weight: 800;
+}
+
 .sidebar-content .top-level a,
 .sidebar-content .top-level summary {
   font-size: 0.94rem;
