@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "GAN, generator, discriminator, adversarial training, mode collapse, PyTorch"
 ---
-
-# 6.6.2 GAN Basics [Optional]
-
 :::tip[Section Overview]
 A GAN is a two-player training loop: the generator tries to create fake samples that look real, while the discriminator tries to tell real and fake apart. The power and the instability come from the same place: both players keep changing.
 :::

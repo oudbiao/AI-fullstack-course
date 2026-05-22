@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "deep learning training tips, hyperparameter tuning, training diagnosis, model compression"
 ---
-
-# 6.7.1 Training Tips Roadmap: Diagnose Before Changing Everything
-
 Training tips are useful only when they answer a diagnosis. Do not change optimizer, learning rate, model size, and data at the same time.
 
 ## Look at the Diagnosis Flow First

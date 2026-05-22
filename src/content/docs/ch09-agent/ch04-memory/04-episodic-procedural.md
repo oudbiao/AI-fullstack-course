@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "episodic memory, procedural memory, workflow memory, agent experience, skill memory"
 ---
-
-# 9.4.5 Episodic and Procedural Memory [Optional]
-
 :::tip[Section overview]
 Long-term memory is more like a “stable archive.”
 But some information is neither a long-term archive nor a short-term window, and is more like:

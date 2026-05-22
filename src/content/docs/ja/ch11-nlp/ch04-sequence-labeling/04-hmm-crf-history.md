@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "HMM, CRF, 品詞タグ付け, 系列ラベリング, NER, BiLSTM-CRF"
 ---
-
-# 11.4.3 HMM、CRF と系列ラベリングの歴史の主線
-
 ![HMM CRF 系列ラベリング歴史マップ](/img/course/ch11-hmm-crf-sequence-history-map-ja.webp)
 
 :::tip[この節の位置づけ]

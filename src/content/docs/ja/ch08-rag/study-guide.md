@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG チェックリスト, LLM アプリチェックリスト, ベクトル検索, RAG 評価, 大モデル工程"
 ---
-
-# 8.0 学習チェックリスト：LLM アプリ開発と RAG
-
 このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 8 章入口ページ](./index.md) に戻ってください。
 
 ![RAG ポートフォリオ証拠パック](/img/course/ch08-rag-evidence-pack-ja.webp)

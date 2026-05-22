@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent, supervisor, pipeline, reviewer pattern, agent architecture, collaboration"
 ---
-
-# 9.7.2 多 Agent 架构模式
-
 ![多 Agent 协作消息流图](/img/course/multi-agent-message-flow.webp)
 
 :::tip[本节定位]

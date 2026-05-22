@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "security detection, surveillance, alerting, tracking, false alarm, vision project"
 ---
-
-# 10.6.2 项目：智能安防系统
-
 :::tip[本节定位]
 安防项目很容易做成“检测到人就画框”的演示。
 但真正能交付的安防系统，关注的通常不是框本身，而是：

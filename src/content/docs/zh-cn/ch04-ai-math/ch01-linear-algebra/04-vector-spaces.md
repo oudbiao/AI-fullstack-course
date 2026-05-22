@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "向量空间, 线性无关, 基, 维度, SVD, 奇异值分解, 线性变换"
 ---
-
-# 4.1.5 向量空间与线性变换【选修】
-
 ![向量空间基向量张成示意图](/img/course/vector-space-basis-span.webp)
 
 :::note[选修章节]

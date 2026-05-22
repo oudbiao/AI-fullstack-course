@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "finetuning, PEFT, full finetune, task adaptation, model customization"
 ---
-
-# 7.6.2 Finetuning Overview
-
 ![Overall finetuning and alignment flowchart](/img/course/finetuning-alignment-pipeline-en.webp)
 
 :::tip[Section focus]

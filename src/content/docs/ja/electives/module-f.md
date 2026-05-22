@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI product design, product thinking, evaluation, cost, UX, product strategy"
 ---
-
-# E.F AI プロダクト設計思考
-
 AI プロダクト設計は、モデルの能力ではなくユーザーの問題から始めます。機能を作る価値があるのは、価値、コスト、リスク、ユーザー体験を説明できるときです。
 
 ## まず意思決定ループを見る

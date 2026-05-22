@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "persistence, recovery, checkpoint, event log, idempotency, resume, deployment"
 ---
-
-# 9.9.4 持久化与恢复
-
 :::tip[本节定位]
 Agent 一旦开始处理长任务、多步流程或后台任务，一个问题就很快变得关键：
 

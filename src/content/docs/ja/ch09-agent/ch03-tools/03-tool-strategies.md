@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool strategy, Agent, routing, retry, fallback, verification, tool policy"
 ---
-
-# 9.3.4 ツール呼び出し戦略
-
 ![ツール呼び出し戦略のルーティング図](/img/course/ch09-tool-strategy-routing-map-ja.webp)
 
 :::tip[この節の位置づけ]

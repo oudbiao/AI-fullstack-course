@@ -3,9 +3,6 @@ title: "A.5 ハードウェアとクラウドリソースガイド"
 sidebar:
   order: 2
 ---
-
-# A.5 ハードウェアとクラウドリソースガイド
-
 ![ハードウェアとクラウドリソースの判断ツリー](/img/course/appendix-hardware-cloud-decision-tree-ja.webp)
 
 ![ローカル、クラウド、API のコスト比較図](/img/course/appendix-hardware-local-cloud-api-cost-map-ja.webp)

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI Agent, 智能体, tools, planning, workflow, function calling"
 ---
-
-# 9.1.2 AI Agentとは何か
-
 ![Agent と通常の Chatbot の比較図](/img/course/agent-vs-chatbot-comparison-ja.webp)
 
 :::tip[この節の位置づけ]

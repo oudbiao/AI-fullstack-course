@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "unified API, provider abstraction, LLM gateway, model routing, deployment"
 ---
-
-# 8.2.4 Unified API Interface
-
 :::tip[Section Overview]
 Once your system is connected to more than one model, problems show up quickly:
 

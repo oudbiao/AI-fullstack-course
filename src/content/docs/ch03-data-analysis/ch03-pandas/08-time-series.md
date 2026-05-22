@@ -4,9 +4,6 @@ description: "Master date-time handling, resampling, and rolling window calculat
 sidebar:
   order: 16
 ---
-
-# 3.3.9 Time Series
-
 :::tip[Section Focus]
 When many beginners first learn time series, the easiest misunderstanding is:
 

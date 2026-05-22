@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "diffusion model, denoising, forward process, reverse process, generative model, image generation"
 ---
-
-# 12.2.2 拡散モデルの原理
-
 ![拡散モデルのノイズ付与・ノイズ除去図](/img/course/diffusion-noise-denoise-ja.webp)
 
 :::tip[この節の位置づけ]

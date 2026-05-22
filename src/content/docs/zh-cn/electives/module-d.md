@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI safety, red teaming, threat model, eval, jailbreak, prompt injection, guardrails"
 ---
-
-# E.D AI 安全与红队测试
-
 红队测试是可重复流程，不是随便试一个吓人的 prompt。你要定义攻击面、跑用例、记录失败、修复系统，再用同一批用例回归。
 
 ## 先看闭环

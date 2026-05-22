@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "semantic segmentation, pixel classification, mask, IoU, vision"
 ---
-
-# 10.4.2 语义分割
-
 ![语义分割 Mask 对比图](/img/course/semantic-segmentation-mask.webp)
 
 :::tip[本节定位]

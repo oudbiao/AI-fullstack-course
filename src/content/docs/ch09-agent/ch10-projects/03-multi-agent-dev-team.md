@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent dev team, planner, coder, reviewer, tester, project"
 ---
-
-# 9.10.4 Project: Multi-Agent Development Team [Optional]
-
 :::tip[Section focus]
 Multi-Agent development team projects can easily turn into a performance:
 

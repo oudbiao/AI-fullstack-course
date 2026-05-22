@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "DreamBooth, LoRA, Textual Inversion, Stable Diffusion finetuning, personalization, style tuning"
 ---
-
-# 12.2.5 Image Generation Fine-tuning
-
 ![Image generation fine-tuning route selection chart](/img/course/ch12-sd-finetuning-route-choice-map-en.webp)
 
 :::tip[Reading guide]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "HuggingFace, transformers, datasets, tokenizers, model hub, ecosystem"
 ---
-
-# 8.3.5 HuggingFace 生态深入
-
 :::tip[本节定位]
 很多人第一次接触 HuggingFace，会先看到：
 

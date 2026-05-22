@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ターミナル, コマンドライン, Git, VS Code, 開発環境, Python 環境構築"
 ---
-
-# 1 開発者ツールの基礎
-
 ![開発者ツールの基礎メインビジュアル](/img/course/ch01-tools-foundation-ja.webp)
 
 この章の目的は 1 つだけです。**コードを作り、実行し、保存し、他の人が再実行できるように説明できること**。

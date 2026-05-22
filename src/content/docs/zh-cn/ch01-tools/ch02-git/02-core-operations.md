@@ -4,9 +4,6 @@ description: "掌握日常开发中最常用的 Git 操作"
 sidebar:
   order: 2
 ---
-
-# 1.2.2 Git 核心操作
-
 ![Git 日常最小循环图](/img/course/ch01-git-daily-loop.webp)
 
 ## 本节定位
@@ -483,7 +480,7 @@ git commit -m "更新 .gitignore：忽略 config.py"
 
 ## 实操练习：模拟一次完整的开发过程
 
-```bash
+````bash
 # 1. 写训练脚本
 cat > src/train.py << 'EOF'
 import torch
@@ -532,7 +529,7 @@ git commit -m "更新 README：添加安装和使用说明"
 
 # 4. 查看完整历史
 git log --oneline
-```
+````
 
 你应该看到类似这样的 5 条提交记录：
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AutoGen, multi-agent, role dialogue, conversation loop, code execution, agent collaboration"
 ---
-
-# 9.6.6 AutoGen【Elective】
-
 :::tip[Section Overview]
 If some frameworks feel more like a “workflow graph” or a “knowledge organization layer,” then the first impression of AutoGen is usually:
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "low-code, visual workflow, drag-and-drop, no-code, agent builder"
 ---
-
-# 9.6.8 ローコードプラットフォーム【選択】
-
 :::tip[この節の位置づけ]
 すべてのチームが次のことをしたいわけではありません。
 

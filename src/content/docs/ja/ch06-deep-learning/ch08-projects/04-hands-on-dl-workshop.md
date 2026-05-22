@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch 実践, 深層学習学習ループ, Dataset, DataLoader, CNN, loss curve, エラー分析"
 ---
-
-# 6.8.5 実践ワークショップ：PyTorch 学習証拠パックを作る
-
 ![第 6 章 PyTorch 実践ワークショップのルートマップ](/img/course/ch06-hands-on-dl-workshop-route-ja.webp)
 
 :::tip[使い方]

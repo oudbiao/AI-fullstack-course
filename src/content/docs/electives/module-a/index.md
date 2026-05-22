@@ -4,9 +4,6 @@ description: "A concise hands-on roadmap for the C++ and model deployment electi
 sidebar:
   order: 0
 ---
-
-# E.A C++ and Model Deployment Roadmap
-
 Use this elective when a Python model already works, but latency, memory, packaging, or serving cost becomes the real problem.
 
 ## See the Deployment Path First

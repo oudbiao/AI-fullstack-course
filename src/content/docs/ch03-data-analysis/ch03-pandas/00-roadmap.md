@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Pandas introduction, DataFrame, data processing, data cleaning, groupby, how to learn Pandas"
 ---
-
-# 3.3.1 Pandas Roadmap: From Raw Table to Analysis Table
-
 Pandas is the table workstation of this course. Use it when a plain CSV, Excel file, log table, or SQL query result must become clean enough for charts, machine learning, RAG evaluation, or reports.
 
 ## Look at the Workflow First

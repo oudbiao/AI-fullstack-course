@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM history, language model, n-gram, RNN, Transformer, GPT, RLHF, Agent"
 ---
-
-# 7.2.2 大規模モデルの発展史
-
 ![AI 15 段階発展マップ](/img/course/appendix-ai-15-stage-history-map-ja.webp)
 
 :::tip[年表暗記ではなく地図として読む]

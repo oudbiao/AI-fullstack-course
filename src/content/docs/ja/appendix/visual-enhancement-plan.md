@@ -7,9 +7,6 @@ head:
       name: keywords
       content: "course illustrations, instructional design, visual learning, AI course images, image2, SVG diagrams"
 ---
-
-# A.4 コースビジュアル使用ルール
-
 ![コース画像アセット計画カンバン](/img/course/appendix-visual-enhancement-kanban-ja.webp)
 
 ![画像ギャップ検出から生成・公開までのフロー](/img/course/appendix-image-production-pipeline-map-ja.webp)

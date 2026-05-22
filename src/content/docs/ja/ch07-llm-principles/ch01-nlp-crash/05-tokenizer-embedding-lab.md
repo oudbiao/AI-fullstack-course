@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tokenizer ラボ, embedding ラボ, input_ids, attention_mask, cosine similarity"
 ---
-
-# 7.1.6 実践：Tokenizer と Embedding ラボ
-
 Tokenizer と embedding は別々なら理解しやすいですが、初心者は「この 2 つがどうつながるのか」でつまずきやすいです。
 
 このラボでは、最小の流れを一気に見ます。

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIGC, 多模态, Stable Diffusion, 图像生成, 视频生成, 语音合成, 多模态大模型"
 ---
-
-# 12 AIGC 与多模态
-
 ![AIGC 与多模态主视觉](/img/course/ch12-multimodal-aigc.webp)
 
 第 12 章是最后的能力拓展：**AI 不再只处理文字。** 图片、PDF、语音、视频、截图、图表和生成素材，都可以进入同一条产品工作流。

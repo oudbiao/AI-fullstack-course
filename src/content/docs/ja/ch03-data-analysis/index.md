@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NumPy, Pandas, Matplotlib, Seaborn, データ分析, データ可視化, Pythonデータ分析"
 ---
-
-# 3 データ分析と可視化
-
 ![データ分析と可視化のメインビジュアル](/img/course/ch03-data-visualization-ja.webp)
 
 第 3 章の目的は 1 つです。乱れたデータを、**再現できるコードとグラフに支えられた、信頼できる結論**に変えることです。

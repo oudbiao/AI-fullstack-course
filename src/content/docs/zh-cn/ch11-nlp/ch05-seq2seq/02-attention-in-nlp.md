@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "attention, seq2seq, encoder decoder, alignment, NLP"
 ---
-
-# 11.5.3 NLP 中的注意力机制
-
 ![Seq2Seq 注意力对齐图](/img/course/seq2seq-attention-alignment.webp)
 
 :::tip[本节定位]

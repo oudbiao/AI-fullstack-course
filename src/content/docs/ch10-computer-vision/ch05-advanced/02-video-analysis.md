@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "video analysis, temporal modeling, frame sampling, tracking, action recognition"
 ---
-
-# 10.5.3 Video Analysis [Elective]
-
 :::tip[Section overview]
 Video analysis is most easily misunderstood as:
 

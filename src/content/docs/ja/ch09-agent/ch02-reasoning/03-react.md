@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ReAct, thought action observation, tool use, agent loop, reasoning and acting"
 ---
-
-# 9.2.4 ReAct フレームワーク
-
 ![ReAct 推理・行動・観察の循環図](/img/course/react-reason-act-observe-loop-ja.webp)
 
 :::tip[この節の位置づけ]

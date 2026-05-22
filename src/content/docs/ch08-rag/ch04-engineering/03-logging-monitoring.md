@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "logging, monitoring, tracing, metrics, observability, LLM ops"
 ---
-
-# 8.4.4 Logging and Monitoring
-
 :::tip[Section overview]
 Many LLM app demos work well locally, but once they go live, one problem quickly appears:
 

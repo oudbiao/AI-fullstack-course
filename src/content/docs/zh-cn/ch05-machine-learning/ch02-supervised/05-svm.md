@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "SVM, 支持向量机, 最大间隔, 支持向量, 核方法, RBF, C, gamma, StandardScaler, SVC"
 ---
-
-# 5.2.6 SVM：最大间隔与核方法
-
 ![SVM 最大间隔直觉图](/img/course/ch05-svm-margin-map.webp)
 
 ![SVM 间隔与核方法漫画](/img/course/ch05-svm-margin-kernel-comic.webp)

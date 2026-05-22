@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "vision-language model, VLM, image-text retrieval, visual question answering, image-text"
 ---
-
-# 12.1.3 Vision-Language Models
-
 ![Vision-Language Model Architecture](/img/course/vision-language-model-architecture-en.webp)
 
 :::tip[Section focus]

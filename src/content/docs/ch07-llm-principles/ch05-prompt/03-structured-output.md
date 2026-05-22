@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "structured output, JSON, schema, validation, prompt engineering, LLM"
 ---
-
-# 7.5.4 Structured Output
-
 :::tip[Section Overview]
 When many people use large models for the first time, they naturally let the model output a piece of natural language.
 But once you want to connect the model into a program system, you quickly run into a real problem:

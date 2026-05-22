@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "SVM, support vector machine, max margin, kernel, classification, classic ML"
 ---
-
-# E.C.1 サポートベクターマシン
-
 ![SVM の最大マージンとサポートベクトル図](/img/course/elective-svm-margin-support-vectors-ja.webp)
 
 ![SVM のパラメータ C と kernel 選択図](/img/course/elective-svm-c-kernel-decision-map-ja.webp)

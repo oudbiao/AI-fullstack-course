@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project"
 ---
-
-# 11.7.2 Project: Intelligent Question Answering System
-
 ![Question answering system retrieval-answer-evaluation loop](/img/course/ch11-qa-retrieval-answer-evaluation-map-en.webp)
 
 :::tip[Reading guide]

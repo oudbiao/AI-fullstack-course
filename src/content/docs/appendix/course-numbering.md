@@ -7,9 +7,6 @@ head:
       name: keywords
       content: "course numbering, chapter directory, chapter numbering, course maintenance"
 ---
-
-# A.2 Course Numbering Convention
-
 ![Map showing the correspondence between chapter numbers and source directories](/img/course/appendix-course-numbering-map-en.webp)
 
 ![Naming consistency check diagram for course maintenance](/img/course/appendix-course-numbering-maintenance-check-en.webp)

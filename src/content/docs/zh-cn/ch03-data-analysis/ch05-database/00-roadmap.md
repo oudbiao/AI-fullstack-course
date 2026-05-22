@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "数据库概览, 关系型数据库, SQL, sqlite, Pandas 与数据库"
 ---
-
-# 3.5.1 数据库路线图：不只存在一个文件里的表
-
 本节是第 3 章的选修内容。想知道真实项目的数据在变成 CSV 或 DataFrame 之前存在哪里，就读它。
 
 ## 先看数据库地图

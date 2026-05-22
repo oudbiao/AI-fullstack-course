@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data labeling, data flywheel, annotation, agreement, hard example mining, finetuning"
 ---
-
-# 7.6.6 データラベリングとデータフライホイール
-
 :::tip[この節の位置づけ]
 モデルの性能上限は、学習テクニックではなくデータによって決まることがよくあります。
 

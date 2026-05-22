@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "nn.Module, nn.Linear, nn.Sequential, forward, parameters, state_dict, PyTorch"
 ---
-
-# 6.2.5 nn.Module
-
 :::tip[この節の位置づけ]
 `nn.Module` は、PyTorch が層、パラメータ、順伝播ロジック、学習/評価モードを 1 つのモデルオブジェクトにまとめる方法です。この節では、autograd で手書きしたパラメータを、再利用できるモデルクラスへ発展させます。
 :::

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "alignment safety, HHH, refusal boundary, evaluation, guardrails"
 ---
-
-# 7.7.5 Hands-on: Safety Evaluation Lab
-
 At this point, you have seen the alignment problem, RLHF, and alternative methods. The missing practical step is this:
 
 > **Can you tell whether a model is actually safer, or just sounding safer?**

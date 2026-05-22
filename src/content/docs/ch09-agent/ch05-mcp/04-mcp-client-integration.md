@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP client, tool discovery, client integration, dispatch, protocol client"
 ---
-
-# 9.5.5 MCP Client Integration
-
 :::tip[Section Overview]
 So far, we have looked at MCP from the server side.
 In this section, let’s switch perspectives and look at it from the client side:

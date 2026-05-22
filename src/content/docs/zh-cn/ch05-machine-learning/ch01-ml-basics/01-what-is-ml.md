@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "机器学习, 监督学习, 无监督学习, 强化学习, AI, 工作流程"
 ---
-
-# 5.1.2 什么是机器学习
-
 ![机器学习建模闭环图](/img/course/ml-modeling-loop.webp)
 
 ## 本节定位

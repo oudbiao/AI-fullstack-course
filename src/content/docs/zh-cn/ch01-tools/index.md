@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "终端, 命令行, Git, VS Code, 开发环境, Python 环境配置"
 ---
-
-# 1 开发者工具基础
-
 ![开发者工具基础主视觉](/img/course/ch01-tools-foundation.webp)
 
 本章只解决一件事：你能不能**创建代码、运行代码、保存代码，并说明别人怎样重新运行**。

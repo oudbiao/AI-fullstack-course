@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM API, chat completion, API client, prompt, response parsing, error handling"
 ---
-
-# 8.3.2 Practice with LLM API Calls
-
 :::tip[Section overview]
 When many people build their first LLM application, they stop at “I can call the API.”
 But in real development, what really matters is:

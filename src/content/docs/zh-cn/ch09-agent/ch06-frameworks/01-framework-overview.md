@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework overview"
 ---
-
-# 9.6.2 Agent 框架全景
-
 :::tip[本节定位]
 到了 Agent 阶段，很多人很快就会掉进另一个坑：
 

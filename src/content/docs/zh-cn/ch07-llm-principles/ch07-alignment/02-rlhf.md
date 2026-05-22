@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RLHF, reward model, preference data, PPO, alignment"
 ---
-
-# 7.7.3 RLHF 流程
-
 ![RLHF 三阶段流程图](/img/course/rlhf-three-stage-loop.webp)
 
 :::tip[本节定位]

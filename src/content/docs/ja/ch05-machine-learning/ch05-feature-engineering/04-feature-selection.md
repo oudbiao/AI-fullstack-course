@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "特徴量選択, フィルタ法, ラッパー法, 埋め込み法, SelectKBest, RFE, Pipeline, 過学習"
 ---
-
-# 5.5.5 特徴量選択
-
 ![特徴量選択方法の比較](/img/course/feature-selection-methods-ja.webp)
 
 :::tip[この節の焦点]

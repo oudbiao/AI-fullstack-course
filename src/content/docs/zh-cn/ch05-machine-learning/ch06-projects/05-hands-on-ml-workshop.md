@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "机器学习实操, sklearn pipeline, baseline, 模型评估, 错误分析, 作品集"
 ---
-
-# 5.6.6 实操工作坊：构建可复现的 ML 证据包
-
 ![第 5 章机器学习实操路线图](/img/course/ch05-hands-on-ml-workshop-route.webp)
 
 :::tip[使用方式]

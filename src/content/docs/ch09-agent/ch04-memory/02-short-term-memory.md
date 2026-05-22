@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "short-term memory, context window, conversation memory, state, summary memory, Agent"
 ---
-
-# 9.4.3 Short-Term Memory
-
 ![Short-term memory context window and runtime state](/img/course/ch09-short-term-memory-window-map-en.webp)
 
 :::tip[Section Overview]

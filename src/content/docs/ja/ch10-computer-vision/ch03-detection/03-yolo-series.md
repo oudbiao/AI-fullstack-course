@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "YOLO, one-stage detector, object detection, NMS, realtime vision"
 ---
-
-# 10.3.4 YOLOシリーズ
-
 ![YOLO グリッド検出フロー図](/img/course/yolo-grid-detection-flow-ja.webp)
 
 :::tip[この節の位置づけ]

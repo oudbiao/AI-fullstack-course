@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "reasoning, llm reasoning, decomposition, multi-step, constraints, agent"
 ---
-
-# 9.2.2 LLM Reasoning Capability
-
 ![LLM reasoning and intermediate state checkpoints](/img/course/ch09-reasoning-state-checkpoint-map-en.webp)
 
 :::tip[Section Overview]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data analysis agent, statistics, chart suggestion, insight generation, agent project"
 ---
-
-# 9.10.3 Project: Data Analysis Agent
-
 :::tip[Section focus]
 The real value of a Data Analysis Agent is not:
 

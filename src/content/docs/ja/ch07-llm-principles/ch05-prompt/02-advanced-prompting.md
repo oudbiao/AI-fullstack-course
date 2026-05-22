@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "few-shot, role prompting, constraints, self-check, advanced prompting"
 ---
-
-# 7.5.3 高度な Prompt 技巧
-
 :::tip[この節の位置づけ]
 Prompt の基礎を理解したら、次に自然に出てくる疑問は：
 

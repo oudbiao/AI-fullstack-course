@@ -1,5 +1,5 @@
 ---
-title: "5.6.3 项目：客户流失预测"
+title: "5.6.3 项目二：客户流失预测（分类问题）"
 description: "完整的分类项目实战：不平衡数据处理、SMOTE、特征重要性分析、业务洞察"
 sidebar:
   order: 20
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "客户流失, 分类, 不平衡数据, SMOTE, 特征重要性, 业务洞察"
 ---
-
-# 5.6.3 项目二：客户流失预测（分类问题）
-
 ![客户流失预测项目流程图](/img/course/customer-churn-project-flow.webp)
 
 :::tip[项目定位]

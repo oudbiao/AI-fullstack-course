@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "guardrails, safety policy, input filter, output filter, tool guard, agent"
 ---
-
-# 9.8.5 Guardrails Protection Mechanism
-
 ![Agent Layered Guardrails Diagram](/img/course/agent-guardrails-layers-en.webp)
 
 :::tip[Section Overview]

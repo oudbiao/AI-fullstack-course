@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent, failure modes, coordination, observability, cost, conflict resolution"
 ---
-
-# 9.7.6 Multi-Agent Challenges and Solutions
-
 :::tip[Section overview]
 In the previous sections, you saw that multi-Agent systems can divide work, communicate, and coordinate.
 But once you actually build the system, you’ll discover one reality:

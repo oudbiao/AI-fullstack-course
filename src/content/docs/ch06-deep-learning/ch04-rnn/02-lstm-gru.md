@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LSTM, GRU, gated mechanism, cell state, update gate, forget gate"
 ---
-
-# 6.4.3 LSTM and GRU
-
 :::tip[Section Overview]
 A plain RNN has memory, but that memory is easy to overwrite. LSTM and GRU add gates so the model can learn what to keep, what to forget, and what to expose as output.
 :::

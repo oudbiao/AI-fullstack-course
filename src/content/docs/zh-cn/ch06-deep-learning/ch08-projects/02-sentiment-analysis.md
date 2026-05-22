@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sentiment analysis project, text classification, baseline, negation, sarcasm, NLP"
 ---
-
-# 6.8.3 项目：文本情感分析
-
 :::tip[本节定位]
 情感分析是很适合入门的 NLP 项目，因为难点都看得见：标签边界、tokenization、否定词、讽刺、混合情绪和错误分析。
 :::

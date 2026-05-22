@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "episodic memory, procedural memory, workflow memory, agent experience, skill memory"
 ---
-
-# 9.4.5 情景与程序记忆【选修】
-
 :::tip[本节定位]
 长期记忆更像“稳定档案”。
 但有些信息不是长期档案，也不是短期窗口，而更像：

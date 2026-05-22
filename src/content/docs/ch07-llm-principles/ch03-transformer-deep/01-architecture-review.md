@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer, self-attention, residual, layer norm, feed forward, decoder"
 ---
-
-# 7.3.2 Transformer Architecture Review and Deep Dive
-
 :::tip[Section Overview]
 If you have studied attention mechanisms, you may already know terms like `Q / K / V`.
 But when you really get to the large model stage, many people still get stuck:

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent architecture, planner, tools, memory, state, guardrails, observability"
 ---
-
-# 9.1.5 Agent System Architecture
-
 ![Agent System Architecture Diagram](/img/course/agent-system-architecture-en.webp)
 
 ## Learning Objectives

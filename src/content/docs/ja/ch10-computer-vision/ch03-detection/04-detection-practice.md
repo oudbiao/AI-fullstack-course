@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "detection practice, computer vision project, bounding box, evaluation, IoU, mAP"
 ---
-
-# 10.3.5 検出実践
-
 :::tip[本節の位置づけ]
 実際に検出プロジェクトを進めると、難しさはモデルそのものだけではありません。
 よりよくある問題は次のとおりです。

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIGC project guide, creative platform, multimodal project, content generation workflow"
 ---
-
-# 12.5.1 Integrated Project Roadmap: Creative Package Workflow
-
 The capstone is not about connecting many model APIs. It is about giving a user a workflow: input a brief, generate assets, compare versions, edit, review, and export a usable content package.
 
 ## See the Product Loop First

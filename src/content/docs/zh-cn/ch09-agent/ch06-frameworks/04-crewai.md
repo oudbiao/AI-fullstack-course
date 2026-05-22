@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CrewAI, multi-agent, roles, tasks, crew, team abstraction"
 ---
-
-# 9.6.5 CrewAI
-
 :::tip[本节定位]
 如果说有些框架更像“状态流引擎”，那 CrewAI 的第一感觉通常是：
 

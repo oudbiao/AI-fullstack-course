@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LangChain, chain, prompt template, output parser, retriever, LLM application"
 ---
-
-# 8.3.3 LangChain の基礎
-
 :::tip[この節の位置づけ]
 LangChain を初めて見ると、「モデルを少し調整するだけのもの」に見える人が多いです。  
 でも、本当に解決したい問題はもっと具体的です。

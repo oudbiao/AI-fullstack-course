@@ -4,9 +4,6 @@ description: "认识 NumPy——Python 科学计算的基石"
 sidebar:
   order: 2
 ---
-
-# 3.2.1 NumPy 概述
-
 ## 学习目标
 
 - 了解 NumPy 是什么以及它在 Python 生态中的地位

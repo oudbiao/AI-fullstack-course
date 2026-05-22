@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Tools overview, Function Calling, Tool Use, Code Agent, Agent tools"
 ---
-
-# 9.3.1 Tools Roadmap: Schema, Permission, Observation
-
 Tools move an Agent from language to action. More tools do not automatically make the Agent stronger; unclear tools create wrong calls, unsafe actions, loops, and cost leaks.
 
 ## See the Action Boundary First

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "model compression, quantization, pruning, distillation, deployment, model size"
 ---
-
-# 6.7.4 Model Compression [Elective]
-
 :::tip[Section Overview]
 Model compression is a deployment trade-off, not a magic shrink button. You compress because memory, latency, throughput, or device limits force a decision.
 :::

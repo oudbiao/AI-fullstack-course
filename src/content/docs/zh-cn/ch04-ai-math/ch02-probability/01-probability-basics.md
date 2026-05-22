@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "概率, 条件概率, 贝叶斯定理, 联合概率, Python概率, AI数学"
 ---
-
-# 4.2.2 概率基础：不确定性的度量
-
 ![概率分布与贝叶斯更新图](/img/course/probability-distribution-map.webp)
 
 :::tip[为什么学概率？]

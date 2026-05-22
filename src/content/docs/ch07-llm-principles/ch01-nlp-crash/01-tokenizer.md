@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation, attention_mask"
 ---
-
-# 7.1.2 Tokenization and Tokenizer
-
 ![Tokenizer Subword Splitting Flowchart](/img/course/tokenizer-subword-flow-en.webp)
 
 :::tip[What You Should Be Able to Do]

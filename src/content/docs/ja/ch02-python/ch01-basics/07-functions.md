@@ -4,9 +4,6 @@ description: "関数の定義、引数、戻り値、スコープを理解する
 sidebar:
   order: 7
 ---
-
-# 2.1.7 関数の基礎
-
 ![関数の呼び出し、引数、スコープの図](/img/course/ch02-function-call-scope-ja.webp)
 
 ## 残す証拠

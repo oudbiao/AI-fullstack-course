@@ -1,5 +1,5 @@
 ---
-title: "5.6.2 プロジェクト：住宅価格予測"
+title: "5.6.2 プロジェクト1：住宅価格予測（回帰問題）"
 description: "回帰プロジェクトの完全実践：EDA、特徴量エンジニアリング、複数モデル比較、モデル融合とチューニング"
 sidebar:
   order: 19
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "住宅価格予測, 回帰, EDA, 特徴量エンジニアリング, XGBoost, モデル融合, Kaggle"
 ---
-
-# 5.6.2 プロジェクト1：住宅価格予測（回帰問題）
-
 ![住宅価格予測プロジェクトのフローチャート](/img/course/house-price-project-flow-ja.webp)
 
 :::tip[プロジェクトの位置づけ]

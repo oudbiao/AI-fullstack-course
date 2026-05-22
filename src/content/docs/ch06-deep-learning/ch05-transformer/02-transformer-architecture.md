@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding, RMSNorm, RoPE, GQA"
 ---
-
-# 6.5.3 Transformer Architecture
-
 :::tip[Section Overview]
 Attention is the heart, but a Transformer block works because several engineering pieces cooperate: residual paths preserve information, normalization stabilizes values, FFN layers transform each token, and position signals restore order.
 :::

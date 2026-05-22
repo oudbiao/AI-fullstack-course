@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "model evaluation guide, cross-validation, bias-variance, hyperparameter tuning"
 ---
-
-# 5.4.1 Evaluation Roadmap: Trust the Score Before Tuning
-
 Model evaluation answers: is the model actually good, or did the score only look good by accident?
 
 ## Look at the Evaluation Map First

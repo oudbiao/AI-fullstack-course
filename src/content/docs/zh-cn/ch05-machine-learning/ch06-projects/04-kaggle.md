@@ -1,5 +1,5 @@
 ---
-title: "5.6.5 Kaggle 竞赛实战"
+title: "5.6.5 Kaggle 竞赛实战（选修）"
 description: "Kaggle 平台入门、竞赛流程与技巧、参加入门级竞赛"
 sidebar:
   order: 22
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Kaggle, 竞赛, Titanic, 数据科学竞赛, Notebook, 排行榜"
 ---
-
-# 5.6.5 Kaggle 竞赛实战（选修）
-
 ![Kaggle 竞赛提交闭环图](/img/course/kaggle-submission-loop.webp)
 
 :::tip[本节定位]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIGC 实操, 多模态项目, Prompt 记录, 资产审核, 安全审核, 创意包"
 ---
-
-# 12.5.3 实操：构建一个可复现的多模态创意包
-
 在连接真实图像、视频或语音模型之前，先做一个小工作流，证明你理解产品闭环：输入、Prompt 规划、资产生成、版本记录、审核、导出和失败案例。
 
 ![多模态创意包流水线图](/img/course/ch12-workshop-creative-package-pipeline-map.webp)

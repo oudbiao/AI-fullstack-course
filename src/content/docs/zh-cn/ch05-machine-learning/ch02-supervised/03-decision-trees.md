@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "决策树, Gini, 熵, 剪枝, ccp_alpha, CART, 特征重要性, 回归树"
 ---
-
-# 5.2.4 决策树
-
 ![决策树划分路径图](/img/course/decision-tree-split-path.webp)
 
 :::tip[本节概览]

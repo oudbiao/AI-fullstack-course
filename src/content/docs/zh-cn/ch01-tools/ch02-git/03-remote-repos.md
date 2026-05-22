@@ -4,9 +4,6 @@ description: "将代码推送到 GitHub，学会远程协作"
 sidebar:
   order: 3
 ---
-
-# 1.2.3 远程仓库
-
 ![Git 本地远程同步图](/img/course/ch01-git-remote-sync.webp)
 
 ## 本节定位

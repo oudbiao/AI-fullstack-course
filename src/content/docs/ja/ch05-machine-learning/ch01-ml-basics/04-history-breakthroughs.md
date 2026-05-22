@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "機械学習の歴史, MLブレークスルー, ベイズ, 最尤法, EM, 決定木, SVM, ランダムフォレスト, XGBoost"
 ---
-
-# 5.1.5 機械学習の歴史的ブレークスルーの流れ
-
 ![機械学習歴史ブレークスルーマップ](/img/course/ch05-ml-history-breakthrough-map-ja.webp)
 
 :::tip[この節の位置づけ]

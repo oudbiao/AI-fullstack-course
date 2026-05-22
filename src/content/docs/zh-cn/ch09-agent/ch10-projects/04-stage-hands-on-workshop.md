@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent 实操, 单 Agent, Agent trace, 工具调用, tool schema, Agent 评估, OpenAI Agents SDK"
 ---
-
-# 9.10.5 实操：构建一个可追踪的单 Agent 助手
-
 这个工作坊把第 9 章的主线压缩成一个可以运行的小项目。你会做一个小型单 Agent 助手：它能读取目标、选择工具、校验工具参数、拦截高风险动作、把每一步写入 trace，并运行一组小评估。
 
 第一版只使用 Python 标准库。这是有意设计的。上框架、API key、MCP Server 或多 Agent 编排之前，你应该先亲眼看懂最核心的执行循环。

@@ -238,9 +238,19 @@ function prettifyDirectoryName(relativeDir) {
     .join(" ");
 }
 
-function normalizedGroupTitle(title) {
+function joinDirectoryPrefix(prefix, label) {
+  if (!prefix || !label) return label || prefix;
+  const escapedPrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (new RegExp(`^${escapedPrefix}(?:\\s|$)`).test(label)) return label;
+  return `${prefix} ${label}`;
+}
+
+function shortGroupLabelFromTitle(title) {
   return title
-    .replace(/\s+(Roadmap|Learning Roadmap|路线图|学习路线|ロードマップ)\s*$/i, "")
+    .replace(/^(?:\d+(?:\.\d+)*|[A-Z](?:\.[A-Z0-9]+)+)\s+/i, "")
+    .split(/[:：]/)[0]
+    .replace(/\s*(?:Learning\s+)?(?:Roadmap|Learning Path|Path)\s*$/i, "")
+    .replace(/\s*(?:路线图|学习路线|ロードマップ)\s*$/u, "")
     .trim();
 }
 
@@ -275,10 +285,16 @@ function directoryNumberPrefix(relativeDir) {
 
   const title = parseFrontmatter(path.join(docsRoot, sourceFile)).title ?? "";
   const match = title.match(/^(\d+(?:\.\d+)+)(?:\.\d+)?\b/);
-  if (!match) return "";
+  if (match) {
+    const parts = match[1].split(".");
+    return parts.length > 2 ? parts.slice(0, -1).join(".") : match[1];
+  }
 
-  const parts = match[1].split(".");
-  return parts.length > 2 ? parts.slice(0, -1).join(".") : match[1];
+  const alphaMatch = title.match(/^([A-Z](?:\.[A-Z0-9]+)+)(?:\.\d+)?\b/i);
+  if (!alphaMatch) return "";
+
+  const parts = alphaMatch[1].split(".");
+  return parts.length > 2 ? parts.slice(0, -1).join(".") : alphaMatch[1];
 }
 
 function localizedTitle(relativeFile, locale) {
@@ -293,28 +309,34 @@ function fallbackDirectoryLabel(relativeDir, languageTag, prefix) {
     (languageTag && override?.translations?.[languageTag]) ||
     override?.label ||
     prettifyDirectoryName(relativeDir);
-  return [prefix, baseLabel].filter(Boolean).join(" ");
+  return joinDirectoryPrefix(prefix, baseLabel);
+}
+
+function sourceTitleForDirectory(relativeFile, locale) {
+  if (!relativeFile) return "";
+  if (locale) return localizedTitle(relativeFile, locale) ?? "";
+  const meta = parseFrontmatter(path.join(docsRoot, relativeFile));
+  return meta.sidebarLabel || meta.title || "";
+}
+
+function directoryLabelFromSource(relativeDir, sourceFile, locale, languageTag, prefix) {
+  const override = directoryLabelOverrides[relativeDir];
+  if (override) return fallbackDirectoryLabel(relativeDir, languageTag, prefix);
+
+  const sourceTitle = sourceTitleForDirectory(sourceFile, locale);
+  const shortTitle = sourceTitle ? shortGroupLabelFromTitle(sourceTitle) : "";
+  const baseLabel = shortTitle || fallbackDirectoryLabel(relativeDir, languageTag, "");
+  return joinDirectoryPrefix(prefix, baseLabel);
 }
 
 function groupLabelInfo(relativeDir) {
-  const indexFile = indexFileForDirectory(relativeDir);
-  const sourceFile = indexFile ?? sourceFileForDirectory(relativeDir);
-  const sourceMeta = indexFile ? parseFrontmatter(path.join(docsRoot, indexFile)) : {};
-  const sourceTitle = sourceMeta.sidebarLabel || sourceMeta.title;
+  const sourceFile = sourceFileForDirectory(relativeDir);
   const prefix = directoryNumberPrefix(relativeDir);
-  const fallbackLabel = fallbackDirectoryLabel(relativeDir, undefined, prefix);
-
-  const label = normalizedGroupTitle(sourceTitle || fallbackLabel);
+  const label = directoryLabelFromSource(relativeDir, sourceFile, undefined, undefined, prefix);
   const translations = {};
-  if (indexFile && (sourceMeta.sidebarLabel || sourceMeta.title)) {
-    for (const [locale, lang] of Object.entries(localeLanguageTags)) {
-      const title = localizedTitle(sourceFile, locale);
-      if (title) translations[lang] = normalizedGroupTitle(title);
-    }
-  } else {
-    for (const lang of Object.values(localeLanguageTags)) {
-      translations[lang] = fallbackDirectoryLabel(relativeDir, lang, prefix);
-    }
+
+  for (const [locale, lang] of Object.entries(localeLanguageTags)) {
+    translations[lang] = directoryLabelFromSource(relativeDir, sourceFile, locale, lang, prefix);
   }
 
   return { label, translations };

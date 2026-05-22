@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "転移学習, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN"
 ---
-
-# 6.3.5 転移学習
-
 :::tip[この節の位置づけ]
 転移学習は、多くのビジョンプロジェクトの出発点になります。一般的な視覚パターンをすでに学んだ backbone を再利用し、タスク固有の head を置き換え、検証結果が必要性を示したときだけ、さらに多くの層を微調整します。
 :::

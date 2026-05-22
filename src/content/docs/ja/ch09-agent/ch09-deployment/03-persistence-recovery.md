@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "persistence, recovery, checkpoint, event log, idempotency, resume, deployment"
 ---
-
-# 9.9.4 永続化と復元
-
 :::tip[この節の位置づけ]
 Agent が長いタスク、複数ステップの処理、バックグラウンドタスクを扱い始めると、すぐに重要になる問題があります。
 

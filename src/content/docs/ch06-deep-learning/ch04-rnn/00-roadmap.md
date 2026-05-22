@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RNN guide, sequence model, LSTM, GRU, hidden state"
 ---
-
-# 6.4.1 RNN Roadmap: Process Sequences Step by Step
-
 RNNs are built for ordered data: text, time series, clicks, sensor readings, and any input where earlier steps affect later steps.
 
 ## Look at the Sequence Flow First

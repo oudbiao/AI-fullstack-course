@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "runtime management, concurrency, timeout, retry, circuit breaker, metrics"
 ---
-
-# 9.9.3 运行时管理
-
 ![Agent 运行时管理防护图](/img/course/ch09-runtime-management-protection-map.webp)
 
 :::tip[本节定位]

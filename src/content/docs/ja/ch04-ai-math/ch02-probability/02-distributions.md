@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "確率分布, 正規分布, 二項分布, ポアソン分布, 中心極限定理, Python, AI数学"
 ---
-
-# 4.2.3 確率分布：データの背後にある法則
-
 ![確率分布ファミリーの比較図](/img/course/distribution-family-comparison-ja.webp)
 
 ## 学習目標

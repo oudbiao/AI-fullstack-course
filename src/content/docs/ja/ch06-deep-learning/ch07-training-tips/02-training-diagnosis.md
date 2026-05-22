@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "training diagnosis, monitoring, loss curve, overfitting, gradient, debugging"
 ---
-
-# 6.7.3 訓練モニタリングと診断
-
 :::tip[この節の位置づけ]
 訓練診断とは、症状と根本原因を分けることです。最初からモデルを変えないでください。まずカーブを読み、予測と勾配を見て、データを確認し、最後に 1 つの targeted fix を選びます。
 :::

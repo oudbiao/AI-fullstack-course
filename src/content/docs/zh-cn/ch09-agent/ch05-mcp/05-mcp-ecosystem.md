@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP ecosystem, connectors, tooling ecosystem, protocol adoption, practice"
 ---
-
-# 9.5.6 MCP 生态与实践
-
 :::tip[本节定位]
 学到这里，MCP 已经不该只是一个“协议名词”了。
 这一节我们要看的是更大的问题：

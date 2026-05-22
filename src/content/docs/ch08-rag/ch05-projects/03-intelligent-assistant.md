@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "assistant project, multi-turn QA, dialog state, retrieval, tool calling, LLM app"
 ---
-
-# 8.5.4 Project: Intelligent Q&A Assistant
-
 :::tip[Section focus]
 This section is very similar to “enterprise knowledge base Q&A,” but the goal goes one step further.
 An enterprise knowledge base is more about “look up information and answer,” while an intelligent Q&A assistant is more like a real system that collaborates with the user:

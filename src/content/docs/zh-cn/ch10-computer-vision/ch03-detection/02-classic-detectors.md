@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "R-CNN, Fast R-CNN, Faster R-CNN, object detection, region proposal"
 ---
-
-# 10.3.3 经典检测架构
-
 :::tip[本节定位]
 经典检测架构最值得学的不是“模型名”，而是它们一路在解决同一个问题：
 

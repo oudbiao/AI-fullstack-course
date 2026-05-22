@@ -3,9 +3,6 @@ title: "A.5 硬件与云资源指南"
 sidebar:
   order: 2
 ---
-
-# A.5 硬件与云资源指南
-
 ![硬件与云资源决策树](/img/course/appendix-hardware-cloud-decision-tree.webp)
 
 ![本地、云端与 API 成本对比图](/img/course/appendix-hardware-local-cloud-api-cost-map.webp)

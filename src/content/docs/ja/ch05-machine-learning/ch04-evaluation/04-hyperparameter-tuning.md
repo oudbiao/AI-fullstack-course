@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ハイパーパラメータ調整, GridSearchCV, RandomizedSearchCV, 探索空間, holdout, クロスバリデーション, ランダムフォレスト"
 ---
-
-# 5.4.5 ハイパーパラメータチューニング
-
 ![ハイパーパラメータ探索手法の比較図](/img/course/hyperparameter-tuning-search-ja.webp)
 
 :::tip[この節の概要]

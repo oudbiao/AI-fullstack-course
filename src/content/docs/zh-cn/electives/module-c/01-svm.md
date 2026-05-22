@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "SVM, support vector machine, max margin, kernel, classification, classic ML"
 ---
-
-# E.C.1 支持向量机
-
 ![SVM 最大间隔与支持向量图](/img/course/elective-svm-margin-support-vectors.webp)
 
 ![SVM 参数 C 与 kernel 选择图](/img/course/elective-svm-c-kernel-decision-map.webp)

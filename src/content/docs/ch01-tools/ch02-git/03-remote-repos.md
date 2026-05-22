@@ -4,9 +4,6 @@ description: "Push code to GitHub and learn remote collaboration"
 sidebar:
   order: 3
 ---
-
-# 1.2.3 Remote Repositories
-
 ![Git local-remote sync diagram](/img/course/ch01-git-remote-sync-en.webp)
 
 ## Where this lesson fits

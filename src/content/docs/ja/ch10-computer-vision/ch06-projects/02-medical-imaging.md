@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "medical imaging, segmentation, sensitivity, risk, annotation, project"
 ---
-
-# 10.6.3 プロジェクト：医用画像解析【選択】
-
 :::tip[この節の位置づけ]
 医用画像プロジェクトと普通の画像プロジェクトの大きな違いは、モデルの名前が変わることではなく、次の点にあります。
 

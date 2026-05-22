@@ -4,9 +4,6 @@ description: "掌握核心命令、路径概念、管道与环境变量"
 sidebar:
   order: 2
 ---
-
-# 1.1.2 终端基础操作
-
 ![终端路径与命令执行关系图](/img/course/ch01-terminal-path-command-map.webp)
 
 ## 本节定位

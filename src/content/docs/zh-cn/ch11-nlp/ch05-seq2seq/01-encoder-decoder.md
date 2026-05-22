@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "seq2seq, encoder decoder, translation, summarization, text generation"
 ---
-
-# 11.5.2 Seq2Seq 模型
-
 ![Seq2Seq 编码器解码器瓶颈图](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map.webp)
 
 :::tip[读图提示]

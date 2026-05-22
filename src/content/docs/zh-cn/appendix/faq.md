@@ -3,9 +3,6 @@ title: "A.6 常见问题"
 sidebar:
   order: 3
 ---
-
-# A.6 常见问题
-
 ![FAQ 新人问题决策树](/img/course/appendix-faq-decision-tree.webp)
 
 ![FAQ 焦虑重置与行动映射图](/img/course/appendix-faq-confidence-reset-map.webp)

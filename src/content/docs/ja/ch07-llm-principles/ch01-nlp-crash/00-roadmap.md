@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP 速習, tokenizer, embedding, pretrained model, Hugging Face"
 ---
-
-# 7.1.1 NLP 速習ロードマップ：テキストから token、ベクトルへ
-
 LLM を理解しやすくするには、まずテキストがモデルの処理できる形へ変わる流れを見ます。text -> tokens -> IDs -> vectors -> model output です。
 
 ## まず流れを見る

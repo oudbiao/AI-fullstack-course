@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG, retrieval augmented generation, retrieval-augmented generation, chunk, retrieval"
 ---
-
-# 8.1.2 RAG Basics
-
 ![RAG document-to-answer loop](/img/course/rag-document-answer-loop-en.webp)
 
 :::tip[Section focus]

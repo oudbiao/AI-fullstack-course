@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory systems overview, Agent memory, short-term memory, long-term memory, episodic memory"
 ---
-
-# 9.4.1 Memory Roadmap: Write, Retrieve, Forget
-
 Memory is not there to make an Agent feel human. It should help the task: reduce repeated questions, preserve useful context, reuse experience, and avoid stale or private information leaks.
 
 ## See the Memory Loop First

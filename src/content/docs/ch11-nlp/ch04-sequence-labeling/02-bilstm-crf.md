@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "BiLSTM, CRF, sequence labeling, NER, named entity recognition"
 ---
-
-# 11.4.4 BiLSTM + CRF
-
 ![BiLSTM CRF label path decoding diagram](/img/course/ch11-bilstm-crf-label-path-map-en.webp)
 
 :::tip[Reading guide]

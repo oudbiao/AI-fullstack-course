@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI math study guide, AI math task sheet, linear algebra, probability and statistics, gradient descent"
 ---
-
-# 4.0 Study Guide and Task Sheet: AI Math Foundations
-
 ![Minimum closed loop for AI math study guide](/img/course/ch04-study-guide-math-minimum-loop-en.webp)
 
 The main study route is now in [Chapter 4 entry](./). Use this page only as a quick checklist while you practice.

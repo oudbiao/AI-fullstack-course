@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Dataset, DataLoader, batch, shuffle, random_split, PyTorch"
 ---
-
-# 6.2.6 Data Loading
-
 :::tip[Section Overview]
 The model is ready, but it should not receive one giant pile of data. `Dataset` defines one sample, and `DataLoader` turns samples into shuffled mini-batches for the training loop.
 :::

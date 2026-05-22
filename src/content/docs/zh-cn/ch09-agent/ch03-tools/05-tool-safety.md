@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool safety, error handling, validation, timeout, idempotency, audit, permissions"
 ---
-
-# 9.3.6 工具安全与错误处理
-
 :::tip[本节定位]
 工具让 Agent 从“会说”变成“会做”，
 但一旦开始“会做”，风险就立刻升级。

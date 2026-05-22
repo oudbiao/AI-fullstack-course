@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multimodal app, OCR, screenshot assistant, image-text product, workflow"
 ---
-
-# 12.1.4 Multimodal Application Development
-
 ![Multimodal application engineering pipeline diagram](/img/course/ch12-multimodal-app-engineering-loop-en.webp)
 
 :::tip[Reading Guide]

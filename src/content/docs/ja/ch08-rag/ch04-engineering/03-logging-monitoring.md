@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "logging, monitoring, tracing, metrics, observability, LLM ops"
 ---
-
-# 8.4.4 ログと監視
-
 :::tip[この節の位置づけ]
 多くの LLM アプリはローカルのデモではうまく動きますが、本番に出すとすぐにひとつの問題が見えてきます。
 

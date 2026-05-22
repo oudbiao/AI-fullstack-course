@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "frontend, HTML, CSS, JavaScript, fetch, UI, AI product"
 ---
-
-# E.E Web 前端快速入门
-
 AI 功能需要用户能操作的界面。最小可用前端要清楚展示输入、加载、成功、空输入、错误和重试状态。
 
 ## 先看交互栈

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "機械学習, 教師あり学習, 教師なし学習, 強化学習, AI, ワークフロー"
 ---
-
-# 5.1.2 機械学習とは何か
-
 ![機械学習モデリングの閉ループ図](/img/course/ml-modeling-loop-ja.webp)
 
 ## 残す証拠

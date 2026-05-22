@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LlamaIndex, documents, nodes, index, retriever, query engine, RAG"
 ---
-
-# 9.6.4 LlamaIndex
-
 :::tip[この節の位置づけ]
 LangGraph が「状態の流れとワークフローのオーケストレーションのフレームワーク」に近いとしたら、LlamaIndex はもっと次のようなものに近いです：
 

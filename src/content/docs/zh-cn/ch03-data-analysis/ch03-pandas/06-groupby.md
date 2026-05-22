@@ -4,9 +4,6 @@ description: "掌握 groupby 分组聚合、透视表等核心操作"
 sidebar:
   order: 14
 ---
-
-# 3.3.7 分组与聚合
-
 ![Pandas GroupBy 分组聚合流程图](/img/course/ch03-pandas-groupby-split-apply-combine.webp)
 
 :::tip[本节定位]

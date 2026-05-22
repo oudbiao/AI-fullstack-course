@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "EDA, Exploratory Data Analysis, Pandas, Matplotlib, Seaborn, data visualization, data cleaning"
 ---
-
-# 3.6.1 Hands-on Project: Exploratory Data Analysis (EDA)
-
 ![EDA exploratory data analysis workflow](/img/course/eda-analysis-workflow-en.webp)
 
 :::tip[Project focus]

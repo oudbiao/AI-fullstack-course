@@ -4,9 +4,6 @@ description: "用 Python 连接数据库，安全执行 CRUD，并在 SQL 与 Pa
 sidebar:
   order: 23
 ---
-
-# 3.5.4 Python 数据库操作
-
 ![Python 与数据库协作桥梁图](/img/course/ch03-python-database-bridge.webp)
 
 :::tip[本节定位]

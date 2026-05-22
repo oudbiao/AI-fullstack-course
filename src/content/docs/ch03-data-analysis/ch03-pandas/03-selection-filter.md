@@ -4,9 +4,6 @@ description: "Master data filtering methods such as loc, iloc, boolean indexing,
 sidebar:
   order: 11
 ---
-
-# 3.3.4 Data Selection and Filtering
-
 :::tip[Where this section fits]
 When many beginners first learn `Pandas`, what usually blocks them is not cleaning, but:
 

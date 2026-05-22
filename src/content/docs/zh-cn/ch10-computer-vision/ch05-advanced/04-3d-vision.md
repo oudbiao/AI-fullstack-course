@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "3D vision, depth, point cloud, stereo, camera geometry"
 ---
-
-# 10.5.5 3D 视觉入门【选修】
-
 :::tip[本节定位]
 2D 视觉主要在平面图像里理解内容。
 3D 视觉再往前走一步：

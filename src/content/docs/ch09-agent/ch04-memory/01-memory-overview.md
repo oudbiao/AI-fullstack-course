@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory, Agent memory, short-term memory, long-term memory, episodic memory, procedural memory"
 ---
-
-# 9.4.2 Memory System Overview
-
 ![Agent memory system layering diagram](/img/course/agent-memory-system-en.webp)
 
 :::tip[Section Overview]

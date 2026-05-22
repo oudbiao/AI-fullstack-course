@@ -1,5 +1,5 @@
 ---
-title: "5.6.3 プロジェクト：顧客離脱予測"
+title: "5.6.3 プロジェクト2：顧客離脱予測（分類問題）"
 description: "分類プロジェクトの実践演習：不均衡データの処理、SMOTE、特徴量重要度の分析、ビジネス洞察"
 sidebar:
   order: 20
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "顧客離脱, 分類, 不均衡データ, SMOTE, 特徴量重要度, ビジネス洞察"
 ---
-
-# 5.6.3 プロジェクト2：顧客離脱予測（分類問題）
-
 ![顧客離脱予測プロジェクトのフローチャート](/img/course/customer-churn-project-flow-ja.webp)
 
 :::tip[プロジェクトの位置づけ]

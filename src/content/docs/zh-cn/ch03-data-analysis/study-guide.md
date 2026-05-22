@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "数据分析学习指南, 数据分析任务单, NumPy, Pandas, 可视化"
 ---
-
-# 3.0 学习指南与任务单：数据分析与可视化
-
 ![数据分析学习指南最小闭环](/img/course/ch03-study-guide-data-loop-vertical.webp)
 
 主要学习路线已经放在 [第 3 章入口](./)。本页只作为练习时快速查看的清单。

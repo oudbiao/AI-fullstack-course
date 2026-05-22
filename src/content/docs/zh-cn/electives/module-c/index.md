@@ -4,9 +4,6 @@ description: "经典机器学习补充模块的简明实操路线图：SVM、KNN
 sidebar:
   order: 0
 ---
-
-# E.C 经典机器学习路线图
-
 当数据量不大、特征清楚，或者你需要在重模型之前先做强 baseline 时，再回来学这个模块。
 
 ## 先看 baseline 地图

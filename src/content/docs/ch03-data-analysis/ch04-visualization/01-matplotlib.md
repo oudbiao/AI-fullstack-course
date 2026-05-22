@@ -4,9 +4,6 @@ description: "Master Python’s most essential plotting library and learn to tel
 sidebar:
   order: 17
 ---
-
-# 3.4.2 Matplotlib Basics
-
 ![Matplotlib Figure and Axes structure diagram](/img/course/matplotlib-figure-axes-en.webp)
 
 :::tip[Section focus]

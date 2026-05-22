@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "naive bayes, multinomial nb, text classification, probability, smoothing"
 ---
-
-# E.C.3 朴素贝叶斯
-
 ![朴素贝叶斯证据累积图](/img/course/elective-naive-bayes-evidence.webp)
 
 朴素贝叶斯会比较“哪个类别更可能生成这些证据”。在文本任务里，词频常常已经足够构建一个便宜又有用的 baseline。

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image classification, CNN, PyTorch, train loop, validation, synthetic dataset"
 ---
-
-# 6.3.6 CNN Practice: Image Classification
-
 :::tip[Section Overview]
 This is the “put it all together” lesson. You will create a small image dataset, train a CNN, validate it, inspect predictions, and decide what to try next.
 :::

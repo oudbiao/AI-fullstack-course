@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "computer vision workshop, OpenCV, synthetic dataset, classification, detection, segmentation, IoU, failure analysis"
 ---
-
-# 10.6.4 实操：构建一个可复现的视觉迷你流水线
-
 这一节把第 10 章变成一个可以跟着操作的项目。你不需要下载数据集，也不需要调用云端模型。一个 Python 脚本会自己生成小型图像数据集，然后跑完整视觉流程：
 
 ![视觉工作坊端到端流水线图](/img/course/ch10-workshop-vision-pipeline-map.webp)

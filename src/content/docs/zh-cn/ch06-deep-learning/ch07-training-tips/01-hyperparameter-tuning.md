@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "hyperparameter tuning, learning rate, batch size, regularization, experiment tracking"
 ---
-
-# 6.7.2 超参数调优策略
-
 :::tip[本节定位]
 超参数调优本质上是实验设计。一次改一个重要变量，记录结果，比较验证集证据，再决定下一步。
 :::

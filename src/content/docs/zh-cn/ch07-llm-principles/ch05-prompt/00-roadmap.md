@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Prompt 指南, Prompt 工程, 结构化输出, Prompt 评测"
 ---
-
-# 7.5.1 Prompt 工程路线图：任务简报、输出、评测
-
 Prompt 工程是应用和模型之间的接口。目标不是写一句聪明的话，而是让一次模型调用变得可预测、可解析、可测试、可持续改进。
 
 ## 先看 Prompt 闭环

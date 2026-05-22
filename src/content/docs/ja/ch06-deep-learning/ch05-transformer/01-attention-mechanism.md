@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask"
 ---
-
-# 6.5.2 Attention 機構
-
 :::tip[この節の位置づけ]
 RNN は情報を一歩ずつ渡します。Attention は、1 つの token が他の token を直接見て、どれが重要かを判断できるようにします。これが Transformer の中心的な転換です。
 :::

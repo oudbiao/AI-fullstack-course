@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "elective module, hands-on workshop, deployment, advanced Python, classic ML, AI safety, frontend, product design"
 ---
-
-# E.0 Elective Hands-on Workshop
-
 ![Elective module hands-on route map](/img/course/elective-workshop-route-map-en.webp)
 
 This workshop is the shortest way to feel what the electives are for. You will run one Python script and inspect the evidence files it creates.

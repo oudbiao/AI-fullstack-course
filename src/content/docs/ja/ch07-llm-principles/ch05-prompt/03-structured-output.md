@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "structured output, JSON, schema, validation, prompt engineering, LLM"
 ---
-
-# 7.5.4 構造化出力
-
 :::tip[この節の位置づけ]
 多くの人は、初めて大規模モデルを使うとき、まず自然言語で答えを返してもらうことを考えます。
 しかし、モデルをプログラムのシステムに組み込もうとすると、すぐに現実的な問題にぶつかります。

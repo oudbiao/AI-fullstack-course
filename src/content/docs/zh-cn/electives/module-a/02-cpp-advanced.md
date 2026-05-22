@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "C++, RAII, 智能指针, virtual, move semantics, threading, deployment"
 ---
-
-# E.A.2 C++ 进阶
-
 ![C++ RAII 与所有权地图](/img/course/elective-cpp-raii-ownership-map.webp)
 
 部署里的 C++ 进阶问题，核心通常只有一句：谁拥有资源，资源什么时候释放？

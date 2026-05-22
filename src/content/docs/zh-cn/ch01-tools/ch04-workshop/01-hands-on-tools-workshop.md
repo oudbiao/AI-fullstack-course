@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "开发者工具工作坊, 终端, Git, Python 环境, VS Code, Jupyter, 可复现项目"
 ---
-
-# 1.4.1 跟做工作坊：构建可复现的 AI 学习工作台
-
 ![第 1 章实操工作台路线图](/img/course/ch01-hands-on-workstation-route.webp)
 
 :::tip[工作坊目标]

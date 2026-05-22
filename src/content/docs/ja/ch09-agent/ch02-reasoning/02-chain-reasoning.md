@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "chain of thought, CoT, reasoning trace, scratchpad, decomposition"
 ---
-
-# 9.2.3 チェーン推論戦略
-
 :::tip[この節の位置づけ]
 前の節を一言でまとめると、次のようになります。
 

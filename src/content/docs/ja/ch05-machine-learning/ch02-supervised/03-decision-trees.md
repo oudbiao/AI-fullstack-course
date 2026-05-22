@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "決定木, Gini, エントロピー, 枝刈り, ccp_alpha, CART, 特徴量重要度, 回帰木"
 ---
-
-# 5.2.4 決定木
-
 ![決定木の分岐パス図](/img/course/decision-tree-split-path-ja.webp)
 
 :::tip[この節の概要]

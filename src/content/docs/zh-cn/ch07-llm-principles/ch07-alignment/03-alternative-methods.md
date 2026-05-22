@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "DPO, ORPO, IPO, RLAIF, constitutional AI, alignment"
 ---
-
-# 7.7.4 替代对齐方法
-
 :::tip[本节定位]
 RLHF 很重要，但它不是唯一答案。
 

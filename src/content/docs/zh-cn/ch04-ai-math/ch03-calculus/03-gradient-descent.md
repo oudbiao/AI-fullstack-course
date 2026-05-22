@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "梯度下降, 学习率, SGD, 优化算法, 线性回归, AI数学"
 ---
-
-# 4.3.4 梯度下降：AI 最核心的优化算法
-
 ![梯度下降路径图](/img/course/gradient-descent-path.webp)
 
 :::tip[本节是整个数学阶段的高潮]

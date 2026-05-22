@@ -1,5 +1,5 @@
 ---
-title: "7.6.2 微調の概要"
+title: "7.6.2 微調整の概要"
 description: "なぜ常に微調整すべきではないのか、どんなときに微調整が向いているのか、そしてフル微調整と PEFT の違いまで、微調整のための最初の実践的な判断軸を身につけます。"
 sidebar:
   order: 19
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "finetuning, PEFT, full finetune, task adaptation, model customization"
 ---
-
-# 7.6.2 微調整の概要
-
 ![微調整とアラインメントの全体フロー図](/img/course/finetuning-alignment-pipeline-ja.webp)
 
 :::tip[この節の位置づけ]

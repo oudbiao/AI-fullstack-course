@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "数据分析实操, Python CSV, SQLite, 数据清洗, 可复现分析, 可视化"
 ---
-
-# 3.6.3 跟做工作坊：搭建可复现的数据分析流水线
-
 ![跟做式数据工作坊路线图](/img/course/ch03-hands-on-data-workshop-route.webp)
 
 :::tip[工作坊目标]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "domain finetuning, SFT, baseline, evaluation, vertical assistant, project"
 ---
-
-# 7.8.2 プロジェクト：垂直領域のファインチューニング
-
 :::tip[この節の位置づけ]
 垂直領域のファインチューニング・プロジェクトは、いちばん「一言で終わる説明」になりがちです。
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent evaluation, task success, tool evaluation, human review, replay"
 ---
-
-# 9.8.2 Agent 评估方法
-
 :::tip[本节定位]
 Agent 评估不能只看最终回答像不像。Agent 是一个会规划、调用工具、改变状态的系统，所以评估必须同时看结果、过程、安全和成本。
 :::

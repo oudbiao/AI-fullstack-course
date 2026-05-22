@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "OCR, text detection, text recognition, document AI, layout analysis"
 ---
-
-# 10.5.4 OCR 文字認識【選択】
-
 ![OCR レイアウト解析と文字認識のフローチャート](/img/course/ocr-layout-recognition-pipeline-ja.webp)
 
 :::tip[この節の位置づけ]

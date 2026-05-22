@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Python入门, Python基础, Python教程, 编程入门, AI API"
 ---
-
-# 2 Python 编程基础
-
 ![Python 编程基础主视觉](/img/course/ch02-python-foundation.webp)
 
 第 2 章只解决一件事：把一个小想法写成**能运行、能保存数据、能处理错误、能讲清楚的 Python 程序**。

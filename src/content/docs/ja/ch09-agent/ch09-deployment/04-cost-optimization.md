@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "cost optimization, token cost, model routing, caching, retries, tool cost, deployment"
 ---
-
-# 9.9.5 コスト最適化
-
 :::tip[この節の位置づけ]
 Agent システムのコストは、単に「1回呼び出すといくらか」だけではありません。  
 実際に請求額へ大きく影響するのは、たいてい処理全体です。

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "enterprise knowledge base, RAG project, retrieval, metadata, source citation, permissions"
 ---
-
-# 8.5.2 项目：企业知识库问答
-
 :::tip[本节定位]
 企业知识库问答之所以适合作为作品集项目，不是因为它名字高级，而是因为它非常真实：
 

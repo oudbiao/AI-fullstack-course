@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-source data, data integration, Pandas, data analysis, pivot analysis, visual dashboard"
 ---
-
-# 3.6.2 Hands-on Project: Multi-Source Data Integration Analysis
-
 ![Multi-source data integration analysis architecture diagram](/img/course/ch03-multi-source-analysis-architecture-en.webp)
 
 :::tip[Project Positioning]

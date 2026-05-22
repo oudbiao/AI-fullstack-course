@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "seq2seq, encoder decoder, translation, summarization, text generation"
 ---
-
-# 11.5.2 Seq2Seq モデル
-
 ![Seq2Seq エンコーダー・デコーダーのボトルネック図](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map-ja.webp)
 
 :::tip[図の読み方]

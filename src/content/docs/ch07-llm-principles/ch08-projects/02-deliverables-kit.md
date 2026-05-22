@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM project deliverables, README template, evaluation record, failure notes, portfolio"
 ---
-
-# 7.8.3 Project: Deliverables Kit
-
 The last step in an LLM project is not just “it runs.”
 
 It is:

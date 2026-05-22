@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project"
 ---
-
-# 11.7.2 项目：智能问答系统
-
 ![问答系统检索回答评估闭环图](/img/course/ch11-qa-retrieval-answer-evaluation-map.webp)
 
 :::tip[读图提示]

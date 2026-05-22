@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "neuron, perceptron, activation function, ReLU, Sigmoid, Tanh, MLP, PyTorch, XOR"
 ---
-
-# 6.1.3 From Neurons to Multilayer Perceptrons
-
 ![Diagram from neurons to MLP](/img/course/mlp-neuron-activation-en.webp)
 
 :::tip[Section Overview]

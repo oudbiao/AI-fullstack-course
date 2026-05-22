@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "导数, 微积分, 变化率, 切线斜率, Python, AI数学"
 ---
-
-# 4.3.2 导数：变化率的直觉
-
 ![导数切线斜率示意图](/img/course/derivative-tangent-slope.webp)
 
 :::tip[不需要你背公式]

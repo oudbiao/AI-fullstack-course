@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "图像, 像素, RGB, HSV, 通道, 图像格式, 计算机视觉"
 ---
-
-# 10.1.2 数字图像基础
-
 ![像素网格与 RGB 通道图](/img/course/cv-pixel-rgb-grid.webp)
 
 ## 学习目标

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image generation guide, diffusion model, Stable Diffusion, ControlNet, LoRA"
 ---
-
-# 12.2.1 Image Generation Roadmap: Prompt, Control, Review
-
 Image generation is a workflow, not a single prompt. A useful result needs intent, prompt records, parameters, optional controls, candidate comparison, and review.
 
 ## See the Pipeline First

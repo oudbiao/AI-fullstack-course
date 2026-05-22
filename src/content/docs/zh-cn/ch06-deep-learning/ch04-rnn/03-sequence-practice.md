@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sequence modeling, time series, RNN, LSTM, sliding window, forecast"
 ---
-
-# 6.4.4 序列建模实战
-
 :::tip[本节定位]
 这一节把序列建模变成一个小项目：把连续序列切成滑动窗口样本，训练 LSTM，对比 naive baseline，并检查验证集预测。
 :::

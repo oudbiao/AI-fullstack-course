@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "prompt engineering, few-shot, instruction design, prompt practice, output control"
 ---
-
-# 7.5.5 Prompt 工程实践
-
 :::tip[本节定位]
 前面几节已经讲了：
 

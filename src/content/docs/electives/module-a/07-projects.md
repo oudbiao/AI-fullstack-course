@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "deployment project, edge inference, model serving, optimization, portfolio project"
 ---
-
-# E.A.7 Deployment Integrated Project
-
 ![Deployment integrated project delivery loop](/img/course/elective-deployment-project-delivery-loop-en.webp)
 
 This project is not about training the biggest model. It is about proving that you can turn a model into a small, measurable, deployable system.

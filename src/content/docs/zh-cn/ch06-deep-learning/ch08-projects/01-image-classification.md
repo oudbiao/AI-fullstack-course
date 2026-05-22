@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image classification project, CNN, confusion matrix, error analysis, computer vision"
 ---
-
-# 6.8.2 项目：图像分类系统
-
 :::tip[本节定位]
 图像分类项目能进入作品集，不是因为模型名字高级，而是因为别人能看懂标签、跑通基线、检查指标，并看到失败案例。
 :::

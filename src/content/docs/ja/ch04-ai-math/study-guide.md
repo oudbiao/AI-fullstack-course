@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI数学学習ガイド, AI数学タスクリスト, 線形代数, 確率統計, 勾配降下"
 ---
-
-# 4.0 学習ガイドとタスクリスト：AI 数学基礎
-
 ![AI 数学学習ガイドの最小ループ](/img/course/ch04-study-guide-math-minimum-loop-ja.webp)
 
 主な学習ルートは [第 4 章の入口](./) にまとめました。このページは、練習中に見る短いチェックリストとして使います。

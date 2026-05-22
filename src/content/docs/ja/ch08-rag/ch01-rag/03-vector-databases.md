@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ベクトルデータベース, embedding, similarity search, metadata filter, RAG"
 ---
-
-# 8.1.4 ベクトルデータベース
-
 ![ベクトルデータベースの類似度検索図](/img/course/vector-database-similarity-search-ja.webp)
 
 ## 学習目標

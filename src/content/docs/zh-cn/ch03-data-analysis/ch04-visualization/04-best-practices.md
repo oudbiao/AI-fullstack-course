@@ -4,9 +4,6 @@ description: "学会选图、配色、避坑，让你的图表专业又清晰"
 sidebar:
   order: 20
 ---
-
-# 3.4.5 可视化最佳实践
-
 ![图表选择决策树](/img/course/chart-selection-decision-tree.webp)
 
 :::tip[本节定位]

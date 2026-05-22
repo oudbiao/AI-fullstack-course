@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "object detection, bounding box, detection, localization, computer vision"
 ---
-
-# 10.3.2 物体検出の概要
-
 ![物体検出出力の分解図](/img/course/object-detection-output-ja.webp)
 
 :::tip[本節の位置づけ]

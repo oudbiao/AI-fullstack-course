@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI Agent, エージェント, Function Calling, ReAct, MCP, Multi-Agent, ツール呼び出し"
 ---
-
-# 9 AI Agent とエージェントシステム
-
 ![AI Agent システムメインビジュアル](/img/course/ch09-agent-systems-ja.webp)
 
 第 8 章では、モデルが文書に基づいて答えられるようにしました。第 9 章では、システムが**目標に向かって行動する**ようにします。次の手を計画し、ツールを呼び、観察を読み、方針を調整し、安全に止まり、人がレビューできる trace を残します。

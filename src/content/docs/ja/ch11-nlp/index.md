@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP, 自然言語処理, Transformer, BERT, 単語ベクトル, テキスト分類, HuggingFace"
 ---
-
-# 11 NLP 専門：LLM 後のテキストタスク
-
 ![自然言語処理メインビジュアル](/img/course/ch11-nlp-ja.webp)
 
 この専門章は、LLM、RAG、Agent のメインルートの後に置きます。第 7 章ですでに最小限の NLP クラッシュコースを扱っています。第 11 章は、実プロダクトでより明確なラベル、安定した抽出、信頼できる評価、または LLM だけでは支えきれないテキストパイプラインが必要になったときに戻ってくる場所です。

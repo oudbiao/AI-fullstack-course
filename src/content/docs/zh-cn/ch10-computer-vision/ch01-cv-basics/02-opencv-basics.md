@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "OpenCV, cv2, 图像读取, 图像缩放, 绘图, 颜色转换"
 ---
-
-# 10.1.3 OpenCV 基础操作
-
 ## 学习目标
 
 完成本节后，你将能够：

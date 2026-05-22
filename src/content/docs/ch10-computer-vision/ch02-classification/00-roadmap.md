@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image classification guide, data augmentation, ResNet, training techniques"
 ---
-
-# 10.2.1 Image Classification Roadmap: Image In, Label Out
-
 Image classification answers one question: given a whole image, which class best describes it?
 
 ## See the Classification Loop First

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "clustering, K-Means, DBSCAN, hierarchical clustering, elbow method, silhouette score, unsupervised learning"
 ---
-
-# 5.3.2 Clustering Algorithms
-
 ![K-Means clustering centroid iteration diagram](/img/course/clustering-kmeans-centroids-en.webp)
 
 :::tip[Section Overview]

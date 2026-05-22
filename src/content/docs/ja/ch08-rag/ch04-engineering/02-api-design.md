@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "API design, service design, idempotency, request schema, response schema, versioning"
 ---
-
-# 8.4.3 API 設計とサービス化
-
 :::tip[この節の位置づけ]
 LLM アプリを作るとき、多くの人はローカルスクリプトまでは書けても、サービス化の段階で急に混乱します。  
 本当に大事なのは「インターフェースを書けるか」ではなく、次の点です。

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "model serving, batching, request queue, version routing, health check, deployment"
 ---
-
-# E.A.6 Model Serving
-
 ![Model serving architecture](/img/course/elective-model-serving-architecture-en.webp)
 
 ![Model serving metrics and version routing diagram](/img/course/elective-serving-metrics-version-routing-map-en.webp)

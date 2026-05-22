@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "バイアス, バリアンス, アンダーフィット, オーバーフィット, 学習曲線, 検証曲線, モデル複雑度"
 ---
-
-# 5.4.4 バイアス・バリアンスのトレードオフ
-
 ![偏差方差トレードオフ三連図](/img/course/bias-variance-tradeoff-ja.webp)
 
 :::tip[この節の概要]

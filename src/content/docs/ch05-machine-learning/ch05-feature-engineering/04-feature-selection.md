@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "feature selection, filter methods, wrapper methods, embedded methods, SelectKBest, RFE, Pipeline, overfitting"
 ---
-
-# 5.5.5 Feature Selection
-
 ![Feature selection method comparison](/img/course/feature-selection-methods-en.webp)
 
 :::tip[This Section's Focus]

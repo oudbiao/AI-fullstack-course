@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG optimization, chunking, top-k, rerank, prompt, context packing"
 ---
-
-# 8.1.6 RAG 优化
-
 ## 学习目标
 
 完成本节后，你将能够：

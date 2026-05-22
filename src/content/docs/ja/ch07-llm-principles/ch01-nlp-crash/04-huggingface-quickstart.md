@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Hugging Face, transformers, tokenizer, model, config, forward, batch, logits"
 ---
-
-# 7.1.5 Hugging Face クイックスタート
-
 ![Hugging Face ワークフローのオブジェクト図](/img/course/ch07-huggingface-workflow-object-map-ja.webp)
 
 :::tip[中心の流れ]

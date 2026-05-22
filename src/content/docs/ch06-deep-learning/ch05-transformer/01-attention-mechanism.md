@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask"
 ---
-
-# 6.5.2 Attention Mechanism
-
 :::tip[Section Overview]
 RNNs pass information step by step. Attention lets one token look directly at other tokens and decide which ones matter. This is the core shift behind Transformers.
 :::

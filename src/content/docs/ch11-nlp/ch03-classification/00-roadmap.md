@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text classification guide, sentiment analysis, TF-IDF, text classification project"
 ---
-
-# 11.3.1 Text Classification Roadmap: Text In, Label Out
-
 Text classification takes one piece of text and predicts one label, such as sentiment, topic, intent, or risk type.
 
 ## See the Classification Pipeline First

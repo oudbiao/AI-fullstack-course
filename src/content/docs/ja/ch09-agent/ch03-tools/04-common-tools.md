@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool integration, search, calculator, database, filesystem, browser, Agent"
 ---
-
-# 9.3.5 よく使うツールの統合
-
 :::tip[この節の位置づけ]
 ツール層を説明するとき、抽象的な schema だけにとどまると、どうしても実感がわきにくいです。  
 この節では少し視点を近づけて、次の点を直接見ていきます。

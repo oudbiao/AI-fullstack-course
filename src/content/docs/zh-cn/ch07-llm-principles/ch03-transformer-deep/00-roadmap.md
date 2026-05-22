@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer 深入, decoder block, efficient attention, KV cache, model variants"
 ---
-
-# 7.3.1 Transformer 深入路线图：Block、Mask、成本
-
 本小章往 Transformer 内部看一层，帮助你调试 LLM 行为，并理解上下文长度、attention、KV cache 和模型变体为什么重要。
 
 ## 先看内部流

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "video generation, temporal consistency, motion modeling, video diffusion, frame coherence"
 ---
-
-# 12.3.2 ビデオ生成技術
-
 ![動画と音声生成のパイプライン図](/img/course/video-audio-generation-pipeline-ja.webp)
 
 :::tip[この節の位置づけ]

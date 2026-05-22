@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "異常検知, 外れ値検知, Isolation Forest, LOF, contamination, アラートしきい値, 教師なし学習"
 ---
-
-# 5.3.4 異常検知
-
 ![異常検知の外れ値イメージ図](/img/course/anomaly-detection-outliers-ja.webp)
 
 :::tip[この節の概要]

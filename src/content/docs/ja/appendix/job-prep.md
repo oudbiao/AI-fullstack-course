@@ -3,9 +3,6 @@ title: "A.10 就職準備チェックリスト"
 sidebar:
   order: 7
 ---
-
-# A.10 就職準備チェックリスト
-
 ![就職準備ファネル図](/img/course/appendix-job-prep-funnel-ja.webp)
 
 ![AI ポートフォリオのストーリーマップ](/img/course/appendix-job-portfolio-storyline-map-ja.webp)

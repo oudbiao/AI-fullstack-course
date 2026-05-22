@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM engineering guide, asynchronous programming, API design, logging and monitoring, Docker"
 ---
-
-# 8.4.1 Engineering Roadmap: Async, API, Logs, Deploy
-
 Engineering turns a working LLM demo into software that can be deployed, debugged, measured, and maintained after prompts, models, documents, and users change.
 
 ## See the LLMOps Loop First

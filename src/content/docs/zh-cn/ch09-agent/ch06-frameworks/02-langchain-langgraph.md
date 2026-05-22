@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LangChain, LangGraph, chain, graph, stateful workflow, agent framework"
 ---
-
-# 9.6.3 LangChain / LangGraph
-
 :::tip[本节定位]
 很多人第一次接触 Agent 框架时，会把 LangChain 和 LangGraph 混在一起。
 但从工程视角看，它们解决的重心并不完全一样：

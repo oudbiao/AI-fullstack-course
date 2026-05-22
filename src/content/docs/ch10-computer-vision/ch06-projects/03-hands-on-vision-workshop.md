@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "computer vision workshop, OpenCV, synthetic dataset, classification, detection, segmentation, IoU, failure analysis"
 ---
-
-# 10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline
-
 This workshop turns Chapter 10 into a follow-along project. You will not download a dataset or call a cloud model. Instead, one Python script will create a small synthetic image dataset and then run a complete vision loop:
 
 ![Vision workshop end-to-end pipeline](/img/course/ch10-workshop-vision-pipeline-map-en.webp)

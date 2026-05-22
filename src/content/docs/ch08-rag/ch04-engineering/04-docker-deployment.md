@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Docker, containerization, deployment, Dockerfile, Compose, service deployment"
 ---
-
-# 8.4.5 Containerization and Deployment
-
 :::tip[Where This Section Fits]
 Many projects get stuck here:
 

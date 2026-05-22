@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch, tensor, shape, dtype, device, broadcasting, logits"
 ---
-
-# 6.2.3 PyTorch Basics
-
 :::tip[Section Overview]
 This page is not an API catalog. The goal is to build the reflex you need before every PyTorch model: **read shape, dtype, device, and operation meaning before you train.**
 :::

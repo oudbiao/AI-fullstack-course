@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent history, workflow, AutoGPT, tool use, LLM agent"
 ---
-
-# 9.1.3 Agent Development History
-
 ## Learning Objectives
 
 After completing this section, you will be able to:

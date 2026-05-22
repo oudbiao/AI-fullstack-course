@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "BERT, MLM, 双向编码器, 预训练, Transformer Encoder, NLP"
 ---
-
-# 11.6.3 BERT 系列
-
 ![BERT Masked Language Model 图](/img/course/bert-masked-language-model.webp)
 
 :::tip[本节定位]

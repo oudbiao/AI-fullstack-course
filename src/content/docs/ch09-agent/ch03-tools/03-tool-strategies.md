@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool strategy, Agent, routing, retry, fallback, verification, tool policy"
 ---
-
-# 9.3.4 Tool Calling Strategies
-
 ![Tool calling strategy routing map](/img/course/ch09-tool-strategy-routing-map-en.webp)
 
 :::tip[Section Overview]

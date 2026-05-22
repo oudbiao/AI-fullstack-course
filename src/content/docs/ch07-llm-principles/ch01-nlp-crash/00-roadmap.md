@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP crash course, tokenizer, embedding, pretrained model, Hugging Face"
 ---
-
-# 7.1.1 NLP Crash Roadmap: Text to Tokens to Vectors
-
 Before LLMs feel understandable, first see how text becomes pieces a model can process: text -> tokens -> IDs -> vectors -> model output.
 
 ## Look at the Flow First

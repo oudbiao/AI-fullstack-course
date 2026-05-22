@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "developer tools workshop, terminal, Git, Python environment, VS Code, Jupyter, reproducible project"
 ---
-
-# 1.4.1 Follow-Along Workshop: Build a Reproducible AI Learning Lab
-
 ![Chapter 1 hands-on workstation route](/img/course/ch01-hands-on-workstation-route-en.webp)
 
 :::tip[Workshop goal]

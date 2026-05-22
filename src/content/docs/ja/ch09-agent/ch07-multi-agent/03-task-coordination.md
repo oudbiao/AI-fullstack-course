@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "task coordination, task assignment, multi-agent, scheduling, conflict resolution"
 ---
-
-# 9.7.4 タスク分配と協調
-
 :::tip[この節の位置づけ]
 前の節では通信について学び、「情報がどうやって伝わるか」を見ました。  
 この節で解決するのは、もう一つの、さらにやっかいな問題です。

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RLHF, reward model, preference data, PPO, alignment"
 ---
-
-# 7.7.3 RLHF の流れ
-
 ![RLHF 三段階の流れ図](/img/course/rlhf-three-stage-loop-ja.webp)
 
 :::tip[この節の位置づけ]

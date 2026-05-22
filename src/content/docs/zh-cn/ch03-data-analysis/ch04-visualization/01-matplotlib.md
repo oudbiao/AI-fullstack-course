@@ -4,9 +4,6 @@ description: "掌握 Python 最核心的绑图库，学会用代码讲故事"
 sidebar:
   order: 17
 ---
-
-# 3.4.2 Matplotlib 基础
-
 ![Matplotlib Figure 与 Axes 结构图](/img/course/matplotlib-figure-axes.webp)
 
 :::tip[本节定位]

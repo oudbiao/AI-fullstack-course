@@ -1,5 +1,5 @@
 ---
-title: "5.6.2 Project: House Price Prediction"
+title: "5.6.2 Project 1: House Price Prediction (Regression Problem)"
 description: "A complete hands-on regression project: EDA, feature engineering, multi-model comparison, model ensembling, and tuning"
 sidebar:
   order: 19
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "house price prediction, regression, EDA, feature engineering, XGBoost, model ensembling, Kaggle"
 ---
-
-# 5.6.2 Project 1: House Price Prediction (Regression Problem)
-
 ![House price prediction project flowchart](/img/course/house-price-project-flow-en.webp)
 
 :::tip[Project Positioning]

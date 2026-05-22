@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "数学から機械学習, 線形代数, 確率統計, 微積分, 勾配降下法, 機械学習の橋渡し"
 ---
-
-# 5.1.4 数学はいかにして機械学習へつながるのか
-
 ![数学から機械学習への橋渡し図](/img/course/math-to-ml-bridge-ja.webp)
 
 :::tip[この節の位置づけ]

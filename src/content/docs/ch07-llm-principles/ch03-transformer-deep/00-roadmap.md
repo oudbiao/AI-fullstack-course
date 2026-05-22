@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer deep dive, decoder block, efficient attention, KV cache, model variants"
 ---
-
-# 7.3.1 Transformer Deep Dive Roadmap: Blocks, Masks, Cost
-
 This chapter looks inside the Transformer enough to debug LLM behavior and understand why context length, attention, KV cache, and model variants matter.
 
 ## Look at the Internal Flow First

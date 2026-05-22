@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretraining engineering, sharding, streaming, checkpoint, resume, throughput, distributed training"
 ---
-
-# 7.4.4 Pretraining Engineering [Optional]
-
 :::tip[Section overview]
 If the previous two sections answered:
 

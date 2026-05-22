@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "feature construction, polynomial features, interaction features, time features, statistical features, feature engineering"
 ---
-
-# 5.5.4 Feature Construction
-
 ![Feature Construction Workshop Diagram](/img/course/feature-construction-workshop-en.webp)
 
 :::tip[Section Overview]

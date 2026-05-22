@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project"
 ---
-
-# 11.7.2 プロジェクト：スマートQAシステム
-
 ![問答システムの検索・回答・評価の閉ループ図](/img/course/ch11-qa-retrieval-answer-evaluation-map-ja.webp)
 
 :::tip[図の見方]

@@ -4,9 +4,6 @@ description: "用包管理器安装系统软件和开发工具"
 sidebar:
   order: 3
 ---
-
-# 1.1.3 包管理器
-
 ![包管理器安装依赖流程图](/img/course/ch01-package-manager-flow.webp)
 
 ## 本节定位

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "generative model guide, GAN, VAE, latent vector, deep learning"
 ---
-
-# 6.6.1 Generative Models Roadmap: Sample, Decode, Review
-
 Generative models create new samples instead of only predicting labels. The practical loop is: sample a latent code, decode it, review the output, and compare versions.
 
 ## Look at the Generation Flow First

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "交叉验证, K-Fold, StratifiedKFold, cross_validate, 数据泄漏, Pipeline, 模型评估"
 ---
-
-# 5.4.3 交叉验证
-
 ![K 折交叉验证切分图](/img/course/cross-validation-kfold.webp)
 
 :::tip[本节概览]

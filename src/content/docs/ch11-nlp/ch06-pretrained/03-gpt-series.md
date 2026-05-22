@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "GPT, autoregressive, causal language model, decoder-only, in-context learning, next token"
 ---
-
-# 11.6.4 GPT Series
-
 ![GPT autoregressive generation diagram](/img/course/gpt-autoregressive-generation-en.webp)
 
 :::tip[Where this section fits]

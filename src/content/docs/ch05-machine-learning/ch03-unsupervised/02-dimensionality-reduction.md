@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "dimensionality reduction, PCA, explained variance, t-SNE, UMAP, feature compression, visualization"
 ---
-
-# 5.3.3 Dimensionality Reduction
-
 ![PCA dimensionality reduction projection](/img/course/pca-dimensionality-reduction-en.webp)
 
 :::tip[Section Overview]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer 深掘り, decoder block, efficient attention, KV cache, model variants"
 ---
-
-# 7.3.1 Transformer 深掘りロードマップ：Block、Mask、コスト
-
 この章では Transformer の内部を少し深く見ます。LLM の挙動をデバッグし、context length、attention、KV cache、モデル変種がなぜ重要かを理解します。
 
 ## まず内部フローを見る

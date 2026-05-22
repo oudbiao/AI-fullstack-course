@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "deep text classification, embedding, pooling, neural classifier, NLP"
 ---
-
-# 11.3.3 深度学习文本分类
-
 ![神经文本分类结构图](/img/course/ch11-neural-classification-embedding-pooling-map.webp)
 
 :::tip[读图提示]

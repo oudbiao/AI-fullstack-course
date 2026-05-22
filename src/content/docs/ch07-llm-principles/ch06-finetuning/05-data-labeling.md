@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data labeling, data flywheel, annotation, agreement, hard example mining, finetuning"
 ---
-
-# 7.6.6 Data Labeling and the Data Flywheel
-
 :::tip[Section Overview]
 The upper limit of model performance is often determined not by training tricks, but by data.
 

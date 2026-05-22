@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "machine learning study guide, sklearn, machine learning project, baseline, feature engineering"
 ---
-
-# 5.0 Study Guide and Task Sheet: Machine Learning
-
 ![Machine learning study guide project loop](/img/course/ch05-study-guide-project-loop-en.webp)
 
 The main study route is now in [Chapter 5 entry](./). Use this page only as a quick checklist while you practice.

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM应用, RAG, Prompt Engineering, LangChain, 向量数据库, 大模型部署"
 ---
-
-# 8 LLM 应用开发与 RAG
-
 ![LLM 应用与 RAG 主视觉](/img/course/ch08-rag-engineering.webp)
 
 第 7 章讲清楚大模型怎样生成文本。第 8 章把模型接成真实应用：**连接文档、检索证据、带引用回答、记录失败，并用评估集持续改进。**

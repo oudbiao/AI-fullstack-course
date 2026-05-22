@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "code agent, coding agent, read edit run verify, sandbox, patch, tests"
 ---
-
-# 9.3.8 Code Generation and Execution Agent
-
 :::tip[Section Overview]
 When many people hear “code Agent,” their first reaction is:
 

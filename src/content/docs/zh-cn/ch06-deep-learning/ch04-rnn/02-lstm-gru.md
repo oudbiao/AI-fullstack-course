@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LSTM, GRU, 门控机制, cell state, update gate, forget gate"
 ---
-
-# 6.4.3 LSTM 与 GRU
-
 :::tip[本节定位]
 普通 RNN 有记忆，但这份记忆很容易被覆盖。LSTM 和 GRU 加入门控，让模型学习哪些该保留、哪些该忘掉、哪些该作为输出暴露出去。
 :::

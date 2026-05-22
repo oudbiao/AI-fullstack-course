@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool patterns, composite tools, caching, batching, retries, decorators, orchestration"
 ---
-
-# 9.3.7 高度なツールパターン【オプション】
-
 :::tip[この節の位置づけ]
 ツールが2つか3つしかないなら、  
 そのまま登録して振り分けるだけでも、たいていは十分です。

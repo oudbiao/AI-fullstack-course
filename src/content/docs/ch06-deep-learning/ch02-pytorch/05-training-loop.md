@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "training loop, optimizer, loss, model.train, model.eval, checkpoint, PyTorch"
 ---
-
-# 6.2.7 Training Loop
-
 :::tip[Section Overview]
 This is the PyTorch workflow page where the pieces become one loop: batch, forward, loss, clear gradients, backward, update, validate, keep the best model, and predict.
 :::

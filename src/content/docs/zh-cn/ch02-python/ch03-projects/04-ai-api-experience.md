@@ -4,9 +4,6 @@ description: "通过调用 AI API 体验人工智能的能力"
 sidebar:
   order: 4
 ---
-
-# 2.3.4 项目：AI API 快速体验
-
 ![AI API 请求响应链路图](/img/course/ch02-ai-api-request-response.webp)
 
 ## 项目定位

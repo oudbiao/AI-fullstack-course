@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "research assistant, citation, retrieval, summary, agent project, RAG"
 ---
-
-# 9.10.2 项目：智能研究助手
-
 :::tip[本节定位]
 研究助手项目很适合作为 Agent 作品集，不是因为它看起来高级，而是因为它天然要求系统同时做好：
 

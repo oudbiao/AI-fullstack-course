@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI 工程体验, AI 快速体验, Google Colab, 图像识别, 文本生成, AI 入门"
 ---
-
-# 0.1 30 分钟 AI 工程体验
-
 ![30 分钟 AI 快速体验闭环](/img/course/intro-quick-experience-loop.webp)
 
 **先感受闭环：**输入 -> 模型 -> 输出 -> 检查。现在不用背术语。

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "优化器, SGD, momentum, Adam, learning rate, PyTorch, 梯度下降"
 ---
-
-# 6.1.5 优化器
-
 ![优化器路径对比图](/img/course/optimizer-comparison.webp)
 
 :::tip[本节概览]

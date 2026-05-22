@@ -4,9 +4,6 @@ description: "Master Python's exception handling mechanism to make your programs
 sidebar:
   order: 2
 ---
-
-# 2.2.2 Exception Handling
-
 ![Exception handling flowchart](/img/course/ch02-exception-flow-en.webp)
 
 ## Where this section fits

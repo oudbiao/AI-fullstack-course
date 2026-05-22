@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "贝叶斯法则, 最大似然估计, EM算法, 香农信息论, AI数学历史"
 ---
-
-# 4.2.6 概率统计历史主线：Bayes、MLE、EM 与信息论
-
 ![概率统计历史基础地图](/img/course/ch04-probability-history-foundations-map.webp)
 
 :::tip[本节定位]

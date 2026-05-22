@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "causal language modeling, masked language modeling, span corruption, pretraining objectives, BERT, GPT, T5"
 ---
-
-# 7.4.3 事前学習方法
-
 :::tip[この節の位置づけ]
 事前学習方法は、本質的にはとても根本的な問いに答えるものです。
 

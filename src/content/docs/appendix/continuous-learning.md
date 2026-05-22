@@ -1,11 +1,8 @@
 ---
-title: "A.7 Continuous Learning Methodology"
+title: "A.7 Continuous Learning Methodology in AI"
 sidebar:
   order: 4
 ---
-
-# A.7 Continuous Learning Methodology in AI
-
 ![Three-layer continuous learning flywheel diagram](/img/course/appendix-continuous-learning-flywheel-en.webp)
 
 ![Paper, project, knowledge base review loop diagram](/img/course/appendix-learning-paper-project-notes-loop-en.webp)

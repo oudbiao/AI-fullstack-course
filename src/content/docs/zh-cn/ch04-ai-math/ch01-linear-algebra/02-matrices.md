@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "矩阵, 矩阵乘法, 转置, 逆矩阵, NumPy, 神经网络, 线性代数"
 ---
-
-# 4.1.3 矩阵：数据的批量变换
-
 ![矩阵线性变换网格图](/img/course/matrix-linear-transform-grid.webp)
 
 ## 学习目标

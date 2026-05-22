@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "scaling, parameters, flops, kv cache, context length, throughput, scaling laws"
 ---
-
-# 7.3.6 模型规模与计算
-
 :::tip[本节定位]
 很多人谈大模型时，最容易只盯一个数字：
 

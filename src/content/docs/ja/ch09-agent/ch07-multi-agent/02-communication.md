@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent communication, message passing, event bus, shared state, async, protocol"
 ---
-
-# 9.7.3 Agent 間通信
-
 :::tip[この節の位置づけ]
 前の節が「これらの Agent をどう分担させるか」に答えるものだとすれば、この節は次の問いに答えます。
 

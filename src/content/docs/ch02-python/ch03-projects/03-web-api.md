@@ -4,9 +4,6 @@ description: "Build your first Web API with FastAPI"
 sidebar:
   order: 3
 ---
-
-# 2.3.3 Project: Web API Development
-
 ![Web API request-response architecture diagram](/img/course/ch02-web-api-request-response-en.webp)
 
 ## Project Overview

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "instance segmentation, mask, object instance, vision"
 ---
-
-# 10.4.3 Instance Segmentation
-
 :::tip[Section focus]
 Semantic segmentation can already answer:
 

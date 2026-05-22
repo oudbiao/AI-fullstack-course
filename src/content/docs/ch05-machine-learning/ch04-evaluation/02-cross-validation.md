@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "cross-validation, K-Fold, StratifiedKFold, cross_validate, data leakage, Pipeline, model evaluation"
 ---
-
-# 5.4.3 Cross-Validation
-
 ![K-Fold cross-validation split diagram](/img/course/cross-validation-kfold-en.webp)
 
 :::tip[Section Overview]

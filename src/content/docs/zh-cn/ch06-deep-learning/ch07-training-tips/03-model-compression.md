@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "model compression, quantization, pruning, distillation, deployment, model size"
 ---
-
-# 6.7.4 模型压缩 [选修]
-
 :::tip[本节定位]
 模型压缩是部署取舍，不是神奇缩小按钮。你压缩模型，是因为内存、延迟、吞吐或设备限制逼着你做选择。
 :::

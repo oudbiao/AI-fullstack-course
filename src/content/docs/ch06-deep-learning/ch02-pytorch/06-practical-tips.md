@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch, AMP, mixed precision, gradient clipping, checkpoint, device, reproducibility"
 ---
-
-# 6.2.8 Practical Tips
-
 :::tip[Section Overview]
 Most early PyTorch failures are not caused by exotic models. They come from device mismatch, shape mistakes, unstable gradients, missing checkpoints, or validation code that still tracks gradients.
 :::

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent deployment guide, Agent operations, cost optimization, runtime, observability"
 ---
-
-# 9.9.1 Deployment Roadmap: Runtime, Persistence, Recovery
-
 Deploying an Agent means more than putting code on a server. You need model calls, tool services, queues, state storage, traces, permissions, cost limits, and rollback paths.
 
 ## See the Runtime Loop First

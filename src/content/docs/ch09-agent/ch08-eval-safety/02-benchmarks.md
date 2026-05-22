@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent benchmark, eval set, benchmark, SWE-bench, WebArena"
 ---
-
-# 9.8.3 Agent Benchmarking
-
 ![Agent benchmark and custom eval set comparison](/img/course/ch09-agent-benchmark-custom-eval-map-en.webp)
 
 :::tip[Section Overview]

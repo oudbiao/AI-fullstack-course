@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "3D vision, depth, point cloud, stereo, camera geometry"
 ---
-
-# 10.5.5 3Dビジョン入門【選択】
-
 :::tip[この節の位置づけ]
 2Dビジョンは主に平面画像の中で内容を理解します。
 3Dビジョンは、そこからもう一歩進みます。

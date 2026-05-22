@@ -3,9 +3,6 @@ title: "A.7 AI 持续学习方法"
 sidebar:
   order: 4
 ---
-
-# A.7 AI 持续学习方法
-
 ![三层持续学习飞轮图](/img/course/appendix-continuous-learning-flywheel.webp)
 
 ![论文、项目、知识库复盘闭环图](/img/course/appendix-learning-paper-project-notes-loop.webp)

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "retrieval, hybrid search, rerank, query rewrite, dense retrieval, sparse retrieval"
 ---
-
-# 8.1.5 检索策略
-
 ![Hybrid Search 与 Rerank 流程图](/img/course/hybrid-search-rerank-flow.webp)
 
 ## 学习目标

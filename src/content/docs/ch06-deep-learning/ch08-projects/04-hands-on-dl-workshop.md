@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch workshop, deep learning training loop, Dataset, DataLoader, CNN, loss curve, error analysis"
 ---
-
-# 6.8.5 Hands-on Workshop: Build a PyTorch Training Evidence Pack
-
 ![Chapter 6 PyTorch workshop route map](/img/course/ch06-hands-on-dl-workshop-route-en.webp)
 
 :::tip[How to use this workshop]

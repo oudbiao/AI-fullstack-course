@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "local models, local inference, quantization, CPU, GPU, model runtime"
 ---
-
-# 8.2.2 ローカルモデルの実行
-
 :::tip[この節の位置づけ]
 大規模モデルのアプリで、いちばん思いつきやすい方法は次のものです。
 

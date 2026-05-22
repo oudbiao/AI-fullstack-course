@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AMR, semantic graph, semantic parsing, information extraction, knowledge graph"
 ---
-
-# 11.7.5 Semantic Graphs and AMR: Turning Sentences into Structured Meaning
-
 ![AMR semantic graph understanding map](/img/course/ch11-amr-semantic-graph-map-en.webp)
 
 :::tip[Where this section fits]

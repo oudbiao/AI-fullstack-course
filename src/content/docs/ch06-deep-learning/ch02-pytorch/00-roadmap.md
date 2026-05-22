@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch guide, tensor, autograd, nn.Module, DataLoader, training loop"
 ---
-
-# 6.2.1 PyTorch Roadmap: Tensor, Autograd, Module, DataLoader, Loop
-
 PyTorch is the framework that turns the deep learning loop into runnable code. First learn the execution order; details become easier afterward.
 
 ## Look at the Workflow First

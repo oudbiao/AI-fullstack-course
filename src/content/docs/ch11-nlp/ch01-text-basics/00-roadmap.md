@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Text Basics Guide, NLP Guide, Text Representation"
 ---
-
-# 11.1.1 Text Basics Roadmap: Tokens, Cleaning, Representation
-
 Text is not naturally computable. Before classification, extraction, summarization, or QA, you need to turn raw text into stable units and features.
 
 ## See the Text Pipeline First

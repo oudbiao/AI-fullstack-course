@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI发展史, AI发展阶段, 重要论文, Transformer论文, GPT论文, RAG, Agent, 扩散模型论文"
 ---
-
-# A.3 AI 发展史：15 个阶段与关键论文
-
 ![AI 15 阶段发展史地图](/img/course/appendix-ai-15-stage-history-map.webp)
 
 这一页是可选背景材料。它的作用是回答“这个概念从哪里来”，不是让你第一遍就背论文名。

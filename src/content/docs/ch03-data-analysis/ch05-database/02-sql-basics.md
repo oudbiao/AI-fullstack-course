@@ -4,9 +4,6 @@ description: "Master SQL, the common language of databases, and learn how to cre
 sidebar:
   order: 22
 ---
-
-# 3.5.3 SQL Basics
-
 ![SQL Table Join Relationship Diagram](/img/course/sql-table-join-map-en.webp)
 
 :::tip[Section Overview]

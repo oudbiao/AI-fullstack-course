@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "long-term memory, user profile, persistent memory, retrieval, confidence, update policy"
 ---
-
-# 9.4.4 长期记忆
-
 :::tip[本节定位]
 短期记忆解决的是：
 

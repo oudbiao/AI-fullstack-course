@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI engineering experience, AI quick experience, Google Colab, image recognition, text generation, AI introduction"
 ---
-
-# 0.1 30-Minute AI Engineering Experience
-
 ![30-minute AI quick experience loop](/img/course/intro-quick-experience-loop-en.webp)
 
 **Just feel the loop:** input -> model -> output -> inspect. Do not memorize terms yet.

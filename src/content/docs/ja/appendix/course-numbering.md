@@ -7,9 +7,6 @@ head:
       name: keywords
       content: "コース番号, 章ディレクトリ, 章番号, コース保守"
 ---
-
-# A.2 コース番号の約束
-
 ![章番号とソースディレクトリの対応マップを表示](/img/course/appendix-course-numbering-map-ja.webp)
 
 ![コース保守の命名一貫性チェック図](/img/course/appendix-course-numbering-maintenance-check-ja.webp)

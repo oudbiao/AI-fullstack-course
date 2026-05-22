@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "迁移学习, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN"
 ---
-
-# 6.3.5 迁移学习
-
 :::tip[本节定位]
 迁移学习是很多视觉项目的默认起点：复用一个已经学过通用视觉模式的 backbone，替换任务相关的 head，只有当验证结果说明需要时，才继续微调更多层。
 :::

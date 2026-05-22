@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch 実践, Matplotlib, DataLoader, 学習ループ, 決定境界, MLP, CrossEntropyLoss"
 ---
-
-# 6.2.9 PyTorch + Matplotlib 実践ワークショップ
-
 ![PyTorch 実践フロー](/img/course/ch06-pytorch-hands-on-workflow-ja.webp)
 
 :::tip[学習のリズム]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Seq2Seqガイド, attentionガイド, 機械翻訳"
 ---
-
-# 11.5.1 Seq2Seq ロードマップ：入力系列から出力系列へ
-
 Seq2Seq は、token の列を受け取り、別の token の列を返す考え方です。翻訳、要約、言い換え、質問応答生成はこの形で理解できます。
 
 ## 先に全体像を見る

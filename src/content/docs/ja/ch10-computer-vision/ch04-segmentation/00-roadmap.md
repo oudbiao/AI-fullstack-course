@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image segmentation guide, semantic segmentation, instance segmentation, mask"
 ---
-
-# 10.4.1 画像分割ロードマップ：ピクセル単位の領域
-
 Segmentation は detection より細かいです。box ではなく mask を出力し、どの pixels が class または instance に属するかを示します。
 
 ## まず mask workflow を見る

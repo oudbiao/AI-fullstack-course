@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "runtime management, concurrency, timeout, retry, circuit breaker, metrics"
 ---
-
-# 9.9.3 ランタイム管理
-
 ![Agent ランタイム管理の保護図](/img/course/ch09-runtime-management-protection-map-ja.webp)
 
 :::tip[この節の位置づけ]

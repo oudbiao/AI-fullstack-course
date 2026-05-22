@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "正则化, dropout, weight decay, early stopping, 过拟合, PyTorch, AdamW"
 ---
-
-# 6.1.6 正则化
-
 ![正则化控制过拟合图](/img/course/regularization-overfitting-controls.webp)
 
 :::tip[本节概览]

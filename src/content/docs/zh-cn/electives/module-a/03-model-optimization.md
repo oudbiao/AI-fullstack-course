@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "模型优化, 量化, 剪枝, 蒸馏, 融合, batching, 部署"
 ---
-
-# E.A.3 模型优化技术
-
 ![模型优化路线图](/img/course/elective-model-optimization-map.webp)
 
 ![模型优化取舍仪表盘](/img/course/elective-optimization-tradeoff-dashboard.webp)

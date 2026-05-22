@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "C++, basics, vector, reference, function, class, deployment"
 ---
-
-# E.A.1 C++ Programming Basics
-
 ![C++ runtime and memory model diagram](/img/course/elective-cpp-runtime-memory-en.webp)
 
 You do not need to become a C++ expert before reading deployment code. First learn the small subset that appears again and again: types, functions, `std::vector`, references, compilation, and clear output.

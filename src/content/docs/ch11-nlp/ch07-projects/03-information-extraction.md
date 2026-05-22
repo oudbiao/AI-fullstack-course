@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "information extraction, NER, relation extraction, structured output, NLP project"
 ---
-
-# 11.7.4 Project: Information Extraction
-
 ![Information Extraction schema flowchart](/img/course/ch11-information-extraction-schema-pipeline-map-en.webp)
 
 :::tip[Reading Guide]

@@ -4,9 +4,6 @@ description: "パッケージマネージャーでシステムソフトウェア
 sidebar:
   order: 3
 ---
-
-# 1.1.3 パッケージマネージャー
-
 ![パッケージマネージャーの依存関係インストールフロー図](/img/course/ch01-package-manager-flow-ja.webp)
 
 ## 残す証拠

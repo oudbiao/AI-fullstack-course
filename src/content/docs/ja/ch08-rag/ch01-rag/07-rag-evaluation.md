@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG evaluation, hit@k, exact match, faithfulness, retrieval evaluation"
 ---
-
-# 8.1.8 RAG 評価
-
 ![RAG 評価の三角図](/img/course/rag-evaluation-triangle-ja.webp)
 
 ## 学習目標

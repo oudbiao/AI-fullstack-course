@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent, failure modes, coordination, observability, cost, conflict resolution"
 ---
-
-# 9.7.6 マルチ Agent の課題と解決
-
 :::tip[本節の位置づけ]
 前の節までで、マルチ Agent は役割分担、通信、協調ができることを見てきました。  
 でも、実際にシステムを作っていくと、ある現実に気づきます。

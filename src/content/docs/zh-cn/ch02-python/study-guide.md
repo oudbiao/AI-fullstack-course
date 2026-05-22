@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Python学习指南, Python任务单, 编程基础, JSON, CLI"
 ---
-
-# 2.0 学习指南与任务单：Python 编程基础
-
 ![Python 学习指南最小闭环](/img/course/ch02-study-guide-program-loop.webp)
 
 主要学习路线已经放在 [第 2 章入口](./)。本页只作为练习时快速查看的清单。

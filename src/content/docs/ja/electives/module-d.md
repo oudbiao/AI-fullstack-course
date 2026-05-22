@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI safety, red teaming, threat model, eval, jailbreak, prompt injection, guardrails"
 ---
-
-# E.D AI セーフティとレッドチームテスト
-
 レッドチームは、怖い prompt を一度試すことではありません。攻撃面を定義し、ケースを実行し、失敗を記録し、修正し、同じケースを再実行する反復可能な流れです。
 
 ## まずループを見る

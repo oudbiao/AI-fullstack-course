@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation, attention_mask"
 ---
-
-# 7.1.2 分词与 Tokenizer
-
 ![Tokenizer 子词切分流程图](/img/course/tokenizer-subword-flow.webp)
 
 :::tip[学完要能做到]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "連鎖律, 逆伝播, 計算グラフ, 自動微分, PyTorch, AI数学"
 ---
-
-# 4.3.5 連鎖律と逆伝播のプレビュー
-
 ![連鎖律の計算グラフと逆伝播の模式図](/img/course/chain-rule-backprop-graph-ja.webp)
 
 :::tip[この節は数学と深層学習をつなぐ橋です]

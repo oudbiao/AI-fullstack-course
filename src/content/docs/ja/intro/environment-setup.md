@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIエンジニアリング環境, AI環境準備, Python環境, VS Code, Git, クイックスタート"
 ---
-
-# 0.2 環境準備
-
 ![AIコース最小セットアップキット](/img/course/intro-minimal-setup-kit-ja.webp)
 
 最初は少なく入れます。目標は、1つのフォルダに入り、Python を動かし、Git で保存し、他の人が再実行できるだけの証拠を残すことです。

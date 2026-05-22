@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "machine learning to deep learning, neural network bridge, from ML to DL, PyTorch bridge"
 ---
-
-# 6.1.2 Transition: From Classical Machine Learning to Deep Learning
-
 :::tip[Section focus]
 This is not a new algorithms lesson, but a “transition map.” It has only one job: when you move from Station 5 into Station 6, it should not feel like you suddenly switched to a different course.
 :::

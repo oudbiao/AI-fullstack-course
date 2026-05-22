@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AutoGen, multi-agent, role dialogue, conversation loop, code execution, agent collaboration"
 ---
-
-# 9.6.6 AutoGen【选修】
-
 :::tip[本节定位]
 如果说有些框架更像“工作流图”或“知识组织层”，那 AutoGen 给人的第一感觉通常是：
 

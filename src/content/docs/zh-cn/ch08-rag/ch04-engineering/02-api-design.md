@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "API design, service design, idempotency, request schema, response schema, versioning"
 ---
-
-# 8.4.3 API 设计与服务化
-
 :::tip[本节定位]
 做 LLM 应用时，很多人能写出一个本地脚本，但一到服务化就开始混乱。
 真正的问题不是“会不会写接口”，而是：

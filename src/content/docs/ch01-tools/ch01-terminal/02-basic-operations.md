@@ -4,9 +4,6 @@ description: "Master core commands, path concepts, pipes, and environment variab
 sidebar:
   order: 2
 ---
-
-# 1.1.2 Basic Terminal Operations
-
 ![Diagram of the relationship between terminal paths and command execution](/img/course/ch01-terminal-path-command-map-en.webp)
 
 ## Where this section fits

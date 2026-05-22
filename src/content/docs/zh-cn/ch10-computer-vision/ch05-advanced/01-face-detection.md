@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "face detection, face recognition, alignment, embeddings, computer vision"
 ---
-
-# 10.5.2 人脸检测与识别【选修】
-
 :::tip[本节定位]
 人脸任务看起来像“只是检测一个特殊目标”，
 但真实系统通常至少包含：

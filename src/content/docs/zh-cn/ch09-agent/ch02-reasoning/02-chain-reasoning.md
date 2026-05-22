@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "chain of thought, CoT, reasoning trace, scratchpad, decomposition"
 ---
-
-# 9.2.3 链式推理策略
-
 :::tip[本节定位]
 如果把上一节总结成一句话，就是：
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent history, workflow, AutoGPT, tool use, LLM agent"
 ---
-
-# 9.1.3 Agent の発展の歴史
-
 ## 学習目標
 
 この節を終えると、次のことができるようになります。

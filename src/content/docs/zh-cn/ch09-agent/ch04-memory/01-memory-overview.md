@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory, Agent memory, short-term memory, long-term memory, episodic memory, procedural memory"
 ---
-
-# 9.4.2 记忆系统概述
-
 ![Agent 记忆系统分层图](/img/course/agent-memory-system.webp)
 
 :::tip[本节定位]

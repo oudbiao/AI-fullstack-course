@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "enterprise knowledge base, RAG project, retrieval, metadata, source citation, permissions"
 ---
-
-# 8.5.2 プロジェクト：企業ナレッジベースQ&A
-
 :::tip[この節の位置づけ]
 企業ナレッジベースQ&Aがポートフォリオ向けプロジェクトとして適しているのは、名前が立派だからではなく、とても実務に近いからです。
 

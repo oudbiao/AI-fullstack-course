@@ -4,9 +4,6 @@ description: "掌握 Python 中的基本数据类型和变量使用"
 sidebar:
   order: 2
 ---
-
-# 2.1.2 数据类型与变量
-
 ![变量、对象与引用关系图](/img/course/ch02-variable-object-reference.webp)
 
 ## 本节定位

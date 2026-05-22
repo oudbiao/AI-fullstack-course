@@ -7,9 +7,6 @@ head:
       name: keywords
       content: "course illustrations, instructional design, visual learning, AI course images, image2, SVG diagrams"
 ---
-
-# A.4 Course Visual Guidelines
-
 ![Course image asset planning board](/img/course/appendix-visual-enhancement-kanban-en.webp)
 
 ![Flowchart from image gap detection to generation and release](/img/course/appendix-image-production-pipeline-map-en.webp)

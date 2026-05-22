@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Prompt 评测, Prompt 版本管理, 测试样例, 通过率, Prompt 调试"
 ---
-
-# 7.5.6 实操：Prompt 评测实验室
-
 到这里，你已经学过 Prompt 基础、高级技巧、结构化输出和 Prompt 实战。下一步不是继续问“这个 Prompt 感觉是不是更好”，而是换成更工程化的问题：
 
 > **同一批固定测试样例跑下来，哪个 Prompt 版本更稳定通过，为什么？**

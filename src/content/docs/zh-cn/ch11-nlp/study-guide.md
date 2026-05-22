@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP 检查表, 文本分类, 信息抽取, BERT, GPT, 文本评估"
 ---
-
-# 11.0 学习检查表：自然语言处理
-
 这页当成可打印检查表使用。需要完整讲解时，回到 [第 11 章入口页](./index.md)。
 
 ![NLP 作品集证据包](/img/course/ch11-nlp-evidence-pack.webp)

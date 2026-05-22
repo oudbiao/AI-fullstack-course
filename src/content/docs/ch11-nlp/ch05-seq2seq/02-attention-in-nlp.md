@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "attention, seq2seq, encoder decoder, alignment, NLP"
 ---
-
-# 11.5.3 Attention Mechanism in NLP
-
 ![Seq2Seq Attention Alignment Diagram](/img/course/seq2seq-attention-alignment-en.webp)
 
 :::tip[Section Overview]

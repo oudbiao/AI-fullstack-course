@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "training diagnosis, monitoring, loss curve, overfitting, gradient, debugging"
 ---
-
-# 6.7.3 Training Monitoring and Diagnosis
-
 :::tip[Section Overview]
 Training diagnosis means separating symptoms from root causes. Do not switch models first. Read curves, inspect predictions and gradients, check data, then choose one targeted fix.
 :::

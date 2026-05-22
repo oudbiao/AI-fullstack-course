@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP, 自然语言处理, Transformer, BERT, 词向量, 文本分类, HuggingFace"
 ---
-
-# 11 NLP 专题：LLM 之后的文本任务
-
 ![自然语言处理主视觉](/img/course/ch11-nlp.webp)
 
 这一专题放在 LLM、RAG、Agent 主线之后。第 7 章已经给了最小 NLP 速通；第 11 章适合在真实产品需要更清楚的标签、更稳定的抽取、更可靠的评估，或一个不能只靠 LLM 硬撑的文本流水线时再回来学习。

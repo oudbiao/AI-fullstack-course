@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "instance segmentation, mask, object instance, vision"
 ---
-
-# 10.4.3 インスタンスセグメンテーション
-
 :::tip[この節の位置づけ]
 セマンティックセグメンテーションでは、もう次のことに答えられます。
 

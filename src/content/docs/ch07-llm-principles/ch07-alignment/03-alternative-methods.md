@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "DPO, ORPO, IPO, RLAIF, constitutional AI, alignment"
 ---
-
-# 7.7.4 Alternative Alignment Methods
-
 :::tip[Section overview]
 RLHF is important, but it is not the only answer.
 

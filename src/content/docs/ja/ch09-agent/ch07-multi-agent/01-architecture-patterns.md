@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent, supervisor, pipeline, reviewer pattern, agent architecture, collaboration"
 ---
-
-# 9.7.2 マルチ Agent のアーキテクチャパターン
-
 ![マルチ Agent の協力メッセージフロー図](/img/course/multi-agent-message-flow-ja.webp)
 
 :::tip[この節の位置づけ]

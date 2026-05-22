@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ベクトル, 内積, コサイン類似度, NumPy, 線形代数, AI数学"
 ---
-
-# 4.1.2 ベクトル：AI の世界の基本単位
-
 ![ベクトルの内積とコサイン類似度の幾何図](/img/course/vector-dot-cosine-geometry-ja.webp)
 
 :::tip[学習の進め方]

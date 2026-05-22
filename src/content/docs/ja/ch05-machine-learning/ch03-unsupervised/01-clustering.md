@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "クラスタリング, K-Means, DBSCAN, 階層的クラスタリング, エルボー法, シルエットスコア, 教師なし学習"
 ---
-
-# 5.3.2 クラスタリングアルゴリズム
-
 ![K-Means クラスタ中心の反復図](/img/course/clustering-kmeans-centroids-ja.webp)
 
 :::tip[この節の概要]

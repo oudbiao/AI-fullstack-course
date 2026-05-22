@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "causal language modeling, masked language modeling, span corruption, pretraining objectives, BERT, GPT, T5"
 ---
-
-# 7.4.3 Pretraining Methods
-
 :::tip[Section Overview]
 Pretraining methods are essentially answering one very fundamental question:
 

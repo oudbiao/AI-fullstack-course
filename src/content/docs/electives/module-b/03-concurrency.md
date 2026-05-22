@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "asyncio, concurrency, async, semaphore, gather, Python"
 ---
-
-# E.B.3 Concurrent Programming (Including asyncio)
-
 ![asyncio concurrency control flowchart](/img/course/elective-asyncio-concurrency-control-en.webp)
 
 ![async task timeout cancellation and rate limiting diagram](/img/course/elective-asyncio-timeout-cancel-rate-limit-map-en.webp)

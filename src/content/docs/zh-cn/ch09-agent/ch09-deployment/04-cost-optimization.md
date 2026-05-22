@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "cost optimization, token cost, model routing, caching, retries, tool cost, deployment"
 ---
-
-# 9.9.5 成本优化
-
 :::tip[本节定位]
 Agent 系统的成本，很多时候不是“调用一次模型多少钱”这么简单。
 真正影响账单的，常常是整条链路：

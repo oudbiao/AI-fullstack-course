@@ -4,9 +4,6 @@ description: "Miniconda で Python のバージョンと仮想環境を管理し
 sidebar:
   order: 1
 ---
-
-# 1.3.1 Python環境管理
-
 ![Python 環境と依存関係の図](/img/course/ch01-python-env-stack-ja.webp)
 
 ## 残す証拠

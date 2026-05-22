@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "asyncio, concurrency, gather, semaphore, timeout, async programming, LLM engineering"
 ---
-
-# 8.4.2 异步编程与并发调用
-
 :::tip[本节定位]
 做 LLM 应用时，很多人第一次的性能瓶颈不是模型不够强，而是：
 

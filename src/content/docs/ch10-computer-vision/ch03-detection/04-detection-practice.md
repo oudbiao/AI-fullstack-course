@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "detection practice, computer vision project, bounding box, evaluation, IoU, mAP"
 ---
-
-# 10.3.5 Detection Practice
-
 :::tip[Section positioning]
 When you really do a detection project, the difficulty is often not just the model itself.
 More common problems are:

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sequence labeling, token classification, NER, BIO, span extraction, NLP"
 ---
-
-# 11.4.2 序列标注任务
-
 ![BIO 标签到实体恢复图](/img/course/bio-ner-recovery.webp)
 
 :::tip[本节定位]

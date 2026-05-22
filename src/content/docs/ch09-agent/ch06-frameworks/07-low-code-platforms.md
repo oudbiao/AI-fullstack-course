@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "low-code, visual workflow, drag-and-drop, no-code, agent builder"
 ---
-
-# 9.6.8 Low-Code Platforms [Optional]
-
 :::tip[Section Overview]
 Not every team wants to:
 

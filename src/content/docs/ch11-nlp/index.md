@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP, Natural Language Processing, Transformer, BERT, word vectors, text classification, HuggingFace"
 ---
-
-# 11 NLP Specialization: Text Tasks After LLMs
-
 ![Natural Language Processing hero visual](/img/course/ch11-nlp-en.webp)
 
 This specialization comes after the LLM/RAG/Agent main line. Chapter 7 already gives you the minimum NLP crash course; Chapter 11 is where you return when a real product needs cleaner labels, better extraction, stronger evaluation, or a text pipeline that an LLM alone cannot make reliable.

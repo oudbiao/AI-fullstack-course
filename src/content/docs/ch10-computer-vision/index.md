@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "computer vision, OpenCV, image classification, object detection, YOLO, image segmentation"
 ---
-
-# 10 Computer Vision (Elective Track)
-
 ![Computer Vision main visual](/img/course/ch10-computer-vision-en.webp)
 
 This elective chapter answers a simple question: **what does it mean for a model to see an image?** Start with pixels, then move from coarse output to fine output: classify the whole image, locate objects, segment pixels, and finally connect vision to OCR, video, or multimodal systems.

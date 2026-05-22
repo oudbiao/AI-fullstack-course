@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer ガイド, attention mechanism, QKV, self-attention, deep learning"
 ---
-
-# 6.5.1 Transformer ロードマップ：Attention で token 同士を見る
-
 Transformer は深層学習から現代 LLM への橋です。最初の直感は単純です。各 token が、どの他 token を重要視するかを決めます。
 
 ## まず Attention の流れを見る

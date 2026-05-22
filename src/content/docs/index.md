@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI full-stack engineering course, AI career transition, AI application engineer, LLM, RAG, AI Agent"
 ---
-
-# AI Full-Stack Engineering Course
-
 <div class="course-home">
   <section class="course-home-hero">
     <div class="course-home-hero__copy">

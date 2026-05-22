@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "線形回帰, 最小二乗法, 残差, RMSE, MAE, Ridge, 多項式回帰"
 ---
-
-# 5.2.2 線形回帰：baseline、残差、正則化
-
 ![線形回帰の学習主線図](/img/course/ch05-linear-regression-learning-flow-ja.webp)
 
 線形回帰が答える実用的な問いは、**いくつかの入力数値で、1つの連続値を説明または予測できるか**です。例は価格、売上、需要、気温、遅延、コストなどです。

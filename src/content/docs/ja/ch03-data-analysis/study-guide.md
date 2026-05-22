@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "データ分析学習ガイド, データ分析タスクリスト, NumPy, Pandas, 可視化"
 ---
-
-# 3.0 学習ガイドとタスクリスト：データ分析と可視化
-
 ![データ分析学習ガイドの最小ループ](/img/course/ch03-study-guide-data-loop-vertical-ja.webp)
 
 主な学習ルートは [第 3 章の入口](./) にまとめました。このページは、練習中に見る短いチェックリストとして使います。

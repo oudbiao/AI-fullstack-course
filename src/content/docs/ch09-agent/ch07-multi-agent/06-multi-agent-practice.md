@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent project, planner, retriever, writer, reviewer, workflow, collaboration"
 ---
-
-# 9.7.7 Practice: Multi-Agent Collaboration System
-
 ![Multi-Agent collaboration practice run map](/img/course/ch09-multi-agent-collaboration-run-map-en.webp)
 
 :::tip[Section Overview]

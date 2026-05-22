@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "advanced planning, DAG, scheduling, dependencies, replanning, critical path"
 ---
-
-# 9.2.6 Advanced Planning Strategies [Optional]
-
 :::tip[Section overview]
 The Plan-and-Execute approach in the previous section already split long tasks into sequential steps.
 But real complex tasks are often not a straight line — they look more like a graph:

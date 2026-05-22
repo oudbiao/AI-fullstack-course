@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "word embedding, vector space, cosine similarity, one-hot, semantic representation"
 ---
-
-# 11.2.2 词嵌入
-
 ![词向量语义邻域图](/img/course/word2vec-embedding-neighborhood.webp)
 
 :::tip[本节定位]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "advanced planning, DAG, scheduling, dependencies, replanning, critical path"
 ---
-
-# 9.2.6 高级规划策略【选修】
-
 :::tip[本节定位]
 上一节的 Plan-and-Execute 已经把长任务拆成了顺序步骤。
 但真实复杂任务往往不是一条直线，而更像一张图：

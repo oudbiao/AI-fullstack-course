@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data analysis study guide, data analysis task sheet, NumPy, Pandas, visualization"
 ---
-
-# 3.0 Study Guide and Task Sheet: Data Analysis and Visualization
-
 ![Minimum loop for the data analysis study guide](/img/course/ch03-study-guide-data-loop-vertical-en.webp)
 
 The main study route is now in [Chapter 3 entry](./). Use this page only as a quick checklist while you practice.

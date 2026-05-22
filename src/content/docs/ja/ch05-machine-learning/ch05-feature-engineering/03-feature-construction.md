@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "特徴構築, 多項式特徴, 交互特徴, 時間特徴, 統計特徴, 特徴エンジニアリング"
 ---
-
-# 5.5.4 特徴構築
-
 ![特徴構築ワークショップ図](/img/course/feature-construction-workshop-ja.webp)
 
 :::tip[この節の位置づけ]

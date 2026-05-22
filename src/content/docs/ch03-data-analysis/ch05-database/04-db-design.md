@@ -4,9 +4,6 @@ description: "Learn how to design a sensible database structure and master norma
 sidebar:
   order: 24
 ---
-
-# 3.5.5 Database Design
-
 ![Database Design and Normalization Diagram](/img/course/ch03-database-design-erd-normalization-en.webp)
 
 :::tip[Section Focus]

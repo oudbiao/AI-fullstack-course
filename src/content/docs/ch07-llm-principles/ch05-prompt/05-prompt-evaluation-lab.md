@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "prompt evaluation, prompt versioning, test cases, pass rate, prompt debugging"
 ---
-
-# 7.5.6 Hands-on: Prompt Evaluation Lab
-
 At this point, you already know Prompt basics, advanced techniques, structured output, and prompt practice. The next step is to stop asking "does this prompt feel better?" and start asking a more engineering-oriented question:
 
 > **When I run the same fixed test cases, which prompt version passes more reliably, and why?**

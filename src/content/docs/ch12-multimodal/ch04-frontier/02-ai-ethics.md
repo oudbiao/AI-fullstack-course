@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI ethics, AI safety, bias, privacy, misuse, human oversight, AIGC"
 ---
-
-# 12.4.3 AI Ethics and Safety
-
 ![AIGC Ethics and Safety Risk Guardrail Map](/img/course/ch12-ai-ethics-safety-guardrail-map-en.webp)
 
 :::tip[Reading Guide]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sop assistant, knowledge base, word generation, policy retrieval, document parsing, rag project"
 ---
-
-# 8.5.5 Project: Knowledge Base-Driven SOP Document Assistant
-
 ![SOP document assistant workflow diagram](/img/course/courseware-assistant-workflow-en.webp)
 
 :::tip[Section Positioning]

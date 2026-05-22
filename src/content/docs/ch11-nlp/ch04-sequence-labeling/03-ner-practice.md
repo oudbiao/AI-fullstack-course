@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NER, named entity recognition, information extraction, BIO, project, NLP"
 ---
-
-# 11.4.5 NER Practice
-
 ![NER project entity evaluation loop](/img/course/ch11-ner-project-entity-eval-loop-en.webp)
 
 :::tip[Reading guide]

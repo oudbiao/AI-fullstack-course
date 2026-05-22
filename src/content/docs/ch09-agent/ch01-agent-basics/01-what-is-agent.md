@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI Agent, agent, tools, planning, workflow, function calling"
 ---
-
-# 9.1.2 What Is an AI Agent
-
 ![Comparison diagram of Agent vs. a regular Chatbot](/img/course/agent-vs-chatbot-comparison-en.webp)
 
 :::tip[Section Overview]

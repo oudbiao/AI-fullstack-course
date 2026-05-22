@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "情報理論, エントロピー, 交差エントロピー, KLダイバージェンス, 損失関数, AI数学"
 ---
-
-# 4.2.5 情報理論の基礎
-
 ![情報エントロピーと不確実性の図](/img/course/information-entropy-uncertainty-ja.webp)
 
 :::tip[なぜ情報理論を学ぶの？]

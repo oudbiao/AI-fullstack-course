@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "機械学習実践, sklearn pipeline, baseline, モデル評価, エラー分析, 作品集"
 ---
-
-# 5.6.6 実践ワークショップ：再現可能な ML 証拠パックを作る
-
 ![第 5 章 ML 実践ワークショップのルートマップ](/img/course/ch05-hands-on-ml-workshop-route-ja.webp)
 
 :::tip[使い方]

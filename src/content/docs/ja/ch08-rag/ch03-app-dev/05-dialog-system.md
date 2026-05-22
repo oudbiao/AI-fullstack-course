@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "dialog system, multi-turn, conversation state, memory, turn management, LLM app"
 ---
-
-# 8.3.6 対話システムとマルチターン管理
-
 :::tip[この節の位置づけ]
 多くの人がチャットアプリを作るとき、最初に考えるのは次のようなことです。
 

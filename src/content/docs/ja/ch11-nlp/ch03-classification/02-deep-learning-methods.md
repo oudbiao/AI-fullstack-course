@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "deep text classification, embedding, pooling, neural classifier, NLP"
 ---
-
-# 11.3.3 深層学習によるテキスト分類
-
 ![ニューラルテキスト分類の構造図](/img/course/ch11-neural-classification-embedding-pooling-map-ja.webp)
 
 :::tip[図を見るときのポイント]

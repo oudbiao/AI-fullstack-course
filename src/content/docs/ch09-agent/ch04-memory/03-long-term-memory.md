@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "long-term memory, user profile, persistent memory, retrieval, confidence, update policy"
 ---
-
-# 9.4.4 Long-Term Memory
-
 :::tip[Section Focus]
 Short-term memory solves:
 

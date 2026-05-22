@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI engineering setup, AI environment setup, Python environment, VS Code, Git, quick start"
 ---
-
-# 0.2 Environment Setup
-
 ![Minimal AI course setup kit](/img/course/intro-minimal-setup-kit-en.webp)
 
 Install less first. The goal is only: enter one folder, run Python, save code with Git, and keep enough evidence that another person can rerun your work.

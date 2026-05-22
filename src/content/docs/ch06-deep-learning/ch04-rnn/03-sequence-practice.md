@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sequence modeling, time series, RNN, LSTM, sliding window, forecast"
 ---
-
-# 6.4.4 Sequence Modeling in Practice
-
 :::tip[Section Overview]
 This lesson turns sequence modeling into a small project: convert a continuous series into sliding-window samples, train an LSTM, compare against a naive baseline, and inspect validation predictions.
 :::

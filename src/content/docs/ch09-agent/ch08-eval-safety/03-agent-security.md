@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent security, prompt injection, permissions, human approval, audit"
 ---
-
-# 9.8.4 Agent Security and Alignment
-
 :::tip[Section Overview]
 Once an Agent can call tools, it is no longer just a “talking model.” It may read files, write to databases, send messages, and call APIs. The stronger the capability, the more it needs permissions, confirmation, rollback, and auditing.
 :::

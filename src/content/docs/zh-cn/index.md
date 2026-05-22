@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI 全栈工程课程, AI 转型, AI 应用工程师, LLM, RAG, AI Agent"
 ---
-
-# AI 全栈工程课程
-
 <div class="course-home">
   <section class="course-home-hero">
     <div class="course-home-hero__copy">

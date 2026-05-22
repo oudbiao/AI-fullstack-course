@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG checklist, LLM application checklist, vector retrieval, RAG evaluation, large model engineering"
 ---
-
-# 8.0 Learning Checklist: LLM Application Development and RAG
-
 Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 8 entry page](./index.md).
 
 ![RAG portfolio evidence pack](/img/course/ch08-rag-evidence-pack-en.webp)

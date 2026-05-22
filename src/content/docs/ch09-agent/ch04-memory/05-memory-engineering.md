@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory engineering, write policy, retrieval policy, ttl, summarization, agent memory"
 ---
-
-# 9.4.6 Memory Engineering Implementation
-
 :::tip[Section focus]
 When we first talk about the concept of a "memory system" earlier, it is easy to form a misconception:
 

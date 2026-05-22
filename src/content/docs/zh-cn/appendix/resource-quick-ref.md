@@ -4,9 +4,6 @@ description: "环境检查、基线、指标、RAG、Agent、Prompt 和调试的
 sidebar:
   order: 6
 ---
-
-# A.9 学习资源速查表
-
 ![AI 项目速查总览](/img/course/appendix-project-quick-reference-map.webp)
 
 ![AI 项目速查排错索引](/img/course/appendix-quick-ref-debug-index-map.webp)

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "decision tree, Gini, entropy, pruning, ccp_alpha, CART, feature importance, regression tree"
 ---
-
-# 5.2.4 Decision Trees
-
 ![Decision tree split path diagram](/img/course/decision-tree-split-path-en.webp)
 
 :::tip[Section Overview]

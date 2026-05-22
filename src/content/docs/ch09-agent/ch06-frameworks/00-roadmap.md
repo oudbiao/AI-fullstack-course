@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent Framework Guide, LangGraph, LlamaIndex, CrewAI, AutoGen"
 ---
-
-# 9.6.1 Frameworks Roadmap: Choose Only When Needed
-
 Frameworks do not make an Agent smarter. They organize state, tools, workflows, memory, logs, and collaboration once the task has enough complexity to justify the abstraction.
 
 ## See the Selection Map First

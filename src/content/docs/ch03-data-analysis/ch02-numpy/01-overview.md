@@ -4,9 +4,6 @@ description: "Get to know NumPy — the foundation of scientific computing in Py
 sidebar:
   order: 2
 ---
-
-# 3.2.1 NumPy Overview
-
 ## Learning Objectives
 
 - Understand what NumPy is and its place in the Python ecosystem

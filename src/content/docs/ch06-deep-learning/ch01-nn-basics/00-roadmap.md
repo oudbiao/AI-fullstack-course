@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "neural network guide, deep learning basics, activation function, backpropagation, optimizer"
 ---
-
-# 6.1.1 Neural Network Roadmap: Linear Layer, Activation, Loss, Update
-
 Neural networks are not magic. A layer first does a weighted sum, then an activation changes the shape of the signal, then training adjusts weights to reduce loss.
 
 ## Look at the Flow First

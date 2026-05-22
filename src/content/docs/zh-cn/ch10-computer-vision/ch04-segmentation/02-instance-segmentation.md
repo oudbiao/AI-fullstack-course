@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "instance segmentation, mask, object instance, vision"
 ---
-
-# 10.4.3 实例分割
-
 :::tip[本节定位]
 语义分割已经能回答：
 

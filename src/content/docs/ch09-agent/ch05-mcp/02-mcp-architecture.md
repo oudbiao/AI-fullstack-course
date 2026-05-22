@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP architecture, client, server, transport, tools, protocol flow"
 ---
-
-# 9.5.3 MCP Architecture and Core Concepts
-
 ![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-en.webp)
 
 :::tip[Section overview]

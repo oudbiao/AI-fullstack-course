@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM API, Responses API, Token 预算, JSON 校验, 结构化输出, API 载荷"
 ---
-
-# 7.2.5 实操：LLM 调用工作台
-
 这一节把前面的概念变成一个能跟着做的流程。先不要急着比较哪个模型最强，先学会一次完整 LLM 调用到底发生了什么：用户任务、Token 预算、请求载荷、模型输出、校验和重试。
 
 ![LLM 调用工作台](/img/course/ch07-llm-call-workbench-zh.webp)

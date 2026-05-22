@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG optimization, chunking, top-k, rerank, prompt, context packing"
 ---
-
-# 8.1.6 RAG Optimization
-
 ## Learning Objectives
 
 By the end of this section, you will be able to:

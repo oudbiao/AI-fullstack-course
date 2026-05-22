@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "computer vision workshop, OpenCV, synthetic dataset, classification, detection, segmentation, IoU, failure analysis"
 ---
-
-# 10.6.4 実践：再現可能なビジョン・ミニパイプラインを作る
-
 このセクションでは、第 10 章を手を動かして進めるプロジェクトにします。データセットをダウンロードする必要も、クラウドモデルを呼び出す必要もありません。1 本の Python スクリプトが小さな画像データセットを生成し、そのまま一連の視覚処理を実行します。
 
 ![ビジョンワークショップのエンドツーエンドパイプライン](/img/course/ch10-workshop-vision-pipeline-map-ja.webp)

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "model compression, quantization, pruning, distillation, deployment, model size"
 ---
-
-# 6.7.4 モデル圧縮 [任意]
-
 :::tip[この節の位置づけ]
 モデル圧縮はデプロイ上の trade-off であり、魔法の縮小ボタンではありません。memory、latency、throughput、device limit があるから圧縮を検討します。
 :::

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RNN 指南, 序列模型, LSTM, GRU, hidden state"
 ---
-
-# 6.4.1 RNN 路线图：按顺序处理序列
-
 RNN 面向有顺序的数据：文本、时间序列、点击流、传感器读数，以及任何前面步骤会影响后面步骤的输入。
 
 ## 先看序列流

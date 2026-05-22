@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "security detection, surveillance, alerting, tracking, false alarm, vision project"
 ---
-
-# 10.6.2 Project: Intelligent Security System
-
 :::tip[Section focus]
 Security projects are very easy to turn into a demo that just “draws a box when a person is detected.”
 But a real deployable security system usually cares less about the box itself and more about:

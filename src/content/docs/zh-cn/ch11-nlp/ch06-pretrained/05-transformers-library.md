@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "transformers, HuggingFace, tokenizer, AutoModel, pipeline, config"
 ---
-
-# 11.6.6 Transformers 库实战
-
 ![Transformers 库调用链图](/img/course/ch11-transformers-library-call-chain-map.webp)
 
 :::tip[读图提示]

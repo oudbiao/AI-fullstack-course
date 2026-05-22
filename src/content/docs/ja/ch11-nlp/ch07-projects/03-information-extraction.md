@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "情報抽出, NER, 関係抽出, 構造化出力, NLPプロジェクト"
 ---
-
-# 11.7.4 プロジェクト：情報抽出
-
 ![情報抽出 schema フローチャート](/img/course/ch11-information-extraction-schema-pipeline-map-ja.webp)
 
 :::tip[図の見方]

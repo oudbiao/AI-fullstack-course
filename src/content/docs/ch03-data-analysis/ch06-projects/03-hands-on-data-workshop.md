@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data analysis workshop, Python CSV, SQLite, data cleaning, reproducible analysis, visualization"
 ---
-
-# 3.6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline
-
 ![Follow-along data workshop route](/img/course/ch03-hands-on-data-workshop-route-en.webp)
 
 :::tip[Workshop goal]

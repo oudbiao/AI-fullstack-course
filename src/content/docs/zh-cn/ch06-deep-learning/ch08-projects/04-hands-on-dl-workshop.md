@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch 实操, 深度学习训练循环, Dataset, DataLoader, CNN, loss curve, 错误分析"
 ---
-
-# 6.8.5 实操工作坊：构建 PyTorch 训练证据包
-
 ![第 6 章 PyTorch 实操工作坊路线图](/img/course/ch06-hands-on-dl-workshop-route.webp)
 
 :::tip[使用方式]

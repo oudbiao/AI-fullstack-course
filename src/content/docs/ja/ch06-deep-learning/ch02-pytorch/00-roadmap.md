@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch ガイド, tensor, autograd, nn.Module, DataLoader, training loop"
 ---
-
-# 6.2.1 PyTorch ロードマップ：Tensor、Autograd、Module、DataLoader、Loop
-
 PyTorch は深層学習ループを実行できるコードにします。まず実行順を覚えると、細部が後から楽になります。
 
 ## まずワークフローを見る

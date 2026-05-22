@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI product design, product thinking, evaluation, cost, UX, product strategy"
 ---
-
-# E.F AI Product Design Thinking
-
 AI product design starts with the user problem, not the model capability. A feature is worth building only when value, cost, risk, and user experience can be explained.
 
 ## See the Decision Loop First

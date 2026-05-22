@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "framework selection, LangGraph, LlamaIndex, CrewAI, architecture decision, agent framework"
 ---
-
-# 9.6.9 フレームワーク選定ガイド
-
 :::tip[この節の位置づけ]
 一通りフレームワークを学んだあと、いよいよ本当に大事な問いが出てきます：
 

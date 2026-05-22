@@ -4,9 +4,6 @@ description: "掌握数据分析和 AI 实验的标配工具"
 sidebar:
   order: 3
 ---
-
-# 1.3.3 Jupyter Notebook
-
 ![Jupyter Cell 与 Kernel 状态图](/img/course/ch01-jupyter-kernel-state.webp)
 
 ## 本节定位

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sentiment analysis project, text classification, baseline, negation, sarcasm, NLP"
 ---
-
-# 6.8.3 Project: Text Sentiment Analysis
-
 :::tip[Section Overview]
 Sentiment analysis is a good first NLP project because the hard parts are visible: label boundaries, tokenization, negation, sarcasm, mixed sentiment, and error analysis.
 :::

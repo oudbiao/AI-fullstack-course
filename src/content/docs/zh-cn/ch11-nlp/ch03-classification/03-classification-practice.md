@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text classification practice, intent classification, baseline, error analysis, NLP project"
 ---
-
-# 11.3.4 文本分类实战
-
 ![文本分类训练流程图](/img/course/text-classification-pipeline.webp)
 
 :::tip[本节定位]

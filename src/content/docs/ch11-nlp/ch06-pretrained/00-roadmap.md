@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretraining guide, BERT, GPT, T5, transformers"
 ---
-
-# 11.6.1 Pretrained Models Roadmap: BERT, GPT, T5
-
 Pretrained models move NLP from one-task training to a reusable foundation: pretrain on large text, then transfer to downstream tasks.
 
 ## See the Paradigm Map First

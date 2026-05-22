@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sequence modeling, time series, RNN, LSTM, sliding window, forecast"
 ---
-
-# 6.4.4 シーケンスモデリング実践
-
 :::tip[この節の位置づけ]
 この節では、シーケンスモデリングを小さなプロジェクトとして動かします。連続系列をスライディングウィンドウのサンプルに変換し、LSTM を学習し、naive baseline と比較し、検証予測を確認します。
 :::

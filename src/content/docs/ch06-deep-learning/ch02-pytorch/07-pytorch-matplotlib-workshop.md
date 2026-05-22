@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch workshop, Matplotlib, DataLoader, training loop, decision boundary, MLP, CrossEntropyLoss"
 ---
-
-# 6.2.9 PyTorch + Matplotlib Hands-on Workshop
-
 ![PyTorch hands-on workflow](/img/course/ch06-pytorch-hands-on-workflow-en.webp)
 
 :::tip[Learning Rhythm]

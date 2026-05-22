@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP, natural language processing, text classification, information extraction, machine translation, language model"
 ---
-
-# 11.1.2 NLP Overview
-
 ![NLP task landscape map](/img/course/ch11-nlp-task-landscape-map-en.webp)
 
 :::tip[Reading guide]

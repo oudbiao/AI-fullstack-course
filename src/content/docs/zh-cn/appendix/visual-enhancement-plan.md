@@ -7,9 +7,6 @@ head:
       name: keywords
       content: "课程插图, 教学设计, 视觉学习, AI课程图片, image2, SVG图解"
 ---
-
-# A.4 课程视觉使用规则
-
 ![课程图片资产规划看板](/img/course/appendix-visual-enhancement-kanban.webp)
 
 ![从图片缺口检测到生成发布的流程图](/img/course/appendix-image-production-pipeline-map.webp)

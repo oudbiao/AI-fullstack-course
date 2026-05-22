@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CV project guide, security inspection, medical imaging, image classification project, object detection project"
 ---
-
-# 10.6.1 Project Roadmap: Build a Vision Evidence Pack
-
 A computer vision project is not “I used a model.” It is a loop of data, annotation, model output, metrics, failure cases, and presentation.
 
 ## See the Project Loop First

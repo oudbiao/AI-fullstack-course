@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "efficient attention, sliding window, flash attention, kv cache, gqa, mqa, long context"
 ---
-
-# 7.3.5 効率的な注意力機構
-
 :::tip[この節の位置づけ]
 系列長がまだ短いときは、通常の自己注意はほとんど問題なく見えます。  
 しかし、コンテキスト長が数百から数万に伸びると、すぐに次のことに気づきます。

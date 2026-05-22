@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool description, tool discovery, schema, registry, metadata, agent tools"
 ---
-
-# 9.3.3 工具描述与发现
-
 :::tip[本节定位]
 很多人做 Agent 时，会先把工具函数接好，然后让模型自己选。
 结果很快就会发现：

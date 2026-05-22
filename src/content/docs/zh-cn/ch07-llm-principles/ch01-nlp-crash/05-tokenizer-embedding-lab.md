@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tokenizer 实验, embedding 实验, input_ids, attention_mask, cosine similarity"
 ---
-
-# 7.1.6 实操：Tokenizer 与 Embedding 实验室
-
 Tokenizer 和 embedding 分开看都不难，但很多新人卡在“它们到底怎么连起来”。
 
 这一节给你一条最小链路：

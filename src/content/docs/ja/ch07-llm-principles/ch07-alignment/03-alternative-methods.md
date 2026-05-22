@@ -1,5 +1,5 @@
 ---
-title: "7.7.4 代替的アラインメント手法"
+title: "7.7.4 代替のアラインメント手法"
 description: "DPO、ORPO、RLAIF から Constitutional AI まで、なぜ業界が RLHF の代替ルートを探すのか、そしてそれぞれの手法で何を省けるのかを理解します。"
 sidebar:
   order: 26
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "DPO, ORPO, IPO, RLAIF, constitutional AI, alignment"
 ---
-
-# 7.7.4 代替のアラインメント手法
-
 :::tip[この節の位置づけ]
 RLHF はとても重要ですが、唯一の答えではありません。
 

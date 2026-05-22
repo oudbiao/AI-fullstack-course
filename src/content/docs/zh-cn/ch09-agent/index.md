@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI Agent, 智能体, Function Calling, ReAct, MCP, Multi-Agent, 工具调用"
 ---
-
-# 9 AI Agent 与智能体系统
-
 ![AI Agent 系统主视觉](/img/course/ch09-agent-systems.webp)
 
 第 8 章让模型能基于文档回答。第 9 章让系统**围绕目标行动**：规划下一步、调用工具、读取观察结果、调整路线、安全停止，并留下人能复盘的 trace。

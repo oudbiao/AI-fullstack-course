@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "链式法则, 反向传播, 计算图, 自动微分, PyTorch, AI数学"
 ---
-
-# 4.3.5 链式法则与反向传播预览
-
 ![链式法则计算图与反向传播示意图](/img/course/chain-rule-backprop-graph.webp)
 
 :::tip[本节是数学与深度学习的桥梁]

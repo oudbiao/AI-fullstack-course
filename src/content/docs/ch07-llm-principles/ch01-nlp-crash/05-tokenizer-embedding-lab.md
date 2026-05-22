@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tokenizer lab, embedding lab, input_ids, attention_mask, cosine similarity"
 ---
-
-# 7.1.6 Hands-on: Tokenizer and Embedding Lab
-
 Tokenizer and embedding are easy to understand separately, but many beginners get stuck when they have to connect them.
 
 This lab gives you the whole mini-chain:

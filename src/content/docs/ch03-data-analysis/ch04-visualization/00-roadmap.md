@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data visualization, chart selection, matplotlib, seaborn, plotly, visualization roadmap"
 ---
-
-# 3.4.1 Visualization Roadmap: Choose the Chart Before the Style
-
 Visualization is not decoration. It turns an analysis result into something another person can understand quickly.
 
 ## Look at the Chart Choice Map First

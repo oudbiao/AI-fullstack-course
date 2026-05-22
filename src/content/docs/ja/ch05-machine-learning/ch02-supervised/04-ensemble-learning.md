@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "アンサンブル学習, Random Forest, Bagging, Boosting, GBDT, Stacking, XGBoost, LightGBM, CatBoost"
 ---
-
-# 5.2.5 アンサンブル学習：Forest、Boosting、Stacking
-
 ![Bagging と Boosting の比較図](/img/course/ch05-ensemble-bagging-boosting-flow-ja.webp)
 
 アンサンブル学習は複数のモデルを組み合わせ、1つのモデルの弱点が最終予測を支配しにくくします。表形式データでは、古典的機械学習の中でも特に強い手法群です。

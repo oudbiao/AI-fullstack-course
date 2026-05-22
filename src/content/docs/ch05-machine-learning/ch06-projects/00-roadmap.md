@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "machine learning project guide, house price prediction, customer churn, user segmentation, Kaggle, machine learning portfolio"
 ---
-
-# 5.6.1 ML Projects Roadmap: Baseline, Evidence, Improvement
-
 This chapter is the exit point of Chapter 5. It proves you can turn a data problem into a modeling workflow that can be evaluated, explained, and shown in a portfolio.
 
 ## Look at the Project Loop First

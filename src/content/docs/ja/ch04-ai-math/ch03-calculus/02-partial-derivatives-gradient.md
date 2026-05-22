@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "偏導数, 勾配, 多変数微積分, 勾配方向, Python, AI数学"
 ---
-
-# 4.3.3 偏導数と勾配：多変数の変化する向き
-
 ![勾配等高線方向場図](/img/course/gradient-contour-field-ja.webp)
 
 ## 学習目標

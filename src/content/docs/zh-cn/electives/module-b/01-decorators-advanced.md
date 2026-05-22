@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "decorators, Python, wraps, retry, logging, timing, authorization"
 ---
-
-# E.B.1 装饰器进阶用法
-
 ![Python 装饰器执行流程图](/img/course/elective-python-decorator-flow.webp)
 
 ![装饰器横切逻辑分层图](/img/course/elective-decorator-crosscutting-layers.webp)

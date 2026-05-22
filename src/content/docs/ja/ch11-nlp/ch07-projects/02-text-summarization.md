@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text summarization, extractive summarization, TF-IDF, evaluation, NLP project"
 ---
-
-# 11.7.3 プロジェクト：テキスト要約システム
-
 ![テキスト要約の抽出・生成・評価図](/img/course/ch11-summarization-extractive-generative-eval-map-ja.webp)
 
 :::tip[図の見方]

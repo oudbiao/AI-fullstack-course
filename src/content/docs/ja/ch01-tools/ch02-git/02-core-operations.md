@@ -4,9 +4,6 @@ description: "日常開発で最もよく使う Git 操作を身につける"
 sidebar:
   order: 2
 ---
-
-# 1.2.2 Gitのコア操作
-
 ![Git の日常最小ループ図](/img/course/ch01-git-daily-loop-ja.webp)
 
 ## 残す証拠
@@ -497,7 +494,7 @@ git commit -m ".gitignore を更新：config.py を無視"
 
 ## 実践練習：1 回の開発プロセスを通してやってみる
 
-```bash
+````bash
 # 1. 学習スクリプトを書く
 cat > src/train.py << 'EOF'
 import torch
@@ -546,7 +543,7 @@ git commit -m "README を更新：インストール方法と使い方を追加"
 
 # 4. 完全な履歴を確認
 git log --oneline
-```
+````
 
 次のような 5 つのコミット履歴が見えるはずです。
 

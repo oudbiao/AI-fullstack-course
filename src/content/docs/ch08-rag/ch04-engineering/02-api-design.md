@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "API design, service design, idempotency, request schema, response schema, versioning"
 ---
-
-# 8.4.3 API Design and Serviceization
-
 :::tip[Section Focus]
 When building LLM applications, many people can write a local script, but once they move to serviceization, things quickly get messy.
 The real question is not “Can you write an endpoint?”, but:

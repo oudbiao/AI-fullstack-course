@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent Project Guide, research assistant, data analysis Agent, multi-Agent project, Agent portfolio"
 ---
-
-# 9.10.1 Project Roadmap: Build a Traceable Agent
-
 An Agent project portfolio should show a traceable execution loop, not just one final model answer.
 
 ## See the Project Loop First

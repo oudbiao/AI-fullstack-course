@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent communication, message passing, event bus, shared state, async, protocol"
 ---
-
-# 9.7.3 Agent 间通信
-
 :::tip[本节定位]
 如果说上一节是在回答“这些 Agent 应该怎样分工”，那这一节就在回答：
 

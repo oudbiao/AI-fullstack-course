@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "クロスバリデーション, K-Fold, StratifiedKFold, cross_validate, データ漏洩, Pipeline, モデル評価"
 ---
-
-# 5.4.3 クロスバリデーション
-
 ![K分割クロスバリデーションの分割図](/img/course/cross-validation-kfold-ja.webp)
 
 :::tip[この節の概要]

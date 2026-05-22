@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "probability, conditional probability, Bayes' theorem, joint probability, Python probability, AI math"
 ---
-
-# 4.2.2 Probability Basics: Measuring Uncertainty
-
 ![Probability distribution and Bayes update diagram](/img/course/probability-distribution-map-en.webp)
 
 :::tip[Why learn probability?]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "guardrails, safety policy, input filter, output filter, tool guard, agent"
 ---
-
-# 9.8.5 Guardrails 护栏机制
-
 ![Agent 护栏分层图](/img/course/agent-guardrails-layers.webp)
 
 :::tip[本节定位]

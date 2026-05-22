@@ -4,9 +4,6 @@ description: "掌握 Python 异常处理机制，让程序更健壮"
 sidebar:
   order: 2
 ---
-
-# 2.2.2 异常处理
-
 ![异常处理执行流程图](/img/course/ch02-exception-flow.webp)
 
 ## 本节定位

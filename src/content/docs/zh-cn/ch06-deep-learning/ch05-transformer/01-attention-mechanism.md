@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask"
 ---
-
-# 6.5.2 注意力机制
-
 :::tip[本节定位]
 RNN 是一步步传信息。注意力让一个 token 直接看其他 token，并判断哪些更重要。这是 Transformer 背后的核心转变。
 :::

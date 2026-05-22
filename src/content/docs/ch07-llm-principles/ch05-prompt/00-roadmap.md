@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Prompt Guide, Prompt Engineering, Structured Output, Prompt Evaluation"
 ---
-
-# 7.5.1 Prompt Engineering Roadmap: Brief, Output, Evaluation
-
 Prompt engineering is the interface between your application and the model. The goal is not to write a clever sentence; the goal is to make one model call predictable, parseable, testable, and easy to improve.
 
 ## See the Prompt Loop First

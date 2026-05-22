@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "machine learning, Scikit-learn, supervised learning, unsupervised learning, regression, classification, clustering"
 ---
-
-# 5 Introduction to Machine Learning: From Basics to Practice
-
 ![Main visual for machine learning](/img/course/ch05-machine-learning-en.webp)
 
 Chapter 5 has one job: help you turn a data problem into **a trainable, evaluable, improvable machine learning project**.

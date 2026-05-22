@@ -4,9 +4,6 @@ description: "认识 Series 和 DataFrame——Pandas 的两大基石"
 sidebar:
   order: 9
 ---
-
-# 3.3.2 Pandas 核心数据结构
-
 ![Pandas DataFrame 结构图](/img/course/pandas-dataframe-structure.webp)
 
 :::tip[本节定位]

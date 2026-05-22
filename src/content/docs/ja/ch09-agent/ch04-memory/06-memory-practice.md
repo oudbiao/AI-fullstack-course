@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory practice, short term, long term, episodic memory, procedural memory, agent"
 ---
-
-# 9.4.7 実践：完全な記憶システム
-
 :::tip[この節の位置づけ]
 前のいくつかの節では、記憶を概念と戦略に分けて学びました。  
 この節では、すぐ動かせる「小さなシステム」を直接作って、これらの層をつなげます。

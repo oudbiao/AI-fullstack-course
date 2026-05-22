@@ -1,12 +1,9 @@
 ---
-title: "3.4.4 交互式可视化（选修）"
+title: "3.4.4 交互式可视化"
 description: "用 Plotly 制作可交互的动态图表"
 sidebar:
   order: 19
 ---
-
-# 3.4.4 交互式可视化
-
 :::note[本节定位]
 很多新人第一次看到 `Plotly` 时会觉得：
 

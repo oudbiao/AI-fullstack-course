@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE"
 ---
-
-# 7.3.4 主流大模型架构变体
-
 :::tip[本节定位]
 很多人第一次接触大模型家族时，会觉得它们只是名字不同：
 

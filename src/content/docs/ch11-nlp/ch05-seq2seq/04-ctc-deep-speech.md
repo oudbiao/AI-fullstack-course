@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CTC, Deep Speech, ASR, speech recognition, sequence alignment, NLP"
 ---
-
-# 11.5.5 CTC and Deep Speech: Sequence Alignment in Speech Recognition
-
 ![CTC Deep Speech speech recognition alignment diagram](/img/course/ch11-ctc-deep-speech-asr-map-en.webp)
 
 :::tip[Where this section fits]

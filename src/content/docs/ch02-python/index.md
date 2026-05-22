@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Python Basics, Python Fundamentals, Python Tutorial, Programming Basics, AI API"
 ---
-
-# 2 Python Programming Fundamentals
-
 ![Main visual for Python programming fundamentals](/img/course/ch02-python-foundation-en.webp)
 
 Chapter 2 has one job: help you turn a small idea into **Python code that runs, saves data, handles errors, and can be explained**.

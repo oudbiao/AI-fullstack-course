@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "model optimization, quantization, pruning, distillation, fusion, batching, deployment"
 ---
-
-# E.A.3 Model Optimization Techniques
-
 ![Model Optimization Roadmap](/img/course/elective-model-optimization-map-en.webp)
 
 ![Model Optimization Trade-off Dashboard](/img/course/elective-optimization-tradeoff-dashboard-en.webp)

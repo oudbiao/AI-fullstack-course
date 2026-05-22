@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "word generation, ppt generation, template, docx, pptx, structured output"
 ---
-
-# 8.3.9 テンプレート化文書生成（Word / PPT）
-
 ![Word PPT テンプレート生成パイプライン図](/img/course/template-doc-generation-pipeline-ja.webp)
 
 :::tip[この節の位置づけ]

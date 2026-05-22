@@ -4,9 +4,6 @@ description: "掌握数据库的通用语言 SQL，学会增删改查"
 sidebar:
   order: 22
 ---
-
-# 3.5.3 SQL 基础
-
 ![SQL 表连接关系图](/img/course/sql-table-join-map.webp)
 
 :::tip[本节定位]

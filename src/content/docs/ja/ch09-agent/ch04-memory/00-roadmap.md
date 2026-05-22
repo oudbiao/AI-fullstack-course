@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory systems overview, Agent memory, short-term memory, long-term memory, episodic memory"
 ---
-
-# 9.4.1 メモリロードマップ：書き込み、検索、忘却
-
 メモリは Agent を人間らしく見せるためではありません。タスクを助けるためにあります：同じ質問を減らし、有用な文脈を保ち、経験を再利用し、古い情報やプライバシー漏えいを避けます。
 
 ## まずメモリループを見る

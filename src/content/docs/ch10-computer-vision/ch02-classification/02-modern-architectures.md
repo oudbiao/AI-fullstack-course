@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ResNet, EfficientNet, ConvNeXt, classification, architecture, computer vision"
 ---
-
-# 10.2.3 Modern Classification Architectures
-
 :::tip[Section focus]
 When doing image classification, model architecture is not simply “the newer, the better.”
 Instead, it keeps evolving around a few core questions:

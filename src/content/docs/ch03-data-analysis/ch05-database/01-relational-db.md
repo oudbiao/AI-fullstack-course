@@ -4,9 +4,6 @@ description: "Understand what a database is and why AI engineers also need to le
 sidebar:
   order: 21
 ---
-
-# 3.5.2 Basics of Relational Databases
-
 ![Basics of Relational Databases](/img/course/ch03-relational-database-foundation-en.webp)
 
 :::note[Elective Chapter]

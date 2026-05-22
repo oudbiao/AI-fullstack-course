@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP 実践, TF-IDF, テキスト分類, 検索 QA, 要約, 情報抽出, 失敗分析"
 ---
-
-# 11.7.6 実践：再現可能な NLP ミニパイプラインを作る
-
 大きな NLP プロジェクトを選ぶ前に、まずこのミニパイプラインを一度動かしてください。本章の抽象的な概念を、確認できるファイルに変えます。原文、token、TF-IDF 特徴、分類予測、検索 QA、要約、抽出フィールド、指標、失敗例をすべて残します。
 
 ![NLP ワークショップのエンドツーエンド成果物パイプライン](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-ja.webp)

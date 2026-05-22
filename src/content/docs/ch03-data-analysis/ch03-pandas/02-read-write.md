@@ -4,9 +4,6 @@ description: "Master reading and writing data in formats such as CSV, Excel, and
 sidebar:
   order: 10
 ---
-
-# 3.3.3 Data Read and Write
-
 :::tip[Where this section fits]
 When many beginners first learn `read_csv()`, they may think:
 

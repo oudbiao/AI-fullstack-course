@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent evaluation, task success, tool evaluation, human review, replay"
 ---
-
-# 9.8.2 Agent Evaluation Methods
-
 :::tip[Section Overview]
 Agent evaluation cannot rely only on whether the final answer looks right. An Agent is a system that plans, calls tools, and changes state, so evaluation must consider results, process, safety, and cost at the same time.
 :::

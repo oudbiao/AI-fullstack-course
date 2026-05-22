@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer, self-attention, residual, layer norm, feed forward, decoder"
 ---
-
-# 7.3.2 Transformer アーキテクチャの振り返りと深掘り
-
 :::tip[この節の位置づけ]
 注意機構を学んだことがあれば、`Q / K / V` という言葉はすでに知っているかもしれません。  
 でも、実際に大規模モデルの段階に入ると、そこでつまずく人は多いです。

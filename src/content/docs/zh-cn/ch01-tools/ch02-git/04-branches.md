@@ -4,9 +4,6 @@ description: "用分支安全地开发新功能，了解 Pull Request 流程"
 sidebar:
   order: 4
 ---
-
-# 1.2.4 分支与协作
-
 ![Git 分支协作流程图](/img/course/ch01-git-branch-collaboration.webp)
 
 ## 本节定位

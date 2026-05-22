@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "现代 LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU"
 ---
-
-# 7.3.3 原始 Transformer vs 现代 LLM 解码器
-
 2017 年 Transformer 论文给了我们基础架构，但大多数现代 LLM decoder block 并不是原始图的逐行复刻。
 
 核心思想仍然一样：

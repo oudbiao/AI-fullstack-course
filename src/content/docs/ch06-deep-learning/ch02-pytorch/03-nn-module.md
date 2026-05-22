@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "nn.Module, nn.Linear, nn.Sequential, forward, parameters, state_dict, PyTorch"
 ---
-
-# 6.2.5 nn.Module
-
 :::tip[Section Overview]
 `nn.Module` is how PyTorch packages layers, parameters, forward logic, and training/evaluation mode into one model object. This section upgrades the hand-written parameters from autograd into reusable model classes.
 :::

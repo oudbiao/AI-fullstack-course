@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM project guide, domain fine-tuning, Prompt, RAG, LLM evaluation"
 ---
-
-# 7.8.1 Project Roadmap: Choose Prompt, RAG, or Finetuning
-
 This capstone turns Chapter 7 into one engineering decision: is the problem task expression, missing knowledge, unstable format, unsafe behavior, or weak evaluation?
 
 ## See the Project Route First

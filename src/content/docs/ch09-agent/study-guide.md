@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent checklist, AI Agent learning, ReAct, MCP, tool calling, Agent evaluation"
 ---
-
-# 9.0 Learning Checklist: AI Agents and Agent Systems
-
 Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 9 entry page](./index.md).
 
 ![Agent trace evidence pack](/img/course/ch09-agent-trace-pack-en.webp)

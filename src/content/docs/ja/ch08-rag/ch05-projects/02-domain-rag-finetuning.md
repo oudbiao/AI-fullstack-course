@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG, finetuning, domain adaptation, hybrid system, LLM project"
 ---
-
-# 8.5.3 プロジェクト：RAG+微調整の統合システム
-
 :::tip[この節の位置づけ]
 これまでに、あなたは次をそれぞれ学びました。
 

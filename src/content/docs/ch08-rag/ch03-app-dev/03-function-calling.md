@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Function Calling, Tool Calling, schema, parameter validation, LLM tool calling"
 ---
-
-# 8.3.4 Introduction to Function Calling
-
 ![Function Calling workflow diagram](/img/course/function-calling-workflow-en.webp)
 
 :::tip[Where this section fits]

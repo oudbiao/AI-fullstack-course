@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP 速成, tokenizer, embedding, pretrained model, Hugging Face"
 ---
-
-# 7.1.1 NLP 速成路线图：文本到 token 到向量
-
 想理解 LLM，先看文本如何变成模型能处理的形式：文本 -> token -> ID -> 向量 -> 模型输出。
 
 ## 先看流程

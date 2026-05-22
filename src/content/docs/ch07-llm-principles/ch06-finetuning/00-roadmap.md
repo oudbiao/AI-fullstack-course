@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "finetuning guide, LoRA, QLoRA, PEFT, LLM finetuning"
 ---
-
-# 7.6.1 Finetuning Roadmap: Data, LoRA, Evaluation
-
 Finetuning changes model behavior by training on examples. It is useful for stable task patterns, repeated formats, domain style, or behavior habits. It is usually not the first fix for missing private knowledge; that is often a RAG problem.
 
 ## See the Decision Loop First

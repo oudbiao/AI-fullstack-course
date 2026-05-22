@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent 框架指南, LangGraph, LlamaIndex, CrewAI, AutoGen"
 ---
-
-# 9.6.1 框架路线图：只在需要时选择
-
 框架不会让 Agent 自动变聪明。它们是在任务复杂度足够高时，帮助你组织状态、工具、工作流、记忆、日志和协作。
 
 ## 先看选择地图

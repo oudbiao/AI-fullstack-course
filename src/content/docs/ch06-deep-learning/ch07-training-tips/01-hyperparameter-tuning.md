@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "hyperparameter tuning, learning rate, batch size, regularization, experiment tracking"
 ---
-
-# 6.7.2 Hyperparameter Tuning Strategy
-
 :::tip[Section Overview]
 Hyperparameter tuning is experiment design. Change one important thing, keep a log, compare validation evidence, then decide the next move.
 :::

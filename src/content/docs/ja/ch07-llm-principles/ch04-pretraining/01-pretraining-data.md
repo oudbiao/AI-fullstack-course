@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretraining data, deduplication, data mixture, contamination, corpus cleaning"
 ---
-
-# 7.4.2 事前学習データ
-
 ![事前学習データのパイプライン図](/img/course/pretraining-data-pipeline-ja.webp)
 
 :::tip[この節の位置づけ]

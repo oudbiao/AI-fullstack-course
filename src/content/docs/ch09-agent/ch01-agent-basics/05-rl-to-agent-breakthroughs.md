@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "TD-Gammon, DQN, Atari, AlphaGo, reinforcement learning, Agent history"
 ---
-
-# 9.1.6 From TD-Gammon to AlphaGo: How Reinforcement Learning Shaped Agents
-
 ![Historical breakthroughs map from reinforcement learning to Agent](/img/course/ch09-rl-agent-breakthroughs-map-en.webp)
 
 :::tip[Section overview]

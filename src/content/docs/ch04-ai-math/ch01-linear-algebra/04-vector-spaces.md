@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "vector spaces, linear independence, basis, dimension, SVD, singular value decomposition, linear transformation"
 ---
-
-# 4.1.5 Vector Spaces and Linear Transformations [Elective]
-
 ![Schematic of vector space basis vectors spanning a space](/img/course/vector-space-basis-span-en.webp)
 
 :::note[Elective Chapter]

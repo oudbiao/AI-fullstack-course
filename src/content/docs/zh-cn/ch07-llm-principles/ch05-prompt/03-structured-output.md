@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "structured output, JSON, schema, validation, prompt engineering, LLM"
 ---
-
-# 7.5.4 结构化输出
-
 :::tip[本节定位]
 很多人第一次用大模型时，默认让它输出一段自然语言。
 但一旦你要把模型接进程序系统，很快就会碰到一个现实问题：

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "信息论, 熵, 交叉熵, KL散度, 损失函数, AI数学"
 ---
-
-# 4.2.5 信息论基础
-
 ![信息熵与不确定性图](/img/course/information-entropy-uncertainty.webp)
 
 :::tip[为什么学信息论？]

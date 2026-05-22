@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "行列, 行列積, 転置, 逆行列, NumPy, ニューラルネットワーク, 線形代数"
 ---
-
-# 4.1.3 行列：データのバッチ変換
-
 ![行列の線形変換グリッド図](/img/course/matrix-linear-transform-grid-ja.webp)
 
 ## 学習目標

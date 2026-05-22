@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "model serving, batching, request queue, version routing, health check, deployment"
 ---
-
-# E.A.6 模型服务化
-
 ![模型服务化架构图](/img/course/elective-model-serving-architecture.webp)
 
 ![模型服务指标与版本路由图](/img/course/elective-serving-metrics-version-routing-map.webp)

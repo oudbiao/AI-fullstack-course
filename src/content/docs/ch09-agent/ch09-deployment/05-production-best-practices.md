@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "production best practices, rollout, canary, rollback, observability, oncall, safety"
 ---
-
-# 9.9.6 Production Best Practices
-
 :::tip[Section Positioning]
 In the previous parts of this chapter, we covered:
 

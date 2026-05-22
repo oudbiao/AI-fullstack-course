@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "creative platform, multimodal project, image generation, editing, voice, asset management"
 ---
-
-# 12.5.2 プロジェクト：AI クリエイティブコンテンツプラットフォーム
-
 ![AI クリエイティブコンテンツプラットフォームのワークフロー図](/img/course/creative-platform-workflow-ja.webp)
 
 :::tip[この節の位置づけ]

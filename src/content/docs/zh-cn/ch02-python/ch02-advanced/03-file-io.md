@@ -4,9 +4,6 @@ description: "掌握文件读写和数据序列化"
 sidebar:
   order: 3
 ---
-
-# 2.2.3 文件操作与序列化
-
 ![文件读写与序列化流程图](/img/course/ch02-file-io-serialization-flow.webp)
 
 ## 本节定位

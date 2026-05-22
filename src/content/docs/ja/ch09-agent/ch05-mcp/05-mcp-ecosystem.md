@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP ecosystem, connectors, tooling ecosystem, protocol adoption, practice"
 ---
-
-# 9.5.6 MCP エコシステムと実践
-
 :::tip[この節の位置づけ]
 ここまで学んだ時点で、MCP はもうただの「プロトコル名」ではありません。  
 この節では、もっと大きな問いを見ていきます。

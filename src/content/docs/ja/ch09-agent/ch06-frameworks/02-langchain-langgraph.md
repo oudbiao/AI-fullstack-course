@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LangChain, LangGraph, chain, graph, stateful workflow, agent framework"
 ---
-
-# 9.6.3 LangChain / LangGraph
-
 :::tip[本節の位置づけ]
 Agent フレームワークに初めて触れるとき、多くの人は LangChain と LangGraph を混同しがちです。  
 でも、エンジニアリングの視点で見ると、この 2 つが解決している中心は完全に同じではありません。

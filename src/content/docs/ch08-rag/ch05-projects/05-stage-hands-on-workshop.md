@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG workshop, hands-on RAG, LLM application project, citations, RAG evaluation, Responses API"
 ---
-
-# 8.5.6 Hands-on: Full Chapter 8 RAG App Workshop
-
 This workshop turns the whole Chapter 8 thread into one runnable mini project. You will not start with LangChain, a vector database, or a cloud API. First you will build a transparent RAG loop with plain Python, so every beginner can see what happens at each step.
 
 The goal is not to build the most powerful system in one page. The goal is to build a small system that you can run, inspect, break, repair, and later replace piece by piece with real embeddings, a vector database, a model API, and deployment code.

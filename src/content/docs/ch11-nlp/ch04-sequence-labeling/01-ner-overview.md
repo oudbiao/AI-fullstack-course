@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sequence labeling, token classification, NER, BIO, span extraction, NLP"
 ---
-
-# 11.4.2 Sequence Labeling Tasks
-
 ![BIO label to entity recovery diagram](/img/course/bio-ner-recovery-en.webp)
 
 :::tip[Section Overview]

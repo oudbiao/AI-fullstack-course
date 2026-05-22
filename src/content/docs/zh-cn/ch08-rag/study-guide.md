@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG 检查表, LLM 应用检查表, 向量检索, RAG 评估, 大模型工程"
 ---
-
-# 8.0 学习检查表：LLM 应用开发与 RAG
-
 这页当成可打印检查表使用。需要完整讲解时，回到 [第 8 章入口页](./index.md)。
 
 ![RAG 作品集证据包](/img/course/ch08-rag-evidence-pack.webp)

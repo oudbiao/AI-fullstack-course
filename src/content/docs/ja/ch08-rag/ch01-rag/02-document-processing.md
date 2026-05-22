@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "chunking, 文書分割, ベクトル化, metadata, RAG preprocessing"
 ---
-
-# 8.1.3 文書処理とベクトル化
-
 ![文書解析とベクトル化のフローチャート](/img/course/document-processing-vectorization-ja.webp)
 
 ## 学習目標

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NER, named entity recognition, information extraction, BIO, project, NLP"
 ---
-
-# 11.4.5 NER 实战
-
 ![NER 项目实体评估闭环图](/img/course/ch11-ner-project-entity-eval-loop.webp)
 
 :::tip[读图提示]

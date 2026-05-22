@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "asyncio, concurrency, async, semaphore, gather, Python"
 ---
-
-# E.B.3 并发编程（含 asyncio）
-
 ![asyncio 并发控制流程图](/img/course/elective-asyncio-concurrency-control.webp)
 
 ![异步任务超时取消与限流图](/img/course/elective-asyncio-timeout-cancel-rate-limit-map.webp)

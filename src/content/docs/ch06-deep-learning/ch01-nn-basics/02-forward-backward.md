@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "forward propagation, backpropagation, gradient, loss, optimizer, PyTorch, training loop"
 ---
-
-# 6.1.4 Forward and Backward Propagation
-
 ![Neural network forward and backward propagation diagram](/img/course/neural-network-forward-backward-en.webp)
 
 :::tip[Section Overview]

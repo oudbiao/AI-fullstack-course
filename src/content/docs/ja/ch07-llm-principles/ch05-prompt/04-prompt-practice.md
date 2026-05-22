@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "prompt engineering, few-shot, instruction design, prompt practice, output control"
 ---
-
-# 7.5.5 Prompt 工学の実践
-
 :::tip[この節の位置づけ]
 前のいくつかの節では、すでに次の内容を学びました。
 

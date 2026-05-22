@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG, retrieval augmented generation, 検索拡張生成, chunk, retrieval"
 ---
-
-# 8.1.2 RAG 基礎
-
 ![RAG 文書から回答までの閉ループ図](/img/course/rag-document-answer-loop-ja.webp)
 
 :::tip[この節の位置づけ]

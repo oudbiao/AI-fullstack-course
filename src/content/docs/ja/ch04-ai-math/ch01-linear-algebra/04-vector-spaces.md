@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ベクトル空間, 線形独立, 基底, 次元, SVD, 特異値分解, 線形変換"
 ---
-
-# 4.1.5 ベクトル空間と線形変換【選択】
-
 ![ベクトル空間の基底ベクトルが張るイメージ](/img/course/vector-space-basis-span-ja.webp)
 
 :::note[選択章]

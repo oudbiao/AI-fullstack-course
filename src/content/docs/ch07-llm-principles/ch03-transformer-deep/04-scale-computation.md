@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "scaling, parameters, flops, kv cache, context length, throughput, scaling laws"
 ---
-
-# 7.3.6 Model Scale and Computation
-
 :::tip[What this section is about]
 When many people talk about large models, they often focus on just one number:
 

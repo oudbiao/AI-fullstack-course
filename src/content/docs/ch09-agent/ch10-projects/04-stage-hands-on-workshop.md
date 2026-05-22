@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent workshop, single Agent, Agent trace, tool calling, tool schema, Agent evaluation, OpenAI Agents SDK"
 ---
-
-# 9.10.5 Hands-on: Build a Traceable Single-Agent Assistant
-
 This workshop turns the whole Chapter 9 thread into one runnable mini project. You will build a small single-Agent assistant that can read a goal, choose tools, validate tool arguments, block risky actions, record every step into a trace, and run a small evaluation set.
 
 The first version uses only the Python standard library. That is intentional. Before you add a framework, API key, MCP server, or multi-Agent orchestration, you should be able to see the core loop with your own eyes.

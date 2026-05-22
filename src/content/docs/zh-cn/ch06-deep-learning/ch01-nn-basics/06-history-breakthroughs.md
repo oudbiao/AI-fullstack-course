@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "深度学习历史, 感知器, XOR, 反向传播, LSTM, AlexNet, ResNet, Transformer"
 ---
-
-# 6.1.8 可选背景：深度学习历史突破
-
 :::tip[本节定位]
 这页是简短地图，不是历史考试。看到每个模型名时，只要能回答一个问题：
 

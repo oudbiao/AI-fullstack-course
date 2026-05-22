@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "固有値, 固有ベクトル, PCA, 次元削減, NumPy, 線形代数, 主成分分析"
 ---
-
-# 4.1.4 固有値と固有ベクトル
-
 ![固有ベクトルの特別な方向のイメージ図](/img/course/eigenvalue-special-directions-ja.webp)
 
 :::tip[名前におびえなくて大丈夫]

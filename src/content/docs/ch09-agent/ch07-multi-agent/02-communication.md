@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent communication, message passing, event bus, shared state, async, protocol"
 ---
-
-# 9.7.3 Communication Between Agents
-
 :::tip[Section Overview]
 If the previous section answered “How should these Agents split up the work?”, then this section answers:
 

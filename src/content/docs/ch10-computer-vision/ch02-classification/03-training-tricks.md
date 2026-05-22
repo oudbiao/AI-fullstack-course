@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image classification, training tricks, data augmentation, learning rate, overfitting, class imbalance"
 ---
-
-# 10.2.4 Image Classification Training Tricks
-
 :::tip[Section Overview]
 An image classification project is not something you can fix just by switching models. In many cases, the real factors that determine performance are training details: whether data augmentation is reasonable, whether the learning rate is stable, whether the validation set is trustworthy, and whether error samples have been analyzed.
 :::

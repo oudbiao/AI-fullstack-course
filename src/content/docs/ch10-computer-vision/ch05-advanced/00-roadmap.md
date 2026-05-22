@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Advanced Vision Guide, OCR, Video Analysis, Face Recognition, 3D Vision"
 ---
-
-# 10.5.1 Advanced Vision Roadmap: OCR, Face, Video, 3D
-
 Advanced vision is not a list of model names. It is a set of application directions built on the same visual foundation: more complex inputs, outputs, constraints, and risks.
 
 ## See the Direction Map First

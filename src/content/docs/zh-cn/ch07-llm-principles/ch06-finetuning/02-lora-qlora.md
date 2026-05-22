@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LoRA, QLoRA, low-rank adaptation, quantization, PEFT, finetuning"
 ---
-
-# 7.6.3 LoRA 与 QLoRA
-
 ![LoRA 参数更新对比图](/img/course/lora-parameter-update.webp)
 
 :::tip[本节定位]

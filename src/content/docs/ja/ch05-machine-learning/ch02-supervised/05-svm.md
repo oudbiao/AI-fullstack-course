@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "SVM, サポートベクターマシン, 最大マージン, サポートベクトル, カーネル, RBF, C, gamma, StandardScaler, SVC"
 ---
-
-# 5.2.6 SVM：最大マージンとカーネル法
-
 ![SVM 最大間隔の直感図](/img/course/ch05-svm-margin-map-ja.webp)
 
 ![SVM の間隔と核法コミック](/img/course/ch05-svm-margin-kernel-comic-ja.webp)

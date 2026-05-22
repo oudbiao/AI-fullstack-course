@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework overview"
 ---
-
-# 9.6.2 Agent Framework Overview
-
 :::tip[Where this section fits]
 When people reach the Agent stage, many quickly fall into another trap:
 

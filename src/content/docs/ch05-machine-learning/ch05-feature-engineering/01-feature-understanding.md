@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "feature engineering, feature types, feature distribution, correlation analysis, EDA, numerical features, categorical features"
 ---
-
-# 5.5.2 Feature Understanding and Exploration
-
 ![Feature Type and Target Relationship Diagram](/img/course/feature-type-target-map-en.webp)
 
 :::tip[Section Overview]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Hugging Face, transformers, tokenizer, model, config, forward, batch, logits"
 ---
-
-# 7.1.5 Hugging Face Quick Start
-
 ![Hugging Face workflow object map](/img/course/ch07-huggingface-workflow-object-map-en.webp)
 
 :::tip[Core Chain]

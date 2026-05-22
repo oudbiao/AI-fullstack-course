@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "feature engineering guide, preprocessing, feature construction, feature selection, Pipeline"
 ---
-
-# 5.5.1 Feature Engineering Roadmap: Make Data Easier to Learn
-
 Feature engineering is the work of making inputs useful, stable, and safe for models. Many model problems are actually feature problems.
 
 ## Look at the Feature Flow First

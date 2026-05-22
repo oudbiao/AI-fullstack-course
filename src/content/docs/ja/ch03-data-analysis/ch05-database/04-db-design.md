@@ -4,9 +4,6 @@ description: "適切なデータベース構造の設計方法を学び、正規
 sidebar:
   order: 24
 ---
-
-# 3.5.5 データベース設計
-
 ![データベース設計と正規形の図](/img/course/ch03-database-design-erd-normalization-ja.webp)
 
 :::tip[この節の位置づけ]

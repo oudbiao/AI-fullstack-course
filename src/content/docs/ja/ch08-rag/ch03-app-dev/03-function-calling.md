@@ -1,5 +1,5 @@
 ---
-title: "8.3.4 関数呼び出し（Function Calling）入門"
+title: "8.3.4 関数呼び出し 入門"
 description: "なぜ純テキスト出力だけでは足りないのかから、schema、パラメータ、ディスパッチ、実行まで、Function Calling がどのようにモデルをツールにつなぐのかをしっかり理解します。"
 sidebar:
   order: 13
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Function Calling, Tool Calling, schema, パラメータ検証, LLM ツール呼び出し"
 ---
-
-# 8.3.4 関数呼び出し 入門
-
 ![関数呼び出し ワークフロー図](/img/course/function-calling-workflow-ja.webp)
 
 :::tip[この節の位置づけ]

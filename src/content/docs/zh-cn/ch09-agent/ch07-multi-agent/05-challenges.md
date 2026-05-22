@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent, failure modes, coordination, observability, cost, conflict resolution"
 ---
-
-# 9.7.6 多 Agent 挑战与解决
-
 :::tip[本节定位]
 前面几节你已经看到，多 Agent 可以分工、通信、协调。
 但真正把系统做起来以后，你会发现一个现实：

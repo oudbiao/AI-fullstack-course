@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image classification project, CNN, confusion matrix, error analysis, computer vision"
 ---
-
-# 6.8.2 Project: Image Classification System
-
 :::tip[Section Overview]
 An image classification project is portfolio-ready when another person can understand the labels, run the baseline, inspect the metrics, and see what failed.
 :::

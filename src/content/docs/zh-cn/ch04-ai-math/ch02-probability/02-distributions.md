@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "概率分布, 正态分布, 二项分布, 泊松分布, 中心极限定理, Python, AI数学"
 ---
-
-# 4.2.3 概率分布：数据背后的规律
-
 ![概率分布家族对比图](/img/course/distribution-family-comparison.webp)
 
 ## 学习目标

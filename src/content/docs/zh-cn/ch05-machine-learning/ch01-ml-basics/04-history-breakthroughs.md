@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "机器学习历史, ML突破, 贝叶斯, 最大似然, EM, 决策树, SVM, 随机森林, XGBoost"
 ---
-
-# 5.1.5 机器学习历史突破主线
-
 ![机器学习历史突破地图](/img/course/ch05-ml-history-breakthrough-map.webp)
 
 :::tip[本节定位]

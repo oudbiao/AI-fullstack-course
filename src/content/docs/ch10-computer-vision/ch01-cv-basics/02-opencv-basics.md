@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "OpenCV, cv2, image reading, image resizing, drawing, color conversion"
 ---
-
-# 10.1.3 OpenCV Basics
-
 ## Learning Objectives
 
 After completing this section, you will be able to:

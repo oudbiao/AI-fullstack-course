@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding, RMSNorm, RoPE, GQA"
 ---
-
-# 6.5.3 Transformer アーキテクチャ
-
 :::tip[この節の位置づけ]
 Attention は心臓ですが、Transformer block が安定して動くのは複数の部品が協力しているからです。残差は情報を守り、正規化は値を安定させ、FFN は各 token を加工し、位置情報は順序を補います。
 :::

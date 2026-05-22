@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "object detection, bounding box, detection, localization, computer vision"
 ---
-
-# 10.3.2 目标检测概述
-
 ![目标检测输出拆解图](/img/course/object-detection-output.webp)
 
 :::tip[本节定位]

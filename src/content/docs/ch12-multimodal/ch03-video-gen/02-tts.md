@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "TTS, text to speech, vocoder, speech synthesis, voice cloning, speaker control"
 ---
-
-# 12.3.3 Speech Synthesis
-
 ![TTS text-to-speech generation pipeline diagram](/img/course/ch12-tts-text-to-speech-pipeline-map-en.webp)
 
 :::tip[Reading tip]

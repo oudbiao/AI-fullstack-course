@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool description, tool discovery, schema, registry, metadata, agent tools"
 ---
-
-# 9.3.3 ツールの説明と発見
-
 :::tip[このセクションの位置づけ]
 Agent を作るとき、多くの人はまずツール関数をつなぎ、そのあとモデルに自分で選ばせます。  
 すると、すぐに次のような問題が起きます。

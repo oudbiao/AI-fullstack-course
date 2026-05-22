@@ -4,9 +4,6 @@ description: "A concise hands-on roadmap for supplementary classic machine learn
 sidebar:
   order: 0
 ---
-
-# E.C Classic ML Roadmap
-
 Use this elective when your dataset is small, your features are clear, or you need a strong baseline before trying a heavier model.
 
 ## See the Baseline Map First

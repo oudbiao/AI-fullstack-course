@@ -4,9 +4,6 @@ description: "Master the most commonly used Git operations in day-to-day develop
 sidebar:
   order: 2
 ---
-
-# 1.2.2 Git Core Operations
-
 ![Git daily minimal loop diagram](/img/course/ch01-git-daily-loop-en.webp)
 
 ## Where This Section Fits
@@ -483,7 +480,7 @@ git commit -m "Update .gitignore: ignore config.py"
 
 ## Hands-on Practice: Simulate a Full Development Workflow
 
-```bash
+````bash
 # 1. Write the training script
 cat > src/train.py << 'EOF'
 import torch
@@ -532,7 +529,7 @@ git commit -m "Update README: add installation and usage instructions"
 
 # 4. View the full history
 git log --oneline
-```
+````
 
 You should see something like these 5 commit records:
 

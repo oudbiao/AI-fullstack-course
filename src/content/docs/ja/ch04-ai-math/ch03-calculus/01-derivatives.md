@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "導関数, 微積分, 変化率, 接線の傾き, Python, AI数学"
 ---
-
-# 4.3.2 導関数：変化率の直感
-
 ![導関数の接線の傾きのイメージ図](/img/course/derivative-tangent-slope-ja.webp)
 
 :::tip[公式を丸暗記しなくてOK]

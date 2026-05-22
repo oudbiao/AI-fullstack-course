@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool patterns, composite tools, caching, batching, retries, decorators, orchestration"
 ---
-
-# 9.3.7 高级工具模式【选修】
-
 :::tip[本节定位]
 当工具只有两三个时，
 直接注册和调度往往已经够用。

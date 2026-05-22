@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "deployment architecture, agent architecture, api gateway, orchestrator, queue, storage, observability"
 ---
-
-# 9.9.2 Agent デプロイメントアーキテクチャ
-
 :::tip[この節の位置づけ]
 多くの Agent プロジェクトは、最初はただのスクリプトから始まります。
 

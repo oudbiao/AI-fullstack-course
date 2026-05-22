@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "dialog system, multi-turn, conversation state, memory, turn management, LLM app"
 ---
-
-# 8.3.6 对话系统与多轮管理
-
 :::tip[本节定位]
 很多人一做聊天应用，第一反应是：
 

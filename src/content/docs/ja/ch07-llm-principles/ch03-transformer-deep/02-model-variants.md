@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE"
 ---
-
-# 7.3.4 主流な大規模モデルアーキテクチャのバリエーション
-
 :::tip[この節の位置づけ]
 はじめて大規模モデルの仲間に触れると、名前が違うだけに見えることがあります。
 

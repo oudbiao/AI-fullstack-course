@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict, 机器学习框架"
 ---
-
-# 5.1.3 Scikit-learn 跟做：fit、transform、Pipeline
-
 ![Scikit-learn Estimator 与 Pipeline 图解](/img/course/sklearn-estimator-pipeline.webp)
 
 Scikit-learn 是经典机器学习最常用的 Python 库。本页刻意压短：先看流程图，再跑一个完整脚本。

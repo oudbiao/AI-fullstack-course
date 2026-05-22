@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "线性回归, 最小二乘法, 残差, RMSE, MAE, Ridge, 多项式回归"
 ---
-
-# 5.2.2 线性回归：baseline、残差、正则化
-
 ![线性回归学习主线图](/img/course/ch05-linear-regression-learning-flow.webp)
 
 线性回归回答一个很实用的问题：**能不能用几个输入数字解释或预测一个连续数值？** 例如价格、销量、需求、温度、延迟或成本。

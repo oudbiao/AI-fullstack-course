@@ -1,12 +1,9 @@
 ---
-title: "3.1.1 纯 Python 处理数据"
+title: "3.1.1 预热：纯 Python 处理数据"
 description: "用纯 Python 处理真实数据集，亲身体会为什么需要 NumPy 和 Pandas"
 sidebar:
   order: 1
 ---
-
-# 3.1.1 预热：纯 Python 处理数据
-
 ## 学习目标
 
 - 用纯 Python（csv 模块 + 字典 + 列表）处理真实数据集

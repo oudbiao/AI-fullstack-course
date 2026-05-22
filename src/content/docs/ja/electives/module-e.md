@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "frontend, HTML, CSS, JavaScript, fetch, UI, AI product"
 ---
-
-# E.E Web フロントエンド速習
-
 AI 機能には、ユーザーが操作できる画面が必要です。最小限の有用なフロントエンドは、入力、読み込み、成功、空入力、エラー、再試行をはっきり示します。
 
 ## まずインタラクションスタックを見る

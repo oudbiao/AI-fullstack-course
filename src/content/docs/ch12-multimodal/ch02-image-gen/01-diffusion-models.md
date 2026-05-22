@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "diffusion model, denoising, forward process, reverse process, generative model, image generation"
 ---
-
-# 12.2.2 Principles of Diffusion Models
-
 ![Diffusion model noise addition and denoising diagram](/img/course/diffusion-noise-denoise-en.webp)
 
 :::tip[Section overview]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "segmentation practice, semantic segmentation project, mask, IoU, computer vision"
 ---
-
-# 10.4.4 Segmentation Practice
-
 :::tip[Section Overview]
 The biggest challenge in a segmentation project is often not the model name,
 but:

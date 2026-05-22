@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "最大似然估计, MLE, MAP, 假设检验, A/B测试, 统计推断, AI数学"
 ---
-
-# 4.2.4 统计推断基础
-
 ![最大似然估计似然曲线图](/img/course/mle-likelihood-curve.webp)
 
 :::tip[统计推断 = 从数据反推规律]

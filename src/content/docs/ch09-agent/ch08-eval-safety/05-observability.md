@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "observability, trace, metrics, logs, replay, agent"
 ---
-
-# 9.8.6 Agent Observability
-
 :::tip[Section Positioning]
 If an Agent system has no observability, many problems become “something looks weird, but we don’t know which step is weird.” The core of this section is to make the system’s internal process visible, traceable, and replayable.
 :::

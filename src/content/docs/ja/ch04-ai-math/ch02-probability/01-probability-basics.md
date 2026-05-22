@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "確率, 条件付き確率, ベイズの定理, 同時確率, Python確率, AI数学"
 ---
-
-# 4.2.2 確率の基礎：不確実性の測り方
-
 ![確率分布とベイズ更新の図](/img/course/probability-distribution-map-ja.webp)
 
 :::tip[なぜ確率を学ぶの？]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory practice, short term, long term, episodic memory, procedural memory, agent"
 ---
-
-# 9.4.7 Hands-on Practice: Complete Memory System
-
 :::tip[Section Positioning]
 In the previous sections, we split memory into concepts and strategies.
 In this section, we will directly build a runnable “small system” and connect these layers together:

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "edge deployment, Jetson, Raspberry Pi, memory budget, latency, offline inference"
 ---
-
-# E.A.5 Edge Device Deployment
-
 ![Edge deployment constraint decision map](/img/course/elective-edge-deployment-constraint-map-en.webp)
 
 Edge deployment means the model runs near the user, camera, machine, or sensor. The main problem is not model accuracy first; it is whether the device can run the system reliably for a long time.

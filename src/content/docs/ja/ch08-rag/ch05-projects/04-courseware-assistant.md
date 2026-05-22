@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sop assistant, knowledge base, word generation, policy retrieval, document parsing, rag project"
 ---
-
-# 8.5.5 プロジェクト：知識ベース駆動の SOP 文書アシスタント
-
 ![SOP 文書アシスタントのワークフロー図](/img/course/courseware-assistant-workflow-ja.webp)
 
 :::tip[この節の位置づけ]

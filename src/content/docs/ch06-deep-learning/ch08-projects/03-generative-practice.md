@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "generative project, GAN, VAE, generation quality, diversity, evaluation"
 ---
-
-# 6.8.4 Project: Generative Models in Practice [Optional]
-
 :::tip[Section Overview]
 A generative project is not finished when it produces one nice sample. You need to show quality, diversity, stability, failures, and why one checkpoint is worth keeping.
 :::

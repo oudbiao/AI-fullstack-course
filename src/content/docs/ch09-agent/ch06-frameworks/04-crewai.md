@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CrewAI, multi-agent, roles, tasks, crew, team abstraction"
 ---
-
-# 9.6.5 CrewAI
-
 :::tip[Section focus]
 If some frameworks feel more like a “state-flow engine,” then CrewAI usually gives this first impression:
 

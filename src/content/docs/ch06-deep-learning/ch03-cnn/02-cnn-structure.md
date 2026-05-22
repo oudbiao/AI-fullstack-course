@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CNN, convolution block, pooling, feature map, classification head, fully connected layer, Global Average Pooling"
 ---
-
-# 6.3.3 Basic CNN Architecture
-
 :::tip[Section Overview]
 The previous page explained how one kernel scans one local window. This page assembles those pieces into a complete CNN and traces every shape, so the model is no longer a mysterious diagram.
 :::

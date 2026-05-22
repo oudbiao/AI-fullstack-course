@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Python入門, Python基礎, Pythonチュートリアル, プログラミング入門, AI API"
 ---
-
-# 2 Python プログラミング基礎
-
 ![Python プログラミング基礎メインビジュアル](/img/course/ch02-python-foundation-ja.webp)
 
 第 2 章の目的は 1 つです。小さなアイデアを、**実行でき、データを保存でき、エラーを扱え、説明できる Python プログラム**にすることです。

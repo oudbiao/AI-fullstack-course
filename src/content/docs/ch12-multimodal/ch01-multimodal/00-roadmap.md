@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multimodal introduction, alignment, fusion, visual-language models, multimodal applications"
 ---
-
-# 12.1.1 Multimodal Roadmap: Encode, Align, Use
-
 Multimodal AI is not just “chat with an image.” A useful system turns images, text, audio, or video into structured observations, aligns them with the task, then sends the result into retrieval, review, creation, or automation.
 
 ## See the Pipeline First

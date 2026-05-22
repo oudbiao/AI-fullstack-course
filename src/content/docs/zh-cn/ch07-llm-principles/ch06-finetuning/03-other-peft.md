@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PEFT, prompt tuning, prefix tuning, adapter, IA3, finetuning"
 ---
-
-# 7.6.4 其他 PEFT 方法【选修】
-
 :::tip[本节定位]
 前一节我们已经知道了 LoRA 和 QLoRA 的主线：
 不重训整个大模型，而是只训练少量增量参数。

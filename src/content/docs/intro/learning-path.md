@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI learning plan, AI full-stack route, AI career transition, LLM learning, RAG learning"
 ---
-
-# 0.4 Plan The Main Route
-
 ![Main route and project thread planning map](/img/course/intro-learning-path-selection-en.webp)
 
 Do not start by creating many separate routes. Use one main route first: **Chapter 1 -> Chapter 9 in order, one small output per stage, then choose one specialization from Chapters 10-12 only when your project needs it.**

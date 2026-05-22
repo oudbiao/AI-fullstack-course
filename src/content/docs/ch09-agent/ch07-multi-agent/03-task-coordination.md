@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "task coordination, task assignment, multi-agent, scheduling, conflict resolution"
 ---
-
-# 9.7.4 Task Allocation and Coordination
-
 :::tip[Section Focus]
 The previous section covered communication and explained "how information is transmitted."
 This section tackles another, trickier question:

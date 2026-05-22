@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "HMM, CRF, part-of-speech tagging, sequence labeling, NER, BiLSTM-CRF"
 ---
-
-# 11.4.3 HMM, CRF, and the Historical Thread of Sequence Labeling
-
 ![HMM CRF Sequence Labeling History Map](/img/course/ch11-hmm-crf-sequence-history-map-en.webp)
 
 :::tip[Section Overview]

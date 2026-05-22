@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Advanced Vision Guide, OCR, Video Analysis, Face Recognition, 3D Vision"
 ---
-
-# 10.5.1 高度な視覚タスクのロードマップ：OCR、顔、動画、3D
-
 高度な視覚タスクは、モデル名のリストではありません。同じ視覚基盤の上にある応用方向で、入力、出力、制約、リスクがより複雑になります。
 
 ## まず direction map を見る

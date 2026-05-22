@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "推論エンジン, ONNX Runtime, TensorRT, OpenVINO, 実行グラフ, デプロイ"
 ---
-
-# E.A.4 推論エンジン
-
 ![推論エンジンとハードウェア適合図](/img/course/elective-inference-engine-hardware-ja.webp)
 
 ![推論エンジン選定マトリクス図](/img/course/elective-inference-engine-selection-matrix-ja.webp)

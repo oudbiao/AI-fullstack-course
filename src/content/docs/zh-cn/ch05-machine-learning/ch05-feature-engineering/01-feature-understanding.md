@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "特征工程, 特征类型, 特征分布, 相关性分析, EDA, 数值特征, 类别特征"
 ---
-
-# 5.5.2 特征理解与探索
-
 ![特征类型与目标关系图](/img/course/feature-type-target-map.webp)
 
 :::tip[本节定位]

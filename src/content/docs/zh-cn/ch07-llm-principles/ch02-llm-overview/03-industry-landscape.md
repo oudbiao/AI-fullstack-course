@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM 产业, 开源模型, 闭源模型, API, 推理, 应用层"
 ---
-
-# 7.2.4 大模型产业格局
-
 ![大模型产业格局分层图](/img/course/ch07-llm-industry-landscape-map.webp)
 
 :::tip[读图提示]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent patterns, research team, writer-reviewer, dev team, agent collaboration"
 ---
-
-# 9.7.5 Multi-Agent Practical Patterns
-
 :::tip[Section Overview]
 We have already covered:
 

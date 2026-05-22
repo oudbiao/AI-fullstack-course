@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "local models, local inference, quantization, CPU, GPU, model runtime"
 ---
-
-# 8.2.2 本地模型运行
-
 :::tip[本节定位]
 大模型应用最容易让人默认的一条路是：
 

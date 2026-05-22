@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "現代 LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU"
 ---
-
-# 7.3.3 元の Transformer vs 現代 LLM デコーダー
-
 2017 年の Transformer 論文は基礎を作りました。しかし、多くの現代 LLM decoder block は、元の図をそのまま写したものではありません。
 
 中心の考え方は同じです。

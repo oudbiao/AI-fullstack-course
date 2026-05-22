@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "video generation guide, speech synthesis guide, digital human guide, TTS, temporal generation"
 ---
-
-# 12.3.1 Video and Speech Roadmap: Script, Timeline, Sync
-
 Video and speech generation adds time. You are no longer creating one image; you are organizing script, shots, narration, timing, subtitles, motion, and review on a timeline.
 
 ## See the Timeline First

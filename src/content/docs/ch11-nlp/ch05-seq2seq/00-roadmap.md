@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Seq2Seq guide, attention guide, machine translation"
 ---
-
-# 11.5.1 Seq2Seq Roadmap: Input Sequence to Output Sequence
-
 Seq2Seq handles tasks where both input and output are sequences: translation, summarization, rewriting, dialogue, and error correction.
 
 ## See the Generation Bridge First

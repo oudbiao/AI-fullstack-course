@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "machine translation, seq2seq, translation project, alignment, error analysis"
 ---
-
-# 11.5.4 機械翻訳の実践【選択】
-
 ![機械翻訳エラー分析図](/img/course/ch11-machine-translation-error-analysis-map-ja.webp)
 
 :::tip[図の見方]

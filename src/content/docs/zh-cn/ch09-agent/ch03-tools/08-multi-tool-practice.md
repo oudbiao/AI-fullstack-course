@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-tool agent, orchestration, tool chain, agent practice, refund assistant"
 ---
-
-# 9.3.9 实战：多工具协作 Agent
-
 ![Agent 工具调用 追踪 图](/img/course/agent-tool-trace.webp)
 
 :::tip[本节定位]

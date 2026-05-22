@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG ガイド, retrieval-augmented generation, ベクトルデータベース, 文書チャンク, reranking, RAG 評価"
 ---
-
-# 8.1.1 RAG ロードマップ：文書、検索、回答
-
 RAG は実務的な問題を解きます。モデルは最新情報、非公開情報、出典が必要な事実をすべて知っているわけではないため、アプリケーションが先に根拠を検索してから回答させます。
 
 ## まず RAG パイプラインを見る

@@ -4,9 +4,6 @@ description: "Connect to databases with Python, run safe CRUD operations, and mo
 sidebar:
   order: 23
 ---
-
-# 3.5.4 Python Database Operations
-
 ![Python and database collaboration bridge diagram](/img/course/ch03-python-database-bridge-en.webp)
 
 :::tip[Section overview]

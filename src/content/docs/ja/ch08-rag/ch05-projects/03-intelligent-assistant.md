@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "assistant project, multi-turn QA, dialog state, retrieval, tool calling, LLM app"
 ---
-
-# 8.5.4 プロジェクト：スマートQ&Aアシスタント
-
 :::tip[この節の位置づけ]
 この節は「企業知識ベースQ&A」によく似ていますが、目標はもう一歩先です。  
 企業知識ベースはどちらかというと「資料を探して答える」ことに寄っていますが、スマートQ&Aアシスタントは、実際にユーザーと協力するシステムに近いです。

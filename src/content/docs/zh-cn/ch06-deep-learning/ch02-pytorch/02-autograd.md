@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "autograd, backward, gradient, requires_grad, no_grad, detach, PyTorch"
 ---
-
-# 6.2.4 Autograd 自动求导
-
 :::tip[本节定位]
 `autograd` 是把前向计算变成梯度的引擎。重点不是背 `backward()`，而是知道：**记录了什么计算图，梯度存在哪里，什么时候会累积，什么时候要关闭追踪。**
 :::

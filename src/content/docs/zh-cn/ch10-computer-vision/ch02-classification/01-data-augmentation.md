@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data augmentation, flip, crop, color jitter, mixup, vision"
 ---
-
-# 10.2.2 数据增强策略
-
 ![图像数据增强样例墙](/img/course/cv-data-augmentation-gallery.webp)
 
 :::tip[本节定位]

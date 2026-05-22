@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "segmentation practice, semantic segmentation project, mask, IoU, computer vision"
 ---
-
-# 10.4.4 分割実戦
-
 :::tip[この節の位置づけ]
 分割プロジェクトで最大の難しさは、モデル名そのものではなく、
 むしろ次の点です。

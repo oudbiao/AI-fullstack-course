@@ -4,9 +4,6 @@ description: "より少ないコードで、より見やすい統計グラフを
 sidebar:
   order: 18
 ---
-
-# 3.4.3 Seaborn 統計可視化
-
 ![Seaborn 統計グラフ選択図](/img/course/seaborn-statistical-plots-ja.webp)
 
 :::tip[この節の位置づけ]

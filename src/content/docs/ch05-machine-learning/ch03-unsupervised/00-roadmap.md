@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Unsupervised Learning Guide, Clustering, Dimensionality Reduction, Anomaly Detection"
 ---
-
-# 5.3.1 Unsupervised Learning Roadmap: Find Structure Without Labels
-
 Unsupervised learning starts when the data has no labels. The model does not tell you the final truth. It helps you discover possible structure.
 
 ## Look at the Structure Map First

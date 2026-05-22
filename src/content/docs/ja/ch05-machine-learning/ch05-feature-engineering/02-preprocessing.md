@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "特徴量前処理, 欠損値, 標準化, one-hot, データリーク, preprocessing"
 ---
-
-# 5.5.3 特徴量の前処理
-
 ![特徴量前処理のパイプライン図](/img/course/feature-preprocessing-pipeline-ja.webp)
 
 :::tip[この節の位置づけ]

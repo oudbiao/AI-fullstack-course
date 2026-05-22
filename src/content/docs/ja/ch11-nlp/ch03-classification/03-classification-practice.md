@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text classification practice, intent classification, baseline, error analysis, NLP project"
 ---
-
-# 11.3.4 テキスト分類実践
-
 ![テキスト分類トレーニングフローチャート](/img/course/text-classification-pipeline-ja.webp)
 
 :::tip[この節の位置づけ]

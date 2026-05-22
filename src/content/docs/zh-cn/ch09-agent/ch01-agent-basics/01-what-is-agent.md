@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI Agent, 智能体, tools, planning, workflow, function calling"
 ---
-
-# 9.1.2 什么是 AI Agent
-
 ![Agent 与普通 Chatbot 对比图](/img/course/agent-vs-chatbot-comparison.webp)
 
 :::tip[本节定位]

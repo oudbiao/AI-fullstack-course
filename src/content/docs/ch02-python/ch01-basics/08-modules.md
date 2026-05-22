@@ -4,9 +4,6 @@ description: "Master how to use Python modules and packages"
 sidebar:
   order: 8
 ---
-
-# 2.1.8 Modules and Packages
-
 ![Module and package project structure diagram](/img/course/ch02-modules-package-structure-en.webp)
 
 ## Where This Section Fits

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP ガイド, Model Context Protocol, Agent ツールエコシステム, MCP Server"
 ---
-
-# 9.5.1 MCP ロードマップ：サーバー、クライアント、機能
-
 MCP は、ツール、リソース、プロンプトテンプレートをより標準的にモデルアプリケーションへ接続するプロトコル層です。Agent やツールを置き換えるものではなく、機能を一貫して公開・利用しやすくします。
 
 ## まず MCP の境界を見る

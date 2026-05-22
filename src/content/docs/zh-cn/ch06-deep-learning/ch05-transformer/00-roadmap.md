@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer 指南, attention mechanism, QKV, self-attention, deep learning"
 ---
-
-# 6.5.1 Transformer 路线图：Attention 让 token 互相看见
-
 Transformer 是从深度学习走向现代 LLM 的桥。第一直觉很简单：每个 token 可以决定哪些其他 token 更重要。
 
 ## 先看 Attention 流程

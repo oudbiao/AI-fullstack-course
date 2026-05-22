@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "advanced RAG, router, multi-hop, agentic rag, graph rag, structured retrieval"
 ---
-
-# 8.1.7 高度な RAG アーキテクチャ
-
 ## 学習目標
 
 この節が終わると、あなたは次のことができるようになります。

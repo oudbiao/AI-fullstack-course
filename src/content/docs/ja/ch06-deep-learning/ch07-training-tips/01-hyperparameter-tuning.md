@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "hyperparameter tuning, learning rate, batch size, regularization, experiment tracking"
 ---
-
-# 6.7.2 ハイパーパラメータ調整戦略
-
 :::tip[この節の位置づけ]
 ハイパーパラメータ調整は実験設計です。重要な変数を 1 つ変え、記録を残し、validation の証拠を比較して、次の一手を決めます。
 :::

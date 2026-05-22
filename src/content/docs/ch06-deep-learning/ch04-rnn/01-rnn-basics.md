@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RNN, sequence modeling, hidden state, recurrent neural network, time step"
 ---
-
-# 6.4.2 RNN Basics
-
 :::tip[Section Overview]
 CNNs scan space. RNNs scan time. The key idea is simple: read the current step, combine it with a compressed memory from the previous step, and update that memory.
 :::

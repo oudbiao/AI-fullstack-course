@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM API, chat completion, API client, prompt, response parsing, error handling"
 ---
-
-# 8.3.2 大モデル API 呼び出し実践
-
 :::tip[この節の位置づけ]
 多くの人は、最初に LLM アプリを作るとき、「とりあえず API を呼べる」ところで止まりがちです。  
 でも、実際の開発で本当に大切なのは次です。

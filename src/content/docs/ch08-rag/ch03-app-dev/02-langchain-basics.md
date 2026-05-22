@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LangChain, chain, prompt template, output parser, retriever, LLM application"
 ---
-
-# 8.3.3 LangChain Basics
-
 :::tip[Section Focus]
 When many people first look at LangChain, they think it is just “tuning the model.”
 But the problem it is really trying to solve is more specific:

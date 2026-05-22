@@ -4,9 +4,6 @@ description: "NumPy を知ろう——Python 科学計算の土台"
 sidebar:
   order: 2
 ---
-
-# 3.2.1 NumPy 概要
-
 ## 学習目標
 
 - NumPy とは何か、そして Python エコシステムの中での位置づけを理解する

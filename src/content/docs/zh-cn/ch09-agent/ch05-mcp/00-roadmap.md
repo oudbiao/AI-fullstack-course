@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP 指南, Model Context Protocol, Agent 工具体系, MCP Server"
 ---
-
-# 9.5.1 MCP 路线图：服务器、客户端、能力
-
 MCP 是一种协议层，用更标准的方式把工具、资源和 Prompt 模板连接到模型应用。它不替代 Agent，也不替代工具本身，而是让能力更容易稳定暴露和使用。
 
 ## 先看 MCP 边界

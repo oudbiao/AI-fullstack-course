@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "research assistant, citation, retrieval, summary, agent project, RAG"
 ---
-
-# 9.10.2 Project: Intelligent Research Assistant
-
 :::tip[Section Focus]
 The research assistant project is a great fit for an Agent portfolio, not because it looks advanced, but because it naturally requires the system to do all of the following well at the same time:
 

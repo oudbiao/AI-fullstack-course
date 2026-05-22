@@ -1,5 +1,5 @@
 ---
-title: "9.6.2 Agent 框架の全体像"
+title: "9.6.2 Agent フレームワークの全体像"
 description: "なぜフレームワークが必要なのかから始めて、さまざまな Agent フレームワークの抽象レベル、制御のしやすさ、適用シーンの違いを整理し、フレームワーク選定の地図を作る。"
 sidebar:
   order: 30
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework overview"
 ---
-
-# 9.6.2 Agent フレームワークの全体像
-
 :::tip[この節の位置づけ]
 Agent の段階に入ると、多くの人がすぐに別の落とし穴にはまります。
 

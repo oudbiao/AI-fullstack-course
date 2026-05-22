@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Dataset, DataLoader, batch, shuffle, random_split, PyTorch"
 ---
-
-# 6.2.6 データ読み込み
-
 :::tip[この節の位置づけ]
 モデルは準備できましたが、巨大なデータの塊を一度に渡すべきではありません。`Dataset` は 1 つのサンプルを定義し、`DataLoader` はサンプルをシャッフルされた小さな batch にして学習ループへ渡します。
 :::

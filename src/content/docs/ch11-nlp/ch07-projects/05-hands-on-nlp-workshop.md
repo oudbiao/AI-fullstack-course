@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP hands-on, TF-IDF, text classification, retrieval QA, summarization, information extraction, failure analysis"
 ---
-
-# 11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline
-
 Before you choose a larger NLP project, run this mini pipeline once. It turns the abstract ideas from this chapter into files you can inspect: raw text, tokens, TF-IDF features, classification predictions, retrieval answers, summaries, extracted fields, metrics, and failure cases.
 
 ![NLP workshop end-to-end artifact pipeline](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-en.webp)

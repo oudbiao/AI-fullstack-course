@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "large language models, LLM, Transformer, Prompt Engineering, LoRA, fine-tuning, RLHF"
 ---
-
-# 7 LLM Principles, Prompt, and Fine-tuning
-
 ![Main visual for LLM principles](/img/course/ch07-llm-principles-en.webp)
 
 This chapter answers one practical question: **when a user sends text to an LLM, what path does that text take, and how can you make the result stable enough for an application?**

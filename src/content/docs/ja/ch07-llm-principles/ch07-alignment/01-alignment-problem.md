@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "alignment, helpful honest harmless, safety, governance, evaluation"
 ---
-
-# 7.7.2 アライメント問題
-
 :::tip[本節の位置づけ]
 モデルの能力が高くなるほど、アライメント問題を「本番公開の前に安全スイッチを1つ追加すればよい」とは考えられなくなります。
 

@@ -1,5 +1,5 @@
 ---
-title: "6.2.2 过渡：从 sklearn 到 PyTorch"
+title: "6.2.2 从 sklearn 到 PyTorch"
 description: "用最小可运行示例理解 sklearn 和 PyTorch 的思维差异，建立从传统机器学习到深度学习框架的桥梁。"
 sidebar:
   order: 0
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sklearn, PyTorch, 深度学习入门, 训练循环, 张量, 梯度下降"
 ---
-
-# 6.2.2 从 sklearn 到 PyTorch
-
 :::tip[本节定位]
 如果说 `scikit-learn` 像自动挡汽车，那么 `PyTorch` 更像手动挡汽车。
 

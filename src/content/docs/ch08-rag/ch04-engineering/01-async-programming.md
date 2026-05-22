@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "asyncio, concurrency, gather, semaphore, timeout, async programming, LLM engineering"
 ---
-
-# 8.4.2 Asynchronous Programming and Concurrent Calls
-
 :::tip[Section overview]
 When building LLM applications, many people’s first performance bottleneck is not that the model is too weak, but that:
 

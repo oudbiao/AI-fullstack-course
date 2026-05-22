@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE"
 ---
-
-# 7.3.4 Mainstream Variants of Large Model Architectures
-
 :::tip[Section Overview]
 When many people first encounter the large model family, they may feel that the models are only different in name:
 

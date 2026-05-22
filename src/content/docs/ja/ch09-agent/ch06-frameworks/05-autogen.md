@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AutoGen, multi-agent, role dialogue, conversation loop, code execution, agent collaboration"
 ---
-
-# 9.6.6 AutoGen【選択】
-
 :::tip[この節の位置づけ]
 もし一部のフレームワークが「ワークフロー図」や「知識整理レイヤー」に近いとしたら、AutoGen の第一印象はだいたいこうです：
 

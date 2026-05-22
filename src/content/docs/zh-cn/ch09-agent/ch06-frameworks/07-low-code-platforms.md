@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "low-code, visual workflow, drag-and-drop, no-code, agent builder"
 ---
-
-# 9.6.8 低代码平台【选修】
-
 :::tip[本节定位]
 不是所有团队都想：
 

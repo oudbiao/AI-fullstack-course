@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PEFT, prompt tuning, prefix tuning, adapter, IA3, finetuning"
 ---
-
-# 7.6.4 Other PEFT Methods [Optional]
-
 :::tip[Section overview]
 In the previous section, we already learned the main storyline of LoRA and QLoRA:
 instead of retraining the entire large model, we only train a small number of additional parameters.

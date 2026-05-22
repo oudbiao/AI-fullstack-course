@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, deployment"
 ---
-
-# E.A.4 推理引擎
-
 ![推理引擎与硬件适配图](/img/course/elective-inference-engine-hardware.webp)
 
 ![推理引擎选型矩阵图](/img/course/elective-inference-engine-selection-matrix.webp)

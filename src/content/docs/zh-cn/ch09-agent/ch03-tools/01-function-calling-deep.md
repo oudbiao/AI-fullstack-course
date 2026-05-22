@@ -1,5 +1,5 @@
 ---
-title: "9.3.2 函数调用（Function Calling）详解"
+title: "9.3.2 函数调用 详解"
 description: "从 schema 设计、参数校验、错误恢复到多步调用，深入理解 Function Calling 在 Agent 工具层里的真实工程价值。"
 sidebar:
   order: 11
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Function Calling, Tool Calling, 参数校验, Agent, schema, 工具调度"
 ---
-
-# 9.3.2 函数调用 详解
-
 :::tip[本节定位]
 上一节你已经知道 Function Calling 是“模型产出结构化工具调用”。
 这一节我们不再停留在“会调用”，而要进入真正重要的问题：

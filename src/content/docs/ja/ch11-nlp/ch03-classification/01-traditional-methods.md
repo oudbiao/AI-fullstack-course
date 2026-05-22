@@ -1,5 +1,5 @@
 ---
-title: "11.3.2 传统的テキスト分類"
+title: "11.3.2 伝統的なテキスト分類"
 description: "BoW、TF-IDF、線形分類器から始めて、なぜ従来のテキスト分類が多くの実務タスクで今でも強いベースラインなのかを理解する。"
 sidebar:
   order: 7
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text classification, bag of words, tf-idf, logistic regression, baseline, NLP"
 ---
-
-# 11.3.2 伝統的なテキスト分類
-
 ![伝統的なテキスト分類のベースライン図](/img/course/ch11-traditional-classification-baseline-map-ja.webp)
 
 :::tip[図の見方]

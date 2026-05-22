@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LeNet, AlexNet, VGG, ResNet, CNN, residual connection, classic architecture"
 ---
-
-# 6.3.4 Classic CNN Architectures
-
 :::tip[Section Overview]
 Classic CNNs are useful when you read them as an engineering evolution, not as model-name trivia. Each generation fixed a real bottleneck: feasibility, scale, repeatable blocks, or trainable depth.
 :::

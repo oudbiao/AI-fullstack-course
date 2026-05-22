@@ -4,9 +4,6 @@ description: "VS Code を使いやすい AI 開発ツールに設定する"
 sidebar:
   order: 2
 ---
-
-# 1.3.2 VS Code の設定
-
 ![VS Code プロジェクト作業フロー図](/img/course/ch01-vscode-workspace-flow-ja.webp)
 
 ## 残す証拠

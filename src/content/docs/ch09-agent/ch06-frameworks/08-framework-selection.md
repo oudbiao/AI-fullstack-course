@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "framework selection, LangGraph, LlamaIndex, CrewAI, architecture decision, agent framework"
 ---
-
-# 9.6.9 Framework Selection Guide
-
 :::tip[Section Overview]
 After exploring a full set of frameworks, the truly important question finally arrives:
 

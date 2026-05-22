@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LlamaIndex, documents, nodes, index, retriever, query engine, RAG"
 ---
-
-# 9.6.4 LlamaIndex
-
 :::tip[Section positioning]
 If LangGraph is more like a “state flow and workflow orchestration framework,” then LlamaIndex is more like:
 

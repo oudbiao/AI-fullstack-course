@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent patterns, research team, writer-reviewer, dev team, agent collaboration"
 ---
-
-# 9.7.5 マルチ Agent 実践パターン
-
 :::tip[この節の位置づけ]
 ここまでで学んだ内容は次のとおりです。
 

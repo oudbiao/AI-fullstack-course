@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "token, context window, attention, temperature, sampling, logits, pretraining, LLM"
 ---
-
-# 7.2.3 Core Concepts of Large Models
-
 ![Next-token generation loop and sampling diagram](/img/course/ch07-next-token-generation-loop-map-en.webp)
 
 :::tip[Core Loop]

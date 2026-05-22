@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "linear regression, least squares, residuals, RMSE, MAE, Ridge, polynomial regression"
 ---
-
-# 5.2.2 Linear Regression: Baseline, Residuals, Regularization
-
 ![Linear regression learning flowchart](/img/course/ch05-linear-regression-learning-flow-en.webp)
 
 Linear regression answers one practical question: **can a few input numbers explain or predict one continuous target number?** Examples: price, sales, demand, temperature, latency, or cost.

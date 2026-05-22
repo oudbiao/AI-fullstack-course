@@ -1,12 +1,9 @@
 ---
-title: "3.4.4 Interactive Visualization (Optional)"
+title: "3.4.4 Interactive Visualization"
 description: "Use Plotly to create interactive animated charts"
 sidebar:
   order: 19
 ---
-
-# 3.4.4 Interactive Visualization
-
 :::note[Section overview]
 Many beginners, when they first see `Plotly`, tend to think:
 

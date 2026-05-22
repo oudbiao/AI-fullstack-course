@@ -3,9 +3,6 @@ title: "A.7 AI の継続学習方法"
 sidebar:
   order: 4
 ---
-
-# A.7 AI の継続学習方法
-
 ![3 層の継続学習フライホイール](/img/course/appendix-continuous-learning-flywheel-ja.webp)
 
 ![論文、プロジェクト、知識ベースの復習ループ](/img/course/appendix-learning-paper-project-notes-loop-ja.webp)

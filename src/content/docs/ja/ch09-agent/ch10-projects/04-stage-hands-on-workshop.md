@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent 実践, single Agent, Agent trace, tool calling, tool schema, Agent 評価, OpenAI Agents SDK"
 ---
-
-# 9.10.5 実践：追跡可能な単一 Agent アシスタントを作る
-
 このワークショップでは、第 9 章の主線を 1 つの動く小さなプロジェクトにまとめます。小さな単一 Agent アシスタントを作り、目標の読み取り、ツール選択、ツール引数の検証、危険な操作のブロック、各ステップの trace 記録、小さな評価セットの実行まで行います。
 
 最初の版は Python 標準ライブラリだけで作ります。これは意図的です。フレームワーク、API key、MCP Server、マルチ Agent 編成を足す前に、まず中心となる実行ループを自分の目で見えるようにしましょう。

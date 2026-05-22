@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "embedding, semantic representation, cosine similarity, sentence embedding, contextual embedding, retrieval"
 ---
-
-# 7.1.3 Word Embeddings and Semantic Representation
-
 ![Embedding semantic space diagram](/img/course/embedding-semantic-space-en.webp)
 
 :::tip[One Sentence]

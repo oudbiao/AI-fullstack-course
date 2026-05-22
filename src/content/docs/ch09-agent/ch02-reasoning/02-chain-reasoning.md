@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "chain of thought, CoT, reasoning trace, scratchpad, decomposition"
 ---
-
-# 9.2.3 Chain-of-Thought Reasoning Strategy
-
 :::tip[Section focus]
 If we summarize the previous section in one sentence, it is:
 

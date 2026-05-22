@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation, attention_mask"
 ---
-
-# 7.1.2 トークン化と Tokenizer
-
 ![Tokenizer サブワード分割フロー](/img/course/tokenizer-subword-flow-ja.webp)
 
 :::tip[学習後にできること]

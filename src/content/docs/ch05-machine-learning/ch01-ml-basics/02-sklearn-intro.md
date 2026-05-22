@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict, machine learning framework"
 ---
-
-# 5.1.3 Scikit-learn Follow-Along: Fit, Transform, Pipeline
-
 ![Scikit-learn Estimator and Pipeline diagram](/img/course/sklearn-estimator-pipeline-en.webp)
 
 Scikit-learn is the standard Python library for classic machine learning. This page is intentionally short: first see the workflow, then run one complete script.

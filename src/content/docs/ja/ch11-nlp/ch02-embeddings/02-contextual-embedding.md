@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "contextual embedding, contextual representation, polysemy, BERT, dynamic embeddings"
 ---
-
-# 11.2.3 コンテキスト付き埋め込み
-
 ![コンテキスト付き埋め込みの比較図](/img/course/contextual-embedding-comparison-ja.webp)
 
 :::tip[この節の位置づけ]

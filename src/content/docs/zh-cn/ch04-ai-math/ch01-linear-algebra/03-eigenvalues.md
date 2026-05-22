@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "特征值, 特征向量, PCA, 降维, NumPy, 线性代数, 主成分分析"
 ---
-
-# 4.1.4 特征值与特征向量
-
 ![特征向量特殊方向示意图](/img/course/eigenvalue-special-directions.webp)
 
 :::tip[不要被名字吓到]

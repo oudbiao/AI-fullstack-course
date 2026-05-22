@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent reasoning guide, ReAct, Plan-and-Execute, planning"
 ---
-
-# 9.2.1 推論ロードマップ：計画、行動、確認
-
 Agent の推論は長い回答ではありません。使える中間手順を作り、次に何をするか決め、計画がまだ有効か確認する力です。
 
 ## まず計画ループを見る

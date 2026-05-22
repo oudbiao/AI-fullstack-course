@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIGC trends, multimodal, real-time generation, small models, agentic systems, edge deployment"
 ---
-
-# 12.4.2 AIGC Frontier Trends
-
 ![AIGC Frontier Trend System Map](/img/course/ch12-aigc-frontier-system-trend-map-en.webp)
 
 :::tip[Reading guide]

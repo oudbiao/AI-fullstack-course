@@ -1,5 +1,5 @@
 ---
-title: "7.6.5 微調工程実践"
+title: "7.6.5 微調整工程実践"
 description: "タスク定義、データ形式、分割方法から、学習計画と検証戦略まで、本当に現場で使える微調整のエンジニアリングプロセスを作ります。"
 sidebar:
   order: 22
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "finetuning, sft, dataset formatting, training plan, validation, llmops"
 ---
-
-# 7.6.5 微調整工程実践
-
 :::tip[この節の位置づけ]
 多くの微調整プロジェクトは「モデルの性能が足りない」ことが原因で失敗するのではなく、もっと前の段階でつまずきます。
 

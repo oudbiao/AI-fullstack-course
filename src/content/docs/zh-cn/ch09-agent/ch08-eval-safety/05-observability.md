@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "observability, trace, metrics, logs, replay, agent"
 ---
-
-# 9.8.6 Agent 可观测性
-
 :::tip[本节定位]
 Agent 系统如果没有可观测性，很多问题会变成“看起来怪怪的，但不知道哪一步怪”。这节的核心是让系统内部过程可以被看见、被定位、被回放。
 :::

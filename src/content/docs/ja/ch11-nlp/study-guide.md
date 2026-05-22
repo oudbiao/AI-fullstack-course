@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP チェックリスト, テキスト分類, 情報抽出, BERT, GPT, テキスト評価"
 ---
-
-# 11.0 学習チェックリスト：自然言語処理
-
 このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 11 章入口ページ](./index.md) に戻ってください。
 
 ![NLP ポートフォリオ証拠パック](/img/course/ch11-nlp-evidence-pack-ja.webp)

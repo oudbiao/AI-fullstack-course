@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP, 自然言語処理, テキスト分類, 情報抽出, 機械翻訳, 言語モデル"
 ---
-
-# 11.1.2 NLP の概要
-
 ![NLP の全体像](/img/course/ch11-nlp-task-landscape-map-ja.webp)
 
 :::tip[図の見方]

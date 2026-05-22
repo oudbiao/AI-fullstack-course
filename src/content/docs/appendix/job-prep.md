@@ -3,9 +3,6 @@ title: "A.10 Job Search Preparation Checklist"
 sidebar:
   order: 7
 ---
-
-# A.10 Job Search Preparation Checklist
-
 ![Job search preparation funnel diagram](/img/course/appendix-job-prep-funnel-en.webp)
 
 ![AI job portfolio storyline map](/img/course/appendix-job-portfolio-storyline-map-en.webp)

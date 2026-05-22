@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "nn.Module, nn.Linear, nn.Sequential, forward, parameters, state_dict, PyTorch"
 ---
-
-# 6.2.5 nn.Module
-
 :::tip[本节定位]
 `nn.Module` 是 PyTorch 把层、参数、前向逻辑、训练/评估模式打包成一个模型对象的方式。本节会把 autograd 里手写的参数升级成可复用的模型类。
 :::

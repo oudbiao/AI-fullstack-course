@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Scikit-learn 実践, sklearn チュートリアル, Matplotlib 基礎, Pipeline, train_test_split, 混同行列, 交差検証, joblib"
 ---
-
-# 5.1.6 Scikit-learn と Matplotlib 実践ワークショップ
-
 ![Scikit-learn 実践ワークフロー](/img/course/ch05-sklearn-hands-on-loop-ja.webp)
 
 :::tip[この節の位置づけ]

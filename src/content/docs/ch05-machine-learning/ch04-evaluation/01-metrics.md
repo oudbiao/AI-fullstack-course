@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "evaluation metrics, confusion matrix, precision, recall, F1, ROC AUC, average precision, MAE, RMSE, R2"
 ---
-
-# 5.4.2 Evaluation Metrics
-
 ![Confusion matrix and error cost diagram](/img/course/confusion-matrix-error-cost-en.webp)
 
 :::tip[Section Overview]

@@ -4,9 +4,6 @@ description: "ブランチを使って新機能を安全に開発し、Pull Requ
 sidebar:
   order: 4
 ---
-
-# 1.2.4 ブランチと協働
-
 ![Git ブランチ協働フローチャート](/img/course/ch01-git-branch-collaboration-ja.webp)
 
 ## 残す証拠

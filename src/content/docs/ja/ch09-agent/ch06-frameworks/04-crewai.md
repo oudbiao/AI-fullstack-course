@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CrewAI, multi-agent, roles, tasks, crew, team abstraction"
 ---
-
-# 9.6.5 CrewAI
-
 :::tip[この節の位置づけ]
 もしあるフレームワークが「状態フローエンジン」に近いとしたら、CrewAI の第一印象はたいてい次のようなものです：
 

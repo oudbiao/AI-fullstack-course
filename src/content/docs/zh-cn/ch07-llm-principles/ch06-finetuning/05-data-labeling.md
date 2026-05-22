@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data labeling, data flywheel, annotation, agreement, hard example mining, finetuning"
 ---
-
-# 7.6.6 数据标注与数据飞轮
-
 :::tip[本节定位]
 模型效果的上限，很多时候不是由训练技巧决定的，而是由数据决定的。
 

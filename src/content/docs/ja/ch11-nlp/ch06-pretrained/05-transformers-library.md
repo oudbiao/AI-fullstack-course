@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "transformers, HuggingFace, tokenizer, AutoModel, pipeline, config"
 ---
-
-# 11.6.6 Transformers ライブラリ実践
-
 ![Transformers ライブラリの呼び出しチェーン図](/img/course/ch11-transformers-library-call-chain-map-ja.webp)
 
 :::tip[画像の見方]

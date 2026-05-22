@@ -1,5 +1,5 @@
 ---
-title: "5.6.3 Project: Customer Churn Prediction"
+title: "5.6.3 Project 2: Customer Churn Prediction (Classification Problem)"
 description: "A complete hands-on classification project: imbalanced data handling, SMOTE, feature importance analysis, business insights"
 sidebar:
   order: 20
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "customer churn, classification, imbalanced data, SMOTE, feature importance, business insights"
 ---
-
-# 5.6.3 Project 2: Customer Churn Prediction (Classification Problem)
-
 ![Customer Churn Prediction Project Flowchart](/img/course/customer-churn-project-flow-en.webp)
 
 :::tip[Project Positioning]

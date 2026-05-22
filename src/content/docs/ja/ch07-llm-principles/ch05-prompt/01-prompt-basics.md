@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "prompt, instruction, task framing, output format, constraints, prompt engineering"
 ---
-
-# 7.5.2 Prompt 基礎
-
 ![Prompt の改善前後比較カード](/img/course/prompt-before-after-ja.webp)
 
 :::tip[この節の位置づけ]

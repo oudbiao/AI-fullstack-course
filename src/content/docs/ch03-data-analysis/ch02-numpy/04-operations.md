@@ -4,9 +4,6 @@ description: "Master vectorized operations, broadcasting, and aggregation functi
 sidebar:
   order: 5
 ---
-
-# 3.2.4 Array Operations
-
 ![NumPy Broadcasting and Vectorization Diagram](/img/course/ch03-numpy-broadcasting-vectorization-en.webp)
 
 ## Learning Objectives

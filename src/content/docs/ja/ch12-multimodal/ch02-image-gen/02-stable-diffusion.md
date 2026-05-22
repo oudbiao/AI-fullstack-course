@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Stable Diffusion, latent diffusion, VAE, U-Net, text encoder, cross-attention"
 ---
-
-# 12.2.3 Stable Diffusion のアーキテクチャ
-
 ![Stable Diffusion のコンポーネント構成図](/img/course/stable-diffusion-components-ja.webp)
 
 :::tip[本節の位置づけ]

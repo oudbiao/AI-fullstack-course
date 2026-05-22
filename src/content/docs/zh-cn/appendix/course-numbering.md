@@ -7,9 +7,6 @@ head:
       name: keywords
       content: "课程编号, 章节目录, 章节编号, 课程维护"
 ---
-
-# A.2 课程编号约定
-
 ![展示章节号与源码目录对应地图](/img/course/appendix-course-numbering-map.webp)
 
 ![课程维护命名一致性检查图](/img/course/appendix-course-numbering-maintenance-check.webp)

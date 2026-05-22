@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP client, tool discovery, client integration, dispatch, protocol client"
 ---
-
-# 9.5.5 MCP クライアントの統合
-
 :::tip[この節の位置づけ]
 ここまでで、サーバーから見た MCP はすでに学びました。
 この節では視点を変えて、クライアントから見てみます。

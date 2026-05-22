@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "generative project, GAN, VAE, generation quality, diversity, evaluation"
 ---
-
-# 6.8.4 プロジェクト：生成モデル実践 [任意]
-
 :::tip[この節の位置づけ]
 生成 project は、きれいな sample を 1 つ出したら終わりではありません。quality、diversity、stability、failures、そしてなぜその checkpoint を残すのかを示す必要があります。
 :::

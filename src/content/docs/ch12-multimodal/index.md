@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIGC, multimodal, Stable Diffusion, image generation, video generation, speech synthesis, multimodal large models"
 ---
-
-# 12 AIGC and Multimodal
-
 ![Main visual for AIGC and Multimodal](/img/course/ch12-multimodal-aigc-en.webp)
 
 Chapter 12 is the final expansion: **AI is no longer only text.** Images, PDFs, audio, video, screenshots, charts, and generated assets can all enter the same product workflow.

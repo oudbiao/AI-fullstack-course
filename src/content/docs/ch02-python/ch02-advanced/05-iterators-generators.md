@@ -4,9 +4,6 @@ description: "Understand Python's iteration protocol and the efficient data proc
 sidebar:
   order: 5
 ---
-
-# 2.2.5 Iterators and Generators
-
 ![Generator streaming data processing diagram](/img/course/ch02-generator-streaming-data-en.webp)
 
 ## Where this section fits

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "alignment guide, RLHF, DPO, safety alignment, human feedback"
 ---
-
-# 7.7.1 Alignment Roadmap: Helpful, Honest, Safe
-
 Pretraining teaches broad language ability. Finetuning adapts task behavior. Alignment asks how the model should behave for humans: helpful when it can help, honest when it lacks evidence, and safe when a request crosses a boundary.
 
 ## See the Safety Boundary First

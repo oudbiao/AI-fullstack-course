@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "autograd, backward, gradient, requires_grad, no_grad, detach, PyTorch"
 ---
-
-# 6.2.4 Autograd 自動微分
-
 :::tip[この節の位置づけ]
 `autograd` は、順伝播の計算を勾配へ変えるエンジンです。大事なのは `backward()` を暗記することではなく、**どの計算グラフが記録され、勾配がどこに保存され、いつ累積し、いつ追跡を止めるべきか**を理解することです。
 :::

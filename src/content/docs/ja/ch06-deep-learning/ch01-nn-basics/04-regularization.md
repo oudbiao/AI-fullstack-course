@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "正則化, dropout, weight decay, early stopping, 過学習, PyTorch, AdamW"
 ---
-
-# 6.1.6 正則化
-
 ![正則化で過学習を抑える図](/img/course/regularization-overfitting-controls-ja.webp)
 
 :::tip[この節の概要]

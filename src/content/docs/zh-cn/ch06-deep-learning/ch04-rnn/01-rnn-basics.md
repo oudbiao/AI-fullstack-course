@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RNN, 序列建模, hidden state, 循环神经网络, 时间步"
 ---
-
-# 6.4.2 RNN 基础
-
 :::tip[本节定位]
 CNN 扫描空间，RNN 扫描时间。核心想法很简单：读当前一步，结合上一步压缩出来的记忆，再更新这份记忆。
 :::

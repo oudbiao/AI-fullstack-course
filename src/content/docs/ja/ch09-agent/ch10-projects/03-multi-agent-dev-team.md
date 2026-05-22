@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent dev team, planner, coder, reviewer, tester, project"
 ---
-
-# 9.10.4 プロジェクト：マルチ Agent 開発チーム【選択】
-
 :::tip[この節の位置づけ]
 マルチ Agent 開発チームのプロジェクトは、すぐに“見せるだけ”になりがちです。
 

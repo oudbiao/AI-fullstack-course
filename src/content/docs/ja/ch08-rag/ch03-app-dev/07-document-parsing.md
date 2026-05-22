@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction"
 ---
-
-# 8.3.8 ドキュメント解析と知識抽出
-
 :::tip[この節の位置づけ]
 多くのナレッジベース系プロジェクトで、最初にやりがちなミスは次の2つです。
 

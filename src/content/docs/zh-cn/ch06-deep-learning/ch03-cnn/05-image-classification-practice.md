@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image classification, CNN, PyTorch, train loop, validation, synthetic dataset"
 ---
-
-# 6.3.6 CNN 实战：图像分类
-
 :::tip[本节定位]
 这是“把前面内容串起来”的一节。你会创建一个小型图像数据集，训练 CNN，做验证，检查预测结果，并判断下一步该尝试什么。
 :::

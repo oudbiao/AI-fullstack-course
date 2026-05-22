@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "token, context window, attention, temperature, sampling, logits, pretraining, LLM"
 ---
-
-# 7.2.3 大模型核心概念
-
 ![Next-token 生成循环与采样图](/img/course/ch07-next-token-generation-loop-map.webp)
 
 :::tip[核心循环]

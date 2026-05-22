@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "asyncio, concurrency, gather, semaphore, timeout, async programming, LLM engineering"
 ---
-
-# 8.4.2 非同期プログラミングと並行呼び出し
-
 :::tip[この節の位置づけ]
 LLM アプリを作るとき、最初の性能ボトルネックは、モデルが弱いことではなく、次のようなことが多いです。
 

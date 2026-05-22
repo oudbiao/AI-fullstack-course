@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "probability guide, statistics guide, probability distribution, Bayes, MLE, information theory"
 ---
-
-# 4.2.1 Probability Roadmap: Give AI a Language for Uncertainty
-
 Probability and statistics explain why models output confidence, why data varies, and why training uses loss values instead of only right/wrong labels.
 
 ## Look at the Map First

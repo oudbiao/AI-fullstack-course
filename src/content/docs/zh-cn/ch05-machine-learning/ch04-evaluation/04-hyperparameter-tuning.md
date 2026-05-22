@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "超参数调优, GridSearchCV, RandomizedSearchCV, 搜索空间, holdout, 交叉验证, 随机森林"
 ---
-
-# 5.4.5 超参数调优
-
 ![超参数搜索方法对比图](/img/course/hyperparameter-tuning-search.webp)
 
 :::tip[本节概览]

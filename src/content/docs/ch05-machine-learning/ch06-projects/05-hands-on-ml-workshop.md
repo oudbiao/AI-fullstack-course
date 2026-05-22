@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "machine learning workshop, sklearn pipeline, baseline, model evaluation, error analysis, portfolio"
 ---
-
-# 5.6.6 Hands-on Workshop: Build a Reproducible ML Evidence Pack
-
 ![Chapter 5 hands-on ML workshop route map](/img/course/ch05-hands-on-ml-workshop-route-en.webp)
 
 :::tip[How to use this workshop]

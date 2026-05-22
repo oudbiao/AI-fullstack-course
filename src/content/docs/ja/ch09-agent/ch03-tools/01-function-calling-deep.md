@@ -1,5 +1,5 @@
 ---
-title: "9.3.2 関数呼び出し（Function Calling）の詳説"
+title: "9.3.2 関数呼び出し の詳説"
 description: "schema 設計、パラメータ検証、エラー復旧から多段呼び出しまで、Agent のツール層における Function Calling の本当の実務価値を深く理解する。"
 sidebar:
   order: 11
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Function Calling, Tool Calling, パラメータ検証, Agent, schema, ツールスケジューリング"
 ---
-
-# 9.3.2 関数呼び出し の詳説
-
 :::tip[この節の位置づけ]
 前の節で、Function Calling が「モデルが構造化されたツール呼び出しを出力するもの」だと学びました。  
 この節では、単に「呼び出せる」だけで終わらず、本当に大事な問いに進みます：

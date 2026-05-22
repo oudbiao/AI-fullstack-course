@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "finetuning, sft, dataset formatting, training plan, validation, llmops"
 ---
-
-# 7.6.5 微调工程实践
-
 :::tip[本节定位]
 很多微调项目不是死在“模型不够强”，而是死在更前面的地方：
 

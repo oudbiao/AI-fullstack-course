@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "word generation, ppt generation, template, docx, pptx, structured output"
 ---
-
-# 8.3.9 Template-Based Document Generation (Word / PPT)
-
 ![Word PPT template generation pipeline](/img/course/template-doc-generation-pipeline-en.webp)
 
 :::tip[Section focus]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "word generation, ppt generation, template, docx, pptx, structured output"
 ---
-
-# 8.3.9 模板化文档生成（Word / PPT）
-
 ![Word PPT 模板生成流水线图](/img/course/template-doc-generation-pipeline.webp)
 
 :::tip[本节定位]

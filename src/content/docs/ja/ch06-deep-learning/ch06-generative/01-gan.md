@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "GAN, generator, discriminator, adversarial training, mode collapse, PyTorch"
 ---
-
-# 6.6.2 GAN 基礎 [任意]
-
 :::tip[この節の位置づけ]
 GAN は 2 人のプレイヤーによる学習ループです。generator は本物らしい偽物を作ろうとし、discriminator は本物と偽物を見分けようとします。強さと不安定さは同じ理由から生まれます。両方のプレイヤーが変わり続けるからです。
 :::

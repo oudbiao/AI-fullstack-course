@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "matrices, matrix multiplication, transpose, inverse matrix, NumPy, neural network, linear algebra"
 ---
-
-# 4.1.3 Matrices: Batch Transformations of Data
-
 ![Matrix linear transformation grid diagram](/img/course/matrix-linear-transform-grid-en.webp)
 
 ## Learning Objectives

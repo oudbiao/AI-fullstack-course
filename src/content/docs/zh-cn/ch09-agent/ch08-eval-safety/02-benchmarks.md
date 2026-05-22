@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent benchmark, eval set, benchmark, SWE-bench, WebArena"
 ---
-
-# 9.8.3 Agent 评估基准
-
 ![Agent 基准测试与自定义评估集对比图](/img/course/ch09-agent-benchmark-custom-eval-map.webp)
 
 :::tip[本节定位]

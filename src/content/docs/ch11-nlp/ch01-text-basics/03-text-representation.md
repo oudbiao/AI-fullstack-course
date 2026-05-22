@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text representation, one-hot, bag of words, tf-idf, cosine similarity, embedding"
 ---
-
-# 11.1.4 Text Representation Methods
-
 ![BoW and TF-IDF text representation diagram](/img/course/bow-tfidf-representation-en.webp)
 
 ## Learning Objectives

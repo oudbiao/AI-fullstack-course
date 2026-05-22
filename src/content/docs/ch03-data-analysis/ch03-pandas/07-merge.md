@@ -4,9 +4,6 @@ description: "Master data merging methods such as merge, join, and concat"
 sidebar:
   order: 15
 ---
-
-# 3.3.8 Data Merging
-
 :::tip[Section Focus]
 When many beginners first learn data merging, this is the easiest place to get confused:
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "inference server, batching, throughput, latency, queue, serving"
 ---
-
-# 8.2.3 高性能推理服务
-
 :::tip[本节定位]
 如果上一节讲的是：
 

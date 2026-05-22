@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-finetune"
 ---
-
-# 11.6.2 预训练范式
-
 ![预训练迁移微调关系图](/img/course/ch11-pretraining-transfer-finetune-map.webp)
 
 :::tip[读图提示]

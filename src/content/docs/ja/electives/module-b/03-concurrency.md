@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "asyncio, concurrency, async, semaphore, gather, Python"
 ---
-
-# E.B.3 並行プログラミング（asyncio を含む）
-
 ![asyncio 並行制御フローチャート](/img/course/elective-asyncio-concurrency-control-ja.webp)
 
 ![非同期タスクのタイムアウト・キャンセル・レート制限図](/img/course/elective-asyncio-timeout-cancel-rate-limit-map-ja.webp)

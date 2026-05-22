@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "plan and execute, planner, executor, workflow, long horizon tasks, agent planning"
 ---
-
-# 9.2.5 計画してから実行する方式（Plan-and-Execute）
-
 :::tip[この節の位置づけ]
 ReAct は、行きながら様子を見るのにとても向いています。  
 でも、タスクが長くなると、典型的な問題が出てきます。

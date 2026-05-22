@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP Project Guide, QA, Summarization, Information Extraction, NLP Portfolio"
 ---
-
-# 11.7.1 Project Roadmap: Build an Evaluatable NLP Pipeline
-
 An NLP project is not a fluent paragraph. It is a clear task boundary, data source, baseline, evaluation method, failure analysis, and structured deliverable.
 
 ## See the Project Evidence Loop First

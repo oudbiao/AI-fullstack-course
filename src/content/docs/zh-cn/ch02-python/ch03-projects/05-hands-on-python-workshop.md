@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Python 实操, 命令行应用, argparse, JSON, dataclass, 文件读写, Python 项目"
 ---
-
-# 2.3.5 跟做工作坊：构建本地学习任务助手
-
 ![Python 跟做工作坊路线图](/img/course/ch02-hands-on-python-workshop-route.webp)
 
 :::tip[工作坊目标]

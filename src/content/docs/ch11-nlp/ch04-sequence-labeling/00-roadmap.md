@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sequence labeling guide, NER, BiLSTM-CRF"
 ---
-
-# 11.4.1 Sequence Labeling Roadmap: One Label per Token
-
 Sequence labeling predicts one label for each token. NER, word segmentation, part-of-speech tagging, and slot filling all use this idea.
 
 ## See the Label Path First

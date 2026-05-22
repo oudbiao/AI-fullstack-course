@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Terminal, command line, Git, VS Code, development environment, Python environment setup"
 ---
-
-# 1 Developer Tools Fundamentals
-
 ![Main visual for Developer Tools Fundamentals](/img/course/ch01-tools-foundation-en.webp)
 
 Chapter 1 has one job: make sure you can **create code, run code, save code, and explain how to rerun it**.

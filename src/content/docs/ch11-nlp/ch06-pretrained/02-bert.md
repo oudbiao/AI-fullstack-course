@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "BERT, MLM, bidirectional encoder, pretraining, Transformer Encoder, NLP"
 ---
-
-# 11.6.3 BERT Series
-
 ![BERT Masked Language Model](/img/course/bert-masked-language-model-en.webp)
 
 :::tip[Section focus]

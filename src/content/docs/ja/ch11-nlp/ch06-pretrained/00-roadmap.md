@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "事前学習ガイド, BERT, GPT, T5, transformers"
 ---
-
-# 11.6.1 事前学習モデルロードマップ：BERT、GPT、T5
-
 事前学習モデルでは、モデルを毎回ゼロから育てません。大規模テキストで先に言語のパターンを学び、あとから分類、生成、抽出、検索などのタスクに使います。
 
 ![BERT、GPT、T5 の違い](/img/course/bert-gpt-t5-comparison-ja.webp)

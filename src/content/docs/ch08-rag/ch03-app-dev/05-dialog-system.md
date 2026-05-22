@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "dialog system, multi-turn, conversation state, memory, turn management, LLM app"
 ---
-
-# 8.3.6 Dialog Systems and Multi-turn Management
-
 :::tip[Section Focus]
 When many people build a chat app, their first instinct is:
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text summarization, extractive summarization, TF-IDF, evaluation, NLP project"
 ---
-
-# 11.7.3 Project: Text Summarization System
-
 ![Text summarization extraction-generation-evaluation diagram](/img/course/ch11-summarization-extractive-generative-eval-map-en.webp)
 
 :::tip[Reading tip]

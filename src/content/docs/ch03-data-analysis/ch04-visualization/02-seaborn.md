@@ -4,9 +4,6 @@ description: "Create prettier statistical charts with less code"
 sidebar:
   order: 18
 ---
-
-# 3.4.3 Seaborn Statistical Visualization
-
 ![Seaborn Statistical Plot Selection Guide](/img/course/seaborn-statistical-plots-en.webp)
 
 :::tip[Where this section fits]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "画像, ピクセル, RGB, HSV, チャンネル, 画像フォーマット, コンピュータビジョン"
 ---
-
-# 10.1.2 デジタル画像の基礎
-
 ![ピクセルグリッドと RGB チャンネル図](/img/course/cv-pixel-rgb-grid-ja.webp)
 
 ## 学習目標

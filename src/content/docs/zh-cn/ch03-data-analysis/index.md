@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NumPy, Pandas, Matplotlib, Seaborn, 数据分析, 数据可视化, Python数据分析"
 ---
-
-# 3 数据分析与可视化
-
 ![数据分析与可视化主视觉](/img/course/ch03-data-visualization.webp)
 
 第 3 章只解决一件事：把混乱数据变成**有代码可复现、有图表支撑、能讲清边界的可信结论**。

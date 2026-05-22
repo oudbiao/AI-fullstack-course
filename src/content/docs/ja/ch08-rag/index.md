@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLMアプリ, RAG, Prompt Engineering, LangChain, ベクトルデータベース, 大モデル配置"
 ---
-
-# 8 LLM アプリ開発と RAG
-
 ![LLM アプリと RAG メインビジュアル](/img/course/ch08-rag-engineering-ja.webp)
 
 第 7 章では LLM がどう文章を生成するかを学びました。第 8 章では、それを実用アプリにします。**文書を接続し、証拠を検索し、引用付きで答え、失敗を記録し、評価セットで改善する**流れです。

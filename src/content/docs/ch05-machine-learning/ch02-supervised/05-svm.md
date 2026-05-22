@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "SVM, Support Vector Machine, maximum margin, support vectors, kernel, RBF, C, gamma, StandardScaler, SVC"
 ---
-
-# 5.2.6 SVM: Maximum Margin and Kernel Methods
-
 ![SVM maximum margin intuition diagram](/img/course/ch05-svm-margin-map-en.webp)
 
 ![SVM margin and kernel comic](/img/course/ch05-svm-margin-kernel-comic-en.webp)

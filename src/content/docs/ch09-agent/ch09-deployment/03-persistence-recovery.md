@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "persistence, recovery, checkpoint, event log, idempotency, resume, deployment"
 ---
-
-# 9.9.4 Persistence and Recovery
-
 :::tip[Where this section fits]
 Once an Agent starts handling long tasks, multi-step workflows, or background jobs, one problem quickly becomes critical:
 

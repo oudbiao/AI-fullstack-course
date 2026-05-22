@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer guide, attention mechanism, QKV, self-attention, deep learning"
 ---
-
-# 6.5.1 Transformer Roadmap: Attention Lets Tokens Look at Each Other
-
 Transformer is the bridge from deep learning to modern LLMs. Its first idea is simple: each token can decide which other tokens matter.
 
 ## Look at the Attention Flow First

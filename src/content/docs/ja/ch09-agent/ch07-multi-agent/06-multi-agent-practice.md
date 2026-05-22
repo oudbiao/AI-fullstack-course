@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent project, planner, retriever, writer, reviewer, workflow, collaboration"
 ---
-
-# 9.7.7 実践：マルチ Agent 協調システム
-
 ![マルチ Agent 協調実践の実行図](/img/course/ch09-multi-agent-collaboration-run-map-ja.webp)
 
 :::tip[この節の位置づけ]

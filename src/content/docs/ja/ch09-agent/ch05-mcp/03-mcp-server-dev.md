@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP server, tool server, schema, tool exposure, server development"
 ---
-
-# 9.5.4 MCP サーバー開発
-
 :::tip[この節の位置づけ]
 前の2節で、すでに次のことが分かりました。
 

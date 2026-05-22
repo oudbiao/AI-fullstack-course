@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "decorators, Python, wraps, retry, logging, timing, authorization"
 ---
-
-# E.B.1 Advanced Decorator Usage
-
 ![Python decorator execution flow](/img/course/elective-python-decorator-flow-en.webp)
 
 ![Decorator cross-cutting logic layering diagram](/img/course/elective-decorator-crosscutting-layers-en.webp)

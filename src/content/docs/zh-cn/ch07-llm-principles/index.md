@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, RLHF"
 ---
-
-# 7 大模型原理、Prompt 与微调
-
 ![大模型原理主视觉](/img/course/ch07-llm-principles.webp)
 
 本章只回答一个实用问题：**用户把文字发给大模型后，这段文字经历了什么路径，我们又怎样让输出稳定到可以放进应用里？**

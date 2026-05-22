@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF"
 ---
-
-# 7.0 学习检查表：大模型原理、Prompt 与微调
-
 这页当成可打印检查表使用。需要完整讲解时，回到 [第 7 章入口页](./index.md)。
 
 ![大模型学习进化路径](/img/course/ch07-study-guide-evolution-line.webp)

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM applications, RAG, Prompt Engineering, LangChain, vector databases, large model deployment"
 ---
-
-# 8 LLM Application Development and RAG
-
 ![Main visual for LLM applications and RAG](/img/course/ch08-rag-engineering-en.webp)
 
 Chapter 7 explained how an LLM produces text. Chapter 8 turns that model into a useful application: **connect documents, retrieve evidence, answer with citations, log failures, and improve with an evaluation set.**

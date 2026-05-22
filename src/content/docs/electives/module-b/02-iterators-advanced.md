@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "iterator, generator, yield, yield from, lazy evaluation, streaming"
 ---
-
-# E.B.2 Advanced Iterators and Generators
-
 ![Generator streaming pipeline diagram](/img/course/elective-generator-stream-pipeline-en.webp)
 
 Generators are useful when data arrives as a stream: logs, files, API pages, sample batches, retrieval results, or model outputs. They produce one item at a time, so you avoid building unnecessary intermediate lists.

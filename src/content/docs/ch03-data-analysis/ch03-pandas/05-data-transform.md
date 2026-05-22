@@ -4,9 +4,6 @@ description: "Master data transformation methods such as apply, map, sorting, ra
 sidebar:
   order: 13
 ---
-
-# 3.3.6 Data Transformation
-
 :::tip[Section Overview]
 Many beginners start to feel a bit confused when they get here:
 

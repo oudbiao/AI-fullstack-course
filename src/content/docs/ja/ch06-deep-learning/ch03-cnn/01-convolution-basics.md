@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "convolution, 畳み込み, 畳み込みカーネル, CNN, stride, padding, receptive field, 画像特徴"
 ---
-
-# 6.3.2 畳み込みの基礎
-
 :::tip[この節の位置づけ]
 畳み込みは、CNN が画像を見るための基本操作です。空間構造を早い段階で長いベクトルへつぶさず、小さな領域を順に見ていきます。このページでは、まず図を見て、次に手計算し、最後に `nn.Conv2d` で同じ考えを確認します。
 :::

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI history, AI development stages, key papers, Transformer paper, GPT paper, RAG, Agent, diffusion model paper"
 ---
-
-# A.3 AI Development History: 15 Stages and Key Papers
-
 ![AI 15-stage development history map](/img/course/appendix-ai-15-stage-history-map-en.webp)
 
 This appendix is optional. Read it when you want a historical “where did this come from?” map, not when you need to memorize papers for the first pass.

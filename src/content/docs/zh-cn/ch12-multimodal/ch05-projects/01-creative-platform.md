@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "creative platform, multimodal project, image generation, editing, voice, asset management"
 ---
-
-# 12.5.2 项目：AI 创意内容平台
-
 ![AI 创意内容平台工作流图](/img/course/creative-platform-workflow.webp)
 
 :::tip[本节定位]

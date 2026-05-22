@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent 项目指南, 研究助手, 数据分析 Agent, 多 Agent 项目, Agent 作品集"
 ---
-
-# 9.10.1 项目路线图：构建可追踪 Agent
-
 Agent 项目作品集应该展示可追踪执行闭环，而不是只展示一个最终模型回答。
 
 ## 先看项目闭环

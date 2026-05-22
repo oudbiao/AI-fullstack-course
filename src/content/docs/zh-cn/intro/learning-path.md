@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI 学习计划, AI 全栈路线, AI 转型, LLM 学习, RAG 学习"
 ---
-
-# 0.4 规划主线节奏
-
 ![主线节奏与项目线规划图](/img/course/intro-learning-path-selection.webp)
 
 不要一开始就拆出很多路线。先走同一条主线：**第 1 章 -> 第 9 章按顺序走，每阶段留下一个小产出；只有在项目需要时，再从第 10-12 章里选一个专项。**

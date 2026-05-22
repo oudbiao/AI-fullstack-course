@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "efficient attention, sliding window, flash attention, kv cache, gqa, mqa, long context"
 ---
-
-# 7.3.5 Efficient Attention Mechanisms
-
 :::tip[Section focus]
 When the sequence length is still short, ordinary self-attention seems almost fine.
 But once the context length grows from a few hundred to tens of thousands, you quickly discover:

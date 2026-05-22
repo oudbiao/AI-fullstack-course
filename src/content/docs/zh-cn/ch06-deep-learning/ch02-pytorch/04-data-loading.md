@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Dataset, DataLoader, batch, shuffle, random_split, PyTorch"
 ---
-
-# 6.2.6 数据加载
-
 :::tip[本节定位]
 模型已经准备好了，但它不应该一次吃下一整堆数据。`Dataset` 定义一个样本长什么样，`DataLoader` 把样本变成可打乱的小 batch，送进训练循环。
 :::

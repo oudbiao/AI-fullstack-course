@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA, 微調整, RLHF"
 ---
-
-# 7 大モデル原理、Prompt と微調整
-
 ![大モデル原理メインビジュアル](/img/course/ch07-llm-principles-ja.webp)
 
 この章で答える実践的な問いは1つです。**ユーザーが LLM に文章を送ったあと、その文章はどんな流れを通り、どうすればアプリに入れられるほど安定した出力にできるのか。**

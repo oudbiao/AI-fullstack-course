@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "supervised learning guide, linear regression, logistic regression, decision tree, ensemble learning"
 ---
-
-# 5.2.1 Supervised Learning Roadmap: Learn From Labeled Examples
-
 Supervised learning answers one question: when examples already have labels, how do we learn a model that predicts labels for new examples?
 
 ## Look at the Model Choice Map First

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "model deployment guide, local models, inference services, unified API"
 ---
-
-# 8.2.1 Deployment Roadmap: Local Model, Service, Unified API
-
 Deployment turns a model from a notebook experiment into a reusable capability. The application should call a stable interface, even when the model, provider, hardware, or cost policy changes.
 
 ## See the Serving Decision First

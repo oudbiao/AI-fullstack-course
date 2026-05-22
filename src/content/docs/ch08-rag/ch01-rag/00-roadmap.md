@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG guide, retrieval-augmented generation, vector database, document chunking, reranking, RAG evaluation"
 ---
-
-# 8.1.1 RAG Roadmap: Documents, Retrieval, Answers
-
 RAG solves a practical problem: the model does not know every fresh, private, or source-specific fact, so the application must retrieve evidence before asking the model to answer.
 
 ## See the RAG Pipeline First

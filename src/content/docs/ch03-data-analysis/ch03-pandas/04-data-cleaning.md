@@ -4,9 +4,6 @@ description: "Master missing values, duplicate values, outlier handling, and str
 sidebar:
   order: 12
 ---
-
-# 3.3.5 Data Cleaning
-
 :::tip[Section Positioning]
 When many beginners first learn data cleaning, the easiest misunderstanding is:
 

@@ -3,9 +3,6 @@ title: "A.6 よくある質問"
 sidebar:
   order: 3
 ---
-
-# A.6 よくある質問
-
 ![FAQ 初学者の質問判断ツリー](/img/course/appendix-faq-decision-tree-ja.webp)
 
 ![FAQ 不安リセットと行動マップ](/img/course/appendix-faq-confidence-reset-map-ja.webp)

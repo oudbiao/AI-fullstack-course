@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "few-shot, role prompting, constraints, self-check, advanced prompting"
 ---
-
-# 7.5.3 Advanced Prompt Techniques
-
 :::tip[Section focus]
 Once you already understand the basics of Prompt, the next natural question is:
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "向量数据库, embedding, similarity search, metadata filter, RAG"
 ---
-
-# 8.1.4 向量数据库
-
 ![向量数据库相似度检索图](/img/course/vector-database-similarity-search.webp)
 
 ## 学习目标

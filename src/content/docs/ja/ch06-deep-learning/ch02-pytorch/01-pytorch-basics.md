@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch, tensor, テンソル, shape, dtype, device, broadcasting, logits"
 ---
-
-# 6.2.3 PyTorch の基礎
-
 :::tip[この節の位置づけ]
 このページは API 一覧ではありません。目的は、PyTorch モデルを書く前に毎回必要になる反射を作ることです。**学習前に shape、dtype、device、演算の意味を読む。**
 :::

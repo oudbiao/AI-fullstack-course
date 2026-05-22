@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "few-shot, role prompting, constraints, self-check, advanced prompting"
 ---
-
-# 7.5.3 高级 Prompt 技巧
-
 :::tip[本节定位]
 当你已经知道 Prompt 基础后，接下来更自然的问题就是：
 

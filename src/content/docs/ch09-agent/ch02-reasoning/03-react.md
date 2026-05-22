@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ReAct, thought action observation, tool use, agent loop, reasoning and acting"
 ---
-
-# 9.2.4 ReAct Framework
-
 ![ReAct reasoning-action-observation loop diagram](/img/course/react-reason-act-observe-loop-en.webp)
 
 :::tip[Section Overview]

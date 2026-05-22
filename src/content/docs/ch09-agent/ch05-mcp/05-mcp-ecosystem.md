@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP ecosystem, connectors, tooling ecosystem, protocol adoption, practice"
 ---
-
-# 9.5.6 MCP Ecosystem and Practice
-
 :::tip[Section Overview]
 By this point, MCP should no longer be just a “protocol term.”
 In this section, we will look at a bigger question:

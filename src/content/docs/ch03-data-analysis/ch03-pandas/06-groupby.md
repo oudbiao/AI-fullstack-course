@@ -4,9 +4,6 @@ description: "Master core operations such as groupby aggregation and pivot table
 sidebar:
   order: 14
 ---
-
-# 3.3.7 Grouping and Aggregation
-
 ![Pandas GroupBy grouping and aggregation flowchart](/img/course/ch03-pandas-groupby-split-apply-combine-en.webp)
 
 :::tip[Section focus]

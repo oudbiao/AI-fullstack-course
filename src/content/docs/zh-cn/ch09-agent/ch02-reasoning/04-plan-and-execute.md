@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "plan and execute, planner, executor, workflow, long horizon tasks, agent planning"
 ---
-
-# 9.2.5 计划-执行模式（Plan-and-Execute）
-
 :::tip[本节定位]
 ReAct 很适合边走边看。
 但当任务变长以后，它会遇到一个典型问题：

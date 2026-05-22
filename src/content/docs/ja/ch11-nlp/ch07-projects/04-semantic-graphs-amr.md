@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AMR, セマンティックグラフ, 意味解析, 情報抽出, 知識グラフ"
 ---
-
-# 11.7.5 セマンティックグラフと AMR：文を構造化された意味に変える
-
 ![AMR セマンティックグラフ理解マップ](/img/course/ch11-amr-semantic-graph-map-ja.webp)
 
 :::tip[この節の位置づけ]

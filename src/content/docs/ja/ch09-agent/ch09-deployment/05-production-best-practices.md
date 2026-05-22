@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "production best practices, rollout, canary, rollback, observability, oncall, safety"
 ---
-
-# 9.9.6 本番環境のベストプラクティス
-
 :::tip[この節の位置づけ]
 前の章では、次の内容をそれぞれ説明しました。
 

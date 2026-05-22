@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Bayes' rule, maximum likelihood estimation, EM algorithm, Shannon information theory, AI math history"
 ---
-
-# 4.2.6 Historical Main Line of Probability and Statistics: Bayes, MLE, EM, and Information Theory
-
 ![Historical foundation map of probability and statistics](/img/course/ch04-probability-history-foundations-map-en.webp)
 
 :::tip[Section overview]

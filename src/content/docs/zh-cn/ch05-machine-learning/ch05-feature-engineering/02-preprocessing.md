@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "特征预处理, 缺失值, 标准化, one-hot, 数据泄漏, preprocessing"
 ---
-
-# 5.5.3 特征预处理
-
 ![特征预处理流水线图](/img/course/feature-preprocessing-pipeline.webp)
 
 :::tip[本节定位]

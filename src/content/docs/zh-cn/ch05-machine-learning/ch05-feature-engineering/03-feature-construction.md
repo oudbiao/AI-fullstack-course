@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "特征构造, 多项式特征, 交互特征, 时间特征, 统计特征, 特征工程"
 ---
-
-# 5.5.4 特征构造
-
 ![特征构造工作坊图](/img/course/feature-construction-workshop.webp)
 
 :::tip[本节定位]

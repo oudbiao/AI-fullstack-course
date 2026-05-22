@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "KNN, k-nearest neighbors, distance metric, lazy learning, classification"
 ---
-
-# E.C.2 K-Nearest Neighbors
-
 ![KNN neighbor voting diagram](/img/course/elective-knn-neighbor-voting-en.webp)
 
 KNN makes a prediction by looking at the nearest labeled samples and letting them vote. It has almost no training cost, but prediction can become expensive because it must compare distances.

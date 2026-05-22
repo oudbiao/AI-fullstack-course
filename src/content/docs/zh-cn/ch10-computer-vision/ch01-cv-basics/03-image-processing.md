@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "滤波, 边缘检测, 形态学, OpenCV, Canny, blur"
 ---
-
-# 10.1.4 图像处理技术
-
 ![图像处理流水线图](/img/course/cv-image-processing-pipeline.webp)
 
 ## 学习目标

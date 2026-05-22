@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NumPy, Pandas, Matplotlib, Seaborn, data analysis, data visualization, Python data analysis"
 ---
-
-# 3 Data Analysis and Visualization
-
 ![Main visual for data analysis and visualization](/img/course/ch03-data-visualization-en.webp)
 
 Chapter 3 has one job: help you turn messy data into **a trustworthy conclusion with reproducible code and charts**.

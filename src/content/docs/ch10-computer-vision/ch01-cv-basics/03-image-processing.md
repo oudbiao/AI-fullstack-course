@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "filtering, edge detection, morphology, OpenCV, Canny, blur"
 ---
-
-# 10.1.4 Image Processing Techniques
-
 ![Image processing pipeline diagram](/img/course/cv-image-processing-pipeline-en.webp)
 
 ## Learning Objectives

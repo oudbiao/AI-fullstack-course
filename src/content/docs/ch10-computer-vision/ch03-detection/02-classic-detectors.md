@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "R-CNN, Fast R-CNN, Faster R-CNN, object detection, region proposal"
 ---
-
-# 10.3.3 Classic Detection Architectures
-
 :::tip[What this section is about]
 What is most worth learning about classic detection architectures is not the model names themselves, but the fact that they all solve the same problem step by step:
 

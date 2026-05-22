@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "权重初始化, Xavier, Glorot, He, Kaiming, 梯度消失, 梯度爆炸"
 ---
-
-# 6.1.7 权重初始化
-
 :::tip[本节定位]
 初始化决定神经网络一开始能不能带着可用信号进入训练。你通常先用 PyTorch 默认初始化，但也要知道训练异常时怎样检查 Xavier、He、全零、过小和过大的初始化。
 :::

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "advanced planning, DAG, scheduling, dependencies, replanning, critical path"
 ---
-
-# 9.2.6 高度なプランニング戦略【選択】
-
 :::tip[この節の位置づけ]
 前の節の Plan-and-Execute では、長いタスクを順番のステップに分解しました。  
 でも、実際の複雑なタスクは一直線ではなく、もっとグラフに近い形をしています。

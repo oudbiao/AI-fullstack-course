@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "EDA, 探索性数据分析, Pandas, Matplotlib, Seaborn, 数据可视化, 数据清洗"
 ---
-
-# 3.6.1 实战项目：探索性数据分析（EDA）
-
 ![EDA 探索性数据分析流程图](/img/course/eda-analysis-workflow.webp)
 
 :::tip[项目定位]

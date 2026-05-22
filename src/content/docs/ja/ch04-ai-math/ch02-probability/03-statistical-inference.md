@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "最尤推定, MLE, MAP, 仮説検定, A/Bテスト, 統計推論, AI数学"
 ---
-
-# 4.2.4 統計推論の基礎
-
 ![最尤推定の尤度曲線図](/img/course/mle-likelihood-curve-ja.webp)
 
 :::tip[統計推論 = データから規則を逆に推測する]

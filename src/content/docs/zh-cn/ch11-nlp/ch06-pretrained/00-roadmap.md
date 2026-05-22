@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "预训练指南, BERT, GPT, T5, transformers"
 ---
-
-# 11.6.1 预训练模型路线图：BERT、GPT、T5
-
 预训练模型让 NLP 从单任务训练进入可复用基础模型：先在大规模文本上预训练，再迁移到下游任务。
 
 ## 先看范式地图

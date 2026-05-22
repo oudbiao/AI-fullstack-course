@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Hugging Face, transformers, tokenizer, model, config, forward, batch, logits"
 ---
-
-# 7.1.5 Hugging Face 快速上手
-
 ![Hugging Face 工作流对象图](/img/course/ch07-huggingface-workflow-object-map.webp)
 
 :::tip[核心链路]

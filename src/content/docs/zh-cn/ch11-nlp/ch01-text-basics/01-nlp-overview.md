@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP, 自然语言处理, 文本分类, 信息抽取, 机器翻译, 语言模型"
 ---
-
-# 11.1.2 NLP 概述
-
 ![NLP 任务全景图](/img/course/ch11-nlp-task-landscape-map.webp)
 
 :::tip[读图提示]

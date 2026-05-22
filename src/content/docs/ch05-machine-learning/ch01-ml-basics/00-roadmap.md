@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "machine learning guide, ML introduction, sklearn guide, supervised learning, unsupervised learning"
 ---
-
-# 5.1.1 Machine Learning Basics Roadmap: Task, Data, Model, Score
-
 Machine learning starts when you stop hand-writing every rule and let a model learn patterns from data. The first habit is not algorithm memorization. It is a small project loop.
 
 ## Look at the Map First

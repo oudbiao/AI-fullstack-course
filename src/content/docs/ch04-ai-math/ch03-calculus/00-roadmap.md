@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "calculus guide, optimization guide, derivatives, gradients, gradient descent, backpropagation"
 ---
-
-# 4.3.1 Calculus Roadmap: How Models Learn by Reducing Loss
-
 Calculus explains how a model changes its parameters. The first goal is intuition: measure change, move in a better direction, repeat.
 
 ## Look at the Map First

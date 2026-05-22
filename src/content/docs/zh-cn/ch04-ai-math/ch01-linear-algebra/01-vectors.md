@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "向量, 点积, 余弦相似度, NumPy, 线性代数, AI数学"
 ---
-
-# 4.1.2 向量：AI 世界的基本单元
-
 ![向量点积与余弦相似度几何图](/img/course/vector-dot-cosine-geometry.webp)
 
 :::tip[学习方式]

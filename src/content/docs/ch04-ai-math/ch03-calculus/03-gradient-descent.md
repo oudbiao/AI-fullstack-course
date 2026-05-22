@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "gradient descent, learning rate, SGD, optimization algorithm, linear regression, AI math"
 ---
-
-# 4.3.4 Gradient Descent: The Most Core Optimization Algorithm in AI
-
 ![Gradient descent path diagram](/img/course/gradient-descent-path-en.webp)
 
 :::tip[This section is the climax of the entire math phase]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Docker, containerization, deployment, Dockerfile, Compose, service deployment"
 ---
-
-# 8.4.5 容器化与部署
-
 :::tip[本节定位]
 很多项目到这里会卡住：
 

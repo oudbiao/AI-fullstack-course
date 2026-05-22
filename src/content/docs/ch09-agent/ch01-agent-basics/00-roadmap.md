@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent guide, intelligent agent guide, Agent system architecture, tool calling, Agent loop"
 ---
-
-# 9.1.1 Agent Basics Roadmap: Goal, State, Action
-
 An Agent is not a model name. It is a system pattern that uses a model, tools, state, memory, and feedback to keep working toward a goal.
 
 ## See the Single-Agent Loop First

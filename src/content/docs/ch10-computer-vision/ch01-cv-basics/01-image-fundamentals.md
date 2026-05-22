@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image, pixel, RGB, HSV, channel, image format, computer vision"
 ---
-
-# 10.1.2 Digital Image Fundamentals
-
 ![Pixel grid and RGB channel diagram](/img/course/cv-pixel-rgb-grid-en.webp)
 
 ## Learning Objectives

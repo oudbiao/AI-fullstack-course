@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool patterns, composite tools, caching, batching, retries, decorators, orchestration"
 ---
-
-# 9.3.7 Advanced Tool Patterns [Optional]
-
 :::tip[Section Positioning]
 When there are only two or three tools,
 direct registration and dispatch are often enough.

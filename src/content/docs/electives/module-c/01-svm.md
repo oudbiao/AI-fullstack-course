@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "SVM, support vector machine, max margin, kernel, classification, classic ML"
 ---
-
-# E.C.1 Support Vector Machine
-
 ![SVM max-margin and support vector diagram](/img/course/elective-svm-margin-support-vectors-en.webp)
 
 ![SVM parameter C and kernel selection diagram](/img/course/elective-svm-c-kernel-decision-map-en.webp)

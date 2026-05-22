@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI regulation, compliance, risk classification, governance, audit, legal requirements"
 ---
-
-# 12.4.4 AI Regulations and Compliance
-
 ![AI Compliance Engineering Translation Map](/img/course/ch12-ai-regulation-engineering-translation-map-en.webp)
 
 :::tip[Reading the diagram]

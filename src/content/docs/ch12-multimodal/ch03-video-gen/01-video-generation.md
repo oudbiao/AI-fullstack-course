@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "video generation, temporal consistency, motion modeling, video diffusion, frame coherence"
 ---
-
-# 12.3.2 Video Generation Technology
-
 ![Video and audio generation pipeline diagram](/img/course/video-audio-generation-pipeline-en.webp)
 
 :::tip[Section Overview]

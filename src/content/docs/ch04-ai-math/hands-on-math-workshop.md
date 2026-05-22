@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI math workshop, vector similarity, probability simulation, entropy, gradient descent, math evidence pack"
 ---
-
-# 4.4 Hands-on: Full Chapter 4 Math Workshop
-
 This workshop turns Chapter 4 into one runnable practice loop. You will not prove every formula here. Instead, you will run a small script that makes the most important math ideas visible: vectors compare similarity, probability measures uncertainty, entropy and loss measure surprise, and gradients tell a parameter how to move.
 
 The script uses only the Python standard library. That keeps the first run easy: no NumPy, no plotting dependency, no notebook setup. It still produces CSV files, SVG charts, and a README so you can inspect the math like a small engineering artifact.

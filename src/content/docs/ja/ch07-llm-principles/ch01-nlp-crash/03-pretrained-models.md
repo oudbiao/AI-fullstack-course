@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretrained models, transfer learning, BERT, GPT, T5, foundation models, fine-tuning"
 ---
-
-# 7.1.4 事前学習済み言語モデルの概観
-
 ![転移学習の適応マップ](/img/course/ch06-transfer-learning-freeze-finetune-map-ja.webp)
 
 :::tip[実務での判断]

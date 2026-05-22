@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "reasoning, llm reasoning, decomposition, multi-step, constraints, agent"
 ---
-
-# 9.2.2 LLM 推論能力
-
 ![LLM 推論と中間状態チェックポイント図](/img/course/ch09-reasoning-state-checkpoint-map-ja.webp)
 
 :::tip[この節の位置づけ]

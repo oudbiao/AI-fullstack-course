@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Pandas 入门, DataFrame, 数据处理, 数据清洗, groupby, Pandas 学习方法"
 ---
-
-# 3.3.1 Pandas 路线图：从原始表到分析表
-
 Pandas 是本课程里的表格工作台。只要 CSV、Excel、日志表或 SQL 查询结果需要变成干净表格，就会用到它。
 
 ## 先看工作流

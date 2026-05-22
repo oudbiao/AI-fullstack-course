@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "security detection, surveillance, alerting, tracking, false alarm, vision project"
 ---
-
-# 10.6.2 プロジェクト：スマート防犯システム
-
 :::tip[この節の位置づけ]
 防犯プロジェクトは、「人を検出したら枠を描く」だけのデモになりがちです。
 でも、本当に納品できる防犯システムが重視するのは、たいてい枠そのものではなく、次の点です。

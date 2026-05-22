@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "medical imaging, segmentation, sensitivity, risk, annotation, project"
 ---
-
-# 10.6.3 项目：医学影像分析【选修】
-
 :::tip[本节定位]
 医学影像项目和普通视觉项目最大的不同，不在于模型换了个名字，而在于：
 

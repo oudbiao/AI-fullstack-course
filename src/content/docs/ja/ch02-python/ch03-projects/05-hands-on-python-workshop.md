@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Python ハンズオン, コマンドラインアプリ, argparse, JSON, dataclass, ファイル入出力, Python プロジェクト"
 ---
-
-# 2.3.5 ハンズオンワークショップ：ローカル学習タスクアシスタントを作る
-
 ![Python ハンズオンワークショップのルート](/img/course/ch02-hands-on-python-workshop-route-ja.webp)
 
 :::tip[ワークショップの目標]

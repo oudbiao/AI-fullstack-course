@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "video analysis, temporal modeling, frame sampling, tracking, action recognition"
 ---
-
-# 10.5.3 動画分析【選択】
-
 :::tip[この節の位置づけ]
 動画分析は、いちばん誤解されやすいです。次のように思われがちです。
 

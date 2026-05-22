@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "creative platform, multimodal project, image generation, editing, voice, asset management"
 ---
-
-# 12.5.2 Project: AI Creative Content Platform
-
 ![AI Creative Content Platform Workflow](/img/course/creative-platform-workflow-en.webp)
 
 :::tip[Section Focus]

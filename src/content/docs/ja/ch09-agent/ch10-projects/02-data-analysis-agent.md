@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data analysis agent, statistics, chart suggestion, insight generation, agent project"
 ---
-
-# 9.10.3 プロジェクト：データ分析 Agent
-
 :::tip[この節の位置づけ]
 データ分析 Agent の本当の価値は、次のように「平均値を計算すること」だけではありません。
 

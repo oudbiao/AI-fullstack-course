@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch, AMP, mixed precision, gradient clipping, checkpoint, device, reproducibility"
 ---
-
-# 6.2.8 实用技巧
-
 :::tip[本节定位]
 很多早期 PyTorch 问题不是模型太高级，而是 device 不一致、shape 错、梯度不稳、没有 checkpoint，或者验证代码还在追踪梯度。
 :::

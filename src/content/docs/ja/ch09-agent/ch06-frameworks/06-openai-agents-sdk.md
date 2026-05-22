@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "OpenAI Agents SDK, agent runtime, tools, runner, sdk, agent abstraction"
 ---
-
-# 9.6.7 OpenAI Agents SDK【選択】
-
 :::tip[この節の位置づけ]
 多くのフレームワークは、次のようなものを整理する手助けをしてくれます。
 

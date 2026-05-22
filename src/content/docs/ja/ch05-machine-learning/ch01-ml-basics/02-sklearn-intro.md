@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict, 機械学習フレームワーク"
 ---
-
-# 5.1.3 Scikit-learn ハンズオン：fit、transform、Pipeline
-
 ![Scikit-learn Estimator と Pipeline の図解](/img/course/sklearn-estimator-pipeline-ja.webp)
 
 Scikit-learn は古典的な機械学習でよく使われる Python ライブラリです。このページは短くします。先に流れを見て、次に完全なスクリプトを動かします。

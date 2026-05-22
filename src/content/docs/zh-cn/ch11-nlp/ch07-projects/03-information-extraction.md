@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "信息抽取, NER, 关系抽取, 结构化输出, NLP项目"
 ---
-
-# 11.7.4 项目：信息抽取
-
 ![信息抽取 schema 流程图](/img/course/ch11-information-extraction-schema-pipeline-map.webp)
 
 :::tip[读图提示]

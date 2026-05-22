@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "オプティマイザ, SGD, momentum, Adam, learning rate, PyTorch, 勾配降下"
 ---
-
-# 6.1.5 オプティマイザ
-
 ![オプティマイザ経路の比較図](/img/course/optimizer-comparison-ja.webp)
 
 :::tip[この節の概要]

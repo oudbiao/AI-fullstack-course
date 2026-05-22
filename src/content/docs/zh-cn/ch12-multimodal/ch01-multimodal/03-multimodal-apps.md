@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multimodal app, OCR, screenshot assistant, image-text product, workflow"
 ---
-
-# 12.1.4 多模态应用开发
-
 ![多模态应用工程链路图](/img/course/ch12-multimodal-app-engineering-loop.webp)
 
 :::tip[读图提示]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Stable Diffusion, text-to-image, img2img, inpainting, control, workflow product"
 ---
-
-# 12.2.4 SD Applications
-
 ![Stable Diffusion application mode selection diagram](/img/course/ch12-sd-application-mode-selector-map-en.webp)
 
 :::tip[Reading guide]

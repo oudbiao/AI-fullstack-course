@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI Full-Stack, AI application engineering, capability map, LLM applications, RAG, AI Agent"
 ---
-
-# 0.3 AI Full-Stack Capability Map
-
 ![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.webp)
 
 Read the picture first. The course is one engineering path:

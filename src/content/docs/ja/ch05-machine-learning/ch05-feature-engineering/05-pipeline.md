@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Pipeline, ColumnTransformer, Transformer, 特徴量エンジニアリングのパイプライン, sklearn"
 ---
-
-# 5.5.6 Pipeline とワークフロー
-
 ![ColumnTransformer と Pipeline のワークフロー図](/img/course/column-transformer-pipeline-ja.webp)
 
 :::tip[この節の位置づけ]

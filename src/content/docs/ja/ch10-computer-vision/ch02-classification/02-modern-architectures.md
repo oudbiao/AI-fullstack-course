@@ -1,5 +1,5 @@
 ---
-title: "10.2.3 現代的な分類アーキテクチャ"
+title: "10.2.3 現代の分類アーキテクチャ"
 description: "VGG、ResNet から EfficientNet、ConvNeXt まで、現代の画像分類アーキテクチャがなぜ深さ、残差、効率の間で進化し続けるのかを理解します。"
 sidebar:
   order: 5
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ResNet, EfficientNet, ConvNeXt, classification, architecture, computer vision"
 ---
-
-# 10.2.3 現代の分類アーキテクチャ
-
 :::tip[この節の位置づけ]
 画像分類では、モデル構造は「新しいほど良い」わけではありません。
 むしろ、次のような重要な課題をめぐって進化してきました。

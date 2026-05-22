@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sentiment analysis project, text classification, baseline, negation, sarcasm, NLP"
 ---
-
-# 6.8.3 プロジェクト：テキスト感情分析
-
 :::tip[この節の位置づけ]
 感情分析は、最初の NLP プロジェクトとして向いています。難しい部分が見えやすいからです。ラベル境界、トークン化、否定語、皮肉、混合感情、エラー分析がすべて表に出ます。
 :::

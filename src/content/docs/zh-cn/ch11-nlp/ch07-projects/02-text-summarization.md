@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text summarization, extractive summarization, TF-IDF, evaluation, NLP project"
 ---
-
-# 11.7.3 项目：文本摘要系统
-
 ![文本摘要抽取生成评估图](/img/course/ch11-summarization-extractive-generative-eval-map.webp)
 
 :::tip[读图提示]

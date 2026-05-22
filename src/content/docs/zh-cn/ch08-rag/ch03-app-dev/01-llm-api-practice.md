@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM API, chat completion, API client, prompt, response parsing, error handling"
 ---
-
-# 8.3.2 大模型 API 调用实践
-
 :::tip[本节定位]
 很多人第一次做 LLM 应用时，停留在“我会调用一下接口”。
 但真实开发里，真正重要的是：

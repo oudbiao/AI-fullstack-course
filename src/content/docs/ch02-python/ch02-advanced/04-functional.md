@@ -4,9 +4,6 @@ description: "Master the core tools of Python functional programming"
 sidebar:
   order: 4
 ---
-
-# 2.2.4 Basics of Functional Programming
-
 ![Functional data pipeline diagram](/img/course/ch02-functional-pipeline-en.webp)
 
 ## Section Overview

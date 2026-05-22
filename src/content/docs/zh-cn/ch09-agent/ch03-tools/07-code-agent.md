@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "code agent, coding agent, read edit run verify, sandbox, patch, tests"
 ---
-
-# 9.3.8 代码生成与执行 Agent
-
 :::tip[本节定位]
 很多人提到代码 Agent，第一反应是：
 

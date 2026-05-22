@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "SOP 文档助手, knowledge base, word generation, policy retrieval, document parsing, rag project"
 ---
-
-# 8.5.5 项目：知识库驱动的 SOP 文档助手
-
 ![SOP 文档助手工作流图](/img/course/courseware-assistant-workflow.webp)
 
 :::tip[本节定位]

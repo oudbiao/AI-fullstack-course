@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM industry, open-source models, closed-source models, API, inference, application layer"
 ---
-
-# 7.2.4 LLM Industry Landscape
-
 ![LLM industry landscape layer map](/img/course/ch07-llm-industry-landscape-map-en.webp)
 
 :::tip[How to read this map]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "TD-Gammon, DQN, Atari, AlphaGo, 強化学習, Agentの歴史"
 ---
-
-# 9.1.6 TD-Gammon から AlphaGo へ：強化学習は Agent にどう影響したのか
-
 ![強化学習から Agent への歴史的ブレークスルーマップ](/img/course/ch09-rl-agent-breakthroughs-map-ja.webp)
 
 :::tip[この節の位置づけ]

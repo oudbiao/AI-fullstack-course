@@ -4,9 +4,6 @@ description: "理解版本管理的必要性和 Git 的核心概念"
 sidebar:
   order: 1
 ---
-
-# 1.2.1 Git 基础概念
-
 ![Git 四区工作流图](/img/course/git-four-areas.webp)
 
 ## 本节定位

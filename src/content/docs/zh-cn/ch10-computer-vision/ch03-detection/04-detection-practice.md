@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "detection practice, computer vision project, bounding box, evaluation, IoU, mAP"
 ---
-
-# 10.3.5 检测实战
-
 :::tip[本节定位]
 真正做检测项目时，困难往往不只是模型本身。
 更常见的问题是：

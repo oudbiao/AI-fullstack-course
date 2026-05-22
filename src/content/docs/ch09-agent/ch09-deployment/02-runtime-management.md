@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "runtime management, concurrency, timeout, retry, circuit breaker, metrics"
 ---
-
-# 9.9.3 Runtime Management
-
 ![Agent runtime management protection map](/img/course/ch09-runtime-management-protection-map-en.webp)
 
 :::tip[Section focus]

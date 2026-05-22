@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "reasoning evaluation, trace evaluation, agent metrics, optimization, tool efficiency"
 ---
-
-# 9.2.7 推論評価と最適化
-
 :::tip[この節の位置づけ]
 推論システムで起こりやすいミスのひとつは、次のようなものです。
 

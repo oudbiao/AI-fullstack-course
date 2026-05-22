@@ -4,9 +4,6 @@ description: "掌握 merge、join、concat 等数据合并方法"
 sidebar:
   order: 15
 ---
-
-# 3.3.8 数据合并
-
 :::tip[本节定位]
 很多新人第一次学数据合并时，最容易乱在这里：
 

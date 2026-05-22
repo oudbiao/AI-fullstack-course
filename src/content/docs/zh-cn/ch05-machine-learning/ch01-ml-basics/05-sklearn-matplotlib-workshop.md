@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Scikit-learn 实操, sklearn 教程, Matplotlib 基础, Pipeline, train_test_split, 混淆矩阵, 交叉验证, joblib"
 ---
-
-# 5.1.6 Scikit-learn 与 Matplotlib 实操工作坊
-
 ![Scikit-learn 实操流程](/img/course/ch05-sklearn-hands-on-loop.webp)
 
 :::tip[本节定位]

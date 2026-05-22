@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool strategy, Agent, routing, retry, fallback, verification, tool policy"
 ---
-
-# 9.3.4 工具调用策略
-
 ![工具调用策略路由图](/img/course/ch09-tool-strategy-routing-map.webp)
 
 :::tip[本节定位]

@@ -1,5 +1,5 @@
 ---
-title: "5.6.5 Kaggle コンペ実戦"
+title: "5.6.5 Kaggle コンペ実戦（選修）"
 description: "Kaggle プラットフォーム入門、コンペの流れとコツ、入門レベルのコンペ参加"
 sidebar:
   order: 22
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Kaggle, コンペ, Titanic, データサイエンスコンペ, Notebook, ランキング"
 ---
-
-# 5.6.5 Kaggle コンペ実戦（選修）
-
 ![Kaggle コンペ提出のクローズドループ図](/img/course/kaggle-submission-loop-ja.webp)
 
 :::tip[この節の位置づけ]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image generation, latest progress, diffusion, controllable generation, multimodal, image editing"
 ---
-
-# 12.2.6 最新进展
-
 ![图像生成前沿趋势雷达图](/img/course/ch12-image-generation-trend-radar-map.webp)
 
 :::tip[读图提示]

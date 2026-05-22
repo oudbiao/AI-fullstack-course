@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "efficient attention, sliding window, flash attention, kv cache, gqa, mqa, long context"
 ---
-
-# 7.3.5 高效注意力机制
-
 :::tip[本节定位]
 当序列长度还很短时，普通自注意力看起来几乎没有问题。
 但一旦上下文长度从几百扩到几万，你很快就会发现：

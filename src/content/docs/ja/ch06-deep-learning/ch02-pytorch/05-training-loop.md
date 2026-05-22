@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "training loop, optimizer, loss, model.train, model.eval, checkpoint, PyTorch"
 ---
-
-# 6.2.7 学習ループ
-
 :::tip[この節の位置づけ]
 ここは PyTorch ワークフローの部品が 1 つのループになるページです。batch、順伝播、loss、勾配のクリア、逆伝播、更新、検証、best model の保持、予測をつなぎます。
 :::

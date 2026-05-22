@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "representation learning guide, word embeddings, contextualized representations, language models"
 ---
-
-# 11.2.1 Representation Roadmap: Meaning as Vectors
-
 Representation learning asks how text can become numbers that carry meaning, not just identity.
 
 ## See the Representation Path First

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "production best practices, rollout, canary, rollback, observability, oncall, safety"
 ---
-
-# 9.9.6 生产环境最佳实践
-
 :::tip[本节定位]
 前面这一章我们已经分别讲了：
 

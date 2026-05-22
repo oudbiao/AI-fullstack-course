@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "machine learning, supervised learning, unsupervised learning, reinforcement learning, AI, workflow"
 ---
-
-# 5.1.2 What Is Machine Learning
-
 ![Machine learning modeling loop diagram](/img/course/ml-modeling-loop-en.webp)
 
 ## Where This Section Fits

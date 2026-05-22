@@ -1,12 +1,9 @@
 ---
-title: "3.1.1 Pure Python for Data Processing"
+title: "3.1.1 Warm-up: Processing Data with Pure Python"
 description: "Work with real datasets using pure Python and experience firsthand why NumPy and Pandas are needed"
 sidebar:
   order: 1
 ---
-
-# 3.1.1 Warm-up: Processing Data with Pure Python
-
 ## Learning Objectives
 
 - Process a real dataset using pure Python (`csv` module + dictionaries + lists)

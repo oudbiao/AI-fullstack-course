@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretrained models, transfer learning, BERT, GPT, T5, foundation models, fine-tuning"
 ---
-
-# 7.1.4 Pretrained Language Models at a Glance
-
 ![Transfer learning adaptation map](/img/course/ch06-transfer-learning-freeze-finetune-map-en.webp)
 
 :::tip[One Practical Judgment]

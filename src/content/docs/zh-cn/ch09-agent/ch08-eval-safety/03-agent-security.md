@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "agent security, prompt injection, permissions, human approval, audit"
 ---
-
-# 9.8.4 Agent 安全与对齐
-
 :::tip[本节定位]
 Agent 一旦能调用工具，就不再只是“会说话的模型”。它可能读文件、写数据库、发消息、调用 API。能力越强，越需要权限、确认、回滚和审计。
 :::

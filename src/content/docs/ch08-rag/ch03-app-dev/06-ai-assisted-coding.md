@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI-assisted programming, code generation, code review, testing, debugging, LLM development"
 ---
-
-# 8.3.7 AI-Assisted Programming with Large Models
-
 :::tip[Section Overview]
 AI-assisted programming does not mean “let the model write all the code for you.” It means putting the model into your development workflow: helping you understand code, generate drafts, add tests, find bugs, and suggest refactoring. What really matters is how you verify it.
 :::

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data analysis agent, statistics, chart suggestion, insight generation, agent project"
 ---
-
-# 9.10.3 项目：数据分析 Agent
-
 :::tip[本节定位]
 数据分析 Agent 的真正价值不在于：
 

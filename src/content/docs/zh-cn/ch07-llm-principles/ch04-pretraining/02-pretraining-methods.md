@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "causal language modeling, masked language modeling, span corruption, pretraining objectives, BERT, GPT, T5"
 ---
-
-# 7.4.3 预训练方法
-
 :::tip[本节定位]
 预训练方法本质上是在回答一句非常根本的话：
 

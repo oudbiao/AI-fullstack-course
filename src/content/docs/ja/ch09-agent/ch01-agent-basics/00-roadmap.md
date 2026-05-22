@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent guide, intelligent agent guide, Agent system architecture, tool calling, Agent loop"
 ---
-
-# 9.1.1 Agent 基礎ロードマップ：目標、状態、行動
-
 Agent はモデル名ではありません。目標に向かって、モデル、ツール、状態、記憶、フィードバックをまとめるシステムパターンです。
 
 ## まず単一 Agent ループを見る

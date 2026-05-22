@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "medical imaging, segmentation, sensitivity, risk, annotation, project"
 ---
-
-# 10.6.3 Project: Medical Imaging Analysis [Elective]
-
 :::tip[Section Positioning]
 The biggest difference between a medical imaging project and a regular computer vision project is not that the model has a different name, but that:
 

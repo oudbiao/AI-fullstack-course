@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "weight initialization, Xavier, Glorot, He, Kaiming, vanishing gradients, exploding gradients"
 ---
-
-# 6.1.7 Weight Initialization
-
 :::tip[Section Overview]
 Initialization decides whether a neural network starts training with usable signals. You usually start with PyTorch defaults, but you should know how to check Xavier, He, all-zero, too-small, and too-large initialization when training looks strange.
 :::

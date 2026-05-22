@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "modern LLM decoder, pre-norm, RMSNorm, RoPE, GQA, MQA, SwiGLU"
 ---
-
-# 7.3.3 Original Transformer vs Modern LLM Decoder
-
 The 2017 Transformer paper gave us the foundation, but most modern LLM decoder blocks are not a line-by-line copy of the original diagram.
 
 The core idea is still the same:

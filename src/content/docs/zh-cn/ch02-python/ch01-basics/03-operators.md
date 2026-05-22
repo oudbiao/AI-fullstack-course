@@ -4,9 +4,6 @@ description: "掌握 Python 中的各种运算符和表达式"
 sidebar:
   order: 3
 ---
-
-# 2.1.3 运算符与表达式
-
 ![运算符与条件判断流程图](/img/course/ch02-operators-decision-flow.webp)
 
 ## 本节定位

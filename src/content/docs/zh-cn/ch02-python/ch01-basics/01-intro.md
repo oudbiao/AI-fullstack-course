@@ -4,9 +4,6 @@ description: "了解 Python 语言的特点、应用领域和开发环境"
 sidebar:
   order: 1
 ---
-
-# 2.1.1 Python 简介
-
 ![Python 到 AI 应用工作流](/img/course/ch02-python-ai-workflow.webp)
 
 ## 本节定位

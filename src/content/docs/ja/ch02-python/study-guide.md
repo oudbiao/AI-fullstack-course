@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Python学習ガイド, Pythonタスクリスト, プログラミング基礎, JSON, CLI"
 ---
-
-# 2.0 学習ガイドとタスクリスト：Python プログラミング基礎
-
 ![Python 学習ガイド最小閉ループ](/img/course/ch02-study-guide-program-loop-ja.webp)
 
 主な学習ルートは [第 2 章の入口](./) にまとめました。このページは、練習中に見る短いチェックリストとして使います。

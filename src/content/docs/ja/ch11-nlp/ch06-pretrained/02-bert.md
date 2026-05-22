@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "BERT, MLM, 双方向エンコーダー, 事前学習, Transformer Encoder, NLP"
 ---
-
-# 11.6.3 BERT シリーズ
-
 ![BERT Masked Language Model 図](/img/course/bert-masked-language-model-ja.webp)
 
 :::tip[この節の位置づけ]

@@ -4,9 +4,6 @@ description: "Python の型注釈とコード品質ツールを身につける"
 sidebar:
   order: 6
 ---
-
-# 2.2.6 型注釈とコード品質
-
 ![型注釈とコード品質のフローチャート](/img/course/ch02-type-hints-quality-flow-ja.webp)
 
 ## 残す証拠

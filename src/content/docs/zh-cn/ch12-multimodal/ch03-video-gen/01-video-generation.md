@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "video generation, temporal consistency, motion modeling, video diffusion, frame coherence"
 ---
-
-# 12.3.2 视频生成技术
-
 ![视频与语音生成流水线图](/img/course/video-audio-generation-pipeline.webp)
 
 :::tip[本节定位]

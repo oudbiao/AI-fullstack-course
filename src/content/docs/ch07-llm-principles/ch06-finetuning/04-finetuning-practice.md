@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "finetuning, sft, dataset formatting, training plan, validation, llmops"
 ---
-
-# 7.6.5 Fine-Tuning Engineering Practice
-
 :::tip[Section Focus]
 Many fine-tuning projects do not fail because “the model is not strong enough,” but because they fail earlier:
 

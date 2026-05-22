@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "多数据源, 数据整合, Pandas, 数据分析, 透视分析, 可视化仪表盘"
 ---
-
-# 3.6.2 实战项目：多数据源整合分析
-
 ![多数据源整合分析架构图](/img/course/ch03-multi-source-analysis-architecture.webp)
 
 :::tip[项目定位]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "逻辑回归, sigmoid, 交叉熵, 阈值, 分类, 正则化, sklearn"
 ---
-
-# 5.2.3 逻辑回归
-
 ![逻辑回归决策边界图](/img/course/logistic-regression-boundary.webp)
 
 :::tip[本节定位]

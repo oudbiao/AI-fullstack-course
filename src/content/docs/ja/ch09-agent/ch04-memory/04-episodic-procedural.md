@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "episodic memory, procedural memory, workflow memory, agent experience, skill memory"
 ---
-
-# 9.4.5 エピソード記憶と手続き記憶【選択】
-
 :::tip[この節の位置づけ]
 長期記憶は、より「安定した記録」のようなものです。  
 でも、情報の中には長期記録でも短期ウィンドウでもなく、もっと次のようなものがあります。

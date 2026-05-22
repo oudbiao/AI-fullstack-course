@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "regularization, dropout, weight decay, early stopping, overfitting, PyTorch, AdamW"
 ---
-
-# 6.1.6 Regularization
-
 ![Regularization controls overfitting](/img/course/regularization-overfitting-controls-en.webp)
 
 :::tip[Section Overview]

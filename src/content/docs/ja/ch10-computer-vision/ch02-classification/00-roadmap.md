@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image classification guide, data augmentation, ResNet, training techniques"
 ---
-
-# 10.2.1 Image Classification ロードマップ：Image In、Label Out
-
 Image classification は 1 つの問いに答えます：画像全体を見て、最も適切な class は何か。
 
 ## まず classification loop を見る

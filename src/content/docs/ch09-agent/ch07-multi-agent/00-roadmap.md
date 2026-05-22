@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Multi-Agent guide, collaborative systems, Agent communication, Agent coordination, multi-agent"
 ---
-
-# 9.7.1 Multi-Agent Roadmap: Roles, Messages, Owner
-
 Multi-Agent is a division-of-labor mechanism, not several chatbots talking. Use it only when role separation, parallel work, cross-checking, or specialist collaboration is worth the coordination cost.
 
 ## See the Collaboration Cost First

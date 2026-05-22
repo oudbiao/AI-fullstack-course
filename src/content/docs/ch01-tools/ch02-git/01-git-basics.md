@@ -4,9 +4,6 @@ description: "Understand why version control is necessary and learn Git’s core
 sidebar:
   order: 1
 ---
-
-# 1.2.1 Git Basics
-
 ![Git four-area workflow diagram](/img/course/git-four-areas-en.webp)
 
 ## Where This Lesson Fits

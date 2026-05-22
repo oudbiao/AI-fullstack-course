@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "autograd, backward, gradient, requires_grad, no_grad, detach, PyTorch"
 ---
-
-# 6.2.4 Autograd
-
 :::tip[Section Overview]
 `autograd` is the engine that turns a forward computation into gradients. The important part is not memorizing `backward()`, but knowing **what graph is recorded, where gradients are stored, when they accumulate, and when tracking should be disabled.**
 :::

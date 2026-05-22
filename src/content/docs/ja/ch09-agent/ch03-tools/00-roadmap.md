@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Tools overview, Function Calling, Tool Use, Code Agent, Agent tools"
 ---
-
-# 9.3.1 ツールロードマップ：スキーマ、権限、観察
-
 ツールは Agent を言語から行動へ進めます。ツールが多いほど強いわけではありません。曖昧なツールは誤呼び出し、不安全な行動、ループ、コスト漏れを生みます。
 
 ## まず行動境界を見る

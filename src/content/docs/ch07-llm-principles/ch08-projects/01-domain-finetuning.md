@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "domain finetuning, SFT, baseline, evaluation, vertical assistant, project"
 ---
-
-# 7.8.2 Project: Vertical Domain Fine-tuning
-
 :::tip[Section Overview]
 Vertical domain fine-tuning projects often degenerate into a vague slogan:
 

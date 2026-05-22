@@ -4,9 +4,6 @@ description: "Learn how to choose charts, use color well, and avoid common pitfa
 sidebar:
   order: 20
 ---
-
-# 3.4.5 Visualization Best Practices
-
 ![Chart selection decision tree](/img/course/chart-selection-decision-tree-en.webp)
 
 :::tip[Section focus]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "HMM, CRF, 词性标注, 序列标注, NER, BiLSTM-CRF"
 ---
-
-# 11.4.3 HMM、CRF 与序列标注历史主线
-
 ![HMM CRF 序列标注历史地图](/img/course/ch11-hmm-crf-sequence-history-map.webp)
 
 :::tip[本节定位]

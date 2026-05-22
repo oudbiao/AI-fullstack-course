@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "深層学習, PyTorch, ニューラルネットワーク, CNN, RNN, Transformer, Attention"
 ---
-
-# 6 深層学習と Transformer 基礎
-
 ![深層学習と Transformer のメインビジュアル](/img/course/ch06-deep-learning-ja.webp)
 
 第 6 章の目的は 1 つです。モデルが**損失、勾配、反復する学習ステップ**によってどう学ぶのかを理解することです。

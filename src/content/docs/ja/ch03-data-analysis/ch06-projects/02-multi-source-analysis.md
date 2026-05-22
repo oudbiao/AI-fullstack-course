@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "多データソース, データ統合, Pandas, データ分析, 透視分析, 可視化ダッシュボード"
 ---
-
-# 3.6.2 実践プロジェクト：多データソース統合分析
-
 ![多データソース統合分析のアーキテクチャ図](/img/course/ch03-multi-source-analysis-architecture-ja.webp)
 
 :::tip[プロジェクトの位置づけ]

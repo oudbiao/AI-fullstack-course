@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "embedding, semantic representation, cosine similarity, sentence embedding, contextual embedding, retrieval"
 ---
-
-# 7.1.3 词向量与语义表示
-
 ![Embedding 语义空间图](/img/course/embedding-semantic-space.webp)
 
 :::tip[一句话理解]

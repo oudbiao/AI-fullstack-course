@@ -4,9 +4,6 @@ description: "Master the various ways to access NumPy arrays: basic indexing, bo
 sidebar:
   order: 4
 ---
-
-# 3.2.3 Array Indexing and Slicing
-
 ![NumPy Indexing and Slicing Map](/img/course/ch03-numpy-indexing-slicing-map-en.webp)
 
 ## Learning Objectives

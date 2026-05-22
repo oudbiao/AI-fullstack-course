@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "object detection guide, YOLO, IoU, mAP"
 ---
-
-# 10.3.1 Object Detection Roadmap: Class plus Box
-
 Object detection adds location to classification: what object is present, and where is it in the image?
 
 ## See the Box Workflow First

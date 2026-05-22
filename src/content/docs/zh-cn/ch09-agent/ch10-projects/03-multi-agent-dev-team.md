@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent dev team, planner, coder, reviewer, tester, project"
 ---
-
-# 9.10.4 项目：多 Agent 开发团队【选修】
-
 :::tip[本节定位]
 多 Agent 开发团队项目很容易流于表演：
 

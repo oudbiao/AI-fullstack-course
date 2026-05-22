@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "embedding, semantic representation, cosine similarity, sentence embedding, contextual embedding, retrieval"
 ---
-
-# 7.1.3 単語埋め込みと意味表現
-
 ![Embedding 意味空間図](/img/course/embedding-semantic-space-ja.webp)
 
 :::tip[一文でいうと]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Pipeline, ColumnTransformer, Transformer, 特征工程流水线, sklearn"
 ---
-
-# 5.5.6 Pipeline 与工作流
-
 ![ColumnTransformer 与 Pipeline 工作流图](/img/course/column-transformer-pipeline.webp)
 
 :::tip[本节定位]

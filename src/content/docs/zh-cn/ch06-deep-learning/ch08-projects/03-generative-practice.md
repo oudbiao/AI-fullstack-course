@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "generative project, GAN, VAE, generation quality, diversity, evaluation"
 ---
-
-# 6.8.4 项目：生成模型实战 [选修]
-
 :::tip[本节定位]
 生成项目不是产出一张好看的样本就结束。你需要展示质量、多样性、稳定性、失败样本，以及为什么保留某个 checkpoint。
 :::

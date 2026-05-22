@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "logistic regression, sigmoid, cross-entropy, threshold, classification, regularization, sklearn"
 ---
-
-# 5.2.3 Logistic Regression
-
 ![Logistic Regression Decision Boundary Diagram](/img/course/logistic-regression-boundary-en.webp)
 
 :::tip[Section Positioning]

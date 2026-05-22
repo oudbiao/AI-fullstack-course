@@ -4,9 +4,6 @@ description: "用更少的代码画出更美观的统计图表"
 sidebar:
   order: 18
 ---
-
-# 3.4.3 Seaborn 统计可视化
-
 ![Seaborn 统计图选择图](/img/course/seaborn-statistical-plots.webp)
 
 :::tip[本节定位]

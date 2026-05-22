@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-agent patterns, research team, writer-reviewer, dev team, agent collaboration"
 ---
-
-# 9.7.5 多 Agent 实战模式
-
 :::tip[本节定位]
 前面我们已经讲了：
 

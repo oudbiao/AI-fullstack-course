@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI product design, product thinking, evaluation, cost, UX, product strategy"
 ---
-
-# E.F AI 产品设计思维
-
 AI 产品设计从用户问题开始，不是从模型能力开始。一个功能是否值得做，要能说清价值、成本、风险和用户体验。
 
 ## 先看决策闭环

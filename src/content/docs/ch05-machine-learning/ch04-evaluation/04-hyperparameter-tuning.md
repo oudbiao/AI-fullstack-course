@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "hyperparameter tuning, GridSearchCV, RandomizedSearchCV, search space, holdout, cross-validation, random forest"
 ---
-
-# 5.4.5 Hyperparameter Tuning
-
 ![Comparison of hyperparameter search methods](/img/course/hyperparameter-tuning-search-en.webp)
 
 :::tip[Section Overview]

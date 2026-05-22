@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "勾配降下法, 学習率, SGD, 最適化アルゴリズム, 線形回帰, AI数学"
 ---
-
-# 4.3.4 勾配降下法：AI の最も重要な最適化アルゴリズム
-
 ![勾配降下の軌跡図](/img/course/gradient-descent-path-ja.webp)
 
 :::tip[この節は数学パート全体の山場です]

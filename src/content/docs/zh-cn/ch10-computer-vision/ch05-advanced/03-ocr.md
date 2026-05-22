@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "OCR, text detection, text recognition, document AI, layout analysis"
 ---
-
-# 10.5.4 OCR 文字识别【选修】
-
 ![OCR 版面解析与文字识别流程图](/img/course/ocr-layout-recognition-pipeline.webp)
 
 :::tip[本节定位]

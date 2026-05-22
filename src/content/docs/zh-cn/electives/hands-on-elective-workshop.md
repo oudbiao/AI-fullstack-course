@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "选修模块, 实操工作坊, 部署, Python 进阶, 经典机器学习, AI 安全, 前端, 产品设计"
 ---
-
-# E.0 选修模块实操工作坊
-
 ![选修模块实操路线图](/img/course/elective-workshop-route-map.webp)
 
 这个工作坊是最快感受“选修模块有什么用”的方式。你会运行一个 Python 脚本，然后检查它生成的证据文件。

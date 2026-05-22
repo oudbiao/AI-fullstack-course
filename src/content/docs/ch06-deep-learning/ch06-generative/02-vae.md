@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "VAE, latent space, encoder, decoder, reparameterization, KL divergence, generation"
 ---
-
-# 6.6.3 VAE Basics [Optional]
-
 :::tip[Section Overview]
 A VAE is a generative autoencoder. Instead of compressing each input into one fixed point, it learns a small distribution in latent space, samples from it, and decodes the sample back into data.
 :::

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "deep learning project guide, image classification, sentiment analysis, generative practice, PyTorch portfolio"
 ---
-
-# 6.8.1 Deep Learning Projects Roadmap: Train, Inspect, Package
-
 This chapter is the exit point of Chapter 6. A deep learning project is not just a training script. It needs data evidence, shape checks, loss logs, prediction samples, failure cases, and a README.
 
 ## Look at the Project Loop First

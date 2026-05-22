@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "machine learning history, ML breakthroughs, Bayes, maximum likelihood, EM, decision trees, SVM, random forest, XGBoost"
 ---
-
-# 5.1.5 Main Thread of Major Breakthroughs in Machine Learning History
-
 ![Map of major breakthroughs in machine learning history](/img/course/ch05-ml-history-breakthrough-map-en.webp)
 
 :::tip[Section focus]

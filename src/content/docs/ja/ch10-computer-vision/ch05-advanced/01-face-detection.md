@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "face detection, face recognition, alignment, embeddings, computer vision"
 ---
-
-# 10.5.2 顔検出と認識【選択】
-
 :::tip[本節の位置づけ]
 顔タスクは一見すると「特別な対象を検出するだけ」に見えますが、
 実際のシステムには通常、少なくとも次の要素が含まれます。

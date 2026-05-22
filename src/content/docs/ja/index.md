@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIフルスタックエンジニアリング, AIキャリア転換, AIアプリケーションエンジニア, LLM, RAG, AI Agent"
 ---
-
-# AI フルスタックエンジニアリングコース
-
 <div class="course-home">
   <section class="course-home-hero">
     <div class="course-home-hero__copy">

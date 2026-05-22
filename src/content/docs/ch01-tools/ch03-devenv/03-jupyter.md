@@ -4,9 +4,6 @@ description: "A standard tool for data analysis and AI experiments"
 sidebar:
   order: 3
 ---
-
-# 1.3.3 Jupyter Notebook
-
 ![Jupyter Cell and Kernel State Diagram](/img/course/ch01-jupyter-kernel-state-en.webp)
 
 ## What This Section Covers

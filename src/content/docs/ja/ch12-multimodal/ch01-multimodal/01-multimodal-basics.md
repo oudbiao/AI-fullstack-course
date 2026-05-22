@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "多モダリティ, multimodal, 画像とテキスト, 音声, 動画, 融合"
 ---
-
-# 12.1.2 マルチモーダル学習の基礎
-
 ![マルチモーダルのアラインメントと融合の図](/img/course/multimodal-alignment-fusion-ja.webp)
 
 ## 学習目標

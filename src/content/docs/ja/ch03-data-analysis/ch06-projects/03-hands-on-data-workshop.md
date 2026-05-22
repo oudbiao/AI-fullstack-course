@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "データ分析ハンズオン, Python CSV, SQLite, データクリーニング, 再現可能な分析, 可視化"
 ---
-
-# 3.6.3 ハンズオンワークショップ：再現可能なデータ分析パイプラインを作る
-
 ![ハンズオン型データワークショップのルート](/img/course/ch03-hands-on-data-workshop-route-ja.webp)
 
 :::tip[ワークショップの目標]

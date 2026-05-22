@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "domain finetuning, SFT, baseline, evaluation, vertical assistant, project"
 ---
-
-# 7.8.2 项目：垂直领域微调
-
 :::tip[本节定位]
 垂直领域微调项目最容易流于一句空话：
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "数学到机器学习, 线性代数, 概率统计, 微积分, 梯度下降, 机器学习桥接"
 ---
-
-# 5.1.4 数学如何真正流到机器学习
-
 ![数学到机器学习桥梁图](/img/course/math-to-ml-bridge.webp)
 
 :::tip[本节定位]

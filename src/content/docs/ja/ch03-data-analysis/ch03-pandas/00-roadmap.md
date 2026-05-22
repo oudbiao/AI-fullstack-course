@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Pandas 入門, DataFrame, データ処理, データクリーニング, groupby, Pandas 学習方法"
 ---
-
-# 3.3.1 Pandas ロードマップ：生の表から分析用テーブルへ
-
 Pandas は、このコースの表データ作業台です。CSV、Excel、ログ表、SQL の結果を、グラフや機械学習に渡せる形へ整えるときに使います。
 
 ## まずワークフローを見る

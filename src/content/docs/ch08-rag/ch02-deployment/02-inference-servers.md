@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "inference server, batching, throughput, latency, queue, serving"
 ---
-
-# 8.2.3 High-Performance Inference Serving
-
 :::tip[Section Overview]
 If the previous section was about:
 

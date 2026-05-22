@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "异常检测, 离群点检测, Isolation Forest, LOF, contamination, 告警阈值, 无监督学习"
 ---
-
-# 5.3.4 异常检测
-
 ![异常检测离群点示意图](/img/course/anomaly-detection-outliers.webp)
 
 :::tip[本节概览]

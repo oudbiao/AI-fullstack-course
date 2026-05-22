@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer, self-attention, residual, layer norm, feed forward, decoder"
 ---
-
-# 7.3.2 Transformer 架构回顾与深入
-
 :::tip[本节定位]
 如果你学过注意力机制，可能已经知道 `Q / K / V` 这些名词。
 但真正到了大模型阶段，很多人还是会卡住：

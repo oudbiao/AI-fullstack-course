@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool integration, search, calculator, database, filesystem, browser, Agent"
 ---
-
-# 9.3.5 常见工具集成
-
 :::tip[本节定位]
 讲工具层时，如果只停留在抽象 schema，很容易发虚。
 这一节我们把镜头拉近一点，直接看：

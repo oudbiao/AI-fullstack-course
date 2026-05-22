@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "task coordination, task assignment, multi-agent, scheduling, conflict resolution"
 ---
-
-# 9.7.4 任务分配与协调
-
 :::tip[本节定位]
 上一节讲了通信，说明“信息怎样传”。
 这一节要解决的是另一个更棘手的问题：

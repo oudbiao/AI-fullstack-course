@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CTC, Deep Speech, ASR, 音声認識, 系列アラインメント, NLP"
 ---
-
-# 11.5.5 CTC と Deep Speech：音声認識における系列アラインメント
-
 ![CTC Deep Speech 音声認識アラインメント図](/img/course/ch11-ctc-deep-speech-asr-map-ja.webp)
 
 :::tip[この節の位置づけ]

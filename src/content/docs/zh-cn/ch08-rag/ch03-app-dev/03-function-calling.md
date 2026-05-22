@@ -1,5 +1,5 @@
 ---
-title: "8.3.4 函数调用（Function Calling）初识"
+title: "8.3.4 函数调用 初识"
 description: "从为什么纯文本输出不够，到 schema、参数、调度与执行，真正看懂 Function Calling 是怎样把模型接到工具上的。"
 sidebar:
   order: 13
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Function Calling, Tool Calling, schema, 参数校验, LLM 工具调用"
 ---
-
-# 8.3.4 函数调用 初识
-
 ![函数调用 工作流图](/img/course/function-calling-workflow.webp)
 
 :::tip[本节定位]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CV project guide, security inspection, medical imaging, image classification project, object detection project"
 ---
-
-# 10.6.1 プロジェクトロードマップ：ビジョン証拠パックを作る
-
 コンピュータビジョンプロジェクトは「モデルを使った」だけではありません。データ、アノテーション、モデル出力、指標、失敗例、発表をつなぐループです。
 
 ## まずプロジェクトループを見る

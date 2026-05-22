@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretraining engineering, sharding, streaming, checkpoint, resume, throughput, distributed training"
 ---
-
-# 7.4.4 预训练工程【选修】
-
 :::tip[本节定位]
 如果说前两节在回答：
 

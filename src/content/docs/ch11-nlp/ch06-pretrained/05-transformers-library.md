@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "transformers, HuggingFace, tokenizer, AutoModel, pipeline, config"
 ---
-
-# 11.6.6 Practical Transformers Library Usage
-
 ![Transformers library call chain diagram](/img/course/ch11-transformers-library-call-chain-map-en.webp)
 
 :::tip[Reading the diagram]

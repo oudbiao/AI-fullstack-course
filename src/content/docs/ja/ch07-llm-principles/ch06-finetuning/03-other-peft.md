@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PEFT, prompt tuning, prefix tuning, adapter, IA3, finetuning"
 ---
-
-# 7.6.4 その他の PEFT 手法【選択】
-
 :::tip[この節の位置づけ]
 前の節では、LoRA と QLoRA の主な流れを見ました。  
 つまり、巨大モデル全体を再学習するのではなく、少量の増分パラメータだけを学習するという考え方です。

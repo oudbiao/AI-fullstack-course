@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "R-CNN, Fast R-CNN, Faster R-CNN, object detection, region proposal"
 ---
-
-# 10.3.3 クラシック検出アーキテクチャ
-
 :::tip[この節の位置づけ]
 クラシック検出アーキテクチャで本当に学ぶべきなのは「モデル名」ではなく、ずっと同じ問題を解決し続けてきた、という点です。
 

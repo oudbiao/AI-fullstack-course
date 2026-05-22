@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "HuggingFace, transformers, datasets, tokenizers, model hub, ecosystem"
 ---
-
-# 8.3.5 HuggingFace エコシステムを深く理解する
-
 :::tip[この節の位置づけ]
 HuggingFace に初めて触れると、多くの人はまず次のような点に目が行きます。
 

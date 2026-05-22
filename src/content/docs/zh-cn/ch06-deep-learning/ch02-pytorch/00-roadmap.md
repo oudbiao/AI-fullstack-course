@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch 指南, tensor, autograd, nn.Module, DataLoader, training loop"
 ---
-
-# 6.2.1 PyTorch 路线图：Tensor、Autograd、Module、DataLoader、Loop
-
 PyTorch 把深度学习闭环变成可运行代码。先学执行顺序，再补细节会轻松很多。
 
 ## 先看工作流

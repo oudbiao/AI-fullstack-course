@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI数学学习指南, AI数学任务单, 线性代数, 概率统计, 梯度下降"
 ---
-
-# 4.0 学习指南与任务单：AI 数学基础
-
 ![AI 数学学习指南最小闭环](/img/course/ch04-study-guide-math-minimum-loop.webp)
 
 主要学习路线已经放在 [第 4 章入口](./)。本页只作为练习时快速查看的清单。

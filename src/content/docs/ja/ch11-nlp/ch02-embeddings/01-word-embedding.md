@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "word embedding, vector space, cosine similarity, one-hot, semantic representation"
 ---
-
-# 11.2.2 単語埋め込み
-
 ![単語ベクトルの意味近傍図](/img/course/word2vec-embedding-neighborhood-ja.webp)
 
 :::tip[この節の位置づけ]

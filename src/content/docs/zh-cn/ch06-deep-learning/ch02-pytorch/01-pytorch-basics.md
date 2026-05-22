@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch, tensor, 张量, shape, dtype, device, broadcasting, logits"
 ---
-
-# 6.2.3 PyTorch 基础
-
 :::tip[本节定位]
 这页不是 API 目录。目标是建立每次写 PyTorch 模型前都要有的反射：**训练前先读 shape、dtype、device 和运算含义。**
 :::

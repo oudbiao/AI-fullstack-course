@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool safety, error handling, validation, timeout, idempotency, audit, permissions"
 ---
-
-# 9.3.6 Tool Safety and Error Handling
-
 :::tip[Section Overview]
 Tools turn an Agent from “able to talk” into “able to act,”
 but once it can act, the risk level rises immediately.

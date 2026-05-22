@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "reasoning evaluation, trace evaluation, agent metrics, optimization, tool efficiency"
 ---
-
-# 9.2.7 Reasoning Evaluation and Optimization
-
 :::tip[Section Overview]
 One of the most common mistakes in reasoning systems is:
 

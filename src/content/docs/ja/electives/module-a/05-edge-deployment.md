@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "edge deployment, Jetson, Raspberry Pi, memory budget, latency, offline inference"
 ---
-
-# E.A.5 エッジデバイスへのデプロイ
-
 ![エッジデプロイの制約と判断フロー](/img/course/elective-edge-deployment-constraint-map-ja.webp)
 
 エッジデプロイとは、モデルをユーザー、カメラ、機械、センサーの近くで動かすことです。最初の問題は、精度だけではありません。そのデバイスがシステムを長時間安定して動かせるかです。

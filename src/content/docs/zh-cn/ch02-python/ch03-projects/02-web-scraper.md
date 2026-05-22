@@ -4,9 +4,6 @@ description: "学习使用 Python 抓取和解析网页数据"
 sidebar:
   order: 2
 ---
-
-# 2.3.2 项目：网络爬虫
-
 ![网络爬虫数据采集流程图](/img/course/ch02-web-scraper-pipeline.webp)
 
 ## 项目定位

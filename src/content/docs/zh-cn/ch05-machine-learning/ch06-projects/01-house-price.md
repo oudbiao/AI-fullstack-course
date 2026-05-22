@@ -1,5 +1,5 @@
 ---
-title: "5.6.2 项目：房价预测"
+title: "5.6.2 项目一：房价预测（回归问题）"
 description: "完整的回归项目实战：EDA、特征工程、多模型对比、模型融合与调优"
 sidebar:
   order: 19
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "房价预测, 回归, EDA, 特征工程, XGBoost, 模型融合, Kaggle"
 ---
-
-# 5.6.2 项目一：房价预测（回归问题）
-
 ![房价预测项目流程图](/img/course/house-price-project-flow.webp)
 
 :::tip[项目定位]

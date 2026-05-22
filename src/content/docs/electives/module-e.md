@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "frontend, HTML, CSS, JavaScript, fetch, UI, AI product"
 ---
-
-# E.E Web Front-End Basics in Fast Track
-
 An AI feature needs a surface users can operate. The smallest useful front end shows input, loading, success, empty input, error, and retry states clearly.
 
 ## See the Interaction Stack First

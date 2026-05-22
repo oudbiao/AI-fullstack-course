@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent 评估指南, Agent 安全指南, Guardrails, 可观测性, Agent 风险"
 ---
-
-# 9.8.1 评估与安全路线图：评分、防护、追踪
-
 Agent 不能只是能跑。你还必须知道它是否成功、过程是否安全、失败发生在哪里。
 
 ## 先看防护栈

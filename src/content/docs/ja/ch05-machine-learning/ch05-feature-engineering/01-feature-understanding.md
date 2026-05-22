@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "特徴量エンジニアリング, 特徴の種類, 特徴分布, 相関分析, EDA, 数値特徴, カテゴリ特徴"
 ---
-
-# 5.5.2 特徴の理解と探索
-
 ![特徴の種類とターゲットの関係図](/img/course/feature-type-target-map-ja.webp)
 
 :::tip[この節の位置づけ]

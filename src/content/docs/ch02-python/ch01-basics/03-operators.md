@@ -4,9 +4,6 @@ description: "Master various operators and expressions in Python"
 sidebar:
   order: 3
 ---
-
-# 2.1.3 Operators and Expressions
-
 ![Operators and conditional decision flowchart](/img/course/ch02-operators-decision-flow-en.webp)
 
 ## What this section is about

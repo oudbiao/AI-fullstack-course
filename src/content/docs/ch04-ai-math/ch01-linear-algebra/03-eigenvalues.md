@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "eigenvalues, eigenvectors, PCA, dimensionality reduction, NumPy, linear algebra, principal component analysis"
 ---
-
-# 4.1.4 Eigenvalues and Eigenvectors
-
 ![Illustration of special eigenvector directions](/img/course/eigenvalue-special-directions-en.webp)
 
 :::tip[Don't be intimidated by the names]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "順伝播, 逆伝播, 勾配, loss, optimizer, PyTorch, 訓練ループ"
 ---
-
-# 6.1.4 順伝播と逆伝播
-
 ![ニューラルネットワークの順伝播と逆伝播の図](/img/course/neural-network-forward-backward-ja.webp)
 
 :::tip[この節の概要]

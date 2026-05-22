@@ -3,9 +3,6 @@ title: "A.1 Recommended Learning Resources"
 sidebar:
   order: 1
 ---
-
-# A.1 Recommended Learning Resources
-
 ![Resource Selection Funnel](/img/course/appendix-resource-selection-funnel-en.webp)
 
 ![Resource Bottleneck Priority Map](/img/course/appendix-resource-bottleneck-priority-map-en.webp)

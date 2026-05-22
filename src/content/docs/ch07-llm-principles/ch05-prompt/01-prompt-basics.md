@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "prompt, instruction, task framing, output format, constraints, prompt engineering"
 ---
-
-# 7.5.2 Prompt Basics
-
 ![Prompt before-and-after comparison](/img/course/prompt-before-after-en.webp)
 
 :::tip[Section Overview]

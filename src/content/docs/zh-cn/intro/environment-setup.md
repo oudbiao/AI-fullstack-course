@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI 工程环境, AI 环境准备, Python 环境, VS Code, Git, 快速开始"
 ---
-
-# 0.2 环境准备
-
 ![AI 课程最小环境工具包](/img/course/intro-minimal-setup-kit.webp)
 
 先少装。目标只有一个：进入一个文件夹，能运行 Python，用 Git 保存代码，并留下足够证据，让别人也能复现你的工作。

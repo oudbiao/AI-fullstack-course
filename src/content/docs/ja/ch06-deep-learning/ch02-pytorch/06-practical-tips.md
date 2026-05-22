@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "PyTorch, AMP, mixed precision, gradient clipping, checkpoint, device, reproducibility"
 ---
-
-# 6.2.8 実用テクニック
-
 :::tip[この節の位置づけ]
 初期の PyTorch の失敗の多くは、特殊なモデルが原因ではありません。device の不一致、shape ミス、不安定な勾配、checkpoint 不足、検証コードがまだ勾配を追跡していることが原因です。
 :::

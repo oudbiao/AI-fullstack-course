@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory engineering, write policy, retrieval policy, ttl, summarization, agent memory"
 ---
-
-# 9.4.6 记忆工程实现
-
 :::tip[本节定位]
 前面讲“记忆系统概念”时，最容易产生一个错觉：
 

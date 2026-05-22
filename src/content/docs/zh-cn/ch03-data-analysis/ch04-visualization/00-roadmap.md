@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "数据可视化, 图表选择, matplotlib, seaborn, plotly, 可视化路线图"
 ---
-
-# 3.4.1 可视化路线图：先选图表，再调样式
-
 可视化不是装饰。它把分析结果变成别人能快速看懂的图。
 
 ## 先看选图地图

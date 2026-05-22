@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "guardrails, safety policy, input filter, output filter, tool guard, agent"
 ---
-
-# 9.8.5 Guardrails ガードレール機構
-
 ![Agent ガードレールの層構造図](/img/course/agent-guardrails-layers-ja.webp)
 
 :::tip[この節の位置づけ]

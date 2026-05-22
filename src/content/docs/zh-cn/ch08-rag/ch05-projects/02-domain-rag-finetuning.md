@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG, finetuning, domain adaptation, hybrid system, LLM project"
 ---
-
-# 8.5.3 项目：RAG+微调综合系统
-
 :::tip[本节定位]
 前面你已经分别学过：
 

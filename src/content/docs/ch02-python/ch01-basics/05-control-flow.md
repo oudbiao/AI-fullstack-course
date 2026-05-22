@@ -4,9 +4,6 @@ description: "Master conditional logic and loop structures"
 sidebar:
   order: 5
 ---
-
-# 2.1.5 Flow Control
-
 ![Python flow control execution path diagram](/img/course/ch02-control-flow-paths-en.webp)
 
 ## Where This Section Fits

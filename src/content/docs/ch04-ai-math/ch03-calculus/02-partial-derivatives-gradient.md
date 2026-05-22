@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "partial derivatives, gradient, multivariable calculus, gradient direction, Python, AI math"
 ---
-
-# 4.3.3 Partial Derivatives and Gradients: The Directions of Change in Multivariable Functions
-
 ![Gradient contour direction field](/img/course/gradient-contour-field-en.webp)
 
 ## Learning Objectives

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "convolution, convolution kernel, CNN, stride, padding, receptive field, image features"
 ---
-
-# 6.3.2 Convolution Basics
-
 :::tip[Section Overview]
 Convolution is how CNNs look at images without flattening away spatial structure. This page starts with a picture, then computes a convolution by hand, then verifies the same ideas with `nn.Conv2d`.
 :::

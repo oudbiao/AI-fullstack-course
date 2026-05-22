@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Python workshop, command-line app, argparse, JSON, dataclass, file I/O, Python project"
 ---
-
-# 2.3.5 Follow-Along Workshop: Build a Local Learning Task Assistant
-
 ![Follow-along Python workshop route](/img/course/ch02-hands-on-python-workshop-route-en.webp)
 
 :::tip[Workshop goal]

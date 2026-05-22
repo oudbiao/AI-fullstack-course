@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "prompt engineering, few-shot, instruction design, prompt practice, output control"
 ---
-
-# 7.5.5 Prompt Engineering Practice
-
 :::tip[Section Overview]
 In the previous sections, we covered:
 

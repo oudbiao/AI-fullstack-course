@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent Evaluation Guide, Agent Safety Guide, Guardrails, Observability, Agent Risk"
 ---
-
-# 9.8.1 Evaluation and Safety Roadmap: Score, Guard, Trace
-
 An Agent should not only run. You must know whether it succeeded, whether the process was safe, and where the failure happened.
 
 ## See the Guardrail Stack First

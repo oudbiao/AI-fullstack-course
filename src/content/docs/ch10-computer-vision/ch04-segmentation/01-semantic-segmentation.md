@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "semantic segmentation, pixel classification, mask, IoU, vision"
 ---
-
-# 10.4.2 Semantic Segmentation
-
 ![Semantic Segmentation Mask Comparison](/img/course/semantic-segmentation-mask-en.webp)
 
 :::tip[Section Focus]

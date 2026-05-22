@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "開発者ツールワークショップ, ターミナル, Git, Python 環境, VS Code, Jupyter, 再現可能なプロジェクト"
 ---
-
-# 1.4.1 ハンズオンワークショップ：再現可能な AI 学習ラボを作る
-
 ![第 1 章ハンズオン作業台ルート](/img/course/ch01-hands-on-workstation-route-ja.webp)
 
 :::tip[ワークショップの目標]

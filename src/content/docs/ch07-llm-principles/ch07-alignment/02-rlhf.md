@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RLHF, reward model, preference data, PPO, alignment"
 ---
-
-# 7.7.3 RLHF Workflow
-
 ![Three-stage RLHF workflow diagram](/img/course/rlhf-three-stage-loop-en.webp)
 
 :::tip[Section Overview]

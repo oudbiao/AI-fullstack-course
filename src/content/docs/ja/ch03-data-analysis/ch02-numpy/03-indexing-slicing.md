@@ -4,9 +4,6 @@ description: "NumPy 配列のさまざまなアクセス方法を身につける
 sidebar:
   order: 4
 ---
-
-# 3.2.3 配列のインデックスとスライス
-
 ![NumPy のインデックスとスライスの図](/img/course/ch03-numpy-indexing-slicing-map-ja.webp)
 
 ## 学習目標

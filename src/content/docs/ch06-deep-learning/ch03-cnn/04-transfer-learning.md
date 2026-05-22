@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "transfer learning, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN"
 ---
-
-# 6.3.5 Transfer Learning
-
 :::tip[Section Overview]
 Transfer learning is the default starting point for many vision projects: reuse a backbone that already knows general visual patterns, replace the task-specific head, and only fine-tune more layers when validation results justify it.
 :::

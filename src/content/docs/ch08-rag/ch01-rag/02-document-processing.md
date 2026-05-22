@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "chunking, document chunking, vectorization, metadata, RAG preprocessing"
 ---
-
-# 8.1.3 Document Processing and Vectorization
-
 ![Document parsing and vectorization flowchart](/img/course/document-processing-vectorization-en.webp)
 
 ## Learning Objectives

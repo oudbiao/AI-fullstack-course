@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "plan and execute, planner, executor, workflow, long horizon tasks, agent planning"
 ---
-
-# 9.2.5 Plan-and-Execute
-
 :::tip[Section overview]
 ReAct is great for learning as you go.
 But when tasks get longer, it runs into a typical problem:

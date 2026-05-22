@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "DreamBooth, LoRA, Textual Inversion, Stable Diffusion finetuning, personalization, style tuning"
 ---
-
-# 12.2.5 画像生成の微調整
-
 ![画像生成の微調整ルート選択図](/img/course/ch12-sd-finetuning-route-choice-map-ja.webp)
 
 :::tip[図の見方]

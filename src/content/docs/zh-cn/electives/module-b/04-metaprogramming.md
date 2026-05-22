@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "metaprogramming, type, registry, descriptor, dynamic class, Python"
 ---
-
-# E.B.4 元编程
-
 ![Python 元编程注册表图](/img/course/elective-metaprogramming-registry-map.webp)
 
 元编程是用代码组织或生成代码结构。日常 Python 工程里最有用的元编程，通常不是炫技，而是自动注册、字段校验和减少重复模板。

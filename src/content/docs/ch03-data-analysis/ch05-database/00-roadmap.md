@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "database overview, relational database, SQL, sqlite, Pandas and databases"
 ---
-
-# 3.5.1 Database Roadmap: Tables That Live Beyond One File
-
 This chapter is optional in Chapter 3. Read it when you want to understand where real project data lives before it becomes a CSV or DataFrame.
 
 ## Look at the Database Map First

@@ -1,12 +1,9 @@
 ---
-title: "3.1.1 純 Python でデータを扱う"
+title: "3.1.1 ウォームアップ：純 Python でデータを扱う"
 description: "純 Python で実際のデータセットを扱い、NumPy と Pandas がなぜ必要なのかを体感する"
 sidebar:
   order: 1
 ---
-
-# 3.1.1 ウォームアップ：純 Python でデータを扱う
-
 ## 学習目標
 
 - 純 Python（csv モジュール + 辞書 + リスト）で実際のデータセットを扱う

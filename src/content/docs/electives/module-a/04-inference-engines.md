@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, deployment"
 ---
-
-# E.A.4 Inference Engines
-
 ![Inference engine and hardware adaptation diagram](/img/course/elective-inference-engine-hardware-en.webp)
 
 ![Inference engine selection matrix diagram](/img/course/elective-inference-engine-selection-matrix-en.webp)

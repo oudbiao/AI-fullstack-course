@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent チェックリスト, AI Agent 学習, ReAct, MCP, ツール呼び出し, Agent 評価"
 ---
-
-# 9.0 学習チェックリスト：AI Agent とエージェントシステム
-
 このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 9 章入口ページ](./index.md) に戻ってください。
 
 ![Agent トレース 証拠パック](/img/course/ch09-agent-trace-pack-ja.webp)

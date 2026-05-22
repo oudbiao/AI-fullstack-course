@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "偏差, 方差, 欠拟合, 过拟合, 学习曲线, 验证曲线, 模型复杂度"
 ---
-
-# 5.4.4 偏差-方差权衡
-
 ![偏差方差权衡三联图](/img/course/bias-variance-tradeoff.webp)
 
 :::tip[本节概览]

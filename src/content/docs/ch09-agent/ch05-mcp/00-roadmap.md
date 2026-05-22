@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP guide, Model Context Protocol, Agent tool ecosystem, MCP Server"
 ---
-
-# 9.5.1 MCP Roadmap: Server, Client, Capability
-
 MCP is a protocol layer for connecting tools, resources, and prompt templates to model applications in a more standard way. It does not replace Agents or tools; it makes capabilities easier to expose and use consistently.
 
 ## See the MCP Boundary First

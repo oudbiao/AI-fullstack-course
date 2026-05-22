@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-tool agent, orchestration, tool chain, agent practice, refund assistant"
 ---
-
-# 9.3.9 実践：マルチツール協調 Agent
-
 ![Agent 工具调用 トレース 図](/img/course/agent-tool-trace-ja.webp)
 
 :::tip[この節の位置づけ]

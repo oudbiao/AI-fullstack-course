@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "deployment project, edge inference, model serving, optimization, portfolio project"
 ---
-
-# E.A.7 デプロイ統合プロジェクト
-
 ![デプロイ統合プロジェクトの納品クローズドループ図](/img/course/elective-deployment-project-delivery-loop-ja.webp)
 
 このプロジェクトの目的は、最大のモデルを学習することではありません。モデルを小さく、測定可能で、デプロイできるシステムに変えられることを示すことです。

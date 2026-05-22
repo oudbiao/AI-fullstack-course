@@ -4,9 +4,6 @@ description: "Develop new features safely with branches, and understand the Pull
 sidebar:
   order: 4
 ---
-
-# 1.2.4 Branches and Collaboration
-
 ![Git branch collaboration flowchart](/img/course/ch01-git-branch-collaboration-en.webp)
 
 ## Where This Lesson Fits

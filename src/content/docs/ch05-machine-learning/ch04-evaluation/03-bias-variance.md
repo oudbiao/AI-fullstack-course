@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "bias, variance, underfitting, overfitting, learning curve, validation curve, model complexity"
 ---
-
-# 5.4.4 Bias-Variance Tradeoff
-
 ![Three-panel bias-variance tradeoff diagram](/img/course/bias-variance-tradeoff-en.webp)
 
 :::tip[Section Overview]

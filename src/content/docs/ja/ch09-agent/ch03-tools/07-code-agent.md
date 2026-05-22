@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "code agent, coding agent, read edit run verify, sandbox, patch, tests"
 ---
-
-# 9.3.8 コード生成と実行 Agent
-
 :::tip[この節の位置づけ]
 コード Agent と聞くと、多くの人がまず思い浮かべるのは次のことです。
 

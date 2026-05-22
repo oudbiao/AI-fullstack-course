@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "edge deployment, Jetson, Raspberry Pi, memory budget, latency, offline inference"
 ---
-
-# E.A.5 边缘设备部署
-
 ![边缘部署约束决策图](/img/course/elective-edge-deployment-constraint-map.webp)
 
 边缘部署指模型运行在用户、摄像头、机器或传感器附近。第一问题通常不是模型准不准，而是设备能不能长期稳定运行这套系统。

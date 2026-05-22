@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP, Model Context Protocol, tool protocol, client-server, JSON-RPC"
 ---
-
-# 9.5.2 MCP プロトコル概要
-
 ![MCP クライアントサーバーメッセージフロー図](/img/course/ch09-mcp-client-server-message-flow-map-ja.webp)
 
 :::tip[この節の位置づけ]

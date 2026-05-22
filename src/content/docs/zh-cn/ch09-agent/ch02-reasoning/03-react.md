@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ReAct, thought action observation, tool use, agent loop, reasoning and acting"
 ---
-
-# 9.2.4 ReAct 框架
-
 ![ReAct 推理行动观察循环图](/img/course/react-reason-act-observe-loop.webp)
 
 :::tip[本节定位]

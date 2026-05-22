@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM project guide, enterprise knowledge base, intelligent assistant, RAG project, SOP document assistant"
 ---
-
-# 8.5.1 プロジェクトロードマップ：引用付き知識助手を作る
-
 このキャップストーンは、知識、モデル呼び出し、アプリケーションフロー、engineering evidence を 1 つの再現可能な LLM アプリに接続できることを示します。
 
 ## まずプロジェクト証拠ループを見る

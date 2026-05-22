@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Docker, containerization, deployment, Dockerfile, Compose, service deployment"
 ---
-
-# 8.4.5 コンテナ化とデプロイ
-
 :::tip[この節の位置づけ]
 多くのプロジェクトは、ここでつまずきます。
 

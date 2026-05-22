@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "評価指標, 混同行列, precision, recall, F1, ROC AUC, average precision, MAE, RMSE, R2"
 ---
-
-# 5.4.2 評価指標
-
 ![混同行列と誤りコスト図](/img/course/confusion-matrix-error-cost-ja.webp)
 
 :::tip[この節の概要]

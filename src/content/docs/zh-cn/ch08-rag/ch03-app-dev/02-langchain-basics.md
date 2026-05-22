@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LangChain, chain, prompt template, output parser, retriever, LLM application"
 ---
-
-# 8.3.3 LangChain 基础
-
 :::tip[本节定位]
 很多人第一次看 LangChain，会觉得它只是“把模型调一下”。
 但它真正想解决的问题其实更具体：

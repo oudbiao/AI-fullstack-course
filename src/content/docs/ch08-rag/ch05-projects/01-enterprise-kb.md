@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "enterprise knowledge base, RAG project, retrieval, metadata, source citation, permissions"
 ---
-
-# 8.5.2 Project: Enterprise Knowledge Base Q&A
-
 :::tip[Section positioning]
 The reason enterprise knowledge base Q&A is a great portfolio project is not because it sounds fancy, but because it is very real:
 

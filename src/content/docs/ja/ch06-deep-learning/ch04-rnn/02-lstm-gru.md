@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LSTM, GRU, ゲート機構, cell state, update gate, forget gate"
 ---
-
-# 6.4.3 LSTM と GRU
-
 :::tip[この節の位置づけ]
 普通の RNN には記憶がありますが、その記憶は上書きされやすいです。LSTM と GRU は gate を追加し、何を残し、何を忘れ、何を出力として見せるかをモデルに学ばせます。
 :::

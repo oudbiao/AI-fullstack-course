@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "framework selection, LangGraph, LlamaIndex, CrewAI, architecture decision, agent framework"
 ---
-
-# 9.6.9 框架选型指南
-
 :::tip[本节定位]
 学完一圈框架以后，真正重要的问题终于来了：
 

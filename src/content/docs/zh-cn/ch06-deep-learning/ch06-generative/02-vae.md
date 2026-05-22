@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "VAE, latent space, encoder, decoder, reparameterization, KL divergence, generation"
 ---
-
-# 6.6.3 VAE 基础 [选修]
-
 :::tip[本节定位]
 VAE 是一种生成式 autoencoder。它不是把每个输入压缩成一个固定点，而是在 latent space 中学习一个小分布，从中采样，再把采样结果解码回数据。
 :::

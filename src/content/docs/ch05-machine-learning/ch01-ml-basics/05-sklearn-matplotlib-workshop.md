@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Scikit-learn practice, sklearn tutorial, Matplotlib basics, Pipeline, train_test_split, confusion matrix, cross-validation, joblib"
 ---
-
-# 5.1.6 Scikit-learn and Matplotlib Hands-on Workshop
-
 ![Scikit-learn hands-on workflow](/img/course/ch05-sklearn-hands-on-loop-en.webp)
 
 :::tip[Section focus]

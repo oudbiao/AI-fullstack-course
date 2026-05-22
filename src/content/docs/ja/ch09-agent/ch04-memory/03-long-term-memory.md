@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "long-term memory, user profile, persistent memory, retrieval, confidence, update policy"
 ---
-
-# 9.4.4 長期記憶
-
 :::tip[この節の位置づけ]
 短期記憶が解決するのは、次のようなことです：
 

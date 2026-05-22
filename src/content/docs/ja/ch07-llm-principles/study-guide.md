@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM 学習チェックリスト, Prompt 評価, Transformer, 微調整, RLHF"
 ---
-
-# 7.0 学習チェックリスト：大モデル原理、Prompt、微調整
-
 このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 7 章入口ページ](./index.md) に戻ってください。
 
 ![LLM 学習ガイド進化パス](/img/course/ch07-study-guide-evolution-line-ja.webp)

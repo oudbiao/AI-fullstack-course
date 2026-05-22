@@ -1,5 +1,5 @@
 ---
-title: "5.6.5 Kaggle Competition Practice"
+title: "5.6.5 Kaggle Competition Practice (Elective)"
 description: "Kaggle platform basics, competition workflow and techniques, getting started with beginner competitions"
 sidebar:
   order: 22
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Kaggle, competition, Titanic, data science competition, Notebook, leaderboard"
 ---
-
-# 5.6.5 Kaggle Competition Practice (Elective)
-
 ![Kaggle competition submission loop diagram](/img/course/kaggle-submission-loop-en.webp)
 
 :::tip[Section focus]

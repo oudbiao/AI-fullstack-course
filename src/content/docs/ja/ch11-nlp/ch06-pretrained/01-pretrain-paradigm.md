@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-finetune"
 ---
-
-# 11.6.2 事前学習パラダイム
-
 ![事前学習・転移・微調整の関係図](/img/course/ch11-pretraining-transfer-finetune-map-ja.webp)
 
 :::tip[図の読み方]

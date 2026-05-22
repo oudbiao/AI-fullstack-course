@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI safety, red teaming, threat model, eval, jailbreak, prompt injection, guardrails"
 ---
-
-# E.D AI Safety and Red Team Testing
-
 Red teaming is a repeatable loop, not one scary prompt. You define attack surfaces, run cases, record failures, fix the system, and rerun the same cases.
 
 ## See the Loop First

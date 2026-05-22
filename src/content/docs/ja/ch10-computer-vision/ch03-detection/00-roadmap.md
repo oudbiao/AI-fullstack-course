@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "object detection guide, YOLO, IoU, mAP"
 ---
-
-# 10.3.1 Object Detection ロードマップ：Class plus Box
-
 Object detection は classification に location を加えます。どの object があり、image のどこにあるかを答えます。
 
 ## まず box workflow を見る

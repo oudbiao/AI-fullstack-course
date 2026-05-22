@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "フィルタリング, エッジ検出, 形態学, OpenCV, Canny, blur"
 ---
-
-# 10.1.4 画像処理技術
-
 ![画像処理パイプライン図](/img/course/cv-image-processing-pipeline-ja.webp)
 
 ## 学習目標

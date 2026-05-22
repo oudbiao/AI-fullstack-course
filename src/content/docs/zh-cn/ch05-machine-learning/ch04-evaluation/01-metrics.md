@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "评估指标, 混淆矩阵, precision, recall, F1, ROC AUC, average precision, MAE, RMSE, R2"
 ---
-
-# 5.4.2 评估指标
-
 ![混淆矩阵与错误代价图](/img/course/confusion-matrix-error-cost.webp)
 
 :::tip[本节概览]

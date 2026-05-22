@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Ensemble Learning, Random Forest, Bagging, Boosting, GBDT, Stacking, XGBoost, LightGBM, CatBoost"
 ---
-
-# 5.2.5 Ensemble Learning: Forest, Boosting, Stacking
-
 ![Ensemble Learning Bagging vs Boosting Comparison](/img/course/ch05-ensemble-bagging-boosting-flow-en.webp)
 
 Ensemble learning combines several models so one model's weakness is less likely to dominate the final prediction. For tabular data, this is often the strongest classic ML family.

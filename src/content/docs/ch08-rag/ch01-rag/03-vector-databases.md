@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "vector database, embedding, similarity search, metadata filter, RAG"
 ---
-
-# 8.1.4 Vector Databases
-
 ![Vector database similarity search diagram](/img/course/vector-database-similarity-search-en.webp)
 
 ## Learning Objectives

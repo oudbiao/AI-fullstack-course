@@ -4,9 +4,6 @@ description: "FastAPI を使って、最初の Web API を構築しよう"
 sidebar:
   order: 3
 ---
-
-# 2.3.3 プロジェクト：Web API 開発
-
 ![Web API リクエスト・レスポンスのアーキテクチャ図](/img/course/ch02-web-api-request-response-ja.webp)
 
 ## プロジェクトの位置づけ

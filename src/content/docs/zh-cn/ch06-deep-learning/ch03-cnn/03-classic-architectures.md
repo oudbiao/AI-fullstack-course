@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LeNet, AlexNet, VGG, ResNet, CNN, 残差连接, 经典架构"
 ---
-
-# 6.3.4 经典 CNN 架构
-
 :::tip[本节定位]
 经典 CNN 的价值，不是让你背模型名字，而是把它们看成一条工程演进线。每一代都在修复真实瓶颈：可行性、规模、可复用 block、或者可训练的深度。
 :::

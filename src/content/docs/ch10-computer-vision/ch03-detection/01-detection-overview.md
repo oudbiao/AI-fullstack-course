@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "object detection, bounding box, detection, localization, computer vision"
 ---
-
-# 10.3.2 Object Detection Overview
-
 ![Object detection output breakdown](/img/course/object-detection-output-en.webp)
 
 :::tip[Where this section fits]

@@ -3,9 +3,6 @@ title: "A.8 Learning Rescue for Stuck Points"
 sidebar:
   order: 5
 ---
-
-# A.8 Learning Rescue for Stuck Points
-
 ![Troubleshooting map for learning stuck points](/img/course/appendix-troubleshooting-rescue-map-en.webp)
 
 ![Flowchart for minimal reproduction and asking for help](/img/course/appendix-debug-mre-help-flow-en.webp)

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "research assistant, citation, retrieval, summary, agent project, RAG"
 ---
-
-# 9.10.2 プロジェクト：インテリジェント研究アシスタント
-
 :::tip[この節の位置づけ]
 研究アシスタントのプロジェクトは、Agent の作品集としてとても向いています。  
 見た目が派手だからではなく、仕組みとして自然に次のことを同時にうまくやる必要があるからです。

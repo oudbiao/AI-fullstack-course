@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ロジスティック回帰, sigmoid, 交差エントロピー, しきい値, 分類, 正則化, sklearn"
 ---
-
-# 5.2.3 ロジスティック回帰
-
 ![ロジスティック回帰の決定境界図](/img/course/logistic-regression-boundary-ja.webp)
 
 :::tip[この節の位置づけ]

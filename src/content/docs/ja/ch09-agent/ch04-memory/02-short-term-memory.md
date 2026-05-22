@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "short-term memory, context window, conversation memory, state, summary memory, Agent"
 ---
-
-# 9.4.3 短期記憶
-
 ![短期記憶のコンテキストウィンドウと実行状態図](/img/course/ch09-short-term-memory-window-map-ja.webp)
 
 :::tip[この節の位置づけ]

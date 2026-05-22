@@ -1,5 +1,5 @@
 ---
-title: "6.2.2 つなぎ目：sklearn から PyTorch へ"
+title: "6.2.2 sklearn から PyTorch へ"
 description: "最小限の動く例で sklearn と PyTorch の考え方の違いを理解し、従来の機械学習から深層学習フレームワークへの橋をかける。"
 sidebar:
   order: 0
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sklearn, PyTorch, 深層学習入門, 訓練ループ, テンソル, 勾配降下法"
 ---
-
-# 6.2.2 sklearn から PyTorch へ
-
 :::tip[この節の位置づけ]
 `scikit-learn` がオートマ車なら、`PyTorch` はマニュアル車のようなものです。
 

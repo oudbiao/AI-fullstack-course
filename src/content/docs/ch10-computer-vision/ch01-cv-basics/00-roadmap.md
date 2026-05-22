@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "vision basics guide, OpenCV guide, image processing guide"
 ---
-
-# 10.1.1 Vision Basics Roadmap: Pixels, Channels, Processing
-
 Computer vision starts with input intuition. Before classification, detection, or segmentation, you need to know what an image looks like as numbers.
 
 ## See the Image Pipeline First

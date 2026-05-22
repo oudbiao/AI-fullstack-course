@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "language model, next token prediction, n-gram, autoregressive, probability, NLP"
 ---
-
-# 11.2.4 语言模型基础
-
 ![语言模型 next token 预测图](/img/course/ch11-language-model-next-token-stack.webp)
 
 :::tip[读图提示]

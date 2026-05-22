@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "video analysis, temporal modeling, frame sampling, tracking, action recognition"
 ---
-
-# 10.5.3 视频分析【选修】
-
 :::tip[本节定位]
 视频分析最容易被误解成：
 

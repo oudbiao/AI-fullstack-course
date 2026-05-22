@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image classification, CNN, PyTorch, train loop, validation, synthetic dataset"
 ---
-
-# 6.3.6 CNN 実践：画像分類
-
 :::tip[この節の位置づけ]
 ここは、これまでの内容をまとめて動かす節です。小さな画像データセットを作り、CNN を学習し、検証し、予測を確認し、次に何を試すべきかを判断します。
 :::

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM application development guide, dialogue systems, Function Calling, LangChain, large model applications"
 ---
-
-# 8.3.1 Application Development Roadmap: API, Tools, State
-
 LLM application development is not just an input box plus a model API. A real feature validates input, calls models, uses tools, keeps state, parses output, logs errors, and gives users a recoverable experience.
 
 ## See the Application Loop First

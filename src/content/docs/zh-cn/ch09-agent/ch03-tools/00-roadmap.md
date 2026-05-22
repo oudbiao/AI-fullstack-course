@@ -1,5 +1,5 @@
 ---
-title: "9.3.1 工具路线图：Schema、权限、观察"
+title: "9.3.1 工具路线图：结构约束、权限、观察"
 description: "Agent 工具的简短实操路线：设计 schema，校验参数，路由工具调用，记录观察，并保护边界。"
 sidebar:
   order: 0
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "工具概览, Function Calling, Tool Use, Code Agent, Agent 工具"
 ---
-
-# 9.3.1 工具路线图：结构约束、权限、观察
-
 工具让 Agent 从语言走向行动。更多工具不会自动让 Agent 更强；不清楚的工具会带来错误调用、不安全动作、循环和成本泄漏。
 
 ## 先看行动边界

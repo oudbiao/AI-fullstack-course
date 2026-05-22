@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "local models, local inference, quantization, CPU, GPU, model runtime"
 ---
-
-# 8.2.2 Local Model Runtime
-
 :::tip[Section focus]
 The most common default path for large-model applications is:
 

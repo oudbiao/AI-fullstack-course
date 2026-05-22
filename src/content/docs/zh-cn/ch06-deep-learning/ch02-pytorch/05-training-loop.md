@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "training loop, optimizer, loss, model.train, model.eval, checkpoint, PyTorch"
 ---
-
-# 6.2.7 训练循环
-
 :::tip[本节定位]
 这是 PyTorch 工作流真正合起来的一页：batch、前向、loss、清梯度、反向、更新、验证、保留最佳模型、预测。
 :::

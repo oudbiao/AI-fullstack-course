@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "scaling, parameters, flops, kv cache, context length, throughput, scaling laws"
 ---
-
-# 7.3.6 モデル規模と計算
-
 :::tip[この節の位置づけ]
 大規模モデルの話をするとき、多くの人がいちばん見がちなのは、たった1つの数字です。
 

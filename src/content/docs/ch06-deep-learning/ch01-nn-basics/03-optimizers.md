@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "optimizer, SGD, momentum, Adam, learning rate, PyTorch, gradient descent"
 ---
-
-# 6.1.5 Optimizers
-
 ![Optimizer path comparison](/img/course/optimizer-comparison-en.webp)
 
 :::tip[Section Overview]

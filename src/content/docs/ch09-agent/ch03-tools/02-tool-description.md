@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool description, tool discovery, schema, registry, metadata, agent tools"
 ---
-
-# 9.3.3 Tool Description and Discovery
-
 :::tip[Section overview]
 When many people build Agents, they first connect the tool functions and then let the model choose by itself.
 Very soon, however, they find that:

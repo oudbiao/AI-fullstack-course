@@ -4,9 +4,6 @@ description: "Master Python type hints and code quality tools"
 sidebar:
   order: 6
 ---
-
-# 2.2.6 Type Hints and Code Quality
-
 ![Type Hints and Code Quality Flowchart](/img/course/ch02-type-hints-quality-flow-en.webp)
 
 ## Where This Section Fits

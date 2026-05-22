@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text representation, one-hot, bag of words, tf-idf, cosine similarity, embedding"
 ---
-
-# 11.1.4 文本表示方法
-
 ![BoW 与 TF-IDF 文本表示图](/img/course/bow-tfidf-representation.webp)
 
 ## 学习目标

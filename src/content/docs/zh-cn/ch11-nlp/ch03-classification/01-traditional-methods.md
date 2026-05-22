@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text classification, bag of words, tf-idf, logistic regression, baseline, NLP"
 ---
-
-# 11.3.2 传统文本分类
-
 ![传统文本分类基线图](/img/course/ch11-traditional-classification-baseline-map.webp)
 
 :::tip[读图提示]

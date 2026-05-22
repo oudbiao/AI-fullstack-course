@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image classification project, CNN, confusion matrix, error analysis, computer vision"
 ---
-
-# 6.8.2 プロジェクト：画像分類システム
-
 :::tip[この節の位置づけ]
 画像分類プロジェクトが成果物として伝わるのは、モデル名が高度だからではありません。他の人がラベルを理解し、ベースラインを動かし、指標を見て、失敗例を確認できるからです。
 :::

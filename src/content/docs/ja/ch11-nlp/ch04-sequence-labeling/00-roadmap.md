@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "シーケンスラベリングガイド, NER, BiLSTM-CRF"
 ---
-
-# 11.4.1 系列ラベリングロードマップ：Token ごとにラベルを付ける
-
 分類は文全体に 1 つのラベルを付けます。系列ラベリングは、文の中の各 token にラベルを付けます。NER（Named Entity Recognition、固有表現認識）は代表例です。
 
 ## 先に全体像を見る

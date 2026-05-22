@@ -4,9 +4,6 @@ description: "掌握 Python 函数式编程的核心工具"
 sidebar:
   order: 4
 ---
-
-# 2.2.4 函数式编程基础
-
 ![函数式数据流水线图](/img/course/ch02-functional-pipeline.webp)
 
 ## 本节定位

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Maximum Likelihood Estimation, MLE, MAP, hypothesis testing, A/B testing, statistical inference, AI math"
 ---
-
-# 4.2.4 Basics of Statistical Inference
-
 ![Maximum Likelihood Estimation likelihood curve](/img/course/mle-likelihood-curve-en.webp)
 
 :::tip[Statistical inference = inferring rules from data]

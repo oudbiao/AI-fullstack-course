@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "unified API, provider abstraction, LLM gateway, model routing, deployment"
 ---
-
-# 8.2.4 统一 API 接口
-
 :::tip[本节定位]
 一旦你的系统不只接一个模型，问题很快就会冒出来：
 

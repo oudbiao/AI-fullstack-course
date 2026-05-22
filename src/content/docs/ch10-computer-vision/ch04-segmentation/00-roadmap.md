@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "image segmentation guide, semantic segmentation, instance segmentation, mask"
 ---
-
-# 10.4.1 Segmentation Roadmap: Pixel-Level Regions
-
 Segmentation is finer than detection. Instead of a box, it outputs a mask that says which pixels belong to a class or instance.
 
 ## See the Mask Workflow First

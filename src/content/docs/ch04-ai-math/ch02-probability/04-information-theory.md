@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "information theory, entropy, cross entropy, KL divergence, loss function, AI math"
 ---
-
-# 4.2.5 Fundamentals of Information Theory
-
 ![Information entropy and uncertainty diagram](/img/course/information-entropy-uncertainty-en.webp)
 
 :::tip[Why learn information theory?]

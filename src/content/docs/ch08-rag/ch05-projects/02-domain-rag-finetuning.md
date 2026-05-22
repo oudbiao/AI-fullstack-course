@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "RAG, finetuning, domain adaptation, hybrid system, LLM project"
 ---
-
-# 8.5.3 Project: Integrated RAG + Fine-tuning System
-
 :::tip[Section overview]
 So far, you have learned them separately:
 

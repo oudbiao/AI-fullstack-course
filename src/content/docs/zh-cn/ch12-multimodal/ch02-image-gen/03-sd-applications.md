@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Stable Diffusion, text-to-image, img2img, inpainting, control, workflow product"
 ---
-
-# 12.2.4 SD 应用
-
 ![Stable Diffusion 应用模式选择图](/img/course/ch12-sd-application-mode-selector-map.webp)
 
 :::tip[读图提示]

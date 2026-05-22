@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI ethics, AI safety, bias, privacy, misuse, human oversight, AIGC"
 ---
-
-# 12.4.3 AI 伦理与安全
-
 ![AIGC 伦理安全风险护栏图](/img/course/ch12-ai-ethics-safety-guardrail-map.webp)
 
 :::tip[读图提示]

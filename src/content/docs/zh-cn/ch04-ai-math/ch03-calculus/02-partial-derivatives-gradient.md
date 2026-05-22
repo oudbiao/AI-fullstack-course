@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "偏导数, 梯度, 多变量微积分, 梯度方向, Python, AI数学"
 ---
-
-# 4.3.3 偏导数与梯度：多变量的变化方向
-
 ![梯度等高线方向场图](/img/course/gradient-contour-field.webp)
 
 ## 学习目标

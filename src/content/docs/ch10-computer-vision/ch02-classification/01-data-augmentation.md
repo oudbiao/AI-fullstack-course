@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data augmentation, flip, crop, color jitter, mixup, vision"
 ---
-
-# 10.2.2 Data Augmentation Strategies
-
 ![Example wall of image data augmentation](/img/course/cv-data-augmentation-gallery-en.webp)
 
 :::tip[Section focus]

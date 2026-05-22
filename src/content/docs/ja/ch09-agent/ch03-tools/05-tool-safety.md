@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool safety, error handling, validation, timeout, idempotency, audit, permissions"
 ---
-
-# 9.3.6 ツールの安全性とエラー処理
-
 :::tip[この節の位置づけ]
 ツールによって Agent は「話せる」から「実行できる」に変わります。  
 でも、一度「実行できる」ようになると、リスクもすぐに上がります。

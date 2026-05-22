@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory practice, short term, long term, episodic memory, procedural memory, agent"
 ---
-
-# 9.4.7 实战：完整记忆系统
-
 :::tip[本节定位]
 前几节我们把记忆拆成了概念和策略。
 这一节直接做一个能跑的“小系统”，把这些层串起来：

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "VAE, latent space, encoder, decoder, reparameterization, KL divergence, generation"
 ---
-
-# 6.6.3 VAE 基礎 [任意]
-
 :::tip[この節の位置づけ]
 VAE は生成型の autoencoder です。各入力を 1 つの固定点に圧縮するのではなく、latent space 内の小さな分布を学び、そこから sample して decode します。
 :::

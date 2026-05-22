@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "deployment architecture, agent architecture, api gateway, orchestrator, queue, storage, observability"
 ---
-
-# 9.9.2 Agent 部署架构
-
 :::tip[本节定位]
 很多 Agent 项目一开始只有一段脚本：
 

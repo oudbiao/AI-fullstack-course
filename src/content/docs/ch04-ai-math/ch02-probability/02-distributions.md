@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "probability distribution, normal distribution, binomial distribution, Poisson distribution, central limit theorem, Python, AI math"
 ---
-
-# 4.2.3 Probability Distributions: Patterns Behind the Data
-
 ![Probability distribution family comparison chart](/img/course/distribution-family-comparison-en.webp)
 
 ## Learning Objectives

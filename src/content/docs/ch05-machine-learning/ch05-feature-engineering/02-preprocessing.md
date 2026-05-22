@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "feature preprocessing, missing values, standardization, one-hot, data leakage, preprocessing"
 ---
-
-# 5.5.3 Feature Preprocessing
-
 ![Feature preprocessing pipeline](/img/course/feature-preprocessing-pipeline-en.webp)
 
 :::tip[Section Focus]

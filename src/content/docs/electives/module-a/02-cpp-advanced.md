@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "C++, RAII, smart pointer, virtual, move semantics, threading, deployment"
 ---
-
-# E.A.2 Advanced C++
-
 ![C++ RAII and ownership map](/img/course/elective-cpp-raii-ownership-map-en.webp)
 
 Advanced C++ in deployment is mostly about one question: who owns the resource, and when is it released?

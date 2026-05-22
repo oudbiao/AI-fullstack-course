@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "tool integration, search, calculator, database, filesystem, browser, Agent"
 ---
-
-# 9.3.5 Common Tool Integration
-
 :::tip[Section overview]
 When talking about the tool layer, if we only stay at the abstract schema level, it can easily feel vague.
 In this section, we’ll zoom in a bit and look directly at:

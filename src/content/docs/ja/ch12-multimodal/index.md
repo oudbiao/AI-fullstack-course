@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIGC, マルチモーダル, Stable Diffusion, 画像生成, 動画生成, 音声合成, マルチモーダル大モデル"
 ---
-
-# 12 AIGC とマルチモーダル
-
 ![AIGC とマルチモーダルメインビジュアル](/img/course/ch12-multimodal-aigc-ja.webp)
 
 第 12 章は最後の能力拡張です。**AI はもうテキストだけを扱うものではありません。** 画像、PDF、音声、動画、スクリーンショット、図表、生成素材が、同じプロダクトワークフローに入ります。

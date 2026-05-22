@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "序列标注指南, NER, BiLSTM-CRF"
 ---
-
-# 11.4.1 序列标注路线图：每个 Token 一个标签
-
 序列标注为每个 token 预测一个标签。NER、分词、词性标注和槽位填充都属于这个思路。
 
 ## 先看标签路径

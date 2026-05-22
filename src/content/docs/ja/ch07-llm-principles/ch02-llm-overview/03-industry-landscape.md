@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM 産業, オープンソースモデル, クローズドソースモデル, API, 推論, アプリケーション層"
 ---
-
-# 7.2.4 大規模モデル産業の構造
-
 ![LLM 産業構造のレイヤーマップ](/img/course/ch07-llm-industry-landscape-map-ja.webp)
 
 :::tip[図の読み方]

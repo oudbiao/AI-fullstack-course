@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "BiLSTM, CRF, 序列标注, NER, 命名实体识别"
 ---
-
-# 11.4.4 BiLSTM + CRF
-
 ![BiLSTM CRF 标签路径解码图](/img/course/ch11-bilstm-crf-label-path-map.webp)
 
 :::tip[读图提示]

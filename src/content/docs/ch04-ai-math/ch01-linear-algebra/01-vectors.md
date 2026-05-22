@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "vector, dot product, cosine similarity, NumPy, linear algebra, AI math"
 ---
-
-# 4.1.2 Vectors: The Basic Unit of the AI World
-
 ![Geometric diagram of vector dot product and cosine similarity](/img/course/vector-dot-cosine-geometry-en.webp)
 
 :::tip[Learning approach]

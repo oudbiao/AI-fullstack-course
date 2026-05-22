@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "digital human, avatar, lip sync, talking head, virtual human, audio-driven animation"
 ---
-
-# 12.3.4 Digital Human Technology [Elective]
-
 ![Digital human multi-module synchronization diagram](/img/course/ch12-digital-human-sync-pipeline-map-en.webp)
 
 :::tip[Reading guide]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CNN, 卷积块, 池化, 特征图, 分类头, 全连接层, Global Average Pooling"
 ---
-
-# 6.3.3 CNN 基本结构
-
 :::tip[本节定位]
 上一页解释了一个 kernel 如何扫描一个局部窗口。本页把这些部件组装成完整 CNN，并逐层追踪 shape，让模型不再只是图上的几个方块。
 :::

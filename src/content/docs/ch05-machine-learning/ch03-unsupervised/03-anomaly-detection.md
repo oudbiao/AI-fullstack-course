@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "anomaly detection, outlier detection, Isolation Forest, LOF, contamination, alert threshold, unsupervised learning"
 ---
-
-# 5.3.4 Anomaly Detection
-
 ![Anomaly detection outlier illustration](/img/course/anomaly-detection-outliers-en.webp)
 
 :::tip[Section Overview]

@@ -4,9 +4,6 @@ description: "Use NumPy for linear algebra operations such as matrix multiplicat
 sidebar:
   order: 7
 ---
-
-# 3.2.6 Basic Linear Algebra Operations
-
 ![NumPy Linear Algebra Toolkit](/img/course/ch03-numpy-linear-algebra-toolkit-en.webp)
 
 ## Learning Objectives

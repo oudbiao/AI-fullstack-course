@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "MCP client, tool discovery, client integration, dispatch, protocol client"
 ---
-
-# 9.5.5 MCP 客户端集成
-
 :::tip[本节定位]
 前面我们已经从服务器视角看了 MCP。
 这一节换个方向，从客户端视角来看：

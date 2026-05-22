@@ -4,9 +4,6 @@ description: "掌握 Python 类型注解和代码质量工具"
 sidebar:
   order: 6
 ---
-
-# 2.2.6 类型注解与代码质量
-
 ![类型注解与代码质量流程图](/img/course/ch02-type-hints-quality-flow.webp)
 
 ## 本节定位

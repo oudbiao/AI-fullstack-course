@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretraining engineering, sharding, streaming, checkpoint, resume, throughput, distributed training"
 ---
-
-# 7.4.4 事前学習エンジニアリング【選択】
-
 :::tip[この節の位置づけ]
 もし前の2節が次のことに答えていたなら：
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI発展史, AI発展段階, 重要論文, Transformer論文, GPT論文, RAG, Agent, 拡散モデル論文"
 ---
-
-# A.3 AI 発展史：15 段階と重要論文
-
 ![AI 15段階発展史マップ](/img/course/appendix-ai-15-stage-history-map-ja.webp)
 
 このページは任意の背景資料です。「この概念はどこから来たのか」を知るためのもので、初回から論文名を暗記するためのページではありません。

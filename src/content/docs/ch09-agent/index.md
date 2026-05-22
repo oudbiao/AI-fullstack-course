@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI Agent, agent, Function Calling, ReAct, MCP, Multi-Agent, tool calling"
 ---
-
-# 9 AI Agent and Intelligent Agent Systems
-
 ![Main visual of the AI Agent system](/img/course/ch09-agent-systems-en.webp)
 
 Chapter 8 made the model answer from documents. Chapter 9 makes the system **act toward a goal**: plan a next step, call a tool, read the observation, adjust, stop safely, and leave a trace that people can review.

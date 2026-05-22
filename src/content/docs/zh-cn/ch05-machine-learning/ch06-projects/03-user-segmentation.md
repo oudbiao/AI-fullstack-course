@@ -1,5 +1,5 @@
 ---
-title: "5.6.4 项目：用户分群分析"
+title: "5.6.4 项目三：用户分群分析（聚类问题）"
 description: "完整的聚类项目实战：RFM 模型、多种聚类算法对比、聚类结果解释与业务建议"
 sidebar:
   order: 21
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "用户分群, 聚类, RFM, K-Means, 降维, 客户价值分析"
 ---
-
-# 5.6.4 项目三：用户分群分析（聚类问题）
-
 ![用户分群 RFM 聚类图](/img/course/user-segmentation-rfm.webp)
 
 :::tip[项目定位]

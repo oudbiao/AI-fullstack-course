@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM project guide, enterprise knowledge base, intelligent assistant, RAG project, SOP document assistant"
 ---
-
-# 8.5.1 Project Roadmap: Build a Cited Knowledge Assistant
-
 This capstone proves you can connect knowledge, model calls, application flow, and engineering evidence into one reproducible LLM application.
 
 ## See the Project Evidence Loop First

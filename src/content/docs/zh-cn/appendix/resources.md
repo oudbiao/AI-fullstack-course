@@ -3,9 +3,6 @@ title: "A.1 推荐学习资源"
 sidebar:
   order: 1
 ---
-
-# A.1 推荐学习资源
-
 ![资源选择漏斗](/img/course/appendix-resource-selection-funnel.webp)
 
 ![资源瓶颈优先级地图](/img/course/appendix-resource-bottleneck-priority-map.webp)

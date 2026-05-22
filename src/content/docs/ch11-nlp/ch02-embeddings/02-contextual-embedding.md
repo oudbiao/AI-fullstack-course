@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "contextual embedding, contextual representation, polysemy, BERT, dynamic embeddings"
 ---
-
-# 11.2.3 Contextual Embeddings
-
 ![Contextual embedding comparison](/img/course/contextual-embedding-comparison-en.webp)
 
 :::tip[Section overview]

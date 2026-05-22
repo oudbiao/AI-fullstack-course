@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ニューロン, パーセプトロン, 活性化関数, ReLU, Sigmoid, Tanh, MLP, PyTorch, XOR"
 ---
-
-# 6.1.3 ニューロンから多層パーセプトロンへ
-
 ![ニューロンから MLP への構造図](/img/course/mlp-neuron-activation-ja.webp)
 
 :::tip[この節の概要]

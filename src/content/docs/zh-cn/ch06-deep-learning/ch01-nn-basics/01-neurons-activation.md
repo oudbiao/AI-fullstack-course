@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "神经元, 感知机, 激活函数, ReLU, Sigmoid, Tanh, MLP, PyTorch, XOR"
 ---
-
-# 6.1.3 从神经元到多层感知机
-
 ![神经元到 MLP 结构图](/img/course/mlp-neuron-activation.webp)
 
 :::tip[本节概览]

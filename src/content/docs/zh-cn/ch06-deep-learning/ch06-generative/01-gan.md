@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "GAN, generator, discriminator, adversarial training, mode collapse, PyTorch"
 ---
-
-# 6.6.2 GAN 基础 [选修]
-
 :::tip[本节定位]
 GAN 是一个双人训练循环：generator 试图造出看起来真实的假样本，discriminator 试图区分真假。它的能力和不稳定性来自同一个地方：两边都在变化。
 :::

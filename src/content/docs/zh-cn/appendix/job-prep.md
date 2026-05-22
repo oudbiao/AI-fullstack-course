@@ -3,9 +3,6 @@ title: "A.10 求职准备检查清单"
 sidebar:
   order: 7
 ---
-
-# A.10 求职准备检查清单
-
 ![求职准备漏斗图](/img/course/appendix-job-prep-funnel.webp)
 
 ![AI 项目作品集故事线地图](/img/course/appendix-job-portfolio-storyline-map.webp)

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "alignment, helpful honest harmless, safety, governance, evaluation"
 ---
-
-# 7.7.2 Alignment Problem
-
 :::tip[Section focus]
 The stronger a model becomes, the more alignment should not be treated as “just add a safety switch before launch.”
 

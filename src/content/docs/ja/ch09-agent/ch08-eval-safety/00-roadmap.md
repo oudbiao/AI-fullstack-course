@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent Evaluation Guide, Agent Safety Guide, Guardrails, Observability, Agent Risk"
 ---
-
-# 9.8.1 評価と安全ロードマップ：採点、防御、トレース
-
 Agent は動くだけでは不十分です。成功したか、過程は安全だったか、失敗がどこで起きたかを知る必要があります。
 
 ## まずガードレールの層を見る

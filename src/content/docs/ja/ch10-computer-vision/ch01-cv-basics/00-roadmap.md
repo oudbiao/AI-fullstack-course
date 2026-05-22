@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "vision basics guide, OpenCV guide, image processing guide"
 ---
-
-# 10.1.1 Vision Basics ロードマップ：Pixels、Channels、Processing
-
 Computer vision は input intuition から始まります。classification、detection、segmentation の前に、image がどんな数字として扱われるかを理解します。
 
 ## まず image pipeline を見る

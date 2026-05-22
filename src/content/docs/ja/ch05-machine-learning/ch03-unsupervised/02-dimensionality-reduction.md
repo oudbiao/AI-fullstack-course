@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "次元削減, PCA, 説明分散, t-SNE, UMAP, 特徴量圧縮, 可視化"
 ---
-
-# 5.3.3 次元削減
-
 ![PCA 次元削減の投影図](/img/course/pca-dimensionality-reduction-ja.webp)
 
 :::tip[この節の概要]

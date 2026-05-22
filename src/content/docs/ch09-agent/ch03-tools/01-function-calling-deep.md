@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Function Calling, Tool Calling, parameter validation, Agent, schema, tool orchestration"
 ---
-
-# 9.3.2 Function Calling Explained
-
 :::tip[Section focus]
 In the previous section, you learned that Function Calling means “the model outputs structured tool calls.”
 In this section, we will not stop at “being able to call tools,” but move into the really important questions:

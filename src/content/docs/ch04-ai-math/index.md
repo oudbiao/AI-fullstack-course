@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI math, linear algebra, probability and statistics, calculus, machine learning math foundation"
 ---
-
-# 4 AI Math: the Minimum Necessary Foundation
-
 ![AI Math Foundations Main Visual](/img/course/ch04-ai-math-en.webp)
 
 Chapter 4 has one job: make the math inside models feel like **tools you can run and explain**, not a wall of formulas.

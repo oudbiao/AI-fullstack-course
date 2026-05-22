@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "聚类, K-Means, DBSCAN, 层次聚类, 肘部法, 轮廓系数, 无监督学习"
 ---
-
-# 5.3.2 聚类算法
-
 ![K-Means 聚类中心迭代图](/img/course/clustering-kmeans-centroids.webp)
 
 :::tip[本节概览]

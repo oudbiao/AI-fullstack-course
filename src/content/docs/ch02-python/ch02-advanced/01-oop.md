@@ -4,9 +4,6 @@ description: "Master the core concepts of Python object-oriented programming"
 sidebar:
   order: 1
 ---
-
-# 2.2.1 Object-Oriented Programming
-
 ![Diagram of the relationship between classes, objects, attributes, and methods](/img/course/ch02-oop-class-object-map-en.webp)
 
 ## Section Overview

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "OCR, text detection, text recognition, document AI, layout analysis"
 ---
-
-# 10.5.4 OCR Text Recognition [Optional]
-
 ![OCR layout analysis and text recognition pipeline](/img/course/ocr-layout-recognition-pipeline-en.webp)
 
 :::tip[Section Overview]

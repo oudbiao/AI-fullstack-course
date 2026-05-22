@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "chain rule, backpropagation, computation graph, automatic differentiation, PyTorch, AI math"
 ---
-
-# 4.3.5 Chain Rule and Backpropagation Preview
-
 ![Diagram of chain rule computation graph and backpropagation](/img/course/chain-rule-backprop-graph-en.webp)
 
 :::tip[This section is the bridge between mathematics and deep learning]

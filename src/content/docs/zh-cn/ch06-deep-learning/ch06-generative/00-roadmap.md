@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "生成模型指南, GAN, VAE, latent vector, deep learning"
 ---
-
-# 6.6.1 生成模型路线图：采样、解码、审查
-
 生成模型不是只预测标签，而是创造新样本。实用闭环是：采样潜在编码，解码输出，审查结果，比较版本。
 
 ## 先看生成流程

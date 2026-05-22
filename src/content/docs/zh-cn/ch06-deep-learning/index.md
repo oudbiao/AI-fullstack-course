@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "深度学习, PyTorch, 神经网络, CNN, RNN, Transformer, Attention"
 ---
-
-# 6 深度学习与 Transformer 基础
-
 ![深度学习与 Transformer 主视觉](/img/course/ch06-deep-learning.webp)
 
 第 6 章只解决一件事：理解模型怎样通过**损失、梯度和反复训练步骤**学会东西。

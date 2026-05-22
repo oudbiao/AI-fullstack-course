@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "EDA, 探索的データ分析, Pandas, Matplotlib, Seaborn, データ可視化, データクリーニング"
 ---
-
-# 3.6.1 実戦プロジェクト：探索的データ分析（EDA）
-
 ![EDA 探索的データ分析フローチャート](/img/course/eda-analysis-workflow-ja.webp)
 
 :::tip[プロジェクトの位置づけ]

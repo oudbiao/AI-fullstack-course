@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-finetune"
 ---
-
-# 11.6.2 Pretraining Paradigm
-
 ![Diagram of the relationship between pretraining, transfer, and fine-tuning](/img/course/ch11-pretraining-transfer-finetune-map-en.webp)
 
 :::tip[Reading Guide]

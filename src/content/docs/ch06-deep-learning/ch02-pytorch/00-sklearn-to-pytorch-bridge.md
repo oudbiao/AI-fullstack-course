@@ -1,5 +1,5 @@
 ---
-title: "6.2.2 Transition: From sklearn to PyTorch"
+title: "6.2.2 From sklearn to PyTorch"
 description: "Understand the thinking differences between sklearn and PyTorch with a minimal runnable example, and build a bridge from traditional machine learning to deep learning frameworks."
 sidebar:
   order: 0
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "sklearn, PyTorch, deep learning basics, training loop, tensor, gradient descent"
 ---
-
-# 6.2.2 From sklearn to PyTorch
-
 :::tip[Section positioning]
 If `scikit-learn` is like an automatic car, then `PyTorch` is more like a manual car.
 

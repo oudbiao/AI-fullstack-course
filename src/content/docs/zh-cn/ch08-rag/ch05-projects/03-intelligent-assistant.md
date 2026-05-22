@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "assistant project, multi-turn QA, dialog state, retrieval, tool calling, LLM app"
 ---
-
-# 8.5.4 项目：智能问答助手
-
 :::tip[本节定位]
 这一节和“企业知识库问答”很像，但目标更进一步。
 企业知识库更偏“查资料并回答”，而智能问答助手更像一个真正和用户协作的系统：

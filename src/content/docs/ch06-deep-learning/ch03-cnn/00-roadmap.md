@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "CNN guide, convolution, image classification, transfer learning, feature map"
 ---
-
-# 6.3.1 CNN Roadmap: Turn Images Into Feature Maps
-
 CNNs learn local visual patterns. Instead of reading an image as one flat row of numbers, they scan small regions and build feature maps.
 
 ## Look at the Image Flow First

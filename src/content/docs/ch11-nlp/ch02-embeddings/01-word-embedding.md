@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "word embedding, vector space, cosine similarity, one-hot, semantic representation"
 ---
-
-# 11.2.2 Word Embeddings
-
 ![Word vector semantic neighborhood diagram](/img/course/word2vec-embedding-neighborhood-en.webp)
 
 :::tip[Section overview]

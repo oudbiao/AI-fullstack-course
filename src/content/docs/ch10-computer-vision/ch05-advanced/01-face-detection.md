@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "face detection, face recognition, alignment, embeddings, computer vision"
 ---
-
-# 10.5.2 Face Detection and Recognition [Elective]
-
 :::tip[Section Overview]
 Face tasks may look like “just detecting a special object,”
 but a real system usually includes at least:

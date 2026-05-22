@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM overview, large language model, model capability, LLM application, API call"
 ---
-
-# 7.2.1 LLM Overview Roadmap: Capability, Cost, Product Fit
-
 LLM overview is not a model-name list. It helps you decide what a large model can do, what it costs, and when prompting, RAG, Agent, or fine-tuning is a better route.
 
 ## Look at the Capability Stack First

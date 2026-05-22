@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent reasoning guide, ReAct, Plan-and-Execute, planning"
 ---
-
-# 9.2.1 Reasoning Roadmap: Plan, Act, Check
-
 Agent reasoning is not a longer answer. It is the ability to create usable intermediate steps, decide what to do next, and check whether the plan is still working.
 
 ## See the Planning Loop First

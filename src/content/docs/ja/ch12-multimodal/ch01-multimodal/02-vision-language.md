@@ -1,5 +1,5 @@
 ---
-title: "12.1.3 视觉-言語モデル"
+title: "12.1.3 視覚-言語モデル"
 description: "視覚言語モデルが画像とテキストを同じシステムにどう入れるのかを理解し、ミニ例を通して図文検索や画像QAの基本的な考え方をつかみます。"
 sidebar:
   order: 2
@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "視覚言語モデル, VLM, 図文検索, 画像QA, image-text"
 ---
-
-# 12.1.3 視覚-言語モデル
-
 ![視覚言語モデルのアーキテクチャ図](/img/course/vision-language-model-architecture-ja.webp)
 
 :::tip[この節の位置づけ]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "特征选择, 过滤法, 包装法, 嵌入法, SelectKBest, RFE, Pipeline, 过拟合"
 ---
-
-# 5.5.5 特征选择
-
 ![特征选择方法对比](/img/course/feature-selection-methods.webp)
 
 :::tip[本节重点]

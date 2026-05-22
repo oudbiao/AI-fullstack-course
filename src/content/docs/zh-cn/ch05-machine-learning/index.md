@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "机器学习, Scikit-learn, 监督学习, 无监督学习, 回归, 分类, 聚类"
 ---
-
-# 5 机器学习入门到实战
-
 ![机器学习主视觉](/img/course/ch05-machine-learning.webp)
 
 第 5 章只解决一件事：把数据问题变成**可训练、可评估、可改进的机器学习项目**。

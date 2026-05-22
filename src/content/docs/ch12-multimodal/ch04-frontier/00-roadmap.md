@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIGC frontier overview, AI ethics overview, AI regulations overview, content safety, copyright compliance"
 ---
-
-# 12.4.1 Frontier and Ethics Roadmap: Risk Before Release
-
 Responsible AIGC is not a disclaimer at the end. It is a workflow that checks material sources, people, voices, synthetic labels, sensitive content, and human review before export.
 
 ## See the Guardrails First

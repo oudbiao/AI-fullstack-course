@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent 指南, 智能体指南, Agent 系统架构, 工具调用, Agent 闭环"
 ---
-
-# 9.1.1 Agent 基础路线图：目标、状态、行动
-
 Agent 不是一个模型名称，而是一种系统模式：围绕目标组织模型、工具、状态、记忆和反馈，让系统能持续推进任务。
 
 ## 先看单 Agent 闭环

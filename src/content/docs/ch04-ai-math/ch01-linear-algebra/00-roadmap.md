@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Linear Algebra Guide, AI Math Guide, Vectors, Matrices, Eigenvalues, PCA"
 ---
-
-# 4.1.1 Linear Algebra Roadmap: Data as Vectors, Batches as Matrices
-
 Linear algebra is the language AI uses to represent data and transform it. Do not start by memorizing proofs. First see what each object does in code.
 
 ## Look at the Map First

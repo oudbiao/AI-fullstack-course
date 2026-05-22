@@ -3,9 +3,6 @@ title: "A.1 おすすめ学習リソース"
 sidebar:
   order: 1
 ---
-
-# A.1 おすすめ学習リソース
-
 ![リソース選択ファネル](/img/course/appendix-resource-selection-funnel-ja.webp)
 
 ![リソースのボトルネック優先度マップ](/img/course/appendix-resource-bottleneck-priority-map-ja.webp)

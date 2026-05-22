@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "training diagnosis, monitoring, loss curve, overfitting, gradient, debugging"
 ---
-
-# 6.7.3 训练监控与诊断
-
 :::tip[本节定位]
 训练诊断的核心是把“现象”和“根因”分开。不要第一时间换模型。先读曲线，再看预测和梯度，回到数据检查，最后选择一个有针对性的修复动作。
 :::

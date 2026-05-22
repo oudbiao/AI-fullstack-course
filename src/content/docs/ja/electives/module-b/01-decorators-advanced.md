@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "decorators, Python, wraps, retry, logging, timing, authorization"
 ---
-
-# E.B.1 デコレータの応用
-
 ![Python デコレータ実行フロー図](/img/course/elective-python-decorator-flow-ja.webp)
 
 ![デコレータによる横断的ロジックの階層図](/img/course/elective-decorator-crosscutting-layers-ja.webp)

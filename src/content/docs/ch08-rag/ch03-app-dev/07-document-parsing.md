@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction"
 ---
-
-# 8.3.8 Document Parsing and Knowledge Extraction
-
 :::tip[Section overview]
 One of the most common mistakes in knowledge-base projects is:
 

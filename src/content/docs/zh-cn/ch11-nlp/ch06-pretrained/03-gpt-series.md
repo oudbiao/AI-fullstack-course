@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "GPT, 自回归, causal language model, decoder-only, in-context learning, next token"
 ---
-
-# 11.6.4 GPT 系列
-
 ![GPT 自回归生成图](/img/course/gpt-autoregressive-generation.webp)
 
 :::tip[本节定位]

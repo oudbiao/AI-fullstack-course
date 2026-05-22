@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "derivative, calculus, rate of change, tangent slope, Python, AI math"
 ---
-
-# 4.3.2 Derivatives: The Intuition of Rate of Change
-
 ![Derivative tangent slope illustration](/img/course/derivative-tangent-slope-en.webp)
 
 :::tip[No need to memorize formulas]

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "alignment, helpful honest harmless, safety, governance, evaluation"
 ---
-
-# 7.7.2 对齐问题
-
 :::tip[本节定位]
 模型能力越强，对齐问题越不能被当成“上线前再补一个安全开关”。
 

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "机器学习学习指南, sklearn, 机器学习项目, baseline, 特征工程"
 ---
-
-# 5.0 学习指南与任务单：机器学习
-
 ![机器学习学习指南项目闭环](/img/course/ch05-study-guide-project-loop.webp)
 
 主要学习路线已经放在 [第 5 章入口](./)。本页只作为练习时快速查看的清单。

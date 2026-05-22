@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "ResNet, EfficientNet, ConvNeXt, classification, architecture, computer vision"
 ---
-
-# 10.2.3 现代分类架构
-
 :::tip[本节定位]
 做图像分类时，模型结构不是“越新越好”，
 而是在不断围绕几个核心问题演化：

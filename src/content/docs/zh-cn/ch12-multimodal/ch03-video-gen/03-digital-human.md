@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "digital human, avatar, lip sync, talking head, virtual human, audio-driven animation"
 ---
-
-# 12.3.4 数字人技术【选修】
-
 ![数字人多模块同步图](/img/course/ch12-digital-human-sync-pipeline-map.webp)
 
 :::tip[读图提示]

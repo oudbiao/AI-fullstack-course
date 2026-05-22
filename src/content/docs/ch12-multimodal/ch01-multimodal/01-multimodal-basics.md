@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multimodal, multimodal, image-text, speech, video, fusion"
 ---
-
-# 12.1.2 Fundamentals of Multimodal Learning
-
 ![Diagram of multimodal alignment and fusion](/img/course/multimodal-alignment-fusion-en.webp)
 
 ## Learning Objectives

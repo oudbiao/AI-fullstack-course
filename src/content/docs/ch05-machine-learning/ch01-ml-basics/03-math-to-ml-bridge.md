@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "math to machine learning, linear algebra, probability and statistics, calculus, gradient descent, machine learning bridge"
 ---
-
-# 5.1.4 How Mathematics Really Flows into Machine Learning
-
 ![Bridge diagram from math to machine learning](/img/course/math-to-ml-bridge-en.webp)
 
 :::tip[Section focus]

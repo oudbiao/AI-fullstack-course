@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LlamaIndex, documents, nodes, index, retriever, query engine, RAG"
 ---
-
-# 9.6.4 LlamaIndex
-
 :::tip[本节定位]
 如果说 LangGraph 更像“状态流与工作流编排框架”，那 LlamaIndex 更像：
 

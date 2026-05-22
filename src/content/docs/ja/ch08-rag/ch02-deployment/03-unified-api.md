@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "unified API, provider abstraction, LLM gateway, model routing, deployment"
 ---
-
-# 8.2.4 統一 API インターフェース
-
 :::tip[この節の位置づけ]
 システムが1つのモデルだけでなくなると、すぐに問題が表れてきます。
 

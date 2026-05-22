@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Agent 推理指南, ReAct, Plan-and-Execute, 规划"
 ---
-
-# 9.2.1 推理路线图：计划、行动、检查
-
 Agent 推理不是更长的回答，而是生成可用中间步骤、决定下一步做什么，并检查计划是否还有效。
 
 ## 先看规划闭环

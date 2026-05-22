@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM pretraining, training data, next token prediction, data governance, pretraining engineering"
 ---
-
-# 7.4.1 Pretraining Roadmap: Data, Objective, Engineering
-
 Pretraining is how a model first learns broad language patterns. The useful engineering view is: clean data, choose an objective, train at scale, track risk.
 
 ## Look at the Pretraining Triangle First

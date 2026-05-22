@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM study checklist, Prompt evaluation, Transformer, fine-tuning, RLHF"
 ---
-
-# 7.0 Learning Checklist: LLM Principles, Prompt, and Fine-tuning
-
 Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 7 entry page](./index.md).
 
 ![LLM study guide evolution path](/img/course/ch07-study-guide-evolution-line-en.webp)

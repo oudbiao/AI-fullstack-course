@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "BiLSTM, CRF, シーケンスラベリング, NER, 固有表現認識"
 ---
-
-# 11.4.4 BiLSTM + CRF
-
 ![BiLSTM CRF ラベル経路デコード図](/img/course/ch11-bilstm-crf-label-path-map-ja.webp)
 
 :::tip[画像の見方]

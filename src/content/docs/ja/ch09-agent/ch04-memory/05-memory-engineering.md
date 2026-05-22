@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "memory engineering, write policy, retrieval policy, ttl, summarization, agent memory"
 ---
-
-# 9.4.6 メモリ工学の実装
-
 :::tip[この節の位置づけ]
 前の「メモリシステムの概念」の話では、いちばん誤解しやすいのが次の点です。
 

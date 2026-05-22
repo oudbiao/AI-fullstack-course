@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "deep learning history, perceptron, XOR, backpropagation, LSTM, AlexNet, ResNet, Transformer"
 ---
-
-# 6.1.8 Optional Background: Deep Learning Breakthroughs
-
 :::tip[Section Overview]
 This page is a short map, not a history exam. Use it to answer one question for each model name:
 

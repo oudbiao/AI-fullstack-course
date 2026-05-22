@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "3D vision, depth, point cloud, stereo, camera geometry"
 ---
-
-# 10.5.5 Introduction to 3D Vision [Optional]
-
 :::tip[Section Overview]
 2D vision mainly understands content in flat images.
 3D vision goes one step further:

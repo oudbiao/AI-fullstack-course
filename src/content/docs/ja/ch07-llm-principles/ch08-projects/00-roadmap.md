@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM project guide, domain fine-tuning, Prompt, RAG, LLM evaluation"
 ---
-
-# 7.8.1 プロジェクトロードマップ：Prompt、RAG、微調整を選ぶ
-
 このキャップストーンは、第 7 章を 1 つのエンジニアリング判断にまとめます。問題はタスク表現、知識不足、形式の不安定さ、安全境界、評価不足のどれでしょうか。
 
 ## まずプロジェクトルートを見る

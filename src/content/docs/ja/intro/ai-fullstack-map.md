@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AIフルスタック, AIアプリケーションエンジニアリング, 能力マップ, LLMアプリ, RAG, AI Agent"
 ---
-
-# 0.3 AI フルスタック能力マップ
-
 ![AI フルスタック能力マップ](/img/course/intro-ai-fullstack-capability-map-ja.webp)
 
 まず図を見ます。コースは1本のエンジニアリングの道です。

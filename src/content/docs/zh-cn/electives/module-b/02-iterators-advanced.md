@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "iterator, generator, yield, yield from, lazy evaluation, streaming"
 ---
-
-# E.B.2 迭代器与生成器进阶
-
 ![生成器流式处理管线图](/img/course/elective-generator-stream-pipeline.webp)
 
 当数据像流一样到来时，生成器很有用：日志、文件、API 分页、样本批次、检索结果或模型输出。它一次只产出一个值，可以避免创建不必要的中间列表。

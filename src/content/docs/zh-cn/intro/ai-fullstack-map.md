@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "AI 全栈, AI 应用工程, 能力地图, LLM 应用, RAG, AI Agent"
 ---
-
-# 0.3 AI 全栈能力地图
-
 ![AI 全栈能力地图](/img/course/intro-ai-fullstack-capability-map.webp)
 
 先看图。课程是一条工程路线：

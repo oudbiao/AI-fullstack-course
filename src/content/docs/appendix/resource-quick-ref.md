@@ -4,9 +4,6 @@ description: "A compact quick reference for environment checks, baselines, metri
 sidebar:
   order: 6
 ---
-
-# A.9 Learning Resources Quick Reference
-
 ![AI Project Quick Reference Overview](/img/course/appendix-project-quick-reference-map-en.webp)
 
 ![AI Project Quick Reference Troubleshooting Index](/img/course/appendix-quick-ref-debug-index-map-en.webp)

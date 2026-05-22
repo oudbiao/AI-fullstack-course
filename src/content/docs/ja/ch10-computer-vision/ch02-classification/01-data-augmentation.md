@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "data augmentation, flip, crop, color jitter, mixup, vision"
 ---
-
-# 10.2.2 データ拡張の戦略
-
 ![画像データ拡張のサンプル一覧](/img/course/cv-data-augmentation-gallery-ja.webp)
 
 :::tip[この節の位置づけ]

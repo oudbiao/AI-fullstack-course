@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multimodal app, OCR, screenshot assistant, image-text product, workflow"
 ---
-
-# 12.1.4 マルチモーダルアプリ開発
-
 ![マルチモーダルアプリのエンジニアリングループ図](/img/course/ch12-multimodal-app-engineering-loop-ja.webp)
 
 :::tip[図の見方]

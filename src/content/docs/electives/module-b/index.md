@@ -4,9 +4,6 @@ description: "A concise hands-on roadmap for the Advanced Python elective: decor
 sidebar:
   order: 0
 ---
-
-# E.B Advanced Python Roadmap
-
 Use this elective when your prototype starts repeating logic, waiting on slow calls, streaming data, or registering tools dynamically.
 
 ## See the Engineering Path First

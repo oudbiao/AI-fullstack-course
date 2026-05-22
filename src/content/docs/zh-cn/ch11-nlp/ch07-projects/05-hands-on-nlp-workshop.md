@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "NLP 实操, TF-IDF, 文本分类, 检索问答, 文本摘要, 信息抽取, 失败分析"
 ---
-
-# 11.7.6 实操：构建一个可复现的 NLP 迷你流水线
-
 在选择更大的 NLP 项目前，先把这个迷你流水线跑一遍。它会把本章抽象概念变成你能检查的文件：原始文本、token、TF-IDF 特征、分类预测、检索问答、摘要、结构化字段、指标和失败案例。
 
 ![NLP 实操工作坊端到端产物流水线](/img/course/ch11-workshop-text-to-artifacts-pipeline-map.webp)

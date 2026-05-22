@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "convolution, 卷积, 卷积核, CNN, stride, padding, receptive field, 图像特征"
 ---
-
-# 6.3.2 卷积基础
-
 :::tip[本节定位]
 卷积是 CNN 看图像的方式，它不会过早把空间结构压平成一长串数字。本页先看图，再手算卷积，最后用 `nn.Conv2d` 验证同样的概念。
 :::

@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM hands-on workshop, prompt evaluation, structured output, fine-tuning decision, chapter project"
 ---
-
-# 7.8.4 Hands-on: Full Chapter 7 Workshop
-
 This workshop is the practical thread for the whole chapter. If you feel the chapter has many concepts, run this page once from top to bottom. You will not train a large model here. Instead, you will build the smallest repeatable workflow that connects tokens, request payloads, prompt versions, structured output validation, evaluation, the Prompt/RAG/fine-tuning decision, and a small evidence pack you can review afterward.
 
 :::tip[Learning rhythm]

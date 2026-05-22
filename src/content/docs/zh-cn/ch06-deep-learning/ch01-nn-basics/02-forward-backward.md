@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "前向传播, 反向传播, 梯度, loss, optimizer, PyTorch, 训练循环"
 ---
-
-# 6.1.4 前向传播与反向传播
-
 ![神经网络前向与反向传播图](/img/course/neural-network-forward-backward.webp)
 
 :::tip[本节概览]

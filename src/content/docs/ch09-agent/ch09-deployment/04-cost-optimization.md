@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "cost optimization, token cost, model routing, caching, retries, tool cost, deployment"
 ---
-
-# 9.9.5 Cost Optimization
-
 :::tip[Section Overview]
 The cost of an Agent system is often not as simple as “how much one model call costs.”
 What really affects the bill is usually the whole pipeline:

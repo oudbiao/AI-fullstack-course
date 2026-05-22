@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "multi-tool agent, orchestration, tool chain, agent practice, refund assistant"
 ---
-
-# 9.3.9 Hands-on: Multi-Tool Collaborative Agent
-
 ![Agent Tool Call Trace Diagram](/img/course/agent-tool-trace-en.webp)
 
 :::tip[Section Overview]

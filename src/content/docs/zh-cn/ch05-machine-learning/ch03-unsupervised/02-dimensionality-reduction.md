@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "降维, PCA, 解释方差, t-SNE, UMAP, 特征压缩, 可视化"
 ---
-
-# 5.3.3 降维
-
 ![PCA 降维投影图](/img/course/pca-dimensionality-reduction.webp)
 
 :::tip[本节概览]

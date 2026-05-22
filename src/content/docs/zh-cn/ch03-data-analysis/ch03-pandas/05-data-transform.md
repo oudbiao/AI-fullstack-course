@@ -4,9 +4,6 @@ description: "掌握 apply、map、排序、排名和替换等数据转换方法
 sidebar:
   order: 13
 ---
-
-# 3.3.6 数据转换
-
 :::tip[本节定位]
 很多新人学到这里时会开始有点乱：
 

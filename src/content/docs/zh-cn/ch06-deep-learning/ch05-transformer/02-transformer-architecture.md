@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding, RMSNorm, RoPE, GQA"
 ---
-
-# 6.5.3 Transformer 架构
-
 :::tip[本节定位]
 注意力是心脏，但 Transformer block 能稳定工作，是因为多个工程部件一起配合：残差保信息，归一化稳数值，FFN 加工每个 token，位置信号补上顺序。
 :::

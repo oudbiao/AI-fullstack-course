@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction"
 ---
-
-# 8.3.8 文档解析与知识抽取
-
 :::tip[本节定位]
 很多知识库项目一开始最容易犯的错是：
 

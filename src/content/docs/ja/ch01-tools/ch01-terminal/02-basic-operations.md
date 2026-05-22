@@ -4,9 +4,6 @@ description: "コアコマンド、パスの考え方、パイプ、環境変数
 sidebar:
   order: 2
 ---
-
-# 1.1.2 ターミナルの基本操作
-
 ![ターミナルのパスとコマンド実行の関係図](/img/course/ch01-terminal-path-command-map-ja.webp)
 
 ## 残す証拠

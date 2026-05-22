@@ -4,9 +4,6 @@ description: "Master function definitions, parameters, return values, and scope"
 sidebar:
   order: 7
 ---
-
-# 2.1.7 Function Basics
-
 ![Function call, parameters, and scope diagram](/img/course/ch02-function-call-scope-en.webp)
 
 ## Where This Section Fits

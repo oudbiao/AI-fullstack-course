@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "LLM 概览, 大语言模型, 模型能力, LLM 应用, API 调用"
 ---
-
-# 7.2.1 LLM 概览路线图：能力、成本、产品适配
-
 LLM 概览不是模型名称清单，而是帮你判断大模型能做什么、代价是什么，以及什么时候该用 Prompt、RAG、Agent 或微调。
 
 ## 先看能力栈

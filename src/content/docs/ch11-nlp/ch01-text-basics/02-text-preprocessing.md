@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "text preprocessing, tokenization, normalization, stopwords, regex, NLP"
 ---
-
-# 11.1.3 Text Preprocessing
-
 ![Text preprocessing pipeline diagram](/img/course/text-preprocessing-pipeline-en.webp)
 
 :::tip[Section overview]

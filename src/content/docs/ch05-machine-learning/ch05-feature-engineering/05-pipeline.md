@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "Pipeline, ColumnTransformer, Transformer, feature engineering pipeline, sklearn"
 ---
-
-# 5.5.6 Pipeline and Workflows
-
 ![ColumnTransformer and Pipeline workflow diagram](/img/course/column-transformer-pipeline-en.webp)
 
 :::tip[Section overview]

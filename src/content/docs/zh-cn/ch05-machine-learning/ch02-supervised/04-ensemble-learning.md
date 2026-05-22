@@ -9,9 +9,6 @@ head:
       name: keywords
       content: "集成学习, Random Forest, Bagging, Boosting, GBDT, Stacking, XGBoost, LightGBM, CatBoost"
 ---
-
-# 5.2.5 集成学习：森林、Boosting、Stacking
-
 ![Bagging 与 Boosting 对比图](/img/course/ch05-ensemble-bagging-boosting-flow.webp)
 
 集成学习会把多个模型组合起来，减少单个模型弱点主导结果的风险。对表格数据来说，它经常是经典机器学习里最强的一类方法。
