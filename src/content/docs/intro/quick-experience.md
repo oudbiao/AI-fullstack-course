@@ -46,9 +46,21 @@ from PIL import Image
 import io
 import requests
 
-classifier = pipeline("image-classification", model="google/vit-base-patch16-224")
-url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/1200px-YellowLabradorLooking_new.jpg"
-image = Image.open(io.BytesIO(requests.get(url, headers={"User-Agent": "Mozilla/5.0"}).content))
+classifier = pipeline(
+    "image-classification",
+    model="google/vit-base-patch16-224",
+    use_fast=True,
+)
+
+image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/cats.png"
+response = requests.get(image_url, headers={"User-Agent": "Mozilla/5.0"}, timeout=20)
+response.raise_for_status()
+
+content_type = response.headers.get("Content-Type", "")
+if "image" not in content_type:
+    raise ValueError(f"Expected an image response, got {content_type}: {response.text[:120]}")
+
+image = Image.open(io.BytesIO(response.content)).convert("RGB")
 
 for row in classifier(image)[:3]:
     print(f"{row['label']:30s} {row['score']:.1%}")
@@ -57,12 +69,13 @@ for row in classifier(image)[:3]:
 Expected shape:
 
 ```text
-Labrador retriever              95.6%
-golden retriever                1.0%
-kuvasz                          0.5%
+tabby, tabby cat                27.4%
+tiger cat                       27.2%
+Egyptian cat                    14.0%
 ```
 
 Your numbers may differ. The important shape is a ranked list of labels and confidence scores.
+The status and content-type checks turn a blocked URL or HTML error page into a readable message instead of a PIL `UnidentifiedImageError`.
 
 ## Read The Result
 

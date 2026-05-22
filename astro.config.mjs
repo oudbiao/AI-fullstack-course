@@ -224,9 +224,16 @@ function numericPrefixOrder(name) {
   return match ? Number(match[1]) : Number.MAX_VALUE;
 }
 
+const specialFileOrders = {
+  "index.md": 0,
+  "00-roadmap.md": 0,
+  "study-guide.md": 0.5,
+};
+
 function fileOrder(relativeFile) {
   const meta = parseFrontmatter(path.join(docsRoot, relativeFile));
-  return meta.order ?? numericPrefixOrder(path.basename(relativeFile));
+  const fileName = path.basename(relativeFile);
+  return specialFileOrders[fileName] ?? meta.order ?? numericPrefixOrder(fileName);
 }
 
 function prettifyDirectoryName(relativeDir) {
@@ -245,9 +252,14 @@ function joinDirectoryPrefix(prefix, label) {
   return `${prefix} ${label}`;
 }
 
-function shortGroupLabelFromTitle(title) {
-  return title
+function stripNavigationNumberPrefix(label) {
+  return label
     .replace(/^(?:\d+(?:\.\d+)*|[A-Z](?:\.[A-Z0-9]+)+)\s+/i, "")
+    .trim();
+}
+
+function shortGroupLabelFromTitle(title) {
+  return stripNavigationNumberPrefix(title)
     .split(/[:：]/)[0]
     .replace(/\s*(?:Learning\s+)?(?:Roadmap|Learning Path|Path)\s*$/i, "")
     .replace(/\s*(?:路线图|学习路线|ロードマップ)\s*$/u, "")
@@ -279,24 +291,6 @@ function sourceFileForDirectory(relativeDir) {
   return firstMarkdownFile(relativeDir);
 }
 
-function directoryNumberPrefix(relativeDir) {
-  const sourceFile = sourceFileForDirectory(relativeDir);
-  if (!sourceFile) return "";
-
-  const title = parseFrontmatter(path.join(docsRoot, sourceFile)).title ?? "";
-  const match = title.match(/^(\d+(?:\.\d+)+)(?:\.\d+)?\b/);
-  if (match) {
-    const parts = match[1].split(".");
-    return parts.length > 2 ? parts.slice(0, -1).join(".") : match[1];
-  }
-
-  const alphaMatch = title.match(/^([A-Z](?:\.[A-Z0-9]+)+)(?:\.\d+)?\b/i);
-  if (!alphaMatch) return "";
-
-  const parts = alphaMatch[1].split(".");
-  return parts.length > 2 ? parts.slice(0, -1).join(".") : alphaMatch[1];
-}
-
 function localizedTitle(relativeFile, locale) {
   const localeFile = path.join(docsRoot, locale, relativeFile);
   const meta = parseFrontmatter(localeFile);
@@ -319,6 +313,61 @@ function sourceTitleForDirectory(relativeFile, locale) {
   return meta.sidebarLabel || meta.title || "";
 }
 
+function sourceTitleForFile(relativeFile, locale) {
+  if (locale) return localizedTitle(relativeFile, locale) ?? "";
+  const meta = parseFrontmatter(path.join(docsRoot, relativeFile));
+  return meta.sidebarLabel || meta.title || "";
+}
+
+const specialSidebarLabels = {
+  index: {
+    label: "Overview",
+    translations: { "zh-CN": "概览", "ja-JP": "概要" },
+  },
+  studyGuide: {
+    label: "Study Guide & Tasks",
+    translations: { "zh-CN": "学习指南与任务单", "ja-JP": "学習ガイドとタスクリスト" },
+  },
+  roadmap: {
+    label: "Roadmap",
+    translations: { "zh-CN": "路线图", "ja-JP": "ロードマップ" },
+  },
+};
+
+function specialSidebarLabelForFile(relativeFile, languageTag) {
+  const fileName = path.basename(relativeFile);
+  const key =
+    fileName === "index.md"
+      ? "index"
+      : fileName === "study-guide.md"
+        ? "studyGuide"
+        : fileName === "00-roadmap.md"
+          ? "roadmap"
+          : undefined;
+  if (!key) return undefined;
+
+  const labels = specialSidebarLabels[key];
+  return (languageTag && labels.translations[languageTag]) || labels.label;
+}
+
+function sidebarLabelForFile(relativeFile, locale, languageTag) {
+  const specialLabel = specialSidebarLabelForFile(relativeFile, languageTag);
+  if (specialLabel) return specialLabel;
+
+  const title = sourceTitleForFile(relativeFile, locale) || sourceTitleForFile(relativeFile);
+  if (title) return stripNavigationNumberPrefix(title);
+
+  return prettifyDirectoryName(relativeFile.replace(/\.mdx?$/, ""));
+}
+
+function sidebarLabelTranslations(relativeFile) {
+  const translations = {};
+  for (const [locale, lang] of Object.entries(localeLanguageTags)) {
+    translations[lang] = sidebarLabelForFile(relativeFile, locale, lang);
+  }
+  return translations;
+}
+
 function directoryLabelFromSource(relativeDir, sourceFile, locale, languageTag, prefix) {
   const override = directoryLabelOverrides[relativeDir];
   if (override) return fallbackDirectoryLabel(relativeDir, languageTag, prefix);
@@ -331,12 +380,11 @@ function directoryLabelFromSource(relativeDir, sourceFile, locale, languageTag, 
 
 function groupLabelInfo(relativeDir) {
   const sourceFile = sourceFileForDirectory(relativeDir);
-  const prefix = directoryNumberPrefix(relativeDir);
-  const label = directoryLabelFromSource(relativeDir, sourceFile, undefined, undefined, prefix);
+  const label = directoryLabelFromSource(relativeDir, sourceFile, undefined, undefined, "");
   const translations = {};
 
   for (const [locale, lang] of Object.entries(localeLanguageTags)) {
-    translations[lang] = directoryLabelFromSource(relativeDir, sourceFile, locale, lang, prefix);
+    translations[lang] = directoryLabelFromSource(relativeDir, sourceFile, locale, lang, "");
   }
 
   return { label, translations };
@@ -377,11 +425,12 @@ function buildDirectoryItems(relativeDir) {
     if (meta.hidden) return [];
 
     const slug = slugFromRelativeFile(relativeFile);
+    const label = sidebarLabelForFile(relativeFile);
     return [
       {
         order: fileOrder(relativeFile),
-        label: meta.sidebarLabel || meta.title || slug,
-        item: { slug },
+        label,
+        item: { slug, label, translations: sidebarLabelTranslations(relativeFile) },
       },
     ];
   });
