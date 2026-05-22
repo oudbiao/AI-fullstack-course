@@ -25,6 +25,7 @@ SOURCE_PHRASES_RE = re.compile(
 SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.IGNORECASE | re.DOTALL)
 TAG_RE = re.compile(r"<[^>]+>")
 SPACE_RE = re.compile(r"\s+")
+LOCALIZED_BUILD_DIRS = {"zh-Hans", "ja"}
 
 ALLOW_TERMS = {
     "中文",
@@ -118,6 +119,28 @@ def audit_file(path: Path, locale: str) -> list[dict[str, object]]:
     return findings
 
 
+def is_under_localized_build_dir(path: Path, build_dir: Path) -> bool:
+    relative_parts = path.relative_to(build_dir).parts
+    return bool(relative_parts) and relative_parts[0] in LOCALIZED_BUILD_DIRS
+
+
+def iter_locale_html(build_dir: Path, locale: str) -> tuple[Path, list[Path]] | tuple[None, list[Path]]:
+    if locale == "en":
+        if not build_dir.exists():
+            return None, []
+        paths = [
+            path
+            for path in sorted(build_dir.rglob("*.html"))
+            if not is_under_localized_build_dir(path, build_dir)
+        ]
+        return build_dir, paths
+
+    locale_dir = build_dir / locale
+    if not locale_dir.exists():
+        return None, []
+    return locale_dir, sorted(locale_dir.rglob("*.html"))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--build-dir", default="build")
@@ -129,12 +152,12 @@ def main() -> int:
     result: dict[str, list[dict[str, object]]] = {}
 
     for locale in args.locales:
-        locale_dir = build_dir / locale
-        if not locale_dir.exists():
-            result[locale] = [{"file": str(locale_dir), "missing": True}]
+        locale_dir, html_paths = iter_locale_html(build_dir, locale)
+        if locale_dir is None:
+            result[locale] = [{"file": str(build_dir / locale), "missing": True}]
             continue
         entries: list[dict[str, object]] = []
-        for path in sorted(locale_dir.rglob("*.html")):
+        for path in html_paths:
             findings = audit_file(path, locale)
             if findings:
                 entries.append(
