@@ -164,9 +164,9 @@ def module_e_dashboard(summary):
         f"<section><h2>{html.escape(k)}</h2><pre>{html.escape(json.dumps(v, ensure_ascii=False, indent=2))}</pre></section>"
         for k, v in summary.items()
     )
-    page = f"""<!doctype html><html lang='en'><meta charset='utf-8'><title>Elective Workshop</title>
+    page = f"""<!doctype html><html lang='zh-Hans'><meta charset='utf-8'><title>选修工作坊</title>
 <style>body{{font-family:system-ui,sans-serif;max-width:900px;margin:32px auto;background:#f8fafc}}section{{background:white;border:1px solid #ddd;border-radius:8px;padding:16px;margin:12px 0}}pre{{white-space:pre-wrap}}</style>
-<h1>Elective Workshop Evidence</h1>{cards}</html>"""
+<h1>选修工作坊证据</h1>{cards}</html>"""
     (OUT / "module_e_dashboard.html").write_text(page, encoding="utf-8")
     return {"cards": len(summary)}
 
@@ -186,7 +186,7 @@ def main():
         1,
     )
     write_json(REPORTS / "readiness_score.json", {"readiness_score": readiness, "summary": summary})
-    (RUN / "README.md").write_text("# Elective Workshop Evidence Pack\n\nRun `python elective_workshop.py`, then inspect `outputs/` and `reports/`.\n", encoding="utf-8")
+    (RUN / "README.md").write_text("# 选修工作坊证据包\n\n运行 `python elective_workshop.py`，然后检查 `outputs/` 和 `reports/`。\n", encoding="utf-8")
 
     print("modules: 6")
     print("best_deployment:", summary["module_a"]["variant"])

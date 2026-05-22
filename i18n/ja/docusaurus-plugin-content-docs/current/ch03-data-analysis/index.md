@@ -83,8 +83,8 @@ summary = clean_df.groupby("topic")["minutes"].sum().sort_values(ascending=False
 print("\nクリーニング後")
 print(summary)
 
-summary.plot(kind="bar", title="Study minutes by topic")
-plt.ylabel("minutes")
+summary.plot(kind="bar", title="トピック別の学習分数")
+plt.ylabel("分")
 plt.tight_layout()
 plt.savefig("topic_minutes.png")
 print("\nグラフを保存しました: topic_minutes.png")

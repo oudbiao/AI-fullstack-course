@@ -294,17 +294,17 @@ def save_evidence(token_rows, eval_rows, route_rows):
         writer.writerows(eval_rows)
 
     failures = [row for row in eval_rows if not row["passed"]]
-    failure_lines = ["# Failure Cases", ""]
+    failure_lines = ["# 失败案例", ""]
     for row in failures:
         failure_lines.append(f"- {row['prompt_version']} / {row['case_id']}: {row['reason']}")
     failure_path.write_text("\n".join(failure_lines) + "\n", encoding="utf-8")
 
     passed_v3 = sum(row["passed"] for row in eval_rows if row["prompt_version"] == "v3_json_with_boundary")
     readme_path.write_text(
-        "# Chapter 7 LLM Workshop Evidence\n\n"
-        "Run command: `python llm_stage_workshop.py`\n\n"
-        f"Best prompt version: v3_json_with_boundary ({passed_v3}/{len(SAMPLES)} passed)\n\n"
-        "Review `failure_cases.md` before deciding whether to change Prompt, add RAG, or plan fine-tuning.\n",
+        "# 第 7 章 LLM 工作坊证据\n\n"
+        "运行命令：`python llm_stage_workshop.py`\n\n"
+        f"最佳提示词版本：v3_json_with_boundary（{passed_v3}/{len(SAMPLES)} 通过）\n\n"
+        "在决定是否修改提示词、加入 RAG 或规划微调之前，先复核 `failure_cases.md`。\n",
         encoding="utf-8",
     )
     return [token_path, eval_path, route_path, failure_path, readme_path]

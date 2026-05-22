@@ -50,8 +50,8 @@ python -m venv .venv
 . .venv/bin/activate
 python -c "import sys; print(sys.executable)"
 printf '.venv/\n__pycache__/\n' > .gitignore
-printf 'print("AI learning lab is ready")\n' > hello_ai.py
-printf '# AI Learning Lab\n\nActivate env: . .venv/bin/activate\nRun with: python hello_ai.py\n' > README.md
+printf 'print("AI 学習ラボの準備ができました")\n' > hello_ai.py
+printf '# AI 学習ラボ\n\n環境を有効化：. .venv/bin/activate\n実行方法：python hello_ai.py\n' > README.md
 python hello_ai.py
 git init
 git add .gitignore README.md hello_ai.py
@@ -61,7 +61,7 @@ git commit -m "init learning lab"
 期待される出力：
 
 ```text
-AI learning lab is ready
+AI 学習ラボの準備ができました
 ```
 
 失敗したら、エラーを消さないでください。コマンド、完全な出力、OS、Python バージョン、現在のディレクトリを残します。それも価値のあるプロジェクト証拠です。
@@ -70,7 +70,7 @@ Windows PowerShell では `. .venv/bin/activate` の代わりに `.venv\Scripts\
 
 ### この出力の読み方
 
-- `AI learning lab is ready` は、スクリプトがプロジェクトフォルダ内で動いたことを示します。
+- `AI 学習ラボの準備ができました` は、スクリプトがプロジェクトフォルダ内で動いたことを示します。
 - `python -c "import sys; print(sys.executable)"` は、実際にどのインタプリタが動いているかを示します。
 - Git commit は、プロジェクトをあとで保存・確認・再現できることを示します。
 - どこかのコマンドが失敗した場合も、コマンドと完全なエラー出力は証拠であり、ノイズではありません。

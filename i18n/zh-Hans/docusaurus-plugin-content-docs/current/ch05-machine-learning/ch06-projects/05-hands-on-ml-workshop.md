@@ -397,35 +397,35 @@ def main() -> None:
 
     write_markdown_report(
         REPORT_DIR / "leakage_check.md",
-        "Leakage Check",
+        "泄漏检查",
         [
-            "- Split the data before fitting imputers, scalers, encoders, or models.",
-            "- Keep the target column out of the feature list.",
-            "- Put preprocessing inside ColumnTransformer and Pipeline.",
-            "- Use cross-validation on the training split, then check the test split once.",
+            "- 在拟合填补器、缩放器、编码器或模型之前先切分数据。",
+            "- 不要把目标列放进特征列表。",
+            "- 把预处理放在 ColumnTransformer 和 Pipeline 里面。",
+            "- 在训练切分上做交叉验证，然后只检查一次测试切分。",
         ],
     )
     write_markdown_report(
         REPORT_DIR / "experiment_log.md",
-        "Experiment Log",
+        "实验日志",
         [
-            "| version | change | main result | next step |",
+            "| 版本 | 变更 | 主要结果 | 下一步 |",
             "|---|---|---|---|",
-            f"| v0 | Dummy baseline | f1={metrics[metrics['model'] == 'Dummy baseline'].iloc[0]['test_f1']} | Need a real model |",
-            f"| v1 | {best_name} with Pipeline | f1={metrics.iloc[0]['test_f1']} | Review threshold and errors |",
+            f"| v0 | Dummy baseline | f1={metrics[metrics['model'] == 'Dummy baseline'].iloc[0]['test_f1']} | 需要真实模型 |",
+            f"| v1 | {best_name} + Pipeline | f1={metrics.iloc[0]['test_f1']} | 复核阈值和错误样本 |",
         ],
     )
 
     readme_lines = [
-        "# Machine Learning Workshop Evidence Pack",
+        "# 机器学习工作坊证据包",
         "",
-        "Run command:",
+        "运行命令：",
         "",
         "```bash",
         "python ml_workshop.py",
         "```",
         "",
-        "Generated files:",
+        "生成的文件：",
         "- data/learning_tasks.csv",
         "- outputs/model_comparison.csv",
         "- outputs/best_model_metrics.json",

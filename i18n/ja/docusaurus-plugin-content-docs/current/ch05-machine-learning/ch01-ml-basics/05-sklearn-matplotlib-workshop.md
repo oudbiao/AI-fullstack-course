@@ -201,15 +201,15 @@ model.fit(X_train, y_train)
 train_score = model.score(X_train, y_train)
 test_score = model.score(X_test, y_test)
 
-print(f"Train accuracy: {train_score:.1%}")
-print(f"Test accuracy:  {test_score:.1%}")
+print(f"学習精度：{train_score:.1%}")
+print(f"テスト精度：{test_score:.1%}")
 ```
 
 期待される出力：
 
 ```text
-Train accuracy: 100.0%
-Test accuracy:  100.0%
+学習精度：100.0%
+テスト精度：100.0%
 ```
 
 `Pipeline` が大事なのは、正しい順番を保てるからです。

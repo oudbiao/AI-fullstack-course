@@ -50,8 +50,8 @@ python -m venv .venv
 . .venv/bin/activate
 python -c "import sys; print(sys.executable)"
 printf '.venv/\n__pycache__/\n' > .gitignore
-printf 'print("AI learning lab is ready")\n' > hello_ai.py
-printf '# AI Learning Lab\n\nActivate env: . .venv/bin/activate\nRun with: python hello_ai.py\n' > README.md
+printf 'print("AI 学习实验室已准备就绪")\n' > hello_ai.py
+printf '# AI 学习实验室\n\n激活环境：. .venv/bin/activate\n运行方式：python hello_ai.py\n' > README.md
 python hello_ai.py
 git init
 git add .gitignore README.md hello_ai.py
@@ -61,7 +61,7 @@ git commit -m "init learning lab"
 预期输出：
 
 ```text
-AI learning lab is ready
+AI 学习实验室已准备就绪
 ```
 
 如果失败，不要直接清空错误。保存命令、完整输出、操作系统、Python 版本和当前目录，这些都是有价值的项目证据。
@@ -70,7 +70,7 @@ AI learning lab is ready
 
 ### 如何读这个输出
 
-- `AI learning lab is ready` 证明脚本确实在项目文件夹里跑起来了。
+- `AI 学习实验室已准备就绪` 证明脚本确实在项目文件夹里跑起来了。
 - `python -c "import sys; print(sys.executable)"` 证明当前到底是哪一个解释器在运行。
 - Git commit 证明项目可以被保存、回看和复现。
 - 如果某条命令失败，命令和完整错误输出也是证据，不是噪音。

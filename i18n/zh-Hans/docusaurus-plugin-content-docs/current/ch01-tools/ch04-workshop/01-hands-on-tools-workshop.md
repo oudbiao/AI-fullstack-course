@@ -98,11 +98,11 @@ EOF
 
 ````bash
 cat > README.md << 'EOF'
-# AI Learning Lab
+# AI 学习实验室
 
-This repository is my reproducible learning workspace for the AI full-stack course.
+这个仓库是我用于 AI 全栈课程的可复现学习工作区。
 
-## Run
+## 运行
 
 ```bash
 python3 src/workstation_check.py

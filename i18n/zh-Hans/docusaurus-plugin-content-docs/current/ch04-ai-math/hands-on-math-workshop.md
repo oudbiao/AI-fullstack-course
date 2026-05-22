@@ -215,7 +215,7 @@ def write_vector_svg(path, rows):
         )
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">
 <rect width="100%" height="100%" fill="#ffffff"/>
-<text x="40" y="40" font-size="24" font-family="Arial">Vector similarity by cosine</text>
+<text x="40" y="40" font-size="24" font-family="Arial">基于余弦的向量相似度</text>
 {''.join(bars)}
 </svg>'''
     path.write_text(svg, encoding="utf-8")
@@ -233,9 +233,9 @@ def write_probability_svg(path, rows):
     circles = "".join(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="#f26d3d"/>' for x, y in points)
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">
 <rect width="100%" height="100%" fill="#ffffff"/>
-<text x="40" y="40" font-size="24" font-family="Arial">Running probability estimate</text>
+<text x="40" y="40" font-size="24" font-family="Arial">运行中的概率估计</text>
 <line x1="70" y1="{expected_y:.1f}" x2="640" y2="{expected_y:.1f}" stroke="#888" stroke-dasharray="8 6"/>
-<text x="70" y="{expected_y - 10:.1f}" font-size="14">expected p=0.65</text>
+<text x="70" y="{expected_y - 10:.1f}" font-size="14">期望 p=0.65</text>
 <polyline points="{polyline}" fill="none" stroke="#f26d3d" stroke-width="3"/>
 {circles}
 </svg>'''
@@ -254,7 +254,7 @@ def write_gradient_svg(path, rows):
     circles = "".join(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="#2f9e44"/>' for x, y in points)
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">
 <rect width="100%" height="100%" fill="#ffffff"/>
-<text x="40" y="40" font-size="24" font-family="Arial">Gradient descent lowers loss</text>
+<text x="40" y="40" font-size="24" font-family="Arial">梯度下降降低损失</text>
 <polyline points="{polyline}" fill="none" stroke="#2f9e44" stroke-width="3"/>
 {circles}
 </svg>'''
@@ -291,20 +291,20 @@ Workshop evidence: `gradient_descent.csv` shows x moving toward the low-loss poi
 
 
 def write_readme(path, best_topic, final_gradient_row):
-    content = f"""# Chapter 4 Math Workshop Evidence
+    content = f"""# 第 4 章数学工作坊证据
 
-Run command: `python math_workshop.py`
+运行命令：`python math_workshop.py`
 
-Best vector match: `{best_topic}`.
-Final gradient descent point: x={final_gradient_row['x']}, loss={final_gradient_row['loss']}.
+最佳向量匹配：`{best_topic}`。
+最终梯度下降点：x={final_gradient_row['x']}，loss={final_gradient_row['loss']}。
 
-Review order:
+复核顺序：
 
-1. Open `vector_similarity.csv`.
-2. Open `probability_simulation.csv`.
-3. Open `gradient_descent.csv`.
-4. Read `math_cards.md`.
-5. Inspect the SVG files.
+1. 打开 `vector_similarity.csv`。
+2. 打开 `probability_simulation.csv`。
+3. 打开 `gradient_descent.csv`。
+4. 阅读 `math_cards.md`。
+5. 检查 SVG 文件。
 """
     path.write_text(content, encoding="utf-8")
 

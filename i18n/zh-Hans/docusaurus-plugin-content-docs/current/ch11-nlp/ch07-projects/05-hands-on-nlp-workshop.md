@@ -432,30 +432,30 @@ def main() -> None:
         if not all(row["field_scores"].values()):
             failure_cases.append({"type": "information_extraction", "reason": "field mismatch", **row})
 
-    failure_lines = ["# Failure Cases", ""]
+    failure_lines = ["# 失败案例", ""]
     if not failure_cases:
-        failure_lines.append("No failure cases were triggered. Lower one threshold or add harder samples before using this as a portfolio report.")
+        failure_lines.append("没有触发失败案例。在把它作为作品集报告之前，请降低一个阈值或加入更难的样本。")
     for idx, item in enumerate(failure_cases, start=1):
-        failure_lines.append(f"## Case {idx}: {item['type']}")
-        failure_lines.append(f"- Reason: {item['reason']}")
+        failure_lines.append(f"## 案例 {idx}：{item['type']}")
+        failure_lines.append(f"- 原因：{item['reason']}")
         if "text" in item:
-            failure_lines.append(f"- Text: {item['text']}")
+            failure_lines.append(f"- 文本：{item['text']}")
         if "question" in item:
-            failure_lines.append(f"- Question: {item['question']}")
-        failure_lines.append(f"- Evidence: `{json.dumps(item, ensure_ascii=False)}`")
-        failure_lines.append("- Fix action: inspect task boundary, labels, source evidence, or threshold, then rerun the script.")
+            failure_lines.append(f"- 问题：{item['question']}")
+        failure_lines.append(f"- 证据：`{json.dumps(item, ensure_ascii=False)}`")
+        failure_lines.append("- 修复动作：检查任务边界、标签、来源证据或阈值，然后重新运行脚本。")
         failure_lines.append("")
     (REPORT_DIR / "failure_cases.md").write_text("\n".join(failure_lines), encoding="utf-8")
 
-    readme = f"""# NLP Workshop Run
+    readme = f"""# NLP 工作坊运行
 
-Run command:
+运行命令：
 
 ~~~bash
 python nlp_workshop.py
 ~~~
 
-Artifacts:
+产物：
 
 - data/train_texts.csv and data/test_texts.csv
 - outputs/classification_predictions.csv

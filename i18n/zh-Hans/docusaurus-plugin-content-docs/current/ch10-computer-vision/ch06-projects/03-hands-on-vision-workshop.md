@@ -371,9 +371,9 @@ def evaluate(samples: list[Sample], centroids: dict[str, np.ndarray]) -> dict[st
         writer.writeheader()
         writer.writerows(rows)
     with (REPORT_DIR / "failure_cases.md").open("w", encoding="utf-8") as handle:
-        handle.write("# Failure Cases\n\n")
+        handle.write("# 失败案例\n\n")
         if not failures:
-            handle.write("No failure case was triggered. Add harder real images before treating the project as reliable.\n")
+            handle.write("没有触发失败案例。在把项目视为可靠之前，请加入更难的真实图像。\n")
         for row in failures:
             handle.write(
                 f"- `{row['image']}`: true={row['label']}, pred={row['prediction']}, "

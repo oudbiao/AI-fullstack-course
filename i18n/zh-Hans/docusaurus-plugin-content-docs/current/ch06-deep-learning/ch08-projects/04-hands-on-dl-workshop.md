@@ -424,18 +424,18 @@ def write_text_reports(summary: dict, shape_trace: str) -> None:
     (RUN_DIR / "README.md").write_text(
         "\n".join(
             [
-                "# Deep Learning Workshop Evidence Pack",
+                "# 深度学习工作坊证据包",
                 "",
-                "Run command:",
+                "运行命令：",
                 "",
                 "```bash",
                 "python dl_workshop.py",
                 "```",
                 "",
-                f"Best model: {summary['best_model']}",
-                f"Test accuracy: {summary['test_accuracy']}",
+                f"最佳模型：{summary['best_model']}",
+                f"测试准确率：{summary['test_accuracy']}",
                 "",
-                "Evidence files:",
+                "证据文件：",
                 "- outputs/training_log.csv",
                 "- outputs/model_comparison.csv",
                 "- outputs/confusion_matrix.csv",

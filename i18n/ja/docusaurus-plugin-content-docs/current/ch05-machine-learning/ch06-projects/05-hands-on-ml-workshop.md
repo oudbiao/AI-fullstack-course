@@ -397,35 +397,35 @@ def main() -> None:
 
     write_markdown_report(
         REPORT_DIR / "leakage_check.md",
-        "Leakage Check",
+        "リーク確認",
         [
-            "- Split the data before fitting imputers, scalers, encoders, or models.",
-            "- Keep the target column out of the feature list.",
-            "- Put preprocessing inside ColumnTransformer and Pipeline.",
-            "- Use cross-validation on the training split, then check the test split once.",
+            "- 補完器、スケーラー、エンコーダー、モデルを fit する前にデータを分割する。",
+            "- 目的変数の列を特徴量リストに入れない。",
+            "- 前処理は ColumnTransformer と Pipeline の中に入れる。",
+            "- 学習側の分割で交差検証し、テスト分割は一度だけ確認する。",
         ],
     )
     write_markdown_report(
         REPORT_DIR / "experiment_log.md",
-        "Experiment Log",
+        "実験ログ",
         [
-            "| version | change | main result | next step |",
+            "| 版 | 変更 | 主な結果 | 次のステップ |",
             "|---|---|---|---|",
-            f"| v0 | Dummy baseline | f1={metrics[metrics['model'] == 'Dummy baseline'].iloc[0]['test_f1']} | Need a real model |",
-            f"| v1 | {best_name} with Pipeline | f1={metrics.iloc[0]['test_f1']} | Review threshold and errors |",
+            f"| v0 | Dummy baseline | f1={metrics[metrics['model'] == 'Dummy baseline'].iloc[0]['test_f1']} | 実モデルが必要 |",
+            f"| v1 | {best_name} + Pipeline | f1={metrics.iloc[0]['test_f1']} | しきい値とエラーを確認 |",
         ],
     )
 
     readme_lines = [
-        "# Machine Learning Workshop Evidence Pack",
+        "# 機械学習ワークショップ証拠パック",
         "",
-        "Run command:",
+        "実行コマンド：",
         "",
         "```bash",
         "python ml_workshop.py",
         "```",
         "",
-        "Generated files:",
+        "生成ファイル：",
         "- data/learning_tasks.csv",
         "- outputs/model_comparison.csv",
         "- outputs/best_model_metrics.json",

@@ -291,16 +291,16 @@ def build_storyboard(scenes: list[dict[str, object]]) -> list[dict[str, object]]
 def build_html_preview(brief: dict[str, object], scenes: list[dict[str, object]], review_rows: list[dict[str, object]]) -> str:
     cards = []
     for scene, review in zip(scenes, review_rows):
-        status = "PASS" if review["passed"] else "REVIEW"
+        status = "通过" if review["passed"] else "需复核"
         cards.append(f'''
 <section class="card">
   <img src="../assets/{scene['id']}.svg" alt="{html.escape(str(scene['title']))}">
   <h2>{html.escape(str(scene['title']))}</h2>
   <p>{html.escape(str(scene['copy']))}</p>
-  <p><strong>Review:</strong> {status} | contrast {review['contrast_ratio']}</p>
+  <p><strong>审核：</strong> {status} | 对比度 {review['contrast_ratio']}</p>
 </section>''')
     return f'''<!doctype html>
-<html lang="en">
+<html lang="zh-Hans">
 <head>
   <meta charset="utf-8">
   <title>{html.escape(str(brief['topic']))}</title>
@@ -363,30 +363,30 @@ def main() -> None:
         result = "PASS" if row["passed"] else "NEEDS REVIEW"
         safety_lines.append(f"| {row['scene_id']} | {row['source']} | {row['license']} | {row['contrast_ratio']} | {result} |")
     safety_lines.append("")
-    safety_lines.append("Export limits: course demo only; replace SVG baseline assets with reviewed model outputs before public release.")
+    safety_lines.append("导出限制：仅用于课程演示；公开发布前，请用经过复核的模型输出替换 SVG 基线素材。")
     (REPORT_DIR / "safety_review.md").write_text("\n".join(safety_lines), encoding="utf-8")
 
-    failure_lines = ["# Failure Cases", ""]
+    failure_lines = ["# 失败案例", ""]
     if not failure_cases:
-        failure_lines.append("No failure cases were triggered. Add a boundary sample before using this as a portfolio report.")
+        failure_lines.append("没有触发失败案例。在把它作为作品集报告之前，请加入边界样本。")
     for index, case in enumerate(failure_cases, start=1):
-        failure_lines.append(f"## Case {index}: {case['scene_id']}")
-        failure_lines.append(f"- Title: {case['title']}")
-        failure_lines.append(f"- Failures: {', '.join(case['failures'])}")
-        failure_lines.append(f"- Suspected cause: {case['suspected_cause']}")
-        failure_lines.append(f"- Fix action: {case['fix_action']}")
+        failure_lines.append(f"## 案例 {index}：{case['scene_id']}")
+        failure_lines.append(f"- 标题：{case['title']}")
+        failure_lines.append(f"- 失败项：{', '.join(case['failures'])}")
+        failure_lines.append(f"- 疑似原因：{case['suspected_cause']}")
+        failure_lines.append(f"- 修复动作：{case['fix_action']}")
         failure_lines.append("")
     (REPORT_DIR / "failure_cases.md").write_text("\n".join(failure_lines), encoding="utf-8")
 
-    readme = f"""# Multimodal Workshop Run
+    readme = f"""# 多模态工作坊运行
 
-Run command:
+运行命令：
 
 ~~~bash
 python multimodal_workshop.py
 ~~~
 
-Artifacts:
+产物：
 
 - inputs/creative_brief.json
 - prompts/prompt_plan.json and prompts/prompt_versions.md

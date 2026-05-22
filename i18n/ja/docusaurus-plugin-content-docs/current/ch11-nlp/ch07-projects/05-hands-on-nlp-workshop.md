@@ -432,30 +432,30 @@ def main() -> None:
         if not all(row["field_scores"].values()):
             failure_cases.append({"type": "information_extraction", "reason": "field mismatch", **row})
 
-    failure_lines = ["# Failure Cases", ""]
+    failure_lines = ["# 失敗ケース", ""]
     if not failure_cases:
-        failure_lines.append("No failure cases were triggered. Lower one threshold or add harder samples before using this as a portfolio report.")
+        failure_lines.append("失敗ケースは発生しませんでした。ポートフォリオ報告として使う前に、しきい値を一つ下げるか、より難しいサンプルを追加してください。")
     for idx, item in enumerate(failure_cases, start=1):
-        failure_lines.append(f"## Case {idx}: {item['type']}")
-        failure_lines.append(f"- Reason: {item['reason']}")
+        failure_lines.append(f"## ケース {idx}：{item['type']}")
+        failure_lines.append(f"- 理由：{item['reason']}")
         if "text" in item:
-            failure_lines.append(f"- Text: {item['text']}")
+            failure_lines.append(f"- テキスト：{item['text']}")
         if "question" in item:
-            failure_lines.append(f"- Question: {item['question']}")
-        failure_lines.append(f"- Evidence: `{json.dumps(item, ensure_ascii=False)}`")
-        failure_lines.append("- Fix action: inspect task boundary, labels, source evidence, or threshold, then rerun the script.")
+            failure_lines.append(f"- 質問：{item['question']}")
+        failure_lines.append(f"- 証拠：`{json.dumps(item, ensure_ascii=False)}`")
+        failure_lines.append("- 修正アクション：タスク境界、ラベル、根拠ソース、しきい値を確認し、スクリプトを再実行する。")
         failure_lines.append("")
     (REPORT_DIR / "failure_cases.md").write_text("\n".join(failure_lines), encoding="utf-8")
 
-    readme = f"""# NLP Workshop Run
+    readme = f"""# NLP ワークショップ実行
 
-Run command:
+実行コマンド：
 
 ~~~bash
 python nlp_workshop.py
 ~~~
 
-Artifacts:
+成果物：
 
 - data/train_texts.csv and data/test_texts.csv
 - outputs/classification_predictions.csv

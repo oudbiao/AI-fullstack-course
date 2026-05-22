@@ -546,13 +546,13 @@ X_train, X_test, y_train, y_test = train_test_split(
 model = DecisionTreeClassifier(random_state=42)
 model.fit(X_train, y_train)
 accuracy = model.score(X_test, y_test)
-print(f"Test accuracy: {accuracy:.3f}")
+print(f"テスト精度：{accuracy:.3f}")
 ```
 
 現在の sklearn では、期待される出力はおおよそ次のようになります。
 
 ```text
-Test accuracy: 0.944
+テスト精度：0.944
 ```
 
 sklearn のバージョンや分割設定が変わると、結果が少し変わることがあります。ここで大切なのは、データを読み込み、分割し、学習データだけで学習し、テストデータで評価する流れです。

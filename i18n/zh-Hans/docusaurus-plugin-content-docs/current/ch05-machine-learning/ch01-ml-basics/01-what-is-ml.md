@@ -546,13 +546,13 @@ X_train, X_test, y_train, y_test = train_test_split(
 model = DecisionTreeClassifier(random_state=42)
 model.fit(X_train, y_train)
 accuracy = model.score(X_test, y_test)
-print(f"Test accuracy: {accuracy:.3f}")
+print(f"测试准确率：{accuracy:.3f}")
 ```
 
 在当前 sklearn 版本上，预期输出约为：
 
 ```text
-Test accuracy: 0.944
+测试准确率：0.944
 ```
 
 如果 sklearn 版本或数据切分设置不同，结果可能有轻微变化。这里最重要的是流程：加载数据、划分数据、只在训练集训练、在测试集评估。

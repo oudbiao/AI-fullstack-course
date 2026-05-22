@@ -262,8 +262,8 @@ def write_svg_bar_chart(summary: list[dict[str, object]]) -> None:
     lines = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
         '<rect width="100%" height="100%" fill="#f8fafc"/>',
-        '<text x="32" y="48" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a">Study minutes by topic</text>',
-        '<text x="32" y="78" font-family="Arial, sans-serif" font-size="15" fill="#475569">Cleaned learning-log records, grouped by topic</text>',
+        '<text x="32" y="48" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a">トピック別の学習分数</text>',
+        '<text x="32" y="78" font-family="Arial, sans-serif" font-size="15" fill="#475569">クレンジング済み学習ログをトピック別に集計</text>',
     ]
     for index, item in enumerate(summary):
         y = 112 + index * 74
@@ -290,16 +290,16 @@ def write_report(summary: list[dict[str, object]], sql_rows: list[tuple[str, int
         for item in summary
     )
     sql_html = "\n".join(
-        f"<li><strong>{html.escape(topic)}</strong>: {minutes} minutes, average confidence {confidence}</li>"
+        f"<li><strong>{html.escape(topic)}</strong>：{minutes} 分、平均信頼度 {confidence}</li>"
         for topic, minutes, confidence in sql_rows
     )
     REPORT_HTML.write_text(
         f"""
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <title>Learning Log Analysis Report</title>
+  <title>学習ログ分析レポート</title>
   <style>
     body {{ font-family: Arial, sans-serif; max-width: 960px; margin: 32px auto; color: #0f172a; line-height: 1.6; }}
     .cards {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }}
@@ -310,24 +310,24 @@ def write_report(summary: list[dict[str, object]], sql_rows: list[tuple[str, int
   </style>
 </head>
 <body>
-  <h1>Learning Log Analysis Report</h1>
-  <p>This report was generated from a dirty CSV, then cleaned, summarized, queried with SQLite, and visualized.</p>
+  <h1>学習ログ分析レポート</h1>
+  <p>このレポートは、汚い CSV をクレンジングし、集計し、SQLite で問い合わせ、可視化して生成したものです。</p>
   <section class="cards">
-    <div class="card"><strong>Total minutes</strong><br>{total_minutes}</div>
-    <div class="card"><strong>Clean topics</strong><br>{len(summary)}</div>
-    <div class="card"><strong>Dropped rows</strong><br>{len(cleaning_log)}</div>
+    <div class="card"><strong>合計分数</strong><br>{total_minutes}</div>
+    <div class="card"><strong>クレンジング後のトピック数</strong><br>{len(summary)}</div>
+    <div class="card"><strong>除外行数</strong><br>{len(cleaning_log)}</div>
   </section>
-  <h2>Chart</h2>
-  <img src="topic_minutes.svg" alt="Study minutes by topic" />
-  <h2>Topic Summary</h2>
+  <h2>グラフ</h2>
+  <img src="topic_minutes.svg" alt="トピック別の学習分数" />
+  <h2>トピック集計</h2>
   <table>
-    <tr><th>Topic</th><th>Minutes</th><th>Sessions</th><th>Completion rate</th><th>Avg confidence</th></tr>
+    <tr><th>トピック</th><th>分数</th><th>セッション数</th><th>完了率</th><th>平均信頼度</th></tr>
     {rows_html}
   </table>
-  <h2>SQLite top topics</h2>
+  <h2>SQLite 上位トピック</h2>
   <ul>{sql_html}</ul>
-  <h2>Conclusion</h2>
-  <p>Python has the highest total study time. Visualization is also strong, but Pandas has lower confidence, so the next practice should focus on Pandas grouping and merging.</p>
+  <h2>結論</h2>
+  <p>Python の合計学習時間が最も多いです。Visualization も強い一方、Pandas は信頼度が低めなので、次の練習では Pandas のグループ化と結合に集中します。</p>
 </body>
 </html>
 """.strip(),
@@ -351,16 +351,16 @@ def main() -> None:
     completion_rate = completed_rows / len(clean_rows) * 100
     top_topic = summary[0]
 
-    print(f"Raw rows: {len(RAW_ROWS)}")
-    print(f"Clean rows: {len(clean_rows)}")
-    print(f"Dropped rows: {len(cleaning_log)}")
-    print(f"Total study minutes: {total_minutes}")
-    print(f"Completion rate: {completion_rate:.1f}%")
-    print(f"Top topic: {top_topic['topic']} ({top_topic['minutes']} min)")
-    print("\nTop 3 topics from SQLite:")
+    print(f"生データ行数: {len(RAW_ROWS)}")
+    print(f"クレンジング後の行数: {len(clean_rows)}")
+    print(f"除外行数: {len(cleaning_log)}")
+    print(f"合計学習分数: {total_minutes}")
+    print(f"完了率: {completion_rate:.1f}%")
+    print(f"最上位トピック: {top_topic['topic']} ({top_topic['minutes']} 分)")
+    print("\nSQLite の上位 3 トピック:")
     for topic, minutes, confidence in sql_rows:
-        print(f"- {topic}: {minutes} min, avg confidence {confidence}")
-    print("\nGenerated files:")
+        print(f"- {topic}: {minutes} 分、平均信頼度 {confidence}")
+    print("\n生成ファイル:")
     for path in [RAW_CSV, CLEAN_CSV, CLEANING_LOG, DATABASE, CHART_SVG, REPORT_HTML]:
         print(f"- {path.as_posix()}")
 
@@ -378,19 +378,19 @@ python3 learning_log_pipeline.py
 期待される出力：
 
 ```text
-Raw rows: 12
-Clean rows: 9
-Dropped rows: 3
-Total study minutes: 395
-Completion rate: 77.8%
-Top topic: Python (150 min)
+生データ行数: 12
+クレンジング後の行数: 9
+除外行数: 3
+合計学習分数: 395
+完了率: 77.8%
+最上位トピック: Python (150 分)
 
-Top 3 topics from SQLite:
-- Python: 150 min, avg confidence 0.87
-- Visualization: 115 min, avg confidence 0.83
-- Pandas: 70 min, avg confidence 0.6
+SQLite の上位 3 トピック:
+- Python: 150 分、平均信頼度 0.87
+- Visualization: 115 分、平均信頼度 0.83
+- Pandas: 70 分、平均信頼度 0.6
 
-Generated files:
+生成ファイル:
 - ch03_output/raw_learning_log.csv
 - ch03_output/clean_learning_log.csv
 - ch03_output/cleaning_log.json
