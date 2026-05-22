@@ -406,9 +406,9 @@ flowchart LR
 :::note[下一步怎么学最顺]
 看完这页后，最推荐直接接着学：
 
-1. [5.1.3 Scikit-learn 框架入门](./02-sklearn-intro.md)
-2. [5.2.2 线性回归](../ch02-supervised/01-linear-regression.md)
-3. [5.4.2 评估指标](../ch04-evaluation/01-metrics.md)
+1. [5.1.3 Scikit-learn 框架入门](/zh-cn/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro/)
+2. [5.2.2 线性回归](/zh-cn/ch05-machine-learning/ch02-supervised/01-linear-regression/)
+3. [5.4.2 评估指标](/zh-cn/ch05-machine-learning/ch04-evaluation/01-metrics/)
 
 这样你会最明显地感受到“数学真的开始在模型里工作了”。
 :::

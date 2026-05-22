@@ -50,11 +50,11 @@ Real tokenizers are smarter, but this shows the main idea: text must become stab
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [7.1.2 Tokenizer](./01-tokenizer.md) | text -> tokens -> IDs |
-| 2 | [7.1.3 Embeddings](./02-embeddings.md) | tokens/text -> vectors |
-| 3 | [7.1.4 Pretrained Models](./03-pretrained-models.md) | load and reuse model capability |
-| 4 | [7.1.5 Hugging Face Quickstart](./04-huggingface-quickstart.md) | pipeline, model card, local run |
-| 5 | [7.1.6 Tokenizer and Embedding Lab](./05-tokenizer-embedding-lab.md) | inspect tokens and vectors |
+| 1 | [7.1.2 Tokenizer](/ch07-llm-principles/ch01-nlp-crash/01-tokenizer/) | text -> tokens -> IDs |
+| 2 | [7.1.3 Embeddings](/ch07-llm-principles/ch01-nlp-crash/02-embeddings/) | tokens/text -> vectors |
+| 3 | [7.1.4 Pretrained Models](/ch07-llm-principles/ch01-nlp-crash/03-pretrained-models/) | load and reuse model capability |
+| 4 | [7.1.5 Hugging Face Quickstart](/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart/) | pipeline, model card, local run |
+| 5 | [7.1.6 Tokenizer and Embedding Lab](/ch07-llm-principles/ch01-nlp-crash/05-tokenizer-embedding-lab/) | inspect tokens and vectors |
 
 ## Evidence to Keep
 

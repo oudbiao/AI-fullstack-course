@@ -63,7 +63,7 @@ fine_tune_now: False
 | 4 | 选择下一种方法 | Prompt 迭代、RAG 或微调决策说明 |
 | 5 | 打包结果 | README、运行命令、截图、失败案例、下一步 |
 
-如果想先跟着做，可以先运行 [7.8.4 实操：完整第 7 章工作坊](./03-stage-hands-on-workshop.md)，再设计自己的领域项目。
+如果想先跟着做，可以先运行 [7.8.4 实操：完整第 7 章工作坊](/zh-cn/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/)，再设计自己的领域项目。
 
 ## 决策规则：先命名失败，再选择方法
 

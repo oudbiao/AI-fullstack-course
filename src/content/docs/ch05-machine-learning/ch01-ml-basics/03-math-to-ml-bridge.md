@@ -406,9 +406,9 @@ So the most important gains from this section should be:
 :::note[The smoothest way to learn next]
 After reading this page, the best next steps are:
 
-1. [5.1.3 Introduction to the Scikit-learn Framework](./02-sklearn-intro.md)
-2. [5.2.2 Linear Regression](../ch02-supervised/01-linear-regression.md)
-3. [5.4.2 Evaluation Metrics](../ch04-evaluation/01-metrics.md)
+1. [5.1.3 Introduction to the Scikit-learn Framework](/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro/)
+2. [5.2.2 Linear Regression](/ch05-machine-learning/ch02-supervised/01-linear-regression/)
+3. [5.4.2 Evaluation Metrics](/ch05-machine-learning/ch04-evaluation/01-metrics/)
 
 This is the easiest way to feel that “math has really started working inside the model.”
 :::

@@ -59,10 +59,10 @@ This is not a full architecture decision. It is the habit: choose the smallest r
 
 | Order | Read | What to keep |
 |---|---|---|
-| 1 | [7.2.2 Development History](./01-development-history.md) | why scaling and instruction tuning mattered |
-| 2 | [7.2.3 Core Concepts](./02-core-concepts.md) | context, tokens, temperature, latency, cost |
-| 3 | [7.2.4 Industry Landscape](./03-industry-landscape.md) | model/provider selection notes |
-| 4 | [7.2.5 LLM Call Workbench](./04-llm-call-workbench.md) | one request/response record |
+| 1 | [7.2.2 Development History](/ch07-llm-principles/ch02-llm-overview/01-development-history/) | why scaling and instruction tuning mattered |
+| 2 | [7.2.3 Core Concepts](/ch07-llm-principles/ch02-llm-overview/02-core-concepts/) | context, tokens, temperature, latency, cost |
+| 3 | [7.2.4 Industry Landscape](/ch07-llm-principles/ch02-llm-overview/03-industry-landscape/) | model/provider selection notes |
+| 4 | [7.2.5 LLM Call Workbench](/ch07-llm-principles/ch02-llm-overview/04-llm-call-workbench/) | one request/response record |
 
 ## Evidence to Keep
 

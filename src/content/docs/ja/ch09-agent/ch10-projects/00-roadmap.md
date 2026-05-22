@@ -64,7 +64,7 @@ evidence: goal, trace, tools, failure, eval
 | 3 | Multi-Agent 開発チーム | 役割分担、handoff、レビューループ、merge 所有権 |
 | 4 | ハンズオンワークショップ | 最小の追跡可能な単一 Agent ベースライン |
 
-プロジェクトを広げる前に、[9.10.5 実践：追跡可能な単一 Agent アシスタントを作る](./04-stage-hands-on-workshop.md) を実行します。
+プロジェクトを広げる前に、[9.10.5 実践：追跡可能な単一 Agent アシスタントを作る](/ja/ch09-agent/ch10-projects/04-stage-hands-on-workshop/) を実行します。
 
 ## 残す証拠
 

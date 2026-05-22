@@ -555,7 +555,7 @@ After reading this section, the most valuable questions to bring to the next one
 
 These questions will naturally lead you to:
 
-- [4.2.5 Basics of Information Theory](./04-information-theory.md)
+- [4.2.5 Basics of Information Theory](/ch04-ai-math/ch02-probability/04-information-theory/)
 
 ```mermaid
 flowchart LR

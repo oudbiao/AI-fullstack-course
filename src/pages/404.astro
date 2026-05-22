@@ -4,6 +4,8 @@ const languageLinks = [
   { href: "/zh-cn/", label: "简体中文" },
   { href: "/ja/", label: "日本語" },
 ];
+
+const canonical = new URL("/404.html", Astro.site ?? "https://airoads.org").href;
 ---
 
 <!doctype html>
@@ -12,6 +14,7 @@ const languageLinks = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
+    <link rel="canonical" href={canonical} />
     <title>Page not found | AI Roads</title>
     <style>
       :root {

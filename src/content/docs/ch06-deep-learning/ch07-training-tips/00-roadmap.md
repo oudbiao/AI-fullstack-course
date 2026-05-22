@@ -68,9 +68,9 @@ The point is to make training changes reversible. If you change five things and 
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [6.7.2 Hyperparameter Tuning](./01-hyperparameter-tuning.md) | learning rate, batch size, optimizer |
-| 2 | [6.7.3 Training Diagnosis](./02-training-diagnosis.md) | loss curves, overfitting, instability |
-| 3 | [6.7.4 Model Compression](./03-model-compression.md) | smaller, faster, deployable models |
+| 1 | [6.7.2 Hyperparameter Tuning](/ch06-deep-learning/ch07-training-tips/01-hyperparameter-tuning/) | learning rate, batch size, optimizer |
+| 2 | [6.7.3 Training Diagnosis](/ch06-deep-learning/ch07-training-tips/02-training-diagnosis/) | loss curves, overfitting, instability |
+| 3 | [6.7.4 Model Compression](/ch06-deep-learning/ch07-training-tips/03-model-compression/) | smaller, faster, deployable models |
 
 ## Pass Check
 

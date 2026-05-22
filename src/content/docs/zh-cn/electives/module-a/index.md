@@ -58,17 +58,17 @@ score=2.1
 
 | 步骤 | 课程 | 练习产物 |
 |---|---|---|
-| 1 | [E.A.1 C++ 基础](./01-cpp-basics.md) | 编译并运行一个小推理辅助程序 |
-| 2 | [E.A.2 C++ 进阶](./02-cpp-advanced.md) | 解释 ownership、RAII 和安全释放资源 |
-| 3 | [E.A.3 模型优化](./03-model-optimization.md) | 比较延迟、内存和精度取舍 |
-| 4 | [E.A.4 推理引擎](./04-inference-engines.md) | 根据硬件和模型格式选择引擎 |
-| 5 | [E.A.5 边缘部署](./05-edge-deployment.md) | 说出边缘约束并导出检查表 |
-| 6 | [E.A.6 模型服务化](./06-model-serving.md) | 设计带版本和指标的服务 |
-| 7 | [E.A.7 项目](./07-projects.md) | 交付一个小型部署证据包 |
+| 1 | [E.A.1 C++ 基础](/zh-cn/electives/module-a/01-cpp-basics/) | 编译并运行一个小推理辅助程序 |
+| 2 | [E.A.2 C++ 进阶](/zh-cn/electives/module-a/02-cpp-advanced/) | 解释 ownership、RAII 和安全释放资源 |
+| 3 | [E.A.3 模型优化](/zh-cn/electives/module-a/03-model-optimization/) | 比较延迟、内存和精度取舍 |
+| 4 | [E.A.4 推理引擎](/zh-cn/electives/module-a/04-inference-engines/) | 根据硬件和模型格式选择引擎 |
+| 5 | [E.A.5 边缘部署](/zh-cn/electives/module-a/05-edge-deployment/) | 说出边缘约束并导出检查表 |
+| 6 | [E.A.6 模型服务化](/zh-cn/electives/module-a/06-model-serving/) | 设计带版本和指标的服务 |
+| 7 | [E.A.7 项目](/zh-cn/electives/module-a/07-projects/) | 交付一个小型部署证据包 |
 
 ## 通过标准
 
-你能编译一个 C++ 示例，解释部署取舍，记录延迟或内存证据，并把结果接到 [选修实操工作坊](../hands-on-elective-workshop.md)，就算通过本模块。
+你能编译一个 C++ 示例，解释部署取舍，记录延迟或内存证据，并把结果接到 [选修实操工作坊](/zh-cn/electives/hands-on-elective-workshop/)，就算通过本模块。
 
 ## 留下的证据
 

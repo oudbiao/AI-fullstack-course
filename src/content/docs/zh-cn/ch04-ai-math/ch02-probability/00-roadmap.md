@@ -61,11 +61,11 @@ predicted_probs: [0.9, 0.2, 0.6, 0.8]
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
-| 1 | [4.2.2 概率基础](./01-probability-basics.md) | 事件、条件概率、贝叶斯更新 |
-| 2 | [4.2.3 概率分布](./02-distributions.md) | 伯努利、二项、正态分布 |
-| 3 | [4.2.4 统计推断](./03-statistical-inference.md) | MLE、MAP、置信度、A/B 测试 |
-| 4 | [4.2.5 信息论](./04-information-theory.md) | 熵、交叉熵、KL 散度 |
-| 5 | [4.2.6 历史基础](./05-history-foundations.md) | 贝叶斯、Fisher、Shannon、EM 的位置 |
+| 1 | [4.2.2 概率基础](/zh-cn/ch04-ai-math/ch02-probability/01-probability-basics/) | 事件、条件概率、贝叶斯更新 |
+| 2 | [4.2.3 概率分布](/zh-cn/ch04-ai-math/ch02-probability/02-distributions/) | 伯努利、二项、正态分布 |
+| 3 | [4.2.4 统计推断](/zh-cn/ch04-ai-math/ch02-probability/03-statistical-inference/) | MLE、MAP、置信度、A/B 测试 |
+| 4 | [4.2.5 信息论](/zh-cn/ch04-ai-math/ch02-probability/04-information-theory/) | 熵、交叉熵、KL 散度 |
+| 5 | [4.2.6 历史基础](/zh-cn/ch04-ai-math/ch02-probability/05-history-foundations/) | 贝叶斯、Fisher、Shannon、EM 的位置 |
 
 ## 通过标准
 

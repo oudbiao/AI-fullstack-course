@@ -45,10 +45,10 @@ This is the smallest async habit: launch independent work, wait for all results,
 
 | Step | Lesson | Practice Output |
 |---|---|---|
-| 1 | [E.B.1 Decorators](./01-decorators-advanced.md) | Add timing or logging without changing business code |
-| 2 | [E.B.2 Iterators and Generators](./02-iterators-advanced.md) | Stream rows without loading everything at once |
-| 3 | [E.B.3 Concurrency](./03-concurrency.md) | Run async tasks with timeout and cancellation thinking |
-| 4 | [E.B.4 Metaprogramming](./04-metaprogramming.md) | Register tools or handlers explicitly |
+| 1 | [E.B.1 Decorators](/electives/module-b/01-decorators-advanced/) | Add timing or logging without changing business code |
+| 2 | [E.B.2 Iterators and Generators](/electives/module-b/02-iterators-advanced/) | Stream rows without loading everything at once |
+| 3 | [E.B.3 Concurrency](/electives/module-b/03-concurrency/) | Run async tasks with timeout and cancellation thinking |
+| 4 | [E.B.4 Metaprogramming](/electives/module-b/04-metaprogramming/) | Register tools or handlers explicitly |
 
 ## Evidence to Keep
 

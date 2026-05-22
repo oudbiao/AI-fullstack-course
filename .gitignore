@@ -9,9 +9,12 @@ node_modules/
 # Production
 /build
 /dist
+/.astro
 
-# Docusaurus
+# Generated site caches
 .docusaurus/
+.cache/
+.eslintcache
 
 # Misc
 *.pem
@@ -52,9 +55,20 @@ lerna-debug.log*
 .Trashes
 ehthumbs.db
 
-# Cache
-.cache/
-.eslintcache
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local agent/tooling state
+.codex/
+.claude/
+
+# Temporary generated assets and local QA workspaces
+/tmp/
+reports/course-images/**/generation-errors.json
+reports/course-images/**/localized-generation-progress.jsonl
+reports/course-images/**/manifest.md
 
 # Yarn
 .yarn/cache

@@ -605,8 +605,8 @@ print("\n重构误差:", round(np.linalg.norm(M - Mk), 4))
 
 最适合接着看的通常是：
 
-- [5 第 5 站首页](../../ch05-machine-learning/index.md)
-- [5.1.6 数学如何真正流到机器学习](../../ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md)
+- [5 第 5 站首页](/zh-cn/ch05-machine-learning/)
+- [5.1.6 数学如何真正流到机器学习](/zh-cn/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge/)
 
 ## 如果你现在觉得这节还是偏抽象，最值的抓手是什么？
 

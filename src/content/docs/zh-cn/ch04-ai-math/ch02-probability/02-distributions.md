@@ -458,7 +458,7 @@ plt.show()
 
 这几个问题，正好会把你自然带到：
 
-- [4.2.4 统计推断基础](./03-statistical-inference.md)
+- [4.2.4 统计推断基础](/zh-cn/ch04-ai-math/ch02-probability/03-statistical-inference/)
 
 :::note[连接后续]
 - **下一节**：统计推断——从数据推断分布的参数

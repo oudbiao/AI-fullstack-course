@@ -72,11 +72,11 @@ first_prediction: 137.9
 
 | 順番 | 読む | 比較すること |
 |---|---|---|
-| 1 | [5.2.2 線形回帰](./01-linear-regression.md) | シンプルな数値予測 |
-| 2 | [5.2.3 ロジスティック回帰](./02-logistic-regression.md) | 分類確率 |
-| 3 | [5.2.4 決定木](./03-decision-trees.md) | ルール、非線形、過学習 |
-| 4 | [5.2.5 アンサンブル学習](./04-ensemble-learning.md) | bagging、boosting、強い表データモデル |
-| 5 | [5.2.6 サポートベクターマシン](./05-svm.md) | マージン、境界、古典的分類器の直感 |
+| 1 | [5.2.2 線形回帰](/ja/ch05-machine-learning/ch02-supervised/01-linear-regression/) | シンプルな数値予測 |
+| 2 | [5.2.3 ロジスティック回帰](/ja/ch05-machine-learning/ch02-supervised/02-logistic-regression/) | 分類確率 |
+| 3 | [5.2.4 決定木](/ja/ch05-machine-learning/ch02-supervised/03-decision-trees/) | ルール、非線形、過学習 |
+| 4 | [5.2.5 アンサンブル学習](/ja/ch05-machine-learning/ch02-supervised/04-ensemble-learning/) | bagging、boosting、強い表データモデル |
+| 5 | [5.2.6 サポートベクターマシン](/ja/ch05-machine-learning/ch02-supervised/05-svm/) | マージン、境界、古典的分類器の直感 |
 
 ## 合格ライン
 

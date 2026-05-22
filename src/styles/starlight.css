@@ -229,7 +229,7 @@ body {
 
 .course-button--primary {
   background: var(--sl-color-accent);
-  color: #ffffff;
+  color: var(--sl-color-text-invert);
 }
 
 .course-button--secondary {

@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "RAG checklist, LLM application checklist, vector retrieval, RAG evaluation, large model engineering"
 ---
-Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 8 entry page](./index.md).
+Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 8 entry page](/ch08-rag/).
 
 ![RAG portfolio evidence pack](/img/course/ch08-rag-evidence-pack-en.webp)
 
@@ -32,7 +32,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `eval_questions.csv` | at least 10 fixed questions with expected source or answer points |
 | `failure_cases.md` | at least three failures labeled as document, chunking, retrieval, generation, citation, or deploy |
 | `rag_config.md` | chunk size, overlap, top-k, rerank choice, prompt version |
-| `rag_app_workshop_output.txt` | output from [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md) |
+| `rag_app_workshop_output.txt` | output from [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) |
 | `README.md` | run command, sample question, cited answer, evaluation result, next fix |
 
 ## Evidence to Keep

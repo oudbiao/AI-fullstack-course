@@ -709,7 +709,7 @@ After reading about matrices, the most valuable questions to bring forward are:
 
 These questions will naturally lead you to:
 
-- [4.1.4 Eigenvalues and Eigenvectors](./03-eigenvalues.md)
+- [4.1.4 Eigenvalues and Eigenvectors](/ch04-ai-math/ch01-linear-algebra/03-eigenvalues/)
 
 :::note[Connecting to later topics]
 - **Next section**: Eigenvalues and eigenvectors — special vectors that “do not change direction” under matrix transformation

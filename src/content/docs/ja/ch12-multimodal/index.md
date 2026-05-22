@@ -39,7 +39,7 @@ head:
 | 12.2 | 画像生成 | Prompt、reference、negative requirements、selected output を記録 | Prompt 版とレビュー記録 |
 | 12.3 | 動画、音声、デジタルヒューマン | storyboard、voice、shot、subtitle、timing を理解 | storyboard と asset list |
 | 12.4 | 倫理とコンプライアンス | copyright、portrait rights、sensitive content、factual risk を確認 | safety review checklist |
-| 12.5 | ステージプロジェクト | [12.5.3 実践：再現可能なマルチモーダル創作パッケージを作る](./ch05-projects/02-hands-on-multimodal-workshop.md) を動かす | brief、Prompt、assets、storyboard、review、export preview |
+| 12.5 | ステージプロジェクト | [12.5.3 実践：再現可能なマルチモーダル創作パッケージを作る](/ja/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/) を動かす | brief、Prompt、assets、storyboard、review、export preview |
 
 ## 最初に動かすループ：視覚入力を構造化する
 
@@ -139,4 +139,4 @@ rag_ready: True
 - マルチモーダル記録を RAG、Agent、または creative package に接続できる。
 - マルチモーダルワークショップを動かし、README、review checklist、export preview、failure cases を残せる。
 
-印刷用チェックリストは [12.0 学習チェックリスト](./study-guide.md) を使ってください。卒業プロジェクトから始めたい場合は [12.5.3 実践：再現可能なマルチモーダル創作パッケージを作る](./ch05-projects/02-hands-on-multimodal-workshop.md) へ進みます。
+印刷用チェックリストは [12.0 学習チェックリスト](/ja/ch12-multimodal/study-guide/) を使ってください。卒業プロジェクトから始めたい場合は [12.5.3 実践：再現可能なマルチモーダル創作パッケージを作る](/ja/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/) へ進みます。

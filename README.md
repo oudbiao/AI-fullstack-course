@@ -12,13 +12,29 @@ The website defaults to English. Learners can switch to Simplified Chinese or Ja
 
 This repository powers the AI Roads learning website. It is designed for beginners who want a practical, project-driven path into modern AI engineering rather than a scattered list of articles.
 
+The site is now built with Astro Starlight as a static documentation experience. Starlight handles the docs shell, search, sidebar, table of contents, multilingual routes, sitemap output, and dark/light theme behavior, while this repository owns the course content, visual assets, branding, validation scripts, and deployment glue.
+
 The course combines:
 
 - Step-by-step lessons for new learners.
 - Visual explanations, diagrams, and comics for difficult concepts.
 - Project checkpoints that turn knowledge into portfolio work.
 - Internationalized content for English, Simplified Chinese, and Japanese.
+- A homepage overview that invites learners to follow airoads.org, with a future study group considered if enough learners gather.
 - Deployment, validation, sitemap, and maintenance scripts for a production learning site.
+
+## Website Stack
+
+| Layer | Current choice |
+|---|---|
+| Static site framework | Astro 6 |
+| Documentation UI | Astro Starlight |
+| Content format | Markdown / MDX-compatible Starlight docs |
+| Search index | Starlight Pagefind integration |
+| Locales | English root, Simplified Chinese `/zh-cn/`, Japanese `/ja/` |
+| Production domain | `https://airoads.org` |
+| Social preview image | `public/img/social-card.png` |
+| Favicon | `public/img/favicon.svg` and `public/img/favicon.png` |
 
 ## Course Path
 
@@ -97,12 +113,33 @@ The course includes many static diagrams, comics, and localized images under `pu
 
 README intentionally stays mostly text-based so it remains fast to load, easy to maintain, and easy to read in package managers, GitHub previews, and terminals. Course visuals belong in the website pages where they can support the lesson context directly.
 
+## Brand Assets
+
+AI Roads uses a minimal AI learning road mark for the site logo, favicon, and social sharing card.
+
+| Asset | Path | Notes |
+|---|---|---|
+| Header logo source | `src/assets/logo.svg` | Imported by Starlight from `astro.config.mjs` |
+| Public logo | `public/img/logo.svg` | Reusable public SVG mark |
+| Social card | `public/img/social-card.png` | 1200 x 630 PNG for Open Graph and Twitter previews |
+| Favicon SVG | `public/img/favicon.svg` | Primary browser favicon |
+| Favicon PNG | `public/img/favicon.png` | 32 x 32 fallback favicon |
+
+Regenerate brand image assets after changing the brand design:
+
+```bash
+node scripts/generate_brand_assets.mjs
+```
+
+After regenerating, run `npm run build` and confirm the generated HTML still points at `https://airoads.org/img/social-card.png`.
+
 ## Repository Structure
 
 | Path | Purpose |
 |---|---|
 | `src/content/docs/` | Starlight course content, including English root docs and localized `zh-cn` / `ja` docs |
 | `public/img/course/` | Course diagrams, comics, and localized images |
+| `public/img/logo.svg`, `public/img/social-card.png`, `public/img/favicon.*` | AI Roads brand and sharing assets |
 | `src/styles/starlight.css` | Site-level style customizations |
 | `astro.config.mjs` | Astro Starlight configuration, locales, sidebar, sitemap, and metadata |
 | `scripts/` | Validation, sitemap, image-generation, and maintenance scripts |
@@ -112,6 +149,8 @@ README intentionally stays mostly text-based so it remains fast to load, easy to
 Folder names such as `ch01-tools/` and `ch12-multimodal/` are maintenance paths. Learners should follow the public numbering shown in the sidebar: `0` for start-here pages, `1-12` for the main course, `E` for electives, and `A` for appendix pages.
 
 ## Local Development
+
+Use Node.js 18 or newer.
 
 Install dependencies:
 
@@ -131,10 +170,22 @@ Build the full static site:
 npm run build
 ```
 
-Validate course structure and internal links:
+Validate course structure, internal links, sitemap filtering, and generated HTML cleanup:
 
 ```bash
 npm run validate:docs
+```
+
+Normalize Starlight doc links after moving or renaming Markdown pages:
+
+```bash
+npm run links:starlight
+```
+
+Run the generated-site QA audit against `dist/`:
+
+```bash
+npm run qa:dist
 ```
 
 Serve the generated build:
@@ -143,11 +194,25 @@ Serve the generated build:
 npm run serve
 ```
 
+Clean generated Astro output:
+
+```bash
+npm run clean
+```
+
 ## Deployment
 
 The deployment flow builds a new image while the old container keeps serving traffic. It then runs a preflight check against the new image and only replaces the production container after the new build is ready. This reduces downtime compared with stopping the old container before compilation.
 
-The production build also removes legacy `/zh-Hans/` redirect URLs from the sitemap and strips unexpected NUL bytes from generated HTML. English, Simplified Chinese, and Japanese pages are generated together from Astro Starlight.
+The production build also removes legacy `/zh-Hans/` redirect URLs from the sitemap, strips unexpected NUL bytes from generated HTML, and runs `scripts/qa_generated_site.mjs`. That generated-site QA checks page title / H1 shape, canonical URLs, locale alternates, local asset references, image alt text, sitemap hygiene, old-domain residue, Docusaurus residue, and homepage social preview metadata. English, Simplified Chinese, and Japanese pages are generated together from Astro Starlight.
+
+Before publishing a site change, run:
+
+```bash
+npm run build
+```
+
+For branding or metadata changes, also inspect the generated homepage HTML for canonical URLs, favicons, and social preview metadata.
 
 ## License
 

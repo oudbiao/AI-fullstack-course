@@ -73,11 +73,11 @@ predicted_probs: [0.9, 0.2, 0.6, 0.8]
 
 | 順番 | 読む | まず見ること |
 |---|---|---|
-| 1 | [4.2.2 確率基礎](./01-probability-basics.md) | 事象、条件付き確率、ベイズ更新 |
-| 2 | [4.2.3 確率分布](./02-distributions.md) | ベルヌーイ、二項、正規分布 |
-| 3 | [4.2.4 統計的推論](./03-statistical-inference.md) | MLE、MAP、信頼度、A/B テスト |
-| 4 | [4.2.5 情報理論](./04-information-theory.md) | エントロピー、交差エントロピー、KL ダイバージェンス |
-| 5 | [4.2.6 歴史的基礎](./05-history-foundations.md) | Bayes、Fisher、Shannon、EM の位置づけ |
+| 1 | [4.2.2 確率基礎](/ja/ch04-ai-math/ch02-probability/01-probability-basics/) | 事象、条件付き確率、ベイズ更新 |
+| 2 | [4.2.3 確率分布](/ja/ch04-ai-math/ch02-probability/02-distributions/) | ベルヌーイ、二項、正規分布 |
+| 3 | [4.2.4 統計的推論](/ja/ch04-ai-math/ch02-probability/03-statistical-inference/) | MLE、MAP、信頼度、A/B テスト |
+| 4 | [4.2.5 情報理論](/ja/ch04-ai-math/ch02-probability/04-information-theory/) | エントロピー、交差エントロピー、KL ダイバージェンス |
+| 5 | [4.2.6 歴史的基礎](/ja/ch04-ai-math/ch02-probability/05-history-foundations/) | Bayes、Fisher、Shannon、EM の位置づけ |
 
 ## 合格ライン
 

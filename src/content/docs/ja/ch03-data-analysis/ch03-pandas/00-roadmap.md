@@ -75,14 +75,14 @@ print(summary)
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [3.3.2 コアデータ構造](./01-core-structures.md) | `Series`、`DataFrame`、`Index` |
-| 2 | [3.3.3 データの読み書き](./02-read-write.md) | CSV、Excel、JSON、出力 |
-| 3 | [3.3.4 選択とフィルタリング](./03-selection-filter.md) | `loc`、`iloc`、条件抽出 |
-| 4 | [3.3.5 データクリーニング](./04-data-cleaning.md) | 欠損値、重複、型 |
-| 5 | [3.3.6 データ変換](./05-data-transform.md) | 新しい列、マッピング、文字列/日付処理 |
-| 6 | [3.3.7 グループ化と集計](./06-groupby.md) | `groupby`、指標、カテゴリ/月別集計 |
-| 7 | [3.3.8 データ結合](./07-merge.md) | 複数テーブルを安全に結合する |
-| 8 | [3.3.9 時系列](./08-time-series.md) | 日付インデックス、リサンプリング、時間窓 |
+| 1 | [3.3.2 コアデータ構造](/ja/ch03-data-analysis/ch03-pandas/01-core-structures/) | `Series`、`DataFrame`、`Index` |
+| 2 | [3.3.3 データの読み書き](/ja/ch03-data-analysis/ch03-pandas/02-read-write/) | CSV、Excel、JSON、出力 |
+| 3 | [3.3.4 選択とフィルタリング](/ja/ch03-data-analysis/ch03-pandas/03-selection-filter/) | `loc`、`iloc`、条件抽出 |
+| 4 | [3.3.5 データクリーニング](/ja/ch03-data-analysis/ch03-pandas/04-data-cleaning/) | 欠損値、重複、型 |
+| 5 | [3.3.6 データ変換](/ja/ch03-data-analysis/ch03-pandas/05-data-transform/) | 新しい列、マッピング、文字列/日付処理 |
+| 6 | [3.3.7 グループ化と集計](/ja/ch03-data-analysis/ch03-pandas/06-groupby/) | `groupby`、指標、カテゴリ/月別集計 |
+| 7 | [3.3.8 データ結合](/ja/ch03-data-analysis/ch03-pandas/07-merge/) | 複数テーブルを安全に結合する |
+| 8 | [3.3.9 時系列](/ja/ch03-data-analysis/ch03-pandas/08-time-series/) | 日付インデックス、リサンプリング、時間窓 |
 
 ## 合格ライン
 

@@ -39,7 +39,7 @@ head:
 | 10.3 | 物体検出 | box、confidence、IoU、mAP、YOLO を理解 | 予測 box と閾値メモ |
 | 10.4 | セグメンテーション | mask とピクセル単位ラベルを理解 | mask 可視化と IoU/Dice メモ |
 | 10.5 | 応用トピック | 必要なときだけ OCR、動画、顔、3D、医療方向を選ぶ | 方向メモとシナリオ境界 |
-| 10.6 | ステージプロジェクト | [10.6.4 実践：再現可能なビジョンミニパイプラインを作る](./ch06-projects/03-hands-on-vision-workshop.md) を動かす | 生成画像、mask、box、指標、失敗レポート |
+| 10.6 | ステージプロジェクト | [10.6.4 実践：再現可能なビジョンミニパイプラインを作る](/ja/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/) を動かす | 生成画像、mask、box、指標、失敗レポート |
 
 ## 最初に動かすループ：依存なしでピクセルを見る
 
@@ -145,4 +145,4 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 - accuracy/F1、mAP、IoU、Dice など適切な指標を選べる。
 - 再現可能なビジョンミニパイプラインを動かし、短い失敗分析を書ける。
 
-印刷用チェックリストは [10.0 学習チェックリスト](./study-guide.md) を使ってください。プロジェクトから始めたい場合は [10.6.4 実践：再現可能なビジョンミニパイプラインを作る](./ch06-projects/03-hands-on-vision-workshop.md) へ進みます。
+印刷用チェックリストは [10.0 学習チェックリスト](/ja/ch10-computer-vision/study-guide/) を使ってください。プロジェクトから始めたい場合は [10.6.4 実践：再現可能なビジョンミニパイプラインを作る](/ja/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/) へ進みます。

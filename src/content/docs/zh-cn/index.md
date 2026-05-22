@@ -45,6 +45,10 @@ head:
   </section>
 </div>
 
+::::note[请关注 AI Roads]
+请持续关注 airoads.org，课程会继续更新和优化。如果关注和学习的人足够多，后续会考虑创建交流群，方便大家一起学习、提问和推进项目。
+::::
+
 ## 选择你的第一步
 
 <div class="course-path-grid">

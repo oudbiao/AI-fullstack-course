@@ -68,10 +68,10 @@ all_scores: [89.8 75.6 91.8]
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
-| 1 | [4.1.2 向量](./01-vectors.md) | 对象 -> 向量、长度、点积、余弦相似度 |
-| 2 | [4.1.3 矩阵](./02-matrices.md) | 批量数据、矩阵乘法、`X @ W + b` |
-| 3 | [4.1.4 特征值与特征向量](./03-eigenvalues.md) | 特殊方向、PCA 直觉 |
-| 4 | [4.1.5 向量空间](./04-vector-spaces.md) | 基、维度、线性变换 |
+| 1 | [4.1.2 向量](/zh-cn/ch04-ai-math/ch01-linear-algebra/01-vectors/) | 对象 -> 向量、长度、点积、余弦相似度 |
+| 2 | [4.1.3 矩阵](/zh-cn/ch04-ai-math/ch01-linear-algebra/02-matrices/) | 批量数据、矩阵乘法、`X @ W + b` |
+| 3 | [4.1.4 特征值与特征向量](/zh-cn/ch04-ai-math/ch01-linear-algebra/03-eigenvalues/) | 特殊方向、PCA 直觉 |
+| 4 | [4.1.5 向量空间](/zh-cn/ch04-ai-math/ch01-linear-algebra/04-vector-spaces/) | 基、维度、线性变换 |
 
 ## 通过标准
 

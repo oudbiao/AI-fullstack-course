@@ -403,7 +403,7 @@ for direction in ["wrong", "right"]:
 
 最适合接着看的通常是：
 
-- [4.3.4 梯度下降](./03-gradient-descent.md)
+- [4.3.4 梯度下降](/zh-cn/ch04-ai-math/ch03-calculus/03-gradient-descent/)
 
 :::note[连接后续]
 - **下一节**：梯度下降——沿负梯度方向一步步走，找到损失函数的最低点

@@ -60,10 +60,10 @@ tool 80
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [3.5.2 关系型数据库基础](./01-relational-db.md) | 表、行、列、主键、外键 |
-| 2 | [3.5.3 SQL 基础](./02-sql-basics.md) | `SELECT`、`WHERE`、`JOIN`、`GROUP BY` |
-| 3 | [3.5.4 Python 数据库操作](./03-python-db.md) | `sqlite3`、Pandas 读写、查询结果 |
-| 4 | [3.5.5 数据库设计](./04-db-design.md) | 拆表、减少重复、保持关系清晰 |
+| 1 | [3.5.2 关系型数据库基础](/zh-cn/ch03-data-analysis/ch05-database/01-relational-db/) | 表、行、列、主键、外键 |
+| 2 | [3.5.3 SQL 基础](/zh-cn/ch03-data-analysis/ch05-database/02-sql-basics/) | `SELECT`、`WHERE`、`JOIN`、`GROUP BY` |
+| 3 | [3.5.4 Python 数据库操作](/zh-cn/ch03-data-analysis/ch05-database/03-python-db/) | `sqlite3`、Pandas 读写、查询结果 |
+| 4 | [3.5.5 数据库设计](/zh-cn/ch03-data-analysis/ch05-database/04-db-design/) | 拆表、减少重复、保持关系清晰 |
 
 ## 通过标准
 

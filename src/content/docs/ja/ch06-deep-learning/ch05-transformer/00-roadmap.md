@@ -55,8 +55,8 @@ attention_shape: (1, 4, 4)
 
 | 順番 | 読む | まず見ること |
 |---|---|---|
-| 1 | [6.5.2 Attention 機構](./01-attention-mechanism.md) | QKV、attention 重み、mask |
-| 2 | [6.5.3 Transformer アーキテクチャ](./02-transformer-architecture.md) | block 構造、残差、feed-forward 層 |
+| 1 | [6.5.2 Attention 機構](/ja/ch06-deep-learning/ch05-transformer/01-attention-mechanism/) | QKV、attention 重み、mask |
+| 2 | [6.5.3 Transformer アーキテクチャ](/ja/ch06-deep-learning/ch05-transformer/02-transformer-architecture/) | block 構造、残差、feed-forward 層 |
 
 ## 残す証拠
 

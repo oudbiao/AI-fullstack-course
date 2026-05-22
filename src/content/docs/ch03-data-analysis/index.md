@@ -31,12 +31,12 @@ Use this table as both the chapter guide and the task sheet.
 
 | Page | Follow-along action | Evidence to keep |
 |---|---|---|
-| [3.1.1 Pure Python Data Processing](ch01-warmup/01-pure-python-data.md) | Process a small table with lists and dictionaries | A note explaining why tables become awkward in pure Python |
-| [3.2.1 NumPy Overview](ch02-numpy/01-overview.md) to [3.2.7 Random and Statistics](ch02-numpy/07-random-stats.md) | Practice arrays, shapes, slicing, broadcasting, and vectorized math | One NumPy practice file |
-| [3.3.1 Pandas Core Structures](ch03-pandas/01-core-structures.md) to [3.3.8 Time Series](ch03-pandas/08-time-series.md) | Read a table, clean missing values, group rows, merge tables, and export results | Cleaned data plus a cleaning log |
-| [3.4.1 Matplotlib](ch04-visualization/01-matplotlib.md) to [3.4.4 Visualization Best Practices](ch04-visualization/04-best-practices.md) | Draw charts that answer named questions | 3 charts, each with one conclusion |
-| [3.5.1 Relational Databases](ch05-database/01-relational-db.md) to [3.5.4 Database Design](ch05-database/04-db-design.md) | Learn enough SQL to filter, group, and join real application data | One query or join example |
-| [3.6.1 EDA Project](ch06-projects/01-eda-project.md) and [3.6.3 Follow-Along Workshop](ch06-projects/03-hands-on-data-workshop.md) | Build a reproducible data pipeline and report | Raw data, clean data, chart, report, and README |
+| [3.1.1 Pure Python Data Processing](/ch03-data-analysis/ch01-warmup/01-pure-python-data/) | Process a small table with lists and dictionaries | A note explaining why tables become awkward in pure Python |
+| [3.2.1 NumPy Overview](/ch03-data-analysis/ch02-numpy/01-overview/) to [3.2.7 Random and Statistics](/ch03-data-analysis/ch02-numpy/07-random-stats/) | Practice arrays, shapes, slicing, broadcasting, and vectorized math | One NumPy practice file |
+| [3.3.1 Pandas Core Structures](/ch03-data-analysis/ch03-pandas/01-core-structures/) to [3.3.8 Time Series](/ch03-data-analysis/ch03-pandas/08-time-series/) | Read a table, clean missing values, group rows, merge tables, and export results | Cleaned data plus a cleaning log |
+| [3.4.1 Matplotlib](/ch03-data-analysis/ch04-visualization/01-matplotlib/) to [3.4.4 Visualization Best Practices](/ch03-data-analysis/ch04-visualization/04-best-practices/) | Draw charts that answer named questions | 3 charts, each with one conclusion |
+| [3.5.1 Relational Databases](/ch03-data-analysis/ch05-database/01-relational-db/) to [3.5.4 Database Design](/ch03-data-analysis/ch05-database/04-db-design/) | Learn enough SQL to filter, group, and join real application data | One query or join example |
+| [3.6.1 EDA Project](/ch03-data-analysis/ch06-projects/01-eda-project/) and [3.6.3 Follow-Along Workshop](/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop/) | Build a reproducible data pipeline and report | Raw data, clean data, chart, report, and README |
 
 Key terms for this chapter:
 
@@ -153,7 +153,7 @@ Move to Chapter 4 when you can answer these five questions:
 - What conclusion is supported, and what is still uncertain?
 - Can another person rerun the analysis from the README?
 
-For a printable checklist, use [3.0 Study Guide and Task Sheet](./study-guide.md). The next chapter uses this data intuition to understand probability, vectors, gradients, and model evaluation.
+For a printable checklist, use [3.0 Study Guide and Task Sheet](/ch03-data-analysis/study-guide/). The next chapter uses this data intuition to understand probability, vectors, gradients, and model evaluation.
 
 
 <details>

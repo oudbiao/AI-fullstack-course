@@ -11,7 +11,7 @@ head:
 ---
 ![机器学习学习指南项目闭环](/img/course/ch05-study-guide-project-loop.webp)
 
-主要学习路线已经放在 [第 5 章入口](./)。本页只作为练习时快速查看的清单。
+主要学习路线已经放在 [第 5 章入口](/zh-cn/ch05-machine-learning/)。本页只作为练习时快速查看的清单。
 
 ## 一句话模型
 

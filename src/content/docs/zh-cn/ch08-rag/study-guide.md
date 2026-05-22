@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "RAG 检查表, LLM 应用检查表, 向量检索, RAG 评估, 大模型工程"
 ---
-这页当成可打印检查表使用。需要完整讲解时，回到 [第 8 章入口页](./index.md)。
+这页当成可打印检查表使用。需要完整讲解时，回到 [第 8 章入口页](/zh-cn/ch08-rag/)。
 
 ![RAG 作品集证据包](/img/course/ch08-rag-evidence-pack.webp)
 
@@ -32,7 +32,7 @@ head:
 | `eval_questions.csv` | 至少 10 个固定问题，带期望来源或答案要点 |
 | `failure_cases.md` | 至少三个失败样本，标注 document、chunking、retrieval、generation、citation 或 deploy |
 | `rag_config.md` | chunk 大小、overlap、top-k、是否 rerank、Prompt 版本 |
-| `rag_app_workshop_output.txt` | [8.5.6 实操：第 8 章 RAG 应用完整工作坊](./ch05-projects/05-stage-hands-on-workshop.md) 的输出 |
+| `rag_app_workshop_output.txt` | [8.5.6 实操：第 8 章 RAG 应用完整工作坊](/zh-cn/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) 的输出 |
 | `README.md` | 运行命令、示例问题、带引用答案、评估结果、下一步修复 |
 
 ## 质量闸门

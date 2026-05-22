@@ -397,8 +397,8 @@ print(render_markdown_handout(payload))
 而不是直接产出一份“自由散文式”长文档。
 
 这部分最相关的已有课程是：
-- [7.5.2 Prompt 基础](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [7.5.4 结构化输出](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [7.5.2 Prompt 基础](/zh-cn/ch07-llm-principles/ch05-prompt/01-prompt-basics/)
+- [7.5.4 结构化输出](/zh-cn/ch07-llm-principles/ch05-prompt/03-structured-output/)
 
 ## 第一次做这个模块时，最稳的范围控制
 

@@ -39,7 +39,7 @@ Make one small workflow traceable before trying video or full creative platforms
 | 12.2 | Image generation | record prompts, references, negative requirements, selected output | prompt versions and review notes |
 | 12.3 | Video, speech, digital humans | understand storyboard, voice, shot, subtitle, timing | storyboard and asset list |
 | 12.4 | Ethics and compliance | check copyright, portrait rights, sensitive content, factual risk | safety review checklist |
-| 12.5 | Stage project | run [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](./ch05-projects/02-hands-on-multimodal-workshop.md) | brief, prompts, assets, storyboard, review, export preview |
+| 12.5 | Stage project | run [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/) | brief, prompts, assets, storyboard, review, export preview |
 
 ## First Runnable Loop: Structure A Visual Input
 
@@ -139,7 +139,7 @@ Before finishing the course, you should be able to:
 - connect a multimodal record to RAG, Agent, or a creative package;
 - run the multimodal workshop and keep a README, review checklist, export preview, and failure cases.
 
-For a printable checklist, use [12.0 Learning Checklist](./study-guide.md). For the guided final project, start with [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](./ch05-projects/02-hands-on-multimodal-workshop.md).
+For a printable checklist, use [12.0 Learning Checklist](/ch12-multimodal/study-guide/). For the guided final project, start with [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/).
 
 <details>
 <summary>Check reasoning and explanation</summary>

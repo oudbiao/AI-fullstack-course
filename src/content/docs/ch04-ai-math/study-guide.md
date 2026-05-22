@@ -11,7 +11,7 @@ head:
 ---
 ![Minimum closed loop for AI math study guide](/img/course/ch04-study-guide-math-minimum-loop-en.webp)
 
-The main study route is now in [Chapter 4 entry](./). Use this page only as a quick checklist while you practice.
+The main study route is now in [Chapter 4 entry](/ch04-ai-math/). Use this page only as a quick checklist while you practice.
 
 ## One-Line Mental Model
 

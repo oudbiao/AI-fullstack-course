@@ -11,7 +11,7 @@ head:
 ---
 ![Machine learning study guide project loop](/img/course/ch05-study-guide-project-loop-en.webp)
 
-The main study route is now in [Chapter 5 entry](./). Use this page only as a quick checklist while you practice.
+The main study route is now in [Chapter 5 entry](/ch05-machine-learning/). Use this page only as a quick checklist while you practice.
 
 ## One-Line Mental Model
 

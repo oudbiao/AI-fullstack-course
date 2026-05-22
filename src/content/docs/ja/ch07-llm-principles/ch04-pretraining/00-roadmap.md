@@ -50,9 +50,9 @@ from -> text
 
 | 順番 | 読む | まず見ること |
 |---|---|---|
-| 1 | [7.4.2 事前学習データ](./01-pretraining-data.md) | ソース、フィルタリング、重複除去、汚染 |
-| 2 | [7.4.3 事前学習手法](./02-pretraining-methods.md) | next-token prediction、loss、scaling |
-| 3 | [7.4.4 事前学習エンジニアリング](./03-pretraining-engineering.md) | 分散学習、checkpoint、監視 |
+| 1 | [7.4.2 事前学習データ](/ja/ch07-llm-principles/ch04-pretraining/01-pretraining-data/) | ソース、フィルタリング、重複除去、汚染 |
+| 2 | [7.4.3 事前学習手法](/ja/ch07-llm-principles/ch04-pretraining/02-pretraining-methods/) | next-token prediction、loss、scaling |
+| 3 | [7.4.4 事前学習エンジニアリング](/ja/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering/) | 分散学習、checkpoint、監視 |
 
 ## 残す証拠
 

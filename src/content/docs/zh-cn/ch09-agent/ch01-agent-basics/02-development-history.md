@@ -18,7 +18,7 @@ head:
 - 看懂“为什么大模型让 Agent 真正变得可用”
 - 用一个小例子体验不同阶段系统的差别
 
-如果想看更完整的 AI 时间线，可以把本节和 [A.3 AI 发展史：15 个阶段与关键论文](/zh-cn/appendix/ai-milestones) 放在一起读。本节只聚焦 Agent 这条线。
+如果想看更完整的 AI 时间线，可以把本节和 [A.3 AI 发展史：15 个阶段与关键论文](/zh-cn/appendix/ai-milestones/) 放在一起读。本节只聚焦 Agent 这条线。
 
 ![从脚本到现代 LLM Agent 的系统演进图](/img/course/appendix-agent-system-lineage-map.webp)
 

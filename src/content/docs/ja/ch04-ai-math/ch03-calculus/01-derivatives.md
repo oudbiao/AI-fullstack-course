@@ -274,7 +274,7 @@ plt.show()
 
 この 3 つの疑問が、そのまま次の内容につながります。
 
-- [4.3.3 偏導関数と勾配](./02-partial-derivatives-gradient.md)
+- [4.3.3 偏導関数と勾配](/ja/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient/)
 
 :::note[次につながる内容]
 - **次の節**：偏導関数と勾配——複数の変数があるときの「方向微分」

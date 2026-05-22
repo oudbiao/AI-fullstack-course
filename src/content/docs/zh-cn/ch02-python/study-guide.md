@@ -11,7 +11,7 @@ head:
 ---
 ![Python 学习指南最小闭环](/img/course/ch02-study-guide-program-loop.webp)
 
-主要学习路线已经放在 [第 2 章入口](./)。本页只作为练习时快速查看的清单。
+主要学习路线已经放在 [第 2 章入口](/zh-cn/ch02-python/)。本页只作为练习时快速查看的清单。
 
 ## 一句话模型
 

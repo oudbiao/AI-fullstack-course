@@ -68,11 +68,11 @@ prediction_count: 30
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [5.1.2 什么是机器学习](./01-what-is-ml.md) | 任务类型、特征、标签 |
-| 2 | [5.1.3 Scikit-learn 入门](./02-sklearn-intro.md) | `fit`、`predict`、`score` |
-| 3 | [5.1.4 数学如何进入机器学习](./03-math-to-ml-bridge.md) | 向量、概率、loss、优化 |
-| 4 | [5.1.5 机器学习发展史](./04-history-breakthroughs.md) | 主要算法为什么出现 |
-| 5 | [5.1.6 sklearn 与 Matplotlib 工作坊](./05-sklearn-matplotlib-workshop.md) | 运行、画图、解释 baseline |
+| 1 | [5.1.2 什么是机器学习](/zh-cn/ch05-machine-learning/ch01-ml-basics/01-what-is-ml/) | 任务类型、特征、标签 |
+| 2 | [5.1.3 Scikit-learn 入门](/zh-cn/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro/) | `fit`、`predict`、`score` |
+| 3 | [5.1.4 数学如何进入机器学习](/zh-cn/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge/) | 向量、概率、loss、优化 |
+| 4 | [5.1.5 机器学习发展史](/zh-cn/ch05-machine-learning/ch01-ml-basics/04-history-breakthroughs/) | 主要算法为什么出现 |
+| 5 | [5.1.6 sklearn 与 Matplotlib 工作坊](/zh-cn/ch05-machine-learning/ch01-ml-basics/05-sklearn-matplotlib-workshop/) | 运行、画图、解释 baseline |
 
 ## 通过标准
 

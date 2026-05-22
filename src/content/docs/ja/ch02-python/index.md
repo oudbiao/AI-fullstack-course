@@ -31,13 +31,13 @@ Python が AI の主流であり続けるのは、この同じ流れが後でデ
 
 | ページ | 手を動かすこと | 残す証拠 |
 |---|---|---|
-| [2.1.1 Python イントロダクション](ch01-basics/01-intro.md) から [2.1.5 制御フロー](ch01-basics/05-control-flow.md) | 変数、入出力、条件分岐、ループの小さなスクリプトを入力して変える | 期待どおりに出力する 5 つのスクリプト |
-| [2.1.6 データ構造](ch01-basics/06-data-structures.md) | 同じタスクリストを、リスト・辞書・JSON 形のオブジェクトで保存してみる | どの構造が合うかを説明するメモ |
-| [2.1.7 関数の基礎](ch01-basics/07-functions.md) と [2.1.8 モジュールとパッケージ](ch01-basics/08-modules.md) | 繰り返し処理を関数とモジュールへ分ける | 入力と戻り値が明確なスクリプト |
-| [2.2.2 例外処理](ch02-advanced/02-exceptions.md) と [2.2.3 ファイル操作](ch02-advanced/03-file-io.md) | データを保存し、読み戻し、ファイル欠落や破損を扱う | JSON/テキストファイルとデバッグメモ 1 件 |
-| [2.2.1 オブジェクト指向](ch02-advanced/01-oop.md)、[2.2.5 イテレータ](ch02-advanced/05-iterators-generators.md)、[2.2.6 型ヒント](ch02-advanced/06-type-hints.md) | まず軽く読み、プロジェクトで構造や明確さが必要になったら戻る | リファクタした関数またはクラス |
-| [2.3.1 タスク管理ツール](ch03-projects/01-todo-cli.md) から [2.3.4 AI API 体験](ch03-projects/04-ai-api-experience.md) | データ保存、データ収集、API 提供、AI API 呼び出しの小プロジェクトを作る | README の実行コマンド付きプロジェクトフォルダ |
-| [2.3.5 ハンズオンワークショップ](ch03-projects/05-hands-on-python-workshop.md) | CLI コマンド、JSON 永続化、統計、レポート出力をつなげる | `ch02_output/` とターミナル出力 |
+| [2.1.1 Python イントロダクション](/ja/ch02-python/ch01-basics/01-intro/) から [2.1.5 制御フロー](/ja/ch02-python/ch01-basics/05-control-flow/) | 変数、入出力、条件分岐、ループの小さなスクリプトを入力して変える | 期待どおりに出力する 5 つのスクリプト |
+| [2.1.6 データ構造](/ja/ch02-python/ch01-basics/06-data-structures/) | 同じタスクリストを、リスト・辞書・JSON 形のオブジェクトで保存してみる | どの構造が合うかを説明するメモ |
+| [2.1.7 関数の基礎](/ja/ch02-python/ch01-basics/07-functions/) と [2.1.8 モジュールとパッケージ](/ja/ch02-python/ch01-basics/08-modules/) | 繰り返し処理を関数とモジュールへ分ける | 入力と戻り値が明確なスクリプト |
+| [2.2.2 例外処理](/ja/ch02-python/ch02-advanced/02-exceptions/) と [2.2.3 ファイル操作](/ja/ch02-python/ch02-advanced/03-file-io/) | データを保存し、読み戻し、ファイル欠落や破損を扱う | JSON/テキストファイルとデバッグメモ 1 件 |
+| [2.2.1 オブジェクト指向](/ja/ch02-python/ch02-advanced/01-oop/)、[2.2.5 イテレータ](/ja/ch02-python/ch02-advanced/05-iterators-generators/)、[2.2.6 型ヒント](/ja/ch02-python/ch02-advanced/06-type-hints/) | まず軽く読み、プロジェクトで構造や明確さが必要になったら戻る | リファクタした関数またはクラス |
+| [2.3.1 タスク管理ツール](/ja/ch02-python/ch03-projects/01-todo-cli/) から [2.3.4 AI API 体験](/ja/ch02-python/ch03-projects/04-ai-api-experience/) | データ保存、データ収集、API 提供、AI API 呼び出しの小プロジェクトを作る | README の実行コマンド付きプロジェクトフォルダ |
+| [2.3.5 ハンズオンワークショップ](/ja/ch02-python/ch03-projects/05-hands-on-python-workshop/) | CLI コマンド、JSON 永続化、統計、レポート出力をつなげる | `ch02_output/` とターミナル出力 |
 
 本章でよく使う用語：
 
@@ -142,4 +142,4 @@ print(f"{len(tasks)} 件のタスクを保存しました")
 
 </details>
 
-印刷用のチェックリストが必要なときは、[2.0 学習ガイドとタスクリスト](./study-guide.md) を使ってください。次の章では、Python で CSV を処理し、データを分析し、データベースに接続します。
+印刷用のチェックリストが必要なときは、[2.0 学習ガイドとタスクリスト](/ja/ch02-python/study-guide/) を使ってください。次の章では、Python で CSV を処理し、データを分析し、データベースに接続します。

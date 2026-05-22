@@ -60,13 +60,13 @@ relu_output: 3.35
 
 | 順番 | 読む | まず見ること |
 |---|---|---|
-| 1 | [6.1.2 ML から DL へ](./00-ml-to-dl-bridge.md) | sklearn の後に何が変わるか |
-| 2 | [6.1.3 ニューロンと活性化](./01-neurons-activation.md) | 重み付き和、バイアス、ReLU |
-| 3 | [6.1.4 順伝播と逆伝播](./02-forward-backward.md) | 予測、loss、勾配 |
-| 4 | [6.1.5 オプティマイザ](./03-optimizers.md) | SGD、Momentum、Adam の直感 |
-| 5 | [6.1.6 正則化](./04-regularization.md) | 過学習を抑える |
-| 6 | [6.1.7 重み初期化](./05-weight-init.md) | 安定した開始点 |
-| 7 | [6.1.8 任意の歴史背景](./06-history-breakthroughs.md) | backprop、CNN、RNN、Attention、Transformer がなぜ現れたか |
+| 1 | [6.1.2 ML から DL へ](/ja/ch06-deep-learning/ch01-nn-basics/00-ml-to-dl-bridge/) | sklearn の後に何が変わるか |
+| 2 | [6.1.3 ニューロンと活性化](/ja/ch06-deep-learning/ch01-nn-basics/01-neurons-activation/) | 重み付き和、バイアス、ReLU |
+| 3 | [6.1.4 順伝播と逆伝播](/ja/ch06-deep-learning/ch01-nn-basics/02-forward-backward/) | 予測、loss、勾配 |
+| 4 | [6.1.5 オプティマイザ](/ja/ch06-deep-learning/ch01-nn-basics/03-optimizers/) | SGD、Momentum、Adam の直感 |
+| 5 | [6.1.6 正則化](/ja/ch06-deep-learning/ch01-nn-basics/04-regularization/) | 過学習を抑える |
+| 6 | [6.1.7 重み初期化](/ja/ch06-deep-learning/ch01-nn-basics/05-weight-init/) | 安定した開始点 |
+| 7 | [6.1.8 任意の歴史背景](/ja/ch06-deep-learning/ch01-nn-basics/06-history-breakthroughs/) | backprop、CNN、RNN、Attention、Transformer がなぜ現れたか |
 
 ## 残す証拠
 

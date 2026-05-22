@@ -405,7 +405,7 @@ for direction in ["wrong", "right"]:
 
 次に読むのに最適なのは通常、次の節です。
 
-- [4.3.4 勾配降下法](./03-gradient-descent.md)
+- [4.3.4 勾配降下法](/ja/ch04-ai-math/ch03-calculus/03-gradient-descent/)
 
 :::note[後続につなぐ]
 - **次の節**：勾配降下法——負の勾配の方向へ少しずつ進み、損失関数の最小点を見つける

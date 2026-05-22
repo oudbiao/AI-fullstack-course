@@ -31,13 +31,13 @@ Use this table as both the guide and the task list.
 
 | Page | Follow-along action | Evidence to keep |
 |---|---|---|
-| [1.1.1 Terminal and command line](ch01-terminal/01-why-cli.md) | Open the terminal and run `pwd`, `ls`, `cd` | A short command log |
-| [1.1.2 Basic terminal operations](ch01-terminal/02-basic-operations.md) | Create, move, inspect, and remove files in a practice folder | Folder screenshot or terminal output |
-| [1.1.3 Package managers](ch01-terminal/03-package-managers.md) | Check how your system installs tools | Tool version notes |
-| [1.2.1 Git basics](ch02-git/01-git-basics.md) and [1.2.2 Git core operations](ch02-git/02-core-operations.md) | Save a first local project snapshot | One clean Git commit |
-| [1.3.1 Python environment](ch03-devenv/01-python-env.md) | Create a virtual environment and run Python inside it | Python version and environment command |
-| [1.3.2 VS Code](ch03-devenv/02-vscode.md) and [1.3.3 Jupyter](ch03-devenv/03-jupyter.md) | Edit code in an editor and explore in a notebook | Working editor/notebook notes |
-| [1.4.1 Follow-along workshop](ch04-workshop/01-hands-on-tools-workshop.md) | Combine terminal, Python, editor, notebook, and Git | Reproducible `ai-learning-lab` README |
+| [1.1.1 Terminal and command line](/ch01-tools/ch01-terminal/01-why-cli/) | Open the terminal and run `pwd`, `ls`, `cd` | A short command log |
+| [1.1.2 Basic terminal operations](/ch01-tools/ch01-terminal/02-basic-operations/) | Create, move, inspect, and remove files in a practice folder | Folder screenshot or terminal output |
+| [1.1.3 Package managers](/ch01-tools/ch01-terminal/03-package-managers/) | Check how your system installs tools | Tool version notes |
+| [1.2.1 Git basics](/ch01-tools/ch02-git/01-git-basics/) and [1.2.2 Git core operations](/ch01-tools/ch02-git/02-core-operations/) | Save a first local project snapshot | One clean Git commit |
+| [1.3.1 Python environment](/ch01-tools/ch03-devenv/01-python-env/) | Create a virtual environment and run Python inside it | Python version and environment command |
+| [1.3.2 VS Code](/ch01-tools/ch03-devenv/02-vscode/) and [1.3.3 Jupyter](/ch01-tools/ch03-devenv/03-jupyter/) | Edit code in an editor and explore in a notebook | Working editor/notebook notes |
+| [1.4.1 Follow-along workshop](/ch01-tools/ch04-workshop/01-hands-on-tools-workshop/) | Combine terminal, Python, editor, notebook, and Git | Reproducible `ai-learning-lab` README |
 
 The workshop stays at the end because it is the integration step: learn the pieces first, then connect them.
 

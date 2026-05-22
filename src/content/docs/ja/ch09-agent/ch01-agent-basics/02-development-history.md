@@ -18,7 +18,7 @@ head:
 - 「なぜ大規模言語モデルによって Agent が本当に使えるようになったのか」を理解する
 - 小さな例を通して、各段階のシステムの違いを体験する
 
-より広い AI の流れを見たい場合は、[A.3 AI 発展史：15 段階と重要論文](/ja/appendix/ai-milestones) と合わせて読むと理解しやすくなります。この節では Agent の流れだけに絞ります。
+より広い AI の流れを見たい場合は、[A.3 AI 発展史：15 段階と重要論文](/ja/appendix/ai-milestones/) と合わせて読むと理解しやすくなります。この節では Agent の流れだけに絞ります。
 
 ![スクリプトから現代の LLM Agent までのシステム系譜図](/img/course/appendix-agent-system-lineage-map-ja.webp)
 

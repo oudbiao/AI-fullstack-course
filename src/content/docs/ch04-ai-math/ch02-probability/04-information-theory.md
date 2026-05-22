@@ -628,9 +628,9 @@ If you have read this entire probability and statistics chapter, what is most wo
 
 The most natural next reading is usually:
 
-- [5 Station 5 Home](../../ch05-machine-learning/index.md)
-- [5.2.3 Logistic Regression](../../ch05-machine-learning/ch02-supervised/02-logistic-regression.md)
-- [5.4.2 Evaluation Metrics](../../ch05-machine-learning/ch04-evaluation/01-metrics.md)
+- [5 Station 5 Home](/ch05-machine-learning/)
+- [5.2.3 Logistic Regression](/ch05-machine-learning/ch02-supervised/02-logistic-regression/)
+- [5.4.2 Evaluation Metrics](/ch05-machine-learning/ch04-evaluation/01-metrics/)
 
 :::note[Chapter Review]
 In these four lessons on probability and statistics, you learned:

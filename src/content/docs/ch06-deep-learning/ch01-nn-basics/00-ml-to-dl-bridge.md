@@ -229,13 +229,13 @@ Then in Station 6, you are only learning one more thing:
 
 If you are just coming from Station 5, it is recommended to follow this order:
 
-1. First read [6.1.1 Pre-course guide: what is this chapter on neural network basics really about](./00-roadmap.md)
+1. First read [6.1.1 Pre-course guide: what is this chapter on neural network basics really about](/ch06-deep-learning/ch01-nn-basics/00-roadmap/)
    First place the terms neuron, forward pass, backward pass, and optimizer in the right positions.
 
-2. Then read [6.1.3 From neurons to multilayer perceptrons](./01-neurons-activation.md)
+2. Then read [6.1.3 From neurons to multilayer perceptrons](/ch06-deep-learning/ch01-nn-basics/01-neurons-activation/)
    First understand what “one neuron” is actually doing.
 
-3. Then move on to [6.2.1 Pre-course guide: what is this chapter on PyTorch really about](../ch02-pytorch/00-roadmap.md)
+3. Then move on to [6.2.1 Pre-course guide: what is this chapter on PyTorch really about](/ch06-deep-learning/ch02-pytorch/00-roadmap/)
    Then connect the training process using `Tensor / Autograd / Module / DataLoader / Training Loop`.
 
 This will be much more stable than jumping straight into complex network structures.

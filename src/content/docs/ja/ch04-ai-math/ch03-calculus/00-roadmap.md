@@ -73,10 +73,10 @@ for step in range(1, 7):
 
 | 順番 | 読む | まず見ること |
 |---|---|---|
-| 1 | [4.3.2 導関数](./01-derivatives.md) | 変化率 |
-| 2 | [4.3.3 偏導関数と勾配](./02-partial-derivatives-gradient.md) | 複数のパラメータが一緒に変わる |
-| 3 | [4.3.4 勾配降下](./03-gradient-descent.md) | 更新ループ、学習率、loss 曲線 |
-| 4 | [4.3.5 バックプロパゲーション](./04-chain-rule-backprop.md) | 連鎖律、`loss.backward()` の直感 |
+| 1 | [4.3.2 導関数](/ja/ch04-ai-math/ch03-calculus/01-derivatives/) | 変化率 |
+| 2 | [4.3.3 偏導関数と勾配](/ja/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient/) | 複数のパラメータが一緒に変わる |
+| 3 | [4.3.4 勾配降下](/ja/ch04-ai-math/ch03-calculus/03-gradient-descent/) | 更新ループ、学習率、loss 曲線 |
+| 4 | [4.3.5 バックプロパゲーション](/ja/ch04-ai-math/ch03-calculus/04-chain-rule-backprop/) | 連鎖律、`loss.backward()` の直感 |
 
 ## 合格ライン
 

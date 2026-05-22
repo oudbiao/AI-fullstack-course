@@ -75,7 +75,7 @@ Before starting a project, mark the highest-risk layer. For example, a PDF quest
 
 During each chapter, keep one artifact that proves the layer works. Screenshots are useful, but logs, README commands, small datasets, metric tables, and failure notes are stronger because they help you debug later.
 
-Optional background: if you want the history behind these layers, skim the [15-stage AI development map](/appendix/ai-milestones).
+Optional background: if you want the history behind these layers, skim the [15-stage AI development map](/appendix/ai-milestones/).
 
 Next, plan how you will pace the main route.
 

@@ -468,7 +468,7 @@ flowchart LR
 
 这几个问题，正好会把你自然带到：
 
-- [4.3.5 链式法则与反向传播预览](./04-chain-rule-backprop.md)
+- [4.3.5 链式法则与反向传播预览](/zh-cn/ch04-ai-math/ch03-calculus/04-chain-rule-backprop/)
 
 :::note[连接后续]
 - **下一节**：链式法则——如何高效计算复杂网络中每个参数的梯度

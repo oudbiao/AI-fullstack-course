@@ -56,7 +56,7 @@ portfolio_ready: True
 
 ![テキストから成果物までのパイプライン](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-ja.webp)
 
-大きなプロジェクトに入る前に、[11.7.6 実践：再現可能な NLP ミニパイプラインを作る](./05-hands-on-nlp-workshop.md) を先に動かすのがおすすめです。tokenization、TF-IDF、分類、検索 QA、要約、抽出、評価、失敗分析を 1 本の小さな流れで確認できます。
+大きなプロジェクトに入る前に、[11.7.6 実践：再現可能な NLP ミニパイプラインを作る](/ja/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop/) を先に動かすのがおすすめです。tokenization、TF-IDF、分類、検索 QA、要約、抽出、評価、失敗分析を 1 本の小さな流れで確認できます。
 
 ## プロジェクト納品物の基準
 

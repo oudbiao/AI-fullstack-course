@@ -69,11 +69,11 @@ next_step: inspect failure cases before adding more models
 
 | 順番 | 読む | 提出するもの |
 |---|---|---|
-| 1 | [5.6.2 住宅価格予測](./01-house-price.md) | 回帰 baseline と改善 |
-| 2 | [5.6.3 顧客離脱予測](./02-customer-churn.md) | 分類指標としきい値の考え方 |
-| 3 | [5.6.4 ユーザーセグメンテーション](./03-user-segmentation.md) | クラスタ解釈と業務ラベル |
-| 4 | [5.6.5 Kaggle 実践](./04-kaggle.md) | 実際の提出フロー |
-| 5 | [5.6.6 ML 実践ワークショップ](./05-hands-on-ml-workshop.md) | 完全な証拠パックの練習 |
+| 1 | [5.6.2 住宅価格予測](/ja/ch05-machine-learning/ch06-projects/01-house-price/) | 回帰 baseline と改善 |
+| 2 | [5.6.3 顧客離脱予測](/ja/ch05-machine-learning/ch06-projects/02-customer-churn/) | 分類指標としきい値の考え方 |
+| 3 | [5.6.4 ユーザーセグメンテーション](/ja/ch05-machine-learning/ch06-projects/03-user-segmentation/) | クラスタ解釈と業務ラベル |
+| 4 | [5.6.5 Kaggle 実践](/ja/ch05-machine-learning/ch06-projects/04-kaggle/) | 実際の提出フロー |
+| 5 | [5.6.6 ML 実践ワークショップ](/ja/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop/) | 完全な証拠パックの練習 |
 
 ワークショップを最後に置くのは、前のプロジェクト習慣を再現可能な証拠パックにまとめるためです。
 

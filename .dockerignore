@@ -1,6 +1,14 @@
 node_modules
 build
+dist
+.astro
 .docusaurus
+.codex
+.claude
+tmp
+__pycache__
+*.pyc
+.DS_Store
 npm-debug.log
 .env
 .env.local

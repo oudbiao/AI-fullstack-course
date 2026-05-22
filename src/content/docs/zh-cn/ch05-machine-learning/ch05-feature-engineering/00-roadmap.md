@@ -76,11 +76,11 @@ training_accuracy: 1.0
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [5.5.2 特征理解](./01-feature-understanding.md) | 特征类型、目标列、泄漏风险 |
-| 2 | [5.5.3 数据预处理](./02-preprocessing.md) | 缩放、编码、缺失值 |
-| 3 | [5.5.4 特征构造](./03-feature-construction.md) | 比例、分箱、日期、交互 |
-| 4 | [5.5.5 特征选择](./04-feature-selection.md) | 去噪声、去冗余、防泄漏 |
-| 5 | [5.5.6 Pipeline](./05-pipeline.md) | 可复现的预处理和训练 |
+| 1 | [5.5.2 特征理解](/zh-cn/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding/) | 特征类型、目标列、泄漏风险 |
+| 2 | [5.5.3 数据预处理](/zh-cn/ch05-machine-learning/ch05-feature-engineering/02-preprocessing/) | 缩放、编码、缺失值 |
+| 3 | [5.5.4 特征构造](/zh-cn/ch05-machine-learning/ch05-feature-engineering/03-feature-construction/) | 比例、分箱、日期、交互 |
+| 4 | [5.5.5 特征选择](/zh-cn/ch05-machine-learning/ch05-feature-engineering/04-feature-selection/) | 去噪声、去冗余、防泄漏 |
+| 5 | [5.5.6 Pipeline](/zh-cn/ch05-machine-learning/ch05-feature-engineering/05-pipeline/) | 可复现的预处理和训练 |
 
 ## 通过标准
 

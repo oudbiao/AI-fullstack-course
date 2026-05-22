@@ -48,7 +48,7 @@ Build a single traceable Agent before multi-agent systems. Follow the core singl
 | 9.3 | Tool calling | Define one or two tools with parameters and errors | `tools_schema.md` |
 | 9.4 | Memory | Separate current state from long-term memory | memory boundary notes |
 | 9.8 | Evaluation and safety | Score outputs, block risky actions, and inspect traces | trace logs, safety block, eval cases |
-| 9.10 | Stage project | Run [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./ch10-projects/04-stage-hands-on-workshop.md) | `agent_traces.jsonl`, safety boundary, eval cases |
+| 9.10 | Stage project | Run [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](/ch09-agent/ch10-projects/04-stage-hands-on-workshop/) | `agent_traces.jsonl`, safety boundary, eval cases |
 | 9.5 | MCP | Understand MCP as a standard way to connect tools and data sources | one integration note |
 | 9.6-9.7 | Frameworks and multi-agent | Study only after the single-Agent loop is stable | framework choice note |
 | 9.9 | Deployment and operations | Add runtime, recovery, cost, and production readiness after the core project works | launch checklist and rollback note |
@@ -187,7 +187,7 @@ Before leaving this chapter, you should be able to:
 - judge whether a task needs workflow, RAG, function calling, or an Agent;
 - run the full Chapter 9 workshop and add one evaluation task plus one safety-block example.
 
-For a printable checklist, use [9.0 Learning Checklist](./study-guide.md). For the guided project, start with [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./ch10-projects/04-stage-hands-on-workshop.md).
+For a printable checklist, use [9.0 Learning Checklist](/ch09-agent/study-guide/). For the guided project, start with [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](/ch09-agent/ch10-projects/04-stage-hands-on-workshop/).
 
 <details>
 <summary>Check reasoning and explanation</summary>

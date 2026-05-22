@@ -58,8 +58,8 @@ This is not a real generator yet. It shows the core shape idea: small latent vec
 
 | Order | Read | What to focus on |
 |---|---|---|
-| 1 | [6.6.2 GAN](./01-gan.md) | generator, discriminator, adversarial balance |
-| 2 | [6.6.3 VAE](./02-vae.md) | encoder, decoder, latent space |
+| 1 | [6.6.2 GAN](/ch06-deep-learning/ch06-generative/01-gan/) | generator, discriminator, adversarial balance |
+| 2 | [6.6.3 VAE](/ch06-deep-learning/ch06-generative/02-vae/) | encoder, decoder, latent space |
 
 ## Evidence to Keep
 

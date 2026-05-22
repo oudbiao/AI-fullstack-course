@@ -63,7 +63,7 @@ If your project cannot fill these fields, keep the project smaller. A clear comp
 | 4 | Choose the next method | Prompt iteration, RAG, or finetuning decision note |
 | 5 | Package the result | README, run command, screenshots, failure case, next steps |
 
-If you want a guided starter, run [7.8.4 Hands-on: Full Chapter 7 Workshop](./03-stage-hands-on-workshop.md) before designing your own domain project.
+If you want a guided starter, run [7.8.4 Hands-on: Full Chapter 7 Workshop](/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) before designing your own domain project.
 
 ## Decision Rule: Name the Failure Before Choosing the Method
 

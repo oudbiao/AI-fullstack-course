@@ -64,7 +64,7 @@ If this says `False`, improve the evidence before adding more Agent roles.
 | 3 | Multi-Agent development team | Role division, handoff, review loop, merge ownership |
 | 4 | Hands-on workshop | The smallest traceable single-Agent baseline |
 
-Run [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./04-stage-hands-on-workshop.md) before expanding the project.
+Run [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](/ch09-agent/ch10-projects/04-stage-hands-on-workshop/) before expanding the project.
 
 ## Evidence to Keep
 

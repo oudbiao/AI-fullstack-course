@@ -630,9 +630,9 @@ H(P) + KL =     1.2796
 
 最适合接着看的通常是：
 
-- [5 第 5 站首页](../../ch05-machine-learning/index.md)
-- [5.2.3 逻辑回归](../../ch05-machine-learning/ch02-supervised/02-logistic-regression.md)
-- [5.4.2 评估指标](../../ch05-machine-learning/ch04-evaluation/01-metrics.md)
+- [5 第 5 站首页](/zh-cn/ch05-machine-learning/)
+- [5.2.3 逻辑回归](/zh-cn/ch05-machine-learning/ch02-supervised/02-logistic-regression/)
+- [5.4.2 评估指标](/zh-cn/ch05-machine-learning/ch04-evaluation/01-metrics/)
 
 :::note[本章回顾]
 概率与统计四节课，你学到了：

@@ -648,7 +648,7 @@ After finishing vectors, the most valuable questions to carry forward are:
 
 These three questions will naturally lead you to:
 
-- [4.1.3 Matrices: Batch Transformations of Data](./02-matrices.md)
+- [4.1.3 Matrices: Batch Transformations of Data](/ch04-ai-math/ch01-linear-algebra/02-matrices/)
 
 :::note[Connection to later sections]
 - **Next section**: Matrices — batch transformations for a set of vectors

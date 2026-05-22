@@ -50,9 +50,9 @@ This tiny example is the shape of next-token prediction. Real pretraining repeat
 
 | Order | Read | What to focus on |
 |---|---|---|
-| 1 | [7.4.2 Pretraining Data](./01-pretraining-data.md) | sources, filtering, deduplication, contamination |
-| 2 | [7.4.3 Pretraining Methods](./02-pretraining-methods.md) | next-token prediction, loss, scaling |
-| 3 | [7.4.4 Pretraining Engineering](./03-pretraining-engineering.md) | distributed training, checkpoints, monitoring |
+| 1 | [7.4.2 Pretraining Data](/ch07-llm-principles/ch04-pretraining/01-pretraining-data/) | sources, filtering, deduplication, contamination |
+| 2 | [7.4.3 Pretraining Methods](/ch07-llm-principles/ch04-pretraining/02-pretraining-methods/) | next-token prediction, loss, scaling |
+| 3 | [7.4.4 Pretraining Engineering](/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering/) | distributed training, checkpoints, monitoring |
 
 ## Evidence to Keep
 

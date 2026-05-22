@@ -460,7 +460,7 @@ plt.show()
 
 この3つの問いは、そのまま次へつながります。
 
-- [4.2.4 統計的推論の基礎](./03-statistical-inference.md)
+- [4.2.4 統計的推論の基礎](/ja/ch04-ai-math/ch02-probability/03-statistical-inference/)
 
 :::note[今後とのつながり]
 - **次の節**：統計的推論——データから分布のパラメータを推定する

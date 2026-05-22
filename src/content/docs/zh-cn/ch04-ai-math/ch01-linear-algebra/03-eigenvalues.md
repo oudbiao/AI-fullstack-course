@@ -484,7 +484,7 @@ plt.show()
 
 这三个问题，正好会把你自然带到：
 
-- [4.1.5 向量空间与线性变换](./04-vector-spaces.md)
+- [4.1.5 向量空间与线性变换](/zh-cn/ch04-ai-math/ch01-linear-algebra/04-vector-spaces/)
 
 ```mermaid
 flowchart LR

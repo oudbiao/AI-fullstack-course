@@ -60,13 +60,13 @@ If the linear output were negative, ReLU would turn it into `0`. That small gate
 
 | Order | Read | What to focus on |
 |---|---|---|
-| 1 | [6.1.2 ML to DL Bridge](./00-ml-to-dl-bridge.md) | what changes after sklearn |
-| 2 | [6.1.3 Neurons and Activation](./01-neurons-activation.md) | weighted sum, bias, ReLU |
-| 3 | [6.1.4 Forward and Backward](./02-forward-backward.md) | prediction, loss, gradient |
-| 4 | [6.1.5 Optimizers](./03-optimizers.md) | SGD, Momentum, Adam intuition |
-| 5 | [6.1.6 Regularization](./04-regularization.md) | overfitting controls |
-| 6 | [6.1.7 Weight Initialization](./05-weight-init.md) | stable starting points |
-| 7 | [6.1.8 Optional History](./06-history-breakthroughs.md) | why backprop, CNN, RNN, Attention, and Transformer appeared |
+| 1 | [6.1.2 ML to DL Bridge](/ch06-deep-learning/ch01-nn-basics/00-ml-to-dl-bridge/) | what changes after sklearn |
+| 2 | [6.1.3 Neurons and Activation](/ch06-deep-learning/ch01-nn-basics/01-neurons-activation/) | weighted sum, bias, ReLU |
+| 3 | [6.1.4 Forward and Backward](/ch06-deep-learning/ch01-nn-basics/02-forward-backward/) | prediction, loss, gradient |
+| 4 | [6.1.5 Optimizers](/ch06-deep-learning/ch01-nn-basics/03-optimizers/) | SGD, Momentum, Adam intuition |
+| 5 | [6.1.6 Regularization](/ch06-deep-learning/ch01-nn-basics/04-regularization/) | overfitting controls |
+| 6 | [6.1.7 Weight Initialization](/ch06-deep-learning/ch01-nn-basics/05-weight-init/) | stable starting points |
+| 7 | [6.1.8 Optional History](/ch06-deep-learning/ch01-nn-basics/06-history-breakthroughs/) | why backprop, CNN, RNN, Attention, and Transformer appeared |
 
 ## Evidence to Keep
 

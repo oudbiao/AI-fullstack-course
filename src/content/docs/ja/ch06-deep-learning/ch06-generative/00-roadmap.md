@@ -58,8 +58,8 @@ value_range: -0.863 0.695
 
 | 順番 | 読む | まず見ること |
 |---|---|---|
-| 1 | [6.6.2 GAN](./01-gan.md) | generator、discriminator、敵対的バランス |
-| 2 | [6.6.3 VAE](./02-vae.md) | encoder、decoder、潜在空間 |
+| 1 | [6.6.2 GAN](/ja/ch06-deep-learning/ch06-generative/01-gan/) | generator、discriminator、敵対的バランス |
+| 2 | [6.6.3 VAE](/ja/ch06-deep-learning/ch06-generative/02-vae/) | encoder、decoder、潜在空間 |
 
 ## 残す証拠
 

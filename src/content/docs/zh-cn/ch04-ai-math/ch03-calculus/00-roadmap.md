@@ -61,10 +61,10 @@ for step in range(1, 7):
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
-| 1 | [4.3.2 导数](./01-derivatives.md) | 变化率 |
-| 2 | [4.3.3 偏导数与梯度](./02-partial-derivatives-gradient.md) | 多个参数一起变化 |
-| 3 | [4.3.4 梯度下降](./03-gradient-descent.md) | 更新循环、学习率、loss 曲线 |
-| 4 | [4.3.5 反向传播](./04-chain-rule-backprop.md) | 链式法则、`loss.backward()` 直觉 |
+| 1 | [4.3.2 导数](/zh-cn/ch04-ai-math/ch03-calculus/01-derivatives/) | 变化率 |
+| 2 | [4.3.3 偏导数与梯度](/zh-cn/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient/) | 多个参数一起变化 |
+| 3 | [4.3.4 梯度下降](/zh-cn/ch04-ai-math/ch03-calculus/03-gradient-descent/) | 更新循环、学习率、loss 曲线 |
+| 4 | [4.3.5 反向传播](/zh-cn/ch04-ai-math/ch03-calculus/04-chain-rule-backprop/) | 链式法则、`loss.backward()` 直觉 |
 
 ## 通过标准
 

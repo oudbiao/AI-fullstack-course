@@ -591,8 +591,8 @@ If you have read this fourth stop to the end, the most valuable thing to carry i
 
 The best follow-up readings are usually:
 
-- [5 Chapter 5 Home](../../ch05-machine-learning/index.md)
-- [5.1.6 How Math Really Flows into Machine Learning](../../ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md)
+- [5 Chapter 5 Home](/ch05-machine-learning/)
+- [5.1.6 How Math Really Flows into Machine Learning](/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge/)
 
 ## If this section still feels abstract, what is the most useful thing to hold onto?
 

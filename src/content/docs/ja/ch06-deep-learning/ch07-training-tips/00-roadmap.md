@@ -68,9 +68,9 @@ action: stop or reduce learning rate if validation keeps worsening
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [6.7.2 ハイパーパラメータ調整](./01-hyperparameter-tuning.md) | 学習率、batch size、optimizer |
-| 2 | [6.7.3 学習診断](./02-training-diagnosis.md) | loss 曲線、過学習、不安定さ |
-| 3 | [6.7.4 モデル圧縮](./03-model-compression.md) | 小さく、速く、デプロイしやすいモデル |
+| 1 | [6.7.2 ハイパーパラメータ調整](/ja/ch06-deep-learning/ch07-training-tips/01-hyperparameter-tuning/) | 学習率、batch size、optimizer |
+| 2 | [6.7.3 学習診断](/ja/ch06-deep-learning/ch07-training-tips/02-training-diagnosis/) | loss 曲線、過学習、不安定さ |
+| 3 | [6.7.4 モデル圧縮](/ja/ch06-deep-learning/ch07-training-tips/03-model-compression/) | 小さく、速く、デプロイしやすいモデル |
 
 ## 合格ライン
 

@@ -37,13 +37,13 @@ head:
 
 | ページ | 手を動かすこと | 残す証拠 |
 |---|---|---|
-| [5.1 機械学習の基礎](ch01-ml-basics/00-roadmap.md) | 分類、回帰、クラスタリング、異常検知、特徴量、ラベル、train/test 分割、sklearn の流れを見分ける | 問題定義メモ |
-| [5.1.5 機械学習の歴史](ch01-ml-basics/04-history-breakthroughs.md) | 任意の背景：古典アルゴリズムがなぜ現れたかを軽く読む | 「このアルゴリズムがある理由」のメモ |
-| [5.2 教師あり学習](ch02-supervised/00-roadmap.md) | 多数のモデル比較の前に、回帰と分類の例を動かす | baseline スコアと改善後スコア |
-| [5.3 教師なし学習](ch03-unsupervised/00-roadmap.md) | ラベルがないときにクラスタリング、次元削減、異常検知を試す | グラフまたはクラスタ解釈 |
-| [5.4 評価](ch04-evaluation/00-roadmap.md) | 指標を選び、交差検証を使い、バイアス/バリアンスを診断し、慎重に調整する | 指標選択メモとエラーサンプル |
-| [5.5 特徴量エンジニアリング](ch05-feature-engineering/00-roadmap.md) | 欠損値、カテゴリ、スケーリング、特徴量作成、特徴量選択、Pipeline を扱う | 特徴量処理ログとリーク確認 |
-| [5.6 プロジェクト](ch06-projects/00-roadmap.md) と [5.6.6 ワークショップ](ch06-projects/05-hands-on-ml-workshop.md) | 住宅価格、離反、分群、Kaggle の前に、再現可能な証拠パックを作る | README、モデル比較、エラー分析、次の計画 |
+| [5.1 機械学習の基礎](/ja/ch05-machine-learning/ch01-ml-basics/00-roadmap/) | 分類、回帰、クラスタリング、異常検知、特徴量、ラベル、train/test 分割、sklearn の流れを見分ける | 問題定義メモ |
+| [5.1.5 機械学習の歴史](/ja/ch05-machine-learning/ch01-ml-basics/04-history-breakthroughs/) | 任意の背景：古典アルゴリズムがなぜ現れたかを軽く読む | 「このアルゴリズムがある理由」のメモ |
+| [5.2 教師あり学習](/ja/ch05-machine-learning/ch02-supervised/00-roadmap/) | 多数のモデル比較の前に、回帰と分類の例を動かす | baseline スコアと改善後スコア |
+| [5.3 教師なし学習](/ja/ch05-machine-learning/ch03-unsupervised/00-roadmap/) | ラベルがないときにクラスタリング、次元削減、異常検知を試す | グラフまたはクラスタ解釈 |
+| [5.4 評価](/ja/ch05-machine-learning/ch04-evaluation/00-roadmap/) | 指標を選び、交差検証を使い、バイアス/バリアンスを診断し、慎重に調整する | 指標選択メモとエラーサンプル |
+| [5.5 特徴量エンジニアリング](/ja/ch05-machine-learning/ch05-feature-engineering/00-roadmap/) | 欠損値、カテゴリ、スケーリング、特徴量作成、特徴量選択、Pipeline を扱う | 特徴量処理ログとリーク確認 |
+| [5.6 プロジェクト](/ja/ch05-machine-learning/ch06-projects/00-roadmap/) と [5.6.6 ワークショップ](/ja/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop/) | 住宅価格、離反、分群、Kaggle の前に、再現可能な証拠パックを作る | README、モデル比較、エラー分析、次の計画 |
 
 ## 必修ルート、拡張、深掘り
 
@@ -168,4 +168,4 @@ Logistic regression
 
 </details>
 
-印刷用のチェックリストが必要なときは、[5.0 学習ガイドとタスクリスト](./study-guide.md) を使ってください。次の章では sklearn モデルからニューラルネットワークと深層学習へ進みます。
+印刷用のチェックリストが必要なときは、[5.0 学習ガイドとタスクリスト](/ja/ch05-machine-learning/study-guide/) を使ってください。次の章では sklearn モデルからニューラルネットワークと深層学習へ進みます。

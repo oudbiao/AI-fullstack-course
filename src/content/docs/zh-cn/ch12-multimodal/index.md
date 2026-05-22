@@ -39,7 +39,7 @@ head:
 | 12.2 | 图像生成 | 记录 Prompt、参考、负面要求、选中结果 | Prompt 版本和审核记录 |
 | 12.3 | 视频、语音、数字人 | 理解分镜、语音、镜头、字幕、时间线 | 分镜和素材清单 |
 | 12.4 | 伦理与合规 | 检查版权、肖像、敏感内容、事实风险 | 安全审核清单 |
-| 12.5 | 阶段项目 | 运行 [12.5.3 实操：构建一个可复现的多模态创意包](./ch05-projects/02-hands-on-multimodal-workshop.md) | brief、Prompt、素材、分镜、审核、导出预览 |
+| 12.5 | 阶段项目 | 运行 [12.5.3 实操：构建一个可复现的多模态创意包](/zh-cn/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/) | brief、Prompt、素材、分镜、审核、导出预览 |
 
 ## 第一个可运行循环：结构化视觉输入
 
@@ -139,4 +139,4 @@ rag_ready: True
 - 把多模态记录接入 RAG、Agent 或创意包；
 - 跑通多模态工作坊，并保留 README、审核清单、导出预览和失败样本。
 
-可打印清单见 [12.0 学习检查表](./study-guide.md)。如果想做收官项目，从 [12.5.3 实操：构建一个可复现的多模态创意包](./ch05-projects/02-hands-on-multimodal-workshop.md) 开始。
+可打印清单见 [12.0 学习检查表](/zh-cn/ch12-multimodal/study-guide/)。如果想做收官项目，从 [12.5.3 实操：构建一个可复现的多模态创意包](/zh-cn/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/) 开始。

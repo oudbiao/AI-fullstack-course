@@ -77,7 +77,7 @@ function validateOutput() {
     ["dist/index.html", 'value="/ja/"'],
     ["dist/zh-cn/index.html", 'lang="zh-CN"'],
     ["dist/ja/index.html", 'lang="ja-JP"'],
-    ["dist/zh-Hans/index.html", 'href="/zh-cn"'],
+    ["dist/zh-Hans/index.html", 'href="/zh-cn/"'],
     ["dist/sitemap-index.xml", "sitemap-0.xml"],
   ];
 

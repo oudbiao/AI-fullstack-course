@@ -274,7 +274,7 @@ plt.show()
 
 这三个问题，正好会把你自然带到：
 
-- [4.3.3 偏导数与梯度](./02-partial-derivatives-gradient.md)
+- [4.3.3 偏导数与梯度](/zh-cn/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient/)
 
 :::note[连接后续]
 - **下一节**：偏导数与梯度——多个变量时的"方向导数"

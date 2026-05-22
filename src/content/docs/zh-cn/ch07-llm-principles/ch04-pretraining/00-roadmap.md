@@ -50,9 +50,9 @@ from -> text
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
-| 1 | [7.4.2 预训练数据](./01-pretraining-data.md) | 来源、过滤、去重、污染 |
-| 2 | [7.4.3 预训练方法](./02-pretraining-methods.md) | next-token prediction、loss、scaling |
-| 3 | [7.4.4 预训练工程](./03-pretraining-engineering.md) | 分布式训练、checkpoint、监控 |
+| 1 | [7.4.2 预训练数据](/zh-cn/ch07-llm-principles/ch04-pretraining/01-pretraining-data/) | 来源、过滤、去重、污染 |
+| 2 | [7.4.3 预训练方法](/zh-cn/ch07-llm-principles/ch04-pretraining/02-pretraining-methods/) | next-token prediction、loss、scaling |
+| 3 | [7.4.4 预训练工程](/zh-cn/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering/) | 分布式训练、checkpoint、监控 |
 
 ## 留下的证据
 

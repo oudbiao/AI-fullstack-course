@@ -422,7 +422,7 @@ for chunk in build_chunks("sop_doc_001", "docx", pages):
 如果你后面要处理很多扫描 SOP、检查清单、截图或拍照资料，这一步会非常关键。
 
 对应课程可以回看：
-- [10.5.4 OCR 文字识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [10.5.4 OCR 文字识别](/zh-cn/ch10-computer-vision/ch05-advanced/03-ocr/)
 
 ## 第一次做这个模块时，最稳的范围控制
 

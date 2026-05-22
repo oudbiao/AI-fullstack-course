@@ -11,7 +11,7 @@ head:
 ---
 ![Python learning guide minimal closed loop](/img/course/ch02-study-guide-program-loop-en.webp)
 
-The main study route is now in [Chapter 2 entry](./). Use this page only as a quick checklist while you practice.
+The main study route is now in [Chapter 2 entry](/ch02-python/). Use this page only as a quick checklist while you practice.
 
 ## One-Line Mental Model
 

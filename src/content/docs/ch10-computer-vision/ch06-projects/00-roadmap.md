@@ -59,7 +59,7 @@ If a project has no annotation rule or failure case, it is still a demo, not a p
 | 4 | Industry scenario | Risk notes, user impact, deployment idea |
 | 5 | Hands-on workshop | Reproducible mini pipeline before larger project pages |
 
-Run [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./03-hands-on-vision-workshop.md) before expanding the project.
+Run [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/) before expanding the project.
 
 ## Project Deliverable Standards
 

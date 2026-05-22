@@ -64,10 +64,10 @@ Open the image and check one thing: can a reader see the trend within three seco
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [3.4.2 Matplotlib Basics](./01-matplotlib.md) | Figure, Axes, line/bar/scatter |
-| 2 | [3.4.3 Seaborn Statistical Visualization](./02-seaborn.md) | faster exploratory charts |
-| 3 | [3.4.5 Visualization Best Practices](./04-best-practices.md) | chart choice, labels, color, misleading charts |
-| 4 | [3.4.4 Plotly Interactive Visualization](./03-plotly.md) | interactive charts when the project needs them |
+| 1 | [3.4.2 Matplotlib Basics](/ch03-data-analysis/ch04-visualization/01-matplotlib/) | Figure, Axes, line/bar/scatter |
+| 2 | [3.4.3 Seaborn Statistical Visualization](/ch03-data-analysis/ch04-visualization/02-seaborn/) | faster exploratory charts |
+| 3 | [3.4.5 Visualization Best Practices](/ch03-data-analysis/ch04-visualization/04-best-practices/) | chart choice, labels, color, misleading charts |
+| 4 | [3.4.4 Plotly Interactive Visualization](/ch03-data-analysis/ch04-visualization/03-plotly/) | interactive charts when the project needs them |
 
 ## Evidence to Keep
 

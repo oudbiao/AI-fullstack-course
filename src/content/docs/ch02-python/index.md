@@ -31,13 +31,13 @@ Use this table as both the chapter guide and the task sheet.
 
 | Page | Follow-along action | Evidence to keep |
 |---|---|---|
-| [2.1.1 Python Introduction](ch01-basics/01-intro.md) to [2.1.5 Flow Control](ch01-basics/05-control-flow.md) | Type small scripts with variables, input/output, conditions, and loops | 5 changed scripts with expected output |
-| [2.1.6 Data Structures](ch01-basics/06-data-structures.md) | Store the same task list with a list, dict, and JSON-shaped object | A note explaining why one structure fits best |
-| [2.1.7 Function Basics](ch01-basics/07-functions.md) and [2.1.8 Modules and Packages](ch01-basics/08-modules.md) | Split repeated logic into functions and a module | A script with clear inputs and return values |
-| [2.2.2 Exception Handling](ch02-advanced/02-exceptions.md) and [2.2.3 File Operations](ch02-advanced/03-file-io.md) | Save data, read it back, and handle a missing or broken file | A JSON/text file plus one debug note |
-| [2.2.1 OOP](ch02-advanced/01-oop.md), [2.2.5 Iterators](ch02-advanced/05-iterators-generators.md), and [2.2.6 Type Hints](ch02-advanced/06-type-hints.md) | Skim first, then return when a project needs structure or clarity | One refactored function or class |
-| [2.3.1 Task Manager](ch03-projects/01-todo-cli.md) to [2.3.4 AI API Experience](ch03-projects/04-ai-api-experience.md) | Build small projects that save data, collect data, expose an API, and call an AI API | Project folders with README run commands |
-| [2.3.5 Follow-Along Workshop](ch03-projects/05-hands-on-python-workshop.md) | Combine CLI commands, JSON persistence, stats, and report export | `ch02_output/` plus terminal output |
+| [2.1.1 Python Introduction](/ch02-python/ch01-basics/01-intro/) to [2.1.5 Flow Control](/ch02-python/ch01-basics/05-control-flow/) | Type small scripts with variables, input/output, conditions, and loops | 5 changed scripts with expected output |
+| [2.1.6 Data Structures](/ch02-python/ch01-basics/06-data-structures/) | Store the same task list with a list, dict, and JSON-shaped object | A note explaining why one structure fits best |
+| [2.1.7 Function Basics](/ch02-python/ch01-basics/07-functions/) and [2.1.8 Modules and Packages](/ch02-python/ch01-basics/08-modules/) | Split repeated logic into functions and a module | A script with clear inputs and return values |
+| [2.2.2 Exception Handling](/ch02-python/ch02-advanced/02-exceptions/) and [2.2.3 File Operations](/ch02-python/ch02-advanced/03-file-io/) | Save data, read it back, and handle a missing or broken file | A JSON/text file plus one debug note |
+| [2.2.1 OOP](/ch02-python/ch02-advanced/01-oop/), [2.2.5 Iterators](/ch02-python/ch02-advanced/05-iterators-generators/), and [2.2.6 Type Hints](/ch02-python/ch02-advanced/06-type-hints/) | Skim first, then return when a project needs structure or clarity | One refactored function or class |
+| [2.3.1 Task Manager](/ch02-python/ch03-projects/01-todo-cli/) to [2.3.4 AI API Experience](/ch02-python/ch03-projects/04-ai-api-experience/) | Build small projects that save data, collect data, expose an API, and call an AI API | Project folders with README run commands |
+| [2.3.5 Follow-Along Workshop](/ch02-python/ch03-projects/05-hands-on-python-workshop/) | Combine CLI commands, JSON persistence, stats, and report export | `ch02_output/` plus terminal output |
 
 Key terms for this chapter:
 
@@ -142,4 +142,4 @@ Move to Chapter 3 when you can answer these five questions:
 
 </details>
 
-For a printable checklist, use [2.0 Study Guide and Task Sheet](./study-guide.md). The next chapter will use Python to process CSV files, analyze data, and connect databases.
+For a printable checklist, use [2.0 Study Guide and Task Sheet](/ch02-python/study-guide/). The next chapter will use Python to process CSV files, analyze data, and connect databases.

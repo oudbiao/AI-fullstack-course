@@ -404,7 +404,7 @@ After understanding partial derivatives and gradients, the most worthwhile quest
 
 The next section to read is usually:
 
-- [4.3.4 Gradient Descent](./03-gradient-descent.md)
+- [4.3.4 Gradient Descent](/ch04-ai-math/ch03-calculus/03-gradient-descent/)
 
 :::note[Connecting to What Comes Next]
 - **Next section**: Gradient Descent — step by step along the negative gradient to find the minimum of the loss function

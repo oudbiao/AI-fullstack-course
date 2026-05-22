@@ -468,7 +468,7 @@ After looking at gradient descent, the most valuable questions to bring to the n
 
 These questions will naturally lead you to:
 
-- [4.3.5 Preview of the chain rule and backpropagation](./04-chain-rule-backprop.md)
+- [4.3.5 Preview of the chain rule and backpropagation](/ch04-ai-math/ch03-calculus/04-chain-rule-backprop/)
 
 :::note[Connecting to what comes next]
 - **Next section**: Chain rule — how to efficiently compute the gradient of each parameter in a complex network

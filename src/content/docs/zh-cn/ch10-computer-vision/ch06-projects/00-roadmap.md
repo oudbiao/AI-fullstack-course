@@ -59,7 +59,7 @@ presentable: True
 | 4 | 行业场景 | 风险说明、用户影响、部署想法 |
 | 5 | 实操工作坊 | 在大项目页前先跑可复现迷你流水线 |
 
-扩展项目前，先运行 [10.6.4 实操：构建可复现视觉迷你流水线](./03-hands-on-vision-workshop.md)。
+扩展项目前，先运行 [10.6.4 实操：构建可复现视觉迷你流水线](/zh-cn/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/)。
 
 ## 项目交付物标准
 

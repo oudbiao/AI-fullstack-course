@@ -31,12 +31,12 @@ head:
 
 | 页面 | 跟着做 | 留下的证据 |
 |---|---|---|
-| [3.1.1 纯 Python 数据处理](ch01-warmup/01-pure-python-data.md) | 用列表和字典处理一张小表 | 一段说明：为什么纯 Python 处理表格会变累 |
-| [3.2.1 NumPy 概览](ch02-numpy/01-overview.md) 到 [3.2.7 随机数与统计](ch02-numpy/07-random-stats.md) | 练习数组、形状、切片、广播和向量化计算 | 一个 NumPy 练习文件 |
-| [3.3.1 Pandas 核心结构](ch03-pandas/01-core-structures.md) 到 [3.3.8 时间序列](ch03-pandas/08-time-series.md) | 读取表格、清洗缺失值、分组、合并并导出结果 | 清洗后的数据和清洗记录 |
-| [3.4.1 Matplotlib](ch04-visualization/01-matplotlib.md) 到 [3.4.4 可视化最佳实践](ch04-visualization/04-best-practices.md) | 画出能回答明确问题的图表 | 3 张图，每张配 1 条结论 |
-| [3.5.1 关系型数据库](ch05-database/01-relational-db.md) 到 [3.5.4 数据库设计](ch05-database/04-db-design.md) | 学会用 SQL 筛选、分组和连接真实应用数据 | 一个查询或 join 示例 |
-| [3.6.1 EDA 项目](ch06-projects/01-eda-project.md) 和 [3.6.3 跟做工作坊](ch06-projects/03-hands-on-data-workshop.md) | 搭建可复现的数据流水线和报告 | 原始数据、清洗数据、图表、报告和 README |
+| [3.1.1 纯 Python 数据处理](/zh-cn/ch03-data-analysis/ch01-warmup/01-pure-python-data/) | 用列表和字典处理一张小表 | 一段说明：为什么纯 Python 处理表格会变累 |
+| [3.2.1 NumPy 概览](/zh-cn/ch03-data-analysis/ch02-numpy/01-overview/) 到 [3.2.7 随机数与统计](/zh-cn/ch03-data-analysis/ch02-numpy/07-random-stats/) | 练习数组、形状、切片、广播和向量化计算 | 一个 NumPy 练习文件 |
+| [3.3.1 Pandas 核心结构](/zh-cn/ch03-data-analysis/ch03-pandas/01-core-structures/) 到 [3.3.8 时间序列](/zh-cn/ch03-data-analysis/ch03-pandas/08-time-series/) | 读取表格、清洗缺失值、分组、合并并导出结果 | 清洗后的数据和清洗记录 |
+| [3.4.1 Matplotlib](/zh-cn/ch03-data-analysis/ch04-visualization/01-matplotlib/) 到 [3.4.4 可视化最佳实践](/zh-cn/ch03-data-analysis/ch04-visualization/04-best-practices/) | 画出能回答明确问题的图表 | 3 张图，每张配 1 条结论 |
+| [3.5.1 关系型数据库](/zh-cn/ch03-data-analysis/ch05-database/01-relational-db/) 到 [3.5.4 数据库设计](/zh-cn/ch03-data-analysis/ch05-database/04-db-design/) | 学会用 SQL 筛选、分组和连接真实应用数据 | 一个查询或 join 示例 |
+| [3.6.1 EDA 项目](/zh-cn/ch03-data-analysis/ch06-projects/01-eda-project/) 和 [3.6.3 跟做工作坊](/zh-cn/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop/) | 搭建可复现的数据流水线和报告 | 原始数据、清洗数据、图表、报告和 README |
 
 本章常见术语：
 
@@ -153,7 +153,7 @@ Visualization    ...
 - 哪些结论有数据支持，哪些仍不确定？
 - 其他人能不能按 README 重新运行分析？
 
-需要打印式清单时，打开 [3.0 学习指南与任务单](./study-guide.md)。下一章会用这些数据直觉理解概率、向量、梯度和模型评估。
+需要打印式清单时，打开 [3.0 学习指南与任务单](/zh-cn/ch03-data-analysis/study-guide/)。下一章会用这些数据直觉理解概率、向量、梯度和模型评估。
 
 
 <details>

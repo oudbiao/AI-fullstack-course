@@ -399,8 +399,8 @@ print(render_markdown_handout(payload))
 つまり、自由作文のような長文をそのまま出させるわけではありません。
 
 この部分に最も関係が深い既存の章は次のとおりです。
-- [7.5.2 Prompt 基礎](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [7.5.4 構造化出力](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [7.5.2 Prompt 基礎](/ja/ch07-llm-principles/ch05-prompt/01-prompt-basics/)
+- [7.5.4 構造化出力](/ja/ch07-llm-principles/ch05-prompt/03-structured-output/)
 
 ## 最初にこのモジュールを作るときの、いちばん安定した範囲
 

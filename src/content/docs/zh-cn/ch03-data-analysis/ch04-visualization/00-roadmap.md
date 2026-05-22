@@ -64,10 +64,10 @@ saved: sales_trend.png
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [3.4.2 Matplotlib 基础](./01-matplotlib.md) | Figure、Axes、折线/柱状/散点 |
-| 2 | [3.4.3 Seaborn 统计可视化](./02-seaborn.md) | 更快做探索性图表 |
-| 3 | [3.4.5 可视化最佳实践](./04-best-practices.md) | 选图、标签、颜色、误导性图表 |
-| 4 | [3.4.4 Plotly 交互式可视化](./03-plotly.md) | 项目需要交互时再用 |
+| 1 | [3.4.2 Matplotlib 基础](/zh-cn/ch03-data-analysis/ch04-visualization/01-matplotlib/) | Figure、Axes、折线/柱状/散点 |
+| 2 | [3.4.3 Seaborn 统计可视化](/zh-cn/ch03-data-analysis/ch04-visualization/02-seaborn/) | 更快做探索性图表 |
+| 3 | [3.4.5 可视化最佳实践](/zh-cn/ch03-data-analysis/ch04-visualization/04-best-practices/) | 选图、标签、颜色、误导性图表 |
+| 4 | [3.4.4 Plotly 交互式可视化](/zh-cn/ch03-data-analysis/ch04-visualization/03-plotly/) | 项目需要交互时再用 |
 
 ## 通过标准
 

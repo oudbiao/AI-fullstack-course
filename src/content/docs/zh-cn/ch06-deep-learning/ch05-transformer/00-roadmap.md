@@ -55,8 +55,8 @@ attention_shape: (1, 4, 4)
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
-| 1 | [6.5.2 Attention 机制](./01-attention-mechanism.md) | QKV、attention 权重、mask |
-| 2 | [6.5.3 Transformer 架构](./02-transformer-architecture.md) | block 结构、残差、前馈层 |
+| 1 | [6.5.2 Attention 机制](/zh-cn/ch06-deep-learning/ch05-transformer/01-attention-mechanism/) | QKV、attention 权重、mask |
+| 2 | [6.5.3 Transformer 架构](/zh-cn/ch06-deep-learning/ch05-transformer/02-transformer-architecture/) | block 结构、残差、前馈层 |
 
 ## 留下的证据
 

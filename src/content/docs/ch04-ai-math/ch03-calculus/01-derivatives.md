@@ -286,7 +286,7 @@ After reading about derivatives, the most valuable questions to carry forward ar
 
 These three questions will naturally lead you to:
 
-- [4.3.3 Partial Derivatives and Gradients](./02-partial-derivatives-gradient.md)
+- [4.3.3 Partial Derivatives and Gradients](/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient/)
 
 :::note[Connect to what comes next]
 - **Next section**: Partial derivatives and gradients — "directional change" when there are multiple variables

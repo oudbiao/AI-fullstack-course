@@ -55,9 +55,9 @@ hidden_shape: (1, 2, 4)
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [6.4.2 RNN 基础](./01-rnn-basics.md) | 序列输入、隐藏状态、形状 |
-| 2 | [6.4.3 LSTM 与 GRU](./02-lstm-gru.md) | 门控、长依赖、记忆控制 |
-| 3 | [6.4.4 序列建模实战](./03-sequence-practice.md) | 滑动窗口、训练/评估循环 |
+| 1 | [6.4.2 RNN 基础](/zh-cn/ch06-deep-learning/ch04-rnn/01-rnn-basics/) | 序列输入、隐藏状态、形状 |
+| 2 | [6.4.3 LSTM 与 GRU](/zh-cn/ch06-deep-learning/ch04-rnn/02-lstm-gru/) | 门控、长依赖、记忆控制 |
+| 3 | [6.4.4 序列建模实战](/zh-cn/ch06-deep-learning/ch04-rnn/03-sequence-practice/) | 滑动窗口、训练/评估循环 |
 
 ## 留下的证据
 

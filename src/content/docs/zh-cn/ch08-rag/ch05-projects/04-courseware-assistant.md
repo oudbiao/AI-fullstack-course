@@ -234,9 +234,9 @@ flowchart TD
 - 标题层级、表格和判断规则识别
 
 相关课程：
-- [8.3.8 文档解析与知识提取](../ch03-app-dev/07-document-parsing.md)
-- [8.1.3 文档处理](../ch01-rag/02-document-processing.md)
-- [10.5.4 OCR 文本识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [8.3.8 文档解析与知识提取](/zh-cn/ch08-rag/ch03-app-dev/07-document-parsing/)
+- [8.1.3 文档处理](/zh-cn/ch08-rag/ch01-rag/02-document-processing/)
+- [10.5.4 OCR 文本识别](/zh-cn/ch10-computer-vision/ch05-advanced/03-ocr/)
 
 ### 知识库与检索
 
@@ -246,9 +246,9 @@ flowchart TD
 - 政策和案例召回
 
 相关课程：
-- [8.1.2 RAG 基础](../ch01-rag/01-rag-basics.md)
-- [8.1.4 向量数据库](../ch01-rag/03-vector-databases.md)
-- [8.1.5 检索策略](../ch01-rag/04-retrieval-strategies.md)
+- [8.1.2 RAG 基础](/zh-cn/ch08-rag/ch01-rag/01-rag-basics/)
+- [8.1.4 向量数据库](/zh-cn/ch08-rag/ch01-rag/03-vector-databases/)
+- [8.1.5 检索策略](/zh-cn/ch08-rag/ch01-rag/04-retrieval-strategies/)
 
 ### 结构化输出与模板生成
 
@@ -257,9 +257,9 @@ flowchart TD
 - 最后套 Word 模板导出
 
 相关课程：
-- [7.5.2 Prompt 基础](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [7.5.4 结构化输出](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
-- [8.3.9 模板化文档生成（Word / PPT）](../ch03-app-dev/08-template-doc-generation.md)
+- [7.5.2 Prompt 基础](/zh-cn/ch07-llm-principles/ch05-prompt/01-prompt-basics/)
+- [7.5.4 结构化输出](/zh-cn/ch07-llm-principles/ch05-prompt/03-structured-output/)
+- [8.3.9 模板化文档生成（Word / PPT）](/zh-cn/ch08-rag/ch03-app-dev/08-template-doc-generation/)
 
 ### 工具调用和工作流
 
@@ -269,9 +269,9 @@ flowchart TD
 - 文件导出
 
 相关课程：
-- [8.3.4 Function Calling 实战](../ch03-app-dev/03-function-calling.md)
-- [8.3.6 对话系统与多轮管理](../ch03-app-dev/05-dialog-system.md)
-- [9.2.5 Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
+- [8.3.4 Function Calling 实战](/zh-cn/ch08-rag/ch03-app-dev/03-function-calling/)
+- [8.3.6 对话系统与多轮管理](/zh-cn/ch08-rag/ch03-app-dev/05-dialog-system/)
+- [9.2.5 Plan-and-Execute](/zh-cn/ch09-agent/ch02-reasoning/04-plan-and-execute/)
 
 ## 为什么不要让模型直接生成 Word 文件？
 

@@ -582,7 +582,7 @@ After finishing probability basics, the most worthwhile questions to carry forwa
 
 These three questions will naturally lead you to:
 
-- [4.2.3 Probability Distributions: Patterns Behind Data](./02-distributions.md)
+- [4.2.3 Probability Distributions: Patterns Behind Data](/ch04-ai-math/ch02-probability/02-distributions/)
 
 :::note[Connecting to Later Sections]
 - **Next section**: Probability Distributions — Patterns Behind Data

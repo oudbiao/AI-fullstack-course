@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "AIGC checklist, multimodal checklist, image generation, multimodal RAG, creative workflow"
 ---
-Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 12 entry page](./index.md).
+Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 12 entry page](/ch12-multimodal/).
 
 ![Multimodal portfolio evidence pack](/img/course/ch12-multimodal-evidence-pack-en.webp)
 

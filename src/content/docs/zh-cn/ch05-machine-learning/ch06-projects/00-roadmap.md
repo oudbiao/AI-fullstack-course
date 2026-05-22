@@ -57,11 +57,11 @@ next_step: inspect failure cases before adding more models
 
 | 顺序 | 阅读 | 交付什么 |
 |---|---|---|
-| 1 | [5.6.2 房价预测](./01-house-price.md) | 回归 baseline 和改进 |
-| 2 | [5.6.3 客户流失预测](./02-customer-churn.md) | 分类指标和阈值思维 |
-| 3 | [5.6.4 用户分群](./03-user-segmentation.md) | 聚类解释和业务标签 |
-| 4 | [5.6.5 Kaggle 实践](./04-kaggle.md) | 真实提交流程 |
-| 5 | [5.6.6 ML 实操工作坊](./05-hands-on-ml-workshop.md) | 一份完整证据包演练 |
+| 1 | [5.6.2 房价预测](/zh-cn/ch05-machine-learning/ch06-projects/01-house-price/) | 回归 baseline 和改进 |
+| 2 | [5.6.3 客户流失预测](/zh-cn/ch05-machine-learning/ch06-projects/02-customer-churn/) | 分类指标和阈值思维 |
+| 3 | [5.6.4 用户分群](/zh-cn/ch05-machine-learning/ch06-projects/03-user-segmentation/) | 聚类解释和业务标签 |
+| 4 | [5.6.5 Kaggle 实践](/zh-cn/ch05-machine-learning/ch06-projects/04-kaggle/) | 真实提交流程 |
+| 5 | [5.6.6 ML 实操工作坊](/zh-cn/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop/) | 一份完整证据包演练 |
 
 工作坊放在最后，因为它把前面项目习惯整理成一份可复现证据包。
 

@@ -55,14 +55,14 @@ The key PyTorch habit is visible here: compute loss, call `backward()`, update w
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [6.2.2 sklearn to PyTorch Bridge](./00-sklearn-to-pytorch-bridge.md) | why the loop becomes explicit |
-| 2 | [6.2.3 PyTorch Basics](./01-pytorch-basics.md) | tensors, dtype, shape, device |
-| 3 | [6.2.4 Autograd](./02-autograd.md) | `requires_grad`, `backward`, `grad` |
-| 4 | [6.2.5 nn Module](./03-nn-module.md) | model class, parameters |
-| 5 | [6.2.6 Data Loading](./04-data-loading.md) | Dataset, DataLoader, batch |
-| 6 | [6.2.7 Training Loop](./05-training-loop.md) | train/eval loop, loss log |
-| 7 | [6.2.8 Practical Tips](./06-practical-tips.md) | shape, device, seed, debugging |
-| 8 | [6.2.9 PyTorch Workshop](./07-pytorch-matplotlib-workshop.md) | run and visualize a tiny model |
+| 1 | [6.2.2 sklearn to PyTorch Bridge](/ch06-deep-learning/ch02-pytorch/00-sklearn-to-pytorch-bridge/) | why the loop becomes explicit |
+| 2 | [6.2.3 PyTorch Basics](/ch06-deep-learning/ch02-pytorch/01-pytorch-basics/) | tensors, dtype, shape, device |
+| 3 | [6.2.4 Autograd](/ch06-deep-learning/ch02-pytorch/02-autograd/) | `requires_grad`, `backward`, `grad` |
+| 4 | [6.2.5 nn Module](/ch06-deep-learning/ch02-pytorch/03-nn-module/) | model class, parameters |
+| 5 | [6.2.6 Data Loading](/ch06-deep-learning/ch02-pytorch/04-data-loading/) | Dataset, DataLoader, batch |
+| 6 | [6.2.7 Training Loop](/ch06-deep-learning/ch02-pytorch/05-training-loop/) | train/eval loop, loss log |
+| 7 | [6.2.8 Practical Tips](/ch06-deep-learning/ch02-pytorch/06-practical-tips/) | shape, device, seed, debugging |
+| 8 | [6.2.9 PyTorch Workshop](/ch06-deep-learning/ch02-pytorch/07-pytorch-matplotlib-workshop/) | run and visualize a tiny model |
 
 ## Evidence to Keep
 

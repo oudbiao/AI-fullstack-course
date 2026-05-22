@@ -55,9 +55,9 @@ Read this as two sequences, three steps each, five features per step. The GRU re
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [6.4.2 RNN Basics](./01-rnn-basics.md) | sequence input, hidden state, shape |
-| 2 | [6.4.3 LSTM and GRU](./02-lstm-gru.md) | gates, long dependency, memory control |
-| 3 | [6.4.4 Sequence Practice](./03-sequence-practice.md) | sliding windows, train/eval loop |
+| 1 | [6.4.2 RNN Basics](/ch06-deep-learning/ch04-rnn/01-rnn-basics/) | sequence input, hidden state, shape |
+| 2 | [6.4.3 LSTM and GRU](/ch06-deep-learning/ch04-rnn/02-lstm-gru/) | gates, long dependency, memory control |
+| 3 | [6.4.4 Sequence Practice](/ch06-deep-learning/ch04-rnn/03-sequence-practice/) | sliding windows, train/eval loop |
 
 ## Evidence to Keep
 

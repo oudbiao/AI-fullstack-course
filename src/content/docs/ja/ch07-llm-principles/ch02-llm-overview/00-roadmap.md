@@ -59,10 +59,10 @@ recommended_route: RAG
 
 | 順番 | 読む | 残すもの |
 |---|---|---|
-| 1 | [7.2.2 発展史](./01-development-history.md) | scaling と instruction tuning がなぜ重要か |
-| 2 | [7.2.3 コア概念](./02-core-concepts.md) | コンテキスト、token、temperature、遅延、コスト |
-| 3 | [7.2.4 業界地図](./03-industry-landscape.md) | モデル/プロバイダ選択メモ |
-| 4 | [7.2.5 LLM 呼び出しワークベンチ](./04-llm-call-workbench.md) | 1つの request/response 記録 |
+| 1 | [7.2.2 発展史](/ja/ch07-llm-principles/ch02-llm-overview/01-development-history/) | scaling と instruction tuning がなぜ重要か |
+| 2 | [7.2.3 コア概念](/ja/ch07-llm-principles/ch02-llm-overview/02-core-concepts/) | コンテキスト、token、temperature、遅延、コスト |
+| 3 | [7.2.4 業界地図](/ja/ch07-llm-principles/ch02-llm-overview/03-industry-landscape/) | モデル/プロバイダ選択メモ |
+| 4 | [7.2.5 LLM 呼び出しワークベンチ](/ja/ch07-llm-principles/ch02-llm-overview/04-llm-call-workbench/) | 1つの request/response 記録 |
 
 ## 残す証拠
 

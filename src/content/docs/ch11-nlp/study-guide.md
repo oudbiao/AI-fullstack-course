@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "NLP checklist, text classification, information extraction, BERT, GPT, text evaluation"
 ---
-Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 11 entry page](./index.md).
+Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 11 entry page](/ch11-nlp/).
 
 ![NLP portfolio evidence pack](/img/course/ch11-nlp-evidence-pack-en.webp)
 

@@ -234,9 +234,9 @@ flowchart TD
 - 見出し階層、表、判断ルールの認識
 
 関連コース：
-- [8.3.8 文書解析と知識抽出](../ch03-app-dev/07-document-parsing.md)
-- [8.1.3 文書処理](../ch01-rag/02-document-processing.md)
-- [10.5.4 OCR テキスト認識](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [8.3.8 文書解析と知識抽出](/ja/ch08-rag/ch03-app-dev/07-document-parsing/)
+- [8.1.3 文書処理](/ja/ch08-rag/ch01-rag/02-document-processing/)
+- [10.5.4 OCR テキスト認識](/ja/ch10-computer-vision/ch05-advanced/03-ocr/)
 
 ### 知識ベースと検索
 
@@ -246,9 +246,9 @@ flowchart TD
 - ポリシーとケースの再呼び出し
 
 関連コース：
-- [8.1.2 RAG 基礎](../ch01-rag/01-rag-basics.md)
-- [8.1.4 ベクトルデータベース](../ch01-rag/03-vector-databases.md)
-- [8.1.5 検索戦略](../ch01-rag/04-retrieval-strategies.md)
+- [8.1.2 RAG 基礎](/ja/ch08-rag/ch01-rag/01-rag-basics/)
+- [8.1.4 ベクトルデータベース](/ja/ch08-rag/ch01-rag/03-vector-databases/)
+- [8.1.5 検索戦略](/ja/ch08-rag/ch01-rag/04-retrieval-strategies/)
 
 ### 構造化出力とテンプレート生成
 
@@ -257,9 +257,9 @@ flowchart TD
 - 最後に Word テンプレートで出力する
 
 関連コース：
-- [7.5.2 Prompt 基礎](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [7.5.4 構造化出力](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
-- [8.3.9 テンプレート化した文書生成（Word / PPT）](../ch03-app-dev/08-template-doc-generation.md)
+- [7.5.2 Prompt 基礎](/ja/ch07-llm-principles/ch05-prompt/01-prompt-basics/)
+- [7.5.4 構造化出力](/ja/ch07-llm-principles/ch05-prompt/03-structured-output/)
+- [8.3.9 テンプレート化した文書生成（Word / PPT）](/ja/ch08-rag/ch03-app-dev/08-template-doc-generation/)
 
 ### ツール呼び出しとワークフロー
 
@@ -269,9 +269,9 @@ flowchart TD
 - ファイル出力
 
 関連コース：
-- [8.3.4 Function Calling 実践](../ch03-app-dev/03-function-calling.md)
-- [8.3.6 対話システムとマルチターン管理](../ch03-app-dev/05-dialog-system.md)
-- [9.2.5 Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
+- [8.3.4 Function Calling 実践](/ja/ch08-rag/ch03-app-dev/03-function-calling/)
+- [8.3.6 対話システムとマルチターン管理](/ja/ch08-rag/ch03-app-dev/05-dialog-system/)
+- [9.2.5 Plan-and-Execute](/ja/ch09-agent/ch02-reasoning/04-plan-and-execute/)
 
 ## なぜモデルに直接 Word ファイルを生成させないのか？
 

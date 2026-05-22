@@ -49,11 +49,11 @@ Generation uses this "no future peeking" rule: a token can attend to earlier tok
 
 | Order | Read | What to focus on |
 |---|---|---|
-| 1 | [7.3.2 Architecture Review](./01-architecture-review.md) | attention, residual, normalization |
-| 2 | [7.3.3 Modern Decoder Block](./02-modern-decoder-block.md) | decoder-only LLM block |
-| 3 | [7.3.4 Model Variants](./02-model-variants.md) | encoder, decoder, encoder-decoder |
-| 4 | [7.3.5 Efficient Attention](./03-efficient-attention.md) | KV cache, MQA/GQA, long context |
-| 5 | [7.3.6 Scale and Computation](./04-scale-computation.md) | cost, latency, memory |
+| 1 | [7.3.2 Architecture Review](/ch07-llm-principles/ch03-transformer-deep/01-architecture-review/) | attention, residual, normalization |
+| 2 | [7.3.3 Modern Decoder Block](/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block/) | decoder-only LLM block |
+| 3 | [7.3.4 Model Variants](/ch07-llm-principles/ch03-transformer-deep/02-model-variants/) | encoder, decoder, encoder-decoder |
+| 4 | [7.3.5 Efficient Attention](/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention/) | KV cache, MQA/GQA, long context |
+| 5 | [7.3.6 Scale and Computation](/ch07-llm-principles/ch03-transformer-deep/04-scale-computation/) | cost, latency, memory |
 
 ## Evidence to Keep
 

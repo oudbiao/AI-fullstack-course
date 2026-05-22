@@ -50,11 +50,11 @@ unique_tokens: 5
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [7.1.2 Tokenizer](./01-tokenizer.md) | text -> tokens -> IDs |
-| 2 | [7.1.3 Embeddings](./02-embeddings.md) | token/text -> vectors |
-| 3 | [7.1.4 事前学習済みモデル](./03-pretrained-models.md) | モデル能力をロードして再利用する |
-| 4 | [7.1.5 Hugging Face クイックスタート](./04-huggingface-quickstart.md) | pipeline、model card、ローカル実行 |
-| 5 | [7.1.6 Tokenizer と Embedding ラボ](./05-tokenizer-embedding-lab.md) | token とベクトルを確認する |
+| 1 | [7.1.2 Tokenizer](/ja/ch07-llm-principles/ch01-nlp-crash/01-tokenizer/) | text -> tokens -> IDs |
+| 2 | [7.1.3 Embeddings](/ja/ch07-llm-principles/ch01-nlp-crash/02-embeddings/) | token/text -> vectors |
+| 3 | [7.1.4 事前学習済みモデル](/ja/ch07-llm-principles/ch01-nlp-crash/03-pretrained-models/) | モデル能力をロードして再利用する |
+| 4 | [7.1.5 Hugging Face クイックスタート](/ja/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart/) | pipeline、model card、ローカル実行 |
+| 5 | [7.1.6 Tokenizer と Embedding ラボ](/ja/ch07-llm-principles/ch01-nlp-crash/05-tokenizer-embedding-lab/) | token とベクトルを確認する |
 
 ## 残す証拠
 

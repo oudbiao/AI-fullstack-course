@@ -413,9 +413,9 @@ flowchart LR
 :::note[次にどう学ぶとスムーズか]
 このページを読み終えたら、次に続けて学ぶのがおすすめです。
 
-1. [5.1.3 Scikit-learn フレームワーク入門](./02-sklearn-intro.md)
-2. [5.2.2 線形回帰](../ch02-supervised/01-linear-regression.md)
-3. [5.4.2 評価指標](../ch04-evaluation/01-metrics.md)
+1. [5.1.3 Scikit-learn フレームワーク入門](/ja/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro/)
+2. [5.2.2 線形回帰](/ja/ch05-machine-learning/ch02-supervised/01-linear-regression/)
+3. [5.4.2 評価指標](/ja/ch05-machine-learning/ch04-evaluation/01-metrics/)
 
 そうすると、「数学が本当にモデルの中で働き始めた」と最も実感しやすくなります。
 :::

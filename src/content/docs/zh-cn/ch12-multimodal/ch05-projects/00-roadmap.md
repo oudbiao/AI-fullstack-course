@@ -56,7 +56,7 @@ assets: title, cover_prompt, video_script, review_checklist
 
 ## 先从工作坊开始
 
-扩展大型创意平台之前，先运行 [12.5.3 实践：构建可复现的多模态创意内容包](./02-hands-on-multimodal-workshop.md)。它会给你一个最小可复现闭环：brief 收集、提示词记录、素材版本、分镜导出、安全审核和失败分析。
+扩展大型创意平台之前，先运行 [12.5.3 实践：构建可复现的多模态创意内容包](/zh-cn/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/)。它会给你一个最小可复现闭环：brief 收集、提示词记录、素材版本、分镜导出、安全审核和失败分析。
 
 ## 项目交付标准
 

@@ -68,11 +68,11 @@ This is the smallest useful machine learning loop: split first, train only on th
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [5.1.2 What Is Machine Learning?](./01-what-is-ml.md) | task types, features, labels |
-| 2 | [5.1.3 Scikit-learn Introduction](./02-sklearn-intro.md) | `fit`, `predict`, `score` |
-| 3 | [5.1.4 How Math Flows Into ML](./03-math-to-ml-bridge.md) | vectors, probability, loss, optimization |
-| 4 | [5.1.5 Machine Learning History](./04-history-breakthroughs.md) | why major algorithms appeared |
-| 5 | [5.1.6 sklearn and Matplotlib Workshop](./05-sklearn-matplotlib-workshop.md) | run, plot, explain a baseline |
+| 1 | [5.1.2 What Is Machine Learning?](/ch05-machine-learning/ch01-ml-basics/01-what-is-ml/) | task types, features, labels |
+| 2 | [5.1.3 Scikit-learn Introduction](/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro/) | `fit`, `predict`, `score` |
+| 3 | [5.1.4 How Math Flows Into ML](/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge/) | vectors, probability, loss, optimization |
+| 4 | [5.1.5 Machine Learning History](/ch05-machine-learning/ch01-ml-basics/04-history-breakthroughs/) | why major algorithms appeared |
+| 5 | [5.1.6 sklearn and Matplotlib Workshop](/ch05-machine-learning/ch01-ml-basics/05-sklearn-matplotlib-workshop/) | run, plot, explain a baseline |
 
 ## Evidence to Keep
 

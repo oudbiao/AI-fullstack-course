@@ -70,17 +70,17 @@ score=2.1
 
 | ステップ | レッスン | 実践で残す成果 |
 |---|---|---|
-| 1 | [E.A.1 C++ 基礎](./01-cpp-basics.md) | 小さな推論補助コードをコンパイルして実行する |
-| 2 | [E.A.2 C++ 応用](./02-cpp-advanced.md) | 所有権、RAII、安全なリソース解放を説明する |
-| 3 | [E.A.3 モデル最適化](./03-model-optimization.md) | 遅延、メモリ、精度のトレードオフを比較する |
-| 4 | [E.A.4 推論エンジン](./04-inference-engines.md) | ハードウェアとモデル形式に合わせてエンジンを選ぶ |
-| 5 | [E.A.5 エッジデプロイ](./05-edge-deployment.md) | エッジ制約を挙げ、確認リストを作る |
-| 6 | [E.A.6 モデルサービス化](./06-model-serving.md) | バージョン管理とメトリクス付きのサービス設計を描く |
-| 7 | [E.A.7 プロジェクト](./07-projects.md) | 小さなデプロイ証拠パックを提出する |
+| 1 | [E.A.1 C++ 基礎](/ja/electives/module-a/01-cpp-basics/) | 小さな推論補助コードをコンパイルして実行する |
+| 2 | [E.A.2 C++ 応用](/ja/electives/module-a/02-cpp-advanced/) | 所有権、RAII、安全なリソース解放を説明する |
+| 3 | [E.A.3 モデル最適化](/ja/electives/module-a/03-model-optimization/) | 遅延、メモリ、精度のトレードオフを比較する |
+| 4 | [E.A.4 推論エンジン](/ja/electives/module-a/04-inference-engines/) | ハードウェアとモデル形式に合わせてエンジンを選ぶ |
+| 5 | [E.A.5 エッジデプロイ](/ja/electives/module-a/05-edge-deployment/) | エッジ制約を挙げ、確認リストを作る |
+| 6 | [E.A.6 モデルサービス化](/ja/electives/module-a/06-model-serving/) | バージョン管理とメトリクス付きのサービス設計を描く |
+| 7 | [E.A.7 プロジェクト](/ja/electives/module-a/07-projects/) | 小さなデプロイ証拠パックを提出する |
 
 ## 合格チェック
 
-このモジュールは、C++ の例を 1 つコンパイルでき、デプロイ上のトレードオフを説明でき、遅延またはメモリの証拠を残し、その結果を[選択モジュール実践ワークショップ](../hands-on-elective-workshop.md)につなげられたら合格です。
+このモジュールは、C++ の例を 1 つコンパイルでき、デプロイ上のトレードオフを説明でき、遅延またはメモリの証拠を残し、その結果を[選択モジュール実践ワークショップ](/ja/electives/hands-on-elective-workshop/)につなげられたら合格です。
 
 <details>
 <summary>確認の考え方と解説</summary>

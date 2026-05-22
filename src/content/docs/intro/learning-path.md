@@ -65,7 +65,7 @@ The reflection can be short. Good examples:
 
 Skip only when you can pass the chapter check without guessing. Slow down when you cannot explain the output, cannot rerun the code, or cannot tell whether the result is good. Experienced learners should slow down on evaluation, failure modes, and production constraints even when the demo feels easy.
 
-Do not redesign your learning plan every week. Read briefly, run something, keep evidence, then continue to [Chapter 1](/ch01-tools).
+Do not redesign your learning plan every week. Read briefly, run something, keep evidence, then continue to [Chapter 1](/ch01-tools/).
 
 ## Evidence to Keep
 

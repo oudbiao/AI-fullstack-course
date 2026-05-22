@@ -57,7 +57,7 @@ portfolio_ready: True
 | 4 | 问答 | 检索、引用、拒答、无答案评估 |
 | 5 | 实操工作坊 | 在大项目页前先跑可复现迷你流水线 |
 
-扩展项目前，先运行 [11.7.6 实操：构建可复现 NLP 迷你流水线](./05-hands-on-nlp-workshop.md)。
+扩展项目前，先运行 [11.7.6 实操：构建可复现 NLP 迷你流水线](/zh-cn/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop/)。
 
 ## 项目交付物标准
 

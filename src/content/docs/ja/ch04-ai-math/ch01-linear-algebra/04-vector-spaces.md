@@ -603,8 +603,8 @@ print("\n再構成誤差:", round(np.linalg.norm(M - Mk), 4))
 
 次に読むのにおすすめなのは、通常こちらです。
 
-- [5 第 5 ステップのトップページ](../../ch05-machine-learning/index.md)
-- [5.1.6 数学がどのように機械学習へつながるのか](../../ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md)
+- [5 第 5 ステップのトップページ](/ja/ch05-machine-learning/)
+- [5.1.6 数学がどのように機械学習へつながるのか](/ja/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge/)
 
 ## もし今この節がまだ少し抽象的に感じるなら、まず何をつかむべき？
 

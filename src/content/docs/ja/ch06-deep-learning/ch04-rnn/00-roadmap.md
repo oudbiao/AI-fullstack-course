@@ -55,9 +55,9 @@ hidden_shape: (1, 2, 4)
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [6.4.2 RNN 基礎](./01-rnn-basics.md) | 系列入力、隠れ状態、形 |
-| 2 | [6.4.3 LSTM と GRU](./02-lstm-gru.md) | ゲート、長期依存、記憶制御 |
-| 3 | [6.4.4 系列モデリング実践](./03-sequence-practice.md) | スライディングウィンドウ、train/eval ループ |
+| 1 | [6.4.2 RNN 基礎](/ja/ch06-deep-learning/ch04-rnn/01-rnn-basics/) | 系列入力、隠れ状態、形 |
+| 2 | [6.4.3 LSTM と GRU](/ja/ch06-deep-learning/ch04-rnn/02-lstm-gru/) | ゲート、長期依存、記憶制御 |
+| 3 | [6.4.4 系列モデリング実践](/ja/ch06-deep-learning/ch04-rnn/03-sequence-practice/) | スライディングウィンドウ、train/eval ループ |
 
 ## 残す証拠
 

@@ -55,8 +55,8 @@ attention_shape: (1, 4, 4)
 
 | Order | Read | What to focus on |
 |---|---|---|
-| 1 | [6.5.2 Attention Mechanism](./01-attention-mechanism.md) | QKV, attention weights, masking |
-| 2 | [6.5.3 Transformer Architecture](./02-transformer-architecture.md) | block structure, residuals, feed-forward layers |
+| 1 | [6.5.2 Attention Mechanism](/ch06-deep-learning/ch05-transformer/01-attention-mechanism/) | QKV, attention weights, masking |
+| 2 | [6.5.3 Transformer Architecture](/ch06-deep-learning/ch05-transformer/02-transformer-architecture/) | block structure, residuals, feed-forward layers |
 
 ## Evidence to Keep
 

@@ -69,9 +69,9 @@ inertia: 43.44
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [5.3.2 クラスタリング](./01-clustering.md) | K-Means、クラスタ解釈、悪いクラスタ数選択 |
-| 2 | [5.3.3 次元削減](./02-dimensionality-reduction.md) | PCA、可視化、圧縮 |
-| 3 | [5.3.4 異常検知](./03-anomaly-detection.md) | 外れ値、しきい値、アラートの証拠 |
+| 1 | [5.3.2 クラスタリング](/ja/ch05-machine-learning/ch03-unsupervised/01-clustering/) | K-Means、クラスタ解釈、悪いクラスタ数選択 |
+| 2 | [5.3.3 次元削減](/ja/ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction/) | PCA、可視化、圧縮 |
+| 3 | [5.3.4 異常検知](/ja/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection/) | 外れ値、しきい値、アラートの証拠 |
 
 ## 合格ライン
 

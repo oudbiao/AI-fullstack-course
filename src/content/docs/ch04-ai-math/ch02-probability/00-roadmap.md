@@ -61,11 +61,11 @@ Lower cross-entropy means the probabilities are closer to the labels. This is wh
 
 | Order | Read | What to focus on first |
 |---|---|---|
-| 1 | [4.2.2 Probability Basics](./01-probability-basics.md) | event, conditional probability, Bayes update |
-| 2 | [4.2.3 Distributions](./02-distributions.md) | Bernoulli, binomial, normal distribution |
-| 3 | [4.2.4 Statistical Inference](./03-statistical-inference.md) | MLE, MAP, confidence, A/B testing |
-| 4 | [4.2.5 Information Theory](./04-information-theory.md) | entropy, cross-entropy, KL divergence |
-| 5 | [4.2.6 Historical Foundations](./05-history-foundations.md) | Bayes, Fisher, Shannon, EM in context |
+| 1 | [4.2.2 Probability Basics](/ch04-ai-math/ch02-probability/01-probability-basics/) | event, conditional probability, Bayes update |
+| 2 | [4.2.3 Distributions](/ch04-ai-math/ch02-probability/02-distributions/) | Bernoulli, binomial, normal distribution |
+| 3 | [4.2.4 Statistical Inference](/ch04-ai-math/ch02-probability/03-statistical-inference/) | MLE, MAP, confidence, A/B testing |
+| 4 | [4.2.5 Information Theory](/ch04-ai-math/ch02-probability/04-information-theory/) | entropy, cross-entropy, KL divergence |
+| 5 | [4.2.6 Historical Foundations](/ch04-ai-math/ch02-probability/05-history-foundations/) | Bayes, Fisher, Shannon, EM in context |
 
 ## Evidence to Keep
 

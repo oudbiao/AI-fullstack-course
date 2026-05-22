@@ -397,8 +397,8 @@ Because you will usually ask the model to first produce:
 rather than directly producing a long, free-form prose document.
 
 The most relevant existing lessons for this part are:
-- [7.5.2 Prompt Basics](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [7.5.4 Structured Output](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [7.5.2 Prompt Basics](/ch07-llm-principles/ch05-prompt/01-prompt-basics/)
+- [7.5.4 Structured Output](/ch07-llm-principles/ch05-prompt/03-structured-output/)
 
 ## The Safest Scope Control When You Build This Module for the First Time
 

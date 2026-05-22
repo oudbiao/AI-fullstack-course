@@ -50,11 +50,11 @@ unique_tokens: 5
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [7.1.2 Tokenizer](./01-tokenizer.md) | 文本 -> token -> ID |
-| 2 | [7.1.3 Embeddings](./02-embeddings.md) | token/文本 -> 向量 |
-| 3 | [7.1.4 预训练模型](./03-pretrained-models.md) | 加载并复用模型能力 |
-| 4 | [7.1.5 Hugging Face 快速上手](./04-huggingface-quickstart.md) | pipeline、model card、本地运行 |
-| 5 | [7.1.6 Tokenizer 与 Embedding 实验](./05-tokenizer-embedding-lab.md) | 检查 token 和向量 |
+| 1 | [7.1.2 Tokenizer](/zh-cn/ch07-llm-principles/ch01-nlp-crash/01-tokenizer/) | 文本 -> token -> ID |
+| 2 | [7.1.3 Embeddings](/zh-cn/ch07-llm-principles/ch01-nlp-crash/02-embeddings/) | token/文本 -> 向量 |
+| 3 | [7.1.4 预训练模型](/zh-cn/ch07-llm-principles/ch01-nlp-crash/03-pretrained-models/) | 加载并复用模型能力 |
+| 4 | [7.1.5 Hugging Face 快速上手](/zh-cn/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart/) | pipeline、model card、本地运行 |
+| 5 | [7.1.6 Tokenizer 与 Embedding 实验](/zh-cn/ch07-llm-principles/ch01-nlp-crash/05-tokenizer-embedding-lab/) | 检查 token 和向量 |
 
 ## 留下的证据
 

@@ -59,7 +59,7 @@ presentable: True
 | 4 | Industry scenario | risk notes、user impact、deployment idea |
 | 5 | Hands-on workshop | larger project pages の前に reproducible mini pipeline |
 
-project を広げる前に、[10.6.4 実践：再現可能な Vision Mini Pipeline を作る](./03-hands-on-vision-workshop.md) を実行します。
+project を広げる前に、[10.6.4 実践：再現可能な Vision Mini Pipeline を作る](/ja/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/) を実行します。
 
 ## プロジェクト成果物基準
 

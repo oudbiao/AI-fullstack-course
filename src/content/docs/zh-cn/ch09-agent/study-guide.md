@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "Agent 检查表, AI Agent 学习, ReAct, MCP, 工具调用, Agent 评估"
 ---
-这页当成可打印检查表使用。需要完整讲解时，回到 [第 9 章入口页](./index.md)。
+这页当成可打印检查表使用。需要完整讲解时，回到 [第 9 章入口页](/zh-cn/ch09-agent/)。
 
 ![Agent 追踪 证据包](/img/course/ch09-agent-trace-pack.webp)
 

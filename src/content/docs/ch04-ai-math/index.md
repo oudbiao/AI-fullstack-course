@@ -37,10 +37,10 @@ Study the theory first, then run the full workshop. The workshop is last because
 
 | Page | Follow-along action | Evidence to keep |
 |---|---|---|
-| [4.1 Linear Algebra](ch01-linear-algebra/00-roadmap.md) | Use vectors, matrices, dot product, norm, and cosine similarity to compare examples | One vector similarity calculation |
-| [4.2 Probability and Statistics](ch02-probability/00-roadmap.md) | Simulate uncertainty, distributions, mean, variance, entropy, and loss | One probability or entropy note |
-| [4.3 Calculus and Optimization](ch03-calculus/00-roadmap.md) | Trace derivatives, gradients, learning rate, and gradient descent | One parameter-update table |
-| [4.4 Hands-on Math Workshop](hands-on-math-workshop.md) | Connect vector similarity, probability, entropy/loss, and gradient descent in one runnable script | `ch04_math_workshop_evidence/` |
+| [4.1 Linear Algebra](/ch04-ai-math/ch01-linear-algebra/00-roadmap/) | Use vectors, matrices, dot product, norm, and cosine similarity to compare examples | One vector similarity calculation |
+| [4.2 Probability and Statistics](/ch04-ai-math/ch02-probability/00-roadmap/) | Simulate uncertainty, distributions, mean, variance, entropy, and loss | One probability or entropy note |
+| [4.3 Calculus and Optimization](/ch04-ai-math/ch03-calculus/00-roadmap/) | Trace derivatives, gradients, learning rate, and gradient descent | One parameter-update table |
+| [4.4 Hands-on Math Workshop](/ch04-ai-math/hands-on-math-workshop/) | Connect vector similarity, probability, entropy/loss, and gradient descent in one runnable script | `ch04_math_workshop_evidence/` |
 
 ## Core Path, Extensions, And Depth
 
@@ -140,9 +140,9 @@ Move to Chapter 5 when you can answer these five questions:
 - Why can a model output be read as probability or confidence?
 - What does loss measure?
 - How does a gradient tell parameters which way to move?
-- Can you run [4.4 Hands-on Math Workshop](hands-on-math-workshop.md) and explain the generated files?
+- Can you run [4.4 Hands-on Math Workshop](/ch04-ai-math/hands-on-math-workshop/) and explain the generated files?
 
-For a printable checklist, use [4.0 Study Guide and Task Sheet](./study-guide.md). The next chapter grounds these math ideas in sklearn model training and evaluation.
+For a printable checklist, use [4.0 Study Guide and Task Sheet](/ch04-ai-math/study-guide/). The next chapter grounds these math ideas in sklearn model training and evaluation.
 
 
 <details>

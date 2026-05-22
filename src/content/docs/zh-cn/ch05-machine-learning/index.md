@@ -37,13 +37,13 @@ head:
 
 | 页面 | 跟着做 | 留下的证据 |
 |---|---|---|
-| [5.1 机器学习基础](ch01-ml-basics/00-roadmap.md) | 识别分类、回归、聚类、异常检测、特征、标签、训练/测试划分和 sklearn 流程 | 一份问题定义说明 |
-| [5.1.5 机器学习历史](ch01-ml-basics/04-history-breakthroughs.md) | 可选背景：浏览经典算法为什么陆续出现 | 一条“这个算法为什么存在”的说明 |
-| [5.2 监督学习](ch02-supervised/00-roadmap.md) | 先跑回归和分类样例，再比较多个模型 | 一个 baseline 分数和一个改进分数 |
-| [5.3 无监督学习](ch03-unsupervised/00-roadmap.md) | 没有标签时尝试聚类、降维和异常检测 | 一张图或一段聚类解释 |
-| [5.4 模型评估](ch04-evaluation/00-roadmap.md) | 选择指标、使用交叉验证、诊断偏差/方差、谨慎调参 | 指标选择说明和错误样本 |
-| [5.5 特征工程](ch05-feature-engineering/00-roadmap.md) | 处理缺失值、类别、缩放、特征构造、特征选择和 Pipeline | 特征处理记录和泄漏检查 |
-| [5.6 项目](ch06-projects/00-roadmap.md) 和 [5.6.6 工作坊](ch06-projects/05-hands-on-ml-workshop.md) | 在房价、流失、分群或 Kaggle 前，先做可复现证据包 | README、模型对比、错误分析和下一步计划 |
+| [5.1 机器学习基础](/zh-cn/ch05-machine-learning/ch01-ml-basics/00-roadmap/) | 识别分类、回归、聚类、异常检测、特征、标签、训练/测试划分和 sklearn 流程 | 一份问题定义说明 |
+| [5.1.5 机器学习历史](/zh-cn/ch05-machine-learning/ch01-ml-basics/04-history-breakthroughs/) | 可选背景：浏览经典算法为什么陆续出现 | 一条“这个算法为什么存在”的说明 |
+| [5.2 监督学习](/zh-cn/ch05-machine-learning/ch02-supervised/00-roadmap/) | 先跑回归和分类样例，再比较多个模型 | 一个 baseline 分数和一个改进分数 |
+| [5.3 无监督学习](/zh-cn/ch05-machine-learning/ch03-unsupervised/00-roadmap/) | 没有标签时尝试聚类、降维和异常检测 | 一张图或一段聚类解释 |
+| [5.4 模型评估](/zh-cn/ch05-machine-learning/ch04-evaluation/00-roadmap/) | 选择指标、使用交叉验证、诊断偏差/方差、谨慎调参 | 指标选择说明和错误样本 |
+| [5.5 特征工程](/zh-cn/ch05-machine-learning/ch05-feature-engineering/00-roadmap/) | 处理缺失值、类别、缩放、特征构造、特征选择和 Pipeline | 特征处理记录和泄漏检查 |
+| [5.6 项目](/zh-cn/ch05-machine-learning/ch06-projects/00-roadmap/) 和 [5.6.6 工作坊](/zh-cn/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop/) | 在房价、流失、分群或 Kaggle 前，先做可复现证据包 | README、模型对比、错误分析和下一步计划 |
 
 ## 必修主线、扩展和深度挑战
 
@@ -168,4 +168,4 @@ Logistic regression
 
 </details>
 
-需要打印式清单时，打开 [5.0 学习指南与任务单](./study-guide.md)。下一章会从 sklearn 模型进入神经网络和深度学习训练。
+需要打印式清单时，打开 [5.0 学习指南与任务单](/zh-cn/ch05-machine-learning/study-guide/)。下一章会从 sklearn 模型进入神经网络和深度学习训练。

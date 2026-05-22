@@ -555,7 +555,7 @@ print(f"交叉熵 = -对数似然: {-log_likelihood:.4f}")
 
 这几个问题，正好会把你自然带到：
 
-- [4.2.5 信息论基础](./04-information-theory.md)
+- [4.2.5 信息论基础](/zh-cn/ch04-ai-math/ch02-probability/04-information-theory/)
 
 ```mermaid
 flowchart LR

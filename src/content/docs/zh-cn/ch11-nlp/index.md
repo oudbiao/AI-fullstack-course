@@ -44,7 +44,7 @@ head:
 | 11.4 | 序列标注 | 理解 NER 和 token 级字段 | 实体样例和边界案例 |
 | 11.5 | Seq2Seq 与注意力 | 理解生成和翻译历史路线 | 摘要或翻译笔记 |
 | 11.6 | 预训练模型 | 比较 BERT、GPT、T5、Transformers 用法 | 模型选择说明 |
-| 11.7 | 阶段项目 | 运行 [11.7.6 实操：构建一个可复现的 NLP 迷你流水线](./ch07-projects/05-hands-on-nlp-workshop.md) | 数据文件、指标、抽取结果、失败报告 |
+| 11.7 | 阶段项目 | 运行 [11.7.6 实操：构建一个可复现的 NLP 迷你流水线](/zh-cn/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop/) | 数据文件、指标、抽取结果、失败报告 |
 
 ## 第一个可运行循环：标签、规则和评估
 
@@ -155,4 +155,4 @@ accuracy=3/3
 - 按输出类型选择分类、抽取、摘要、问答、检索或预训练模型对比；
 - 跑通可复现 NLP 迷你流水线，并保留指标和失败案例。
 
-可打印清单见 [11.0 学习检查表](./study-guide.md)。如果想直接做项目，从 [11.7.6 实操：构建一个可复现的 NLP 迷你流水线](./ch07-projects/05-hands-on-nlp-workshop.md) 开始。
+可打印清单见 [11.0 学习检查表](/zh-cn/ch11-nlp/study-guide/)。如果想直接做项目，从 [11.7.6 实操：构建一个可复现的 NLP 迷你流水线](/zh-cn/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop/) 开始。

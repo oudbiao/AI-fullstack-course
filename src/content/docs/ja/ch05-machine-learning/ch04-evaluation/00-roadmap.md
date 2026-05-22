@@ -66,10 +66,10 @@ mean_accuracy: 0.933
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [5.4.2 評価指標](./01-metrics.md) | accuracy、precision、recall、F1、R2、RMSE |
-| 2 | [5.4.3 交差検証](./02-cross-validation.md) | 安定した見積もり、データ分割リスク |
-| 3 | [5.4.4 バイアスとバリアンス](./03-bias-variance.md) | 未学習、過学習、学習曲線 |
-| 4 | [5.4.5 ハイパーパラメータ調整](./04-hyperparameter-tuning.md) | グリッドサーチ、比較記録 |
+| 1 | [5.4.2 評価指標](/ja/ch05-machine-learning/ch04-evaluation/01-metrics/) | accuracy、precision、recall、F1、R2、RMSE |
+| 2 | [5.4.3 交差検証](/ja/ch05-machine-learning/ch04-evaluation/02-cross-validation/) | 安定した見積もり、データ分割リスク |
+| 3 | [5.4.4 バイアスとバリアンス](/ja/ch05-machine-learning/ch04-evaluation/03-bias-variance/) | 未学習、過学習、学習曲線 |
+| 4 | [5.4.5 ハイパーパラメータ調整](/ja/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning/) | グリッドサーチ、比較記録 |
 
 ## 合格ライン
 

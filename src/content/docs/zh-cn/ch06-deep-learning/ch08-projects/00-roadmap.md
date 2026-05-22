@@ -72,10 +72,10 @@ next_step: inspect confused classes and add augmentation
 
 | 顺序 | 阅读 | 交付什么 |
 |---|---|---|
-| 1 | [6.8.2 图像分类](./01-image-classification.md) | 数据集、CNN/迁移 baseline、预测样本 |
-| 2 | [6.8.3 情感分析](./02-sentiment-analysis.md) | 文本流程、训练日志、错误样本 |
-| 3 | [6.8.4 生成实践](./03-generative-practice.md) | 生成样本和审查记录 |
-| 4 | [6.8.5 DL 实操工作坊](./04-hands-on-dl-workshop.md) | 一份可复现 PyTorch 证据包 |
+| 1 | [6.8.2 图像分类](/zh-cn/ch06-deep-learning/ch08-projects/01-image-classification/) | 数据集、CNN/迁移 baseline、预测样本 |
+| 2 | [6.8.3 情感分析](/zh-cn/ch06-deep-learning/ch08-projects/02-sentiment-analysis/) | 文本流程、训练日志、错误样本 |
+| 3 | [6.8.4 生成实践](/zh-cn/ch06-deep-learning/ch08-projects/03-generative-practice/) | 生成样本和审查记录 |
+| 4 | [6.8.5 DL 实操工作坊](/zh-cn/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop/) | 一份可复现 PyTorch 证据包 |
 
 ## 项目交付物标准
 

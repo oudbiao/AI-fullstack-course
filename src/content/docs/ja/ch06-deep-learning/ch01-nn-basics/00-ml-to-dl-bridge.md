@@ -229,13 +229,13 @@ flowchart LR
 
 もし第5ステーションから来たばかりなら、次の順番で進むのがおすすめです。
 
-1. まず [6.1.1 学習前ガイド：この章でニューラルネットワーク基礎は何を学ぶのか](./00-roadmap.md) を読む
+1. まず [6.1.1 学習前ガイド：この章でニューラルネットワーク基礎は何を学ぶのか](/ja/ch06-deep-learning/ch01-nn-basics/00-roadmap/) を読む
    ニューロン、順伝播、逆伝播、オプティマイザといった言葉の位置を先にそろえます。
 
-2. 次に [6.1.3 ニューロンから多層パーセプトロンへ](./01-neurons-activation.md) を読む
+2. 次に [6.1.3 ニューロンから多層パーセプトロンへ](/ja/ch06-deep-learning/ch01-nn-basics/01-neurons-activation/) を読む
    まず「1つのニューロンが何をしているのか」を理解します。
 
-3. それから [6.2.1 学習前ガイド：この章で PyTorch は何を学ぶのか](../ch02-pytorch/00-roadmap.md) に進む
+3. それから [6.2.1 学習前ガイド：この章で PyTorch は何を学ぶのか](/ja/ch06-deep-learning/ch02-pytorch/00-roadmap/) に進む
    そして学習フローを `Tensor / Autograd / Module / DataLoader / Training Loop` でつなげます。
 
 この順番のほうが、最初から複雑なネットワーク構造に飛び込むよりずっと安定しています。

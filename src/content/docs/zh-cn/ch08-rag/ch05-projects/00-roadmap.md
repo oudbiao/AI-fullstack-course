@@ -68,7 +68,7 @@ evidence: docs, eval, citations, failures
 | 4 | SOP 文档助手 | 文档解析、结构化输出和模板渲染 |
 | 5 | 完整实操工作坊 | 在真实 API 或数据库前先跑最小可复现闭环 |
 
-如果需要带着做的基线，从 [8.5.6 实操：完整第 8 章 RAG 应用工作坊](./05-stage-hands-on-workshop.md) 开始。
+如果需要带着做的基线，从 [8.5.6 实操：完整第 8 章 RAG 应用工作坊](/zh-cn/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) 开始。
 
 ## 项目交付物标准
 

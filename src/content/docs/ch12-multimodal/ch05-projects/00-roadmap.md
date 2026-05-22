@@ -56,7 +56,7 @@ If this state is missing, the project will look like a demo instead of a product
 
 ## Start with the Workshop
 
-Run [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](./02-hands-on-multimodal-workshop.md) before expanding the larger creative platform. It gives you the smallest reproducible loop for brief intake, prompt records, asset versions, storyboard export, safety review, and failure analysis.
+Run [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/) before expanding the larger creative platform. It gives you the smallest reproducible loop for brief intake, prompt records, asset versions, storyboard export, safety review, and failure analysis.
 
 ## Project Deliverable Standards
 

@@ -37,13 +37,13 @@ Use this table as both the chapter guide and the task sheet.
 
 | Page | Follow-along action | Evidence to keep |
 |---|---|---|
-| [5.1 ML Basics](ch01-ml-basics/00-roadmap.md) | Identify classification, regression, clustering, anomaly detection, features, labels, train/test split, and sklearn flow | A problem-definition note |
-| [5.1.5 ML History](ch01-ml-basics/04-history-breakthroughs.md) | Optional background: skim how classic algorithms appeared | A short “why this algorithm exists” note |
-| [5.2 Supervised Learning](ch02-supervised/00-roadmap.md) | Run regression and classification examples before comparing many models | One baseline score and one improved score |
-| [5.3 Unsupervised Learning](ch03-unsupervised/00-roadmap.md) | Try clustering, dimensionality reduction, and anomaly detection when labels are missing | One chart or cluster interpretation |
-| [5.4 Evaluation](ch04-evaluation/00-roadmap.md) | Choose metrics, use cross-validation, diagnose bias/variance, tune carefully | Metric choice and error samples |
-| [5.5 Feature Engineering](ch05-feature-engineering/00-roadmap.md) | Handle missing values, categories, scaling, feature construction, feature selection, and Pipeline | Feature processing log and leakage check |
-| [5.6 Projects](ch06-projects/00-roadmap.md) and [5.6.6 Workshop](ch06-projects/05-hands-on-ml-workshop.md) | Build a reproducible evidence pack before larger house-price, churn, segmentation, or Kaggle work | README, model comparison, errors, and next-step plan |
+| [5.1 ML Basics](/ch05-machine-learning/ch01-ml-basics/00-roadmap/) | Identify classification, regression, clustering, anomaly detection, features, labels, train/test split, and sklearn flow | A problem-definition note |
+| [5.1.5 ML History](/ch05-machine-learning/ch01-ml-basics/04-history-breakthroughs/) | Optional background: skim how classic algorithms appeared | A short “why this algorithm exists” note |
+| [5.2 Supervised Learning](/ch05-machine-learning/ch02-supervised/00-roadmap/) | Run regression and classification examples before comparing many models | One baseline score and one improved score |
+| [5.3 Unsupervised Learning](/ch05-machine-learning/ch03-unsupervised/00-roadmap/) | Try clustering, dimensionality reduction, and anomaly detection when labels are missing | One chart or cluster interpretation |
+| [5.4 Evaluation](/ch05-machine-learning/ch04-evaluation/00-roadmap/) | Choose metrics, use cross-validation, diagnose bias/variance, tune carefully | Metric choice and error samples |
+| [5.5 Feature Engineering](/ch05-machine-learning/ch05-feature-engineering/00-roadmap/) | Handle missing values, categories, scaling, feature construction, feature selection, and Pipeline | Feature processing log and leakage check |
+| [5.6 Projects](/ch05-machine-learning/ch06-projects/00-roadmap/) and [5.6.6 Workshop](/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop/) | Build a reproducible evidence pack before larger house-price, churn, segmentation, or Kaggle work | README, model comparison, errors, and next-step plan |
 
 ## Core Path, Extensions, And Depth
 
@@ -168,4 +168,4 @@ Move to Chapter 6 when you can answer these five questions:
 
 </details>
 
-For a printable checklist, use [5.0 Study Guide and Task Sheet](./study-guide.md). The next chapter moves from sklearn models into neural networks and deep learning training.
+For a printable checklist, use [5.0 Study Guide and Task Sheet](/ch05-machine-learning/study-guide/). The next chapter moves from sklearn models into neural networks and deep learning training.

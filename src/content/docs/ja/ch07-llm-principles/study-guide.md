@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "LLM 学習チェックリスト, Prompt 評価, Transformer, 微調整, RLHF"
 ---
-このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 7 章入口ページ](./index.md) に戻ってください。
+このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 7 章入口ページ](/ja/ch07-llm-principles/) に戻ってください。
 
 ![LLM 学習ガイド進化パス](/img/course/ch07-study-guide-evolution-line-ja.webp)
 
@@ -31,7 +31,7 @@ head:
 | `prompt_eval_cases.csv` | 少なくとも5つの固定入力と簡単なスコア列 |
 | `structured_output_schema.json` | 必須フィールドと許可する値の型 |
 | `failure_cases.md` | 少なくとも3つの失敗出力と推定原因 |
-| `llm_stage_workshop_output.txt` | [7.8.4 実践：第 7 章フルワークショップ](./ch08-projects/03-stage-hands-on-workshop.md) の出力 |
+| `llm_stage_workshop_output.txt` | [7.8.4 実践：第 7 章フルワークショップ](/ja/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) の出力 |
 | `README.md` | 実行方法、通った点、失敗した点、次に試すこと |
 
 ## 品質ゲート

@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "Computer vision checklist, image classification, object detection, image segmentation, vision metrics"
 ---
-Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 10 entry page](./index.md).
+Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 10 entry page](/ch10-computer-vision/).
 
 ![Vision portfolio evidence pack](/img/course/ch10-vision-evidence-pack-en.webp)
 

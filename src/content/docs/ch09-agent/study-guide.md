@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "Agent checklist, AI Agent learning, ReAct, MCP, tool calling, Agent evaluation"
 ---
-Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 9 entry page](./index.md).
+Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 9 entry page](/ch09-agent/).
 
 ![Agent trace evidence pack](/img/course/ch09-agent-trace-pack-en.webp)
 

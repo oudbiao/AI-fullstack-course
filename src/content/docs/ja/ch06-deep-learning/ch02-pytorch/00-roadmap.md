@@ -55,14 +55,14 @@ for step in range(1, 5):
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [6.2.2 sklearn から PyTorch へ](./00-sklearn-to-pytorch-bridge.md) | なぜ学習ループが明示的になるか |
-| 2 | [6.2.3 PyTorch 基礎](./01-pytorch-basics.md) | tensor、dtype、shape、device |
-| 3 | [6.2.4 Autograd](./02-autograd.md) | `requires_grad`、`backward`、`grad` |
-| 4 | [6.2.5 nn Module](./03-nn-module.md) | モデルクラス、パラメータ |
-| 5 | [6.2.6 データ読み込み](./04-data-loading.md) | Dataset、DataLoader、batch |
-| 6 | [6.2.7 学習ループ](./05-training-loop.md) | train/eval ループ、loss ログ |
-| 7 | [6.2.8 実践 Tips](./06-practical-tips.md) | shape、device、seed、デバッグ |
-| 8 | [6.2.9 PyTorch ワークショップ](./07-pytorch-matplotlib-workshop.md) | 小さなモデルを動かして可視化する |
+| 1 | [6.2.2 sklearn から PyTorch へ](/ja/ch06-deep-learning/ch02-pytorch/00-sklearn-to-pytorch-bridge/) | なぜ学習ループが明示的になるか |
+| 2 | [6.2.3 PyTorch 基礎](/ja/ch06-deep-learning/ch02-pytorch/01-pytorch-basics/) | tensor、dtype、shape、device |
+| 3 | [6.2.4 Autograd](/ja/ch06-deep-learning/ch02-pytorch/02-autograd/) | `requires_grad`、`backward`、`grad` |
+| 4 | [6.2.5 nn Module](/ja/ch06-deep-learning/ch02-pytorch/03-nn-module/) | モデルクラス、パラメータ |
+| 5 | [6.2.6 データ読み込み](/ja/ch06-deep-learning/ch02-pytorch/04-data-loading/) | Dataset、DataLoader、batch |
+| 6 | [6.2.7 学習ループ](/ja/ch06-deep-learning/ch02-pytorch/05-training-loop/) | train/eval ループ、loss ログ |
+| 7 | [6.2.8 実践 Tips](/ja/ch06-deep-learning/ch02-pytorch/06-practical-tips/) | shape、device、seed、デバッグ |
+| 8 | [6.2.9 PyTorch ワークショップ](/ja/ch06-deep-learning/ch02-pytorch/07-pytorch-matplotlib-workshop/) | 小さなモデルを動かして可視化する |
 
 ## 残す証拠
 

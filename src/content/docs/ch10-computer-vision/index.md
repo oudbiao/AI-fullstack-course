@@ -39,7 +39,7 @@ Do the project after you understand the output type. The same image can become s
 | 10.3 | Detection | Understand boxes, confidence, IoU, mAP, YOLO | prediction boxes and threshold notes |
 | 10.4 | Segmentation | Understand masks and pixel-level labels | mask visualization and IoU/Dice notes |
 | 10.5 | Advanced topics | Choose OCR, video, face, 3D, or medical direction only if needed | direction notes and scenario boundary |
-| 10.6 | Stage project | Run [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./ch06-projects/03-hands-on-vision-workshop.md) | generated images, masks, boxes, metrics, failure report |
+| 10.6 | Stage project | Run [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/) | generated images, masks, boxes, metrics, failure report |
 
 ## First Runnable Loop: Inspect Pixels Without Dependencies
 
@@ -145,7 +145,7 @@ Before leaving this elective, you should be able to:
 - choose suitable metrics such as accuracy/F1, mAP, IoU, or Dice;
 - run the reproducible vision mini pipeline and write a short failure analysis.
 
-For a printable checklist, use [10.0 Learning Checklist](./study-guide.md). For the guided project, start with [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./ch06-projects/03-hands-on-vision-workshop.md).
+For a printable checklist, use [10.0 Learning Checklist](/ch10-computer-vision/study-guide/). For the guided project, start with [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/).
 
 <details>
 <summary>Check reasoning and explanation</summary>

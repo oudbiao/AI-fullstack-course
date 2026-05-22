@@ -76,11 +76,11 @@ This tiny dataset is too small for real evaluation. The point is the workflow: p
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [5.5.2 Feature Understanding](./01-feature-understanding.md) | feature types, target, leakage risk |
-| 2 | [5.5.3 Data Preprocessing](./02-preprocessing.md) | scaling, encoding, missing values |
-| 3 | [5.5.4 Feature Construction](./03-feature-construction.md) | ratios, bins, dates, interactions |
-| 4 | [5.5.5 Feature Selection](./04-feature-selection.md) | remove noise, redundancy, leakage |
-| 5 | [5.5.6 Pipeline](./05-pipeline.md) | reproducible preprocessing and training |
+| 1 | [5.5.2 Feature Understanding](/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding/) | feature types, target, leakage risk |
+| 2 | [5.5.3 Data Preprocessing](/ch05-machine-learning/ch05-feature-engineering/02-preprocessing/) | scaling, encoding, missing values |
+| 3 | [5.5.4 Feature Construction](/ch05-machine-learning/ch05-feature-engineering/03-feature-construction/) | ratios, bins, dates, interactions |
+| 4 | [5.5.5 Feature Selection](/ch05-machine-learning/ch05-feature-engineering/04-feature-selection/) | remove noise, redundancy, leakage |
+| 5 | [5.5.6 Pipeline](/ch05-machine-learning/ch05-feature-engineering/05-pipeline/) | reproducible preprocessing and training |
 
 ## Evidence to Keep
 

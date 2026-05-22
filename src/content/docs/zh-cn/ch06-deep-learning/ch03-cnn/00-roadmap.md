@@ -53,11 +53,11 @@ feature_shape: (1, 8, 32, 32)
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [6.3.2 卷积基础](./01-convolution-basics.md) | kernel、stride、padding、channel |
-| 2 | [6.3.3 CNN 结构](./02-cnn-structure.md) | 卷积块、池化、分类头 |
-| 3 | [6.3.4 经典架构](./03-classic-architectures.md) | LeNet、AlexNet、VGG、ResNet 直觉 |
-| 4 | [6.3.5 迁移学习](./04-transfer-learning.md) | 冻结骨干、微调 |
-| 5 | [6.3.6 图像分类实战](./05-image-classification-practice.md) | 数据集、训练、预测样例 |
+| 1 | [6.3.2 卷积基础](/zh-cn/ch06-deep-learning/ch03-cnn/01-convolution-basics/) | kernel、stride、padding、channel |
+| 2 | [6.3.3 CNN 结构](/zh-cn/ch06-deep-learning/ch03-cnn/02-cnn-structure/) | 卷积块、池化、分类头 |
+| 3 | [6.3.4 经典架构](/zh-cn/ch06-deep-learning/ch03-cnn/03-classic-architectures/) | LeNet、AlexNet、VGG、ResNet 直觉 |
+| 4 | [6.3.5 迁移学习](/zh-cn/ch06-deep-learning/ch03-cnn/04-transfer-learning/) | 冻结骨干、微调 |
+| 5 | [6.3.6 图像分类实战](/zh-cn/ch06-deep-learning/ch03-cnn/05-image-classification-practice/) | 数据集、训练、预测样例 |
 
 ## 留下的证据
 

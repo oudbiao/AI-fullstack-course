@@ -55,14 +55,14 @@ for step in range(1, 5):
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [6.2.2 从 sklearn 到 PyTorch](./00-sklearn-to-pytorch-bridge.md) | 为什么训练循环变得显式 |
-| 2 | [6.2.3 PyTorch 基础](./01-pytorch-basics.md) | tensor、dtype、shape、device |
-| 3 | [6.2.4 Autograd](./02-autograd.md) | `requires_grad`、`backward`、`grad` |
-| 4 | [6.2.5 nn Module](./03-nn-module.md) | 模型类、参数 |
-| 5 | [6.2.6 数据加载](./04-data-loading.md) | Dataset、DataLoader、batch |
-| 6 | [6.2.7 训练循环](./05-training-loop.md) | train/eval 循环、loss 记录 |
-| 7 | [6.2.8 实用技巧](./06-practical-tips.md) | shape、device、seed、调试 |
-| 8 | [6.2.9 PyTorch 工作坊](./07-pytorch-matplotlib-workshop.md) | 运行并可视化小模型 |
+| 1 | [6.2.2 从 sklearn 到 PyTorch](/zh-cn/ch06-deep-learning/ch02-pytorch/00-sklearn-to-pytorch-bridge/) | 为什么训练循环变得显式 |
+| 2 | [6.2.3 PyTorch 基础](/zh-cn/ch06-deep-learning/ch02-pytorch/01-pytorch-basics/) | tensor、dtype、shape、device |
+| 3 | [6.2.4 Autograd](/zh-cn/ch06-deep-learning/ch02-pytorch/02-autograd/) | `requires_grad`、`backward`、`grad` |
+| 4 | [6.2.5 nn Module](/zh-cn/ch06-deep-learning/ch02-pytorch/03-nn-module/) | 模型类、参数 |
+| 5 | [6.2.6 数据加载](/zh-cn/ch06-deep-learning/ch02-pytorch/04-data-loading/) | Dataset、DataLoader、batch |
+| 6 | [6.2.7 训练循环](/zh-cn/ch06-deep-learning/ch02-pytorch/05-training-loop/) | train/eval 循环、loss 记录 |
+| 7 | [6.2.8 实用技巧](/zh-cn/ch06-deep-learning/ch02-pytorch/06-practical-tips/) | shape、device、seed、调试 |
+| 8 | [6.2.9 PyTorch 工作坊](/zh-cn/ch06-deep-learning/ch02-pytorch/07-pytorch-matplotlib-workshop/) | 运行并可视化小模型 |
 
 ## 留下的证据
 

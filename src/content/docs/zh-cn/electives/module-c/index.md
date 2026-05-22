@@ -46,10 +46,10 @@ neighbor: [0.8, 0.9]
 
 | 步骤 | 课程 | 练习产物 |
 |---|---|---|
-| 1 | [E.C.1 SVM](./01-svm.md) | 解释 margin、support vectors、`C` 和 kernel 选择 |
-| 2 | [E.C.2 KNN](./02-knn.md) | 建一个距离投票 baseline |
-| 3 | [E.C.3 朴素贝叶斯](./03-naive-bayes.md) | 把证据计数转成类别概率 |
-| 4 | [E.C.4 LDA](./04-lda.md) | 把特征投影到更容易分开类别的方向 |
+| 1 | [E.C.1 SVM](/zh-cn/electives/module-c/01-svm/) | 解释 margin、support vectors、`C` 和 kernel 选择 |
+| 2 | [E.C.2 KNN](/zh-cn/electives/module-c/02-knn/) | 建一个距离投票 baseline |
+| 3 | [E.C.3 朴素贝叶斯](/zh-cn/electives/module-c/03-naive-bayes/) | 把证据计数转成类别概率 |
+| 4 | [E.C.4 LDA](/zh-cn/electives/module-c/04-lda/) | 把特征投影到更容易分开类别的方向 |
 
 ## 通过标准
 

@@ -58,13 +58,13 @@ This is the smallest deployment habit: input tensor-like values, compute a decis
 
 | Step | Lesson | Practice Output |
 |---|---|---|
-| 1 | [E.A.1 C++ Basics](./01-cpp-basics.md) | Compile and run a tiny inference helper |
-| 2 | [E.A.2 Advanced C++](./02-cpp-advanced.md) | Explain ownership, RAII, and safe resource release |
-| 3 | [E.A.3 Optimization](./03-model-optimization.md) | Compare latency, memory, and accuracy trade-offs |
-| 4 | [E.A.4 Inference Engines](./04-inference-engines.md) | Pick an engine based on hardware and model format |
-| 5 | [E.A.5 Edge Deployment](./05-edge-deployment.md) | Name edge constraints and export a checklist |
-| 6 | [E.A.6 Model Serving](./06-model-serving.md) | Design versioned serving with metrics |
-| 7 | [E.A.7 Project](./07-projects.md) | Deliver a small deployment evidence pack |
+| 1 | [E.A.1 C++ Basics](/electives/module-a/01-cpp-basics/) | Compile and run a tiny inference helper |
+| 2 | [E.A.2 Advanced C++](/electives/module-a/02-cpp-advanced/) | Explain ownership, RAII, and safe resource release |
+| 3 | [E.A.3 Optimization](/electives/module-a/03-model-optimization/) | Compare latency, memory, and accuracy trade-offs |
+| 4 | [E.A.4 Inference Engines](/electives/module-a/04-inference-engines/) | Pick an engine based on hardware and model format |
+| 5 | [E.A.5 Edge Deployment](/electives/module-a/05-edge-deployment/) | Name edge constraints and export a checklist |
+| 6 | [E.A.6 Model Serving](/electives/module-a/06-model-serving/) | Design versioned serving with metrics |
+| 7 | [E.A.7 Project](/electives/module-a/07-projects/) | Deliver a small deployment evidence pack |
 
 ## Evidence to Keep
 
@@ -80,7 +80,7 @@ Expected_output: reproducible deployment or optimization evidence, not only theo
 
 ## Pass Check
 
-You pass this module when you can compile one C++ example, explain the deployment trade-off, record latency or memory evidence, and connect the result to the [Elective Hands-on Workshop](../hands-on-elective-workshop.md).
+You pass this module when you can compile one C++ example, explain the deployment trade-off, record latency or memory evidence, and connect the result to the [Elective Hands-on Workshop](/electives/hands-on-elective-workshop/).
 
 <details>
 <summary>Check reasoning and explanation</summary>

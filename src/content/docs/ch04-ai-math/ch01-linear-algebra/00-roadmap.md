@@ -68,10 +68,10 @@ If you accidentally use `*` instead of `@`, you get element-by-element multiplic
 
 | Order | Read | What to focus on first |
 |---|---|---|
-| 1 | [4.1.2 Vectors](./01-vectors.md) | object -> vector, length, dot product, cosine similarity |
-| 2 | [4.1.3 Matrices](./02-matrices.md) | batch data, matrix multiplication, `X @ W + b` |
-| 3 | [4.1.4 Eigenvalues and Eigenvectors](./03-eigenvalues.md) | special directions, PCA intuition |
-| 4 | [4.1.5 Vector Spaces](./04-vector-spaces.md) | basis, dimension, linear transformation |
+| 1 | [4.1.2 Vectors](/ch04-ai-math/ch01-linear-algebra/01-vectors/) | object -> vector, length, dot product, cosine similarity |
+| 2 | [4.1.3 Matrices](/ch04-ai-math/ch01-linear-algebra/02-matrices/) | batch data, matrix multiplication, `X @ W + b` |
+| 3 | [4.1.4 Eigenvalues and Eigenvectors](/ch04-ai-math/ch01-linear-algebra/03-eigenvalues/) | special directions, PCA intuition |
+| 4 | [4.1.5 Vector Spaces](/ch04-ai-math/ch01-linear-algebra/04-vector-spaces/) | basis, dimension, linear transformation |
 
 ## Evidence to Keep
 

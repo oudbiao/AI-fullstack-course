@@ -59,10 +59,10 @@ recommended_route: RAG
 
 | 顺序 | 阅读 | 留下什么 |
 |---|---|---|
-| 1 | [7.2.2 发展历史](./01-development-history.md) | 为什么 scaling 和指令微调重要 |
-| 2 | [7.2.3 核心概念](./02-core-concepts.md) | 上下文、token、temperature、延迟、成本 |
-| 3 | [7.2.4 产业图谱](./03-industry-landscape.md) | 模型/供应商选择记录 |
-| 4 | [7.2.5 LLM 调用工作台](./04-llm-call-workbench.md) | 一条请求/响应记录 |
+| 1 | [7.2.2 发展历史](/zh-cn/ch07-llm-principles/ch02-llm-overview/01-development-history/) | 为什么 scaling 和指令微调重要 |
+| 2 | [7.2.3 核心概念](/zh-cn/ch07-llm-principles/ch02-llm-overview/02-core-concepts/) | 上下文、token、temperature、延迟、成本 |
+| 3 | [7.2.4 产业图谱](/zh-cn/ch07-llm-principles/ch02-llm-overview/03-industry-landscape/) | 模型/供应商选择记录 |
+| 4 | [7.2.5 LLM 调用工作台](/zh-cn/ch07-llm-principles/ch02-llm-overview/04-llm-call-workbench/) | 一条请求/响应记录 |
 
 ## 留下的证据
 

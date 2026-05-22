@@ -422,7 +422,7 @@ and then continue with:
 If you later need to process many scanned SOPs, checklists, screenshots, or photographed materials, this step becomes critical.
 
 For a related course section, see:
-- [10.5.4 OCR Text Recognition](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [10.5.4 OCR Text Recognition](/ch10-computer-vision/ch05-advanced/03-ocr/)
 
 ## The safest scope control for your first implementation
 

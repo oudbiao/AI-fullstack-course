@@ -234,9 +234,9 @@ Viewed by system layers, the core capabilities are:
 - Heading hierarchy, tables, and decision-rule recognition
 
 Related courses:
-- [8.3.8 Document Parsing and Knowledge Extraction](../ch03-app-dev/07-document-parsing.md)
-- [8.1.3 Document Processing](../ch01-rag/02-document-processing.md)
-- [10.5.4 OCR Text Recognition](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [8.3.8 Document Parsing and Knowledge Extraction](/ch08-rag/ch03-app-dev/07-document-parsing/)
+- [8.1.3 Document Processing](/ch08-rag/ch01-rag/02-document-processing/)
+- [10.5.4 OCR Text Recognition](/ch10-computer-vision/ch05-advanced/03-ocr/)
 
 ### Knowledge Base and Retrieval
 
@@ -246,9 +246,9 @@ Related courses:
 - Policy and case recall
 
 Related courses:
-- [8.1.2 RAG Basics](../ch01-rag/01-rag-basics.md)
-- [8.1.4 Vector Databases](../ch01-rag/03-vector-databases.md)
-- [8.1.5 Retrieval Strategies](../ch01-rag/04-retrieval-strategies.md)
+- [8.1.2 RAG Basics](/ch08-rag/ch01-rag/01-rag-basics/)
+- [8.1.4 Vector Databases](/ch08-rag/ch01-rag/03-vector-databases/)
+- [8.1.5 Retrieval Strategies](/ch08-rag/ch01-rag/04-retrieval-strategies/)
 
 ### Structured Output and Template Generation
 
@@ -257,9 +257,9 @@ Related courses:
 - Then export Word using a template
 
 Related courses:
-- [7.5.2 Prompt Basics](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [7.5.4 Structured Output](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
-- [8.3.9 Template-Based Document Generation (Word / PPT)](../ch03-app-dev/08-template-doc-generation.md)
+- [7.5.2 Prompt Basics](/ch07-llm-principles/ch05-prompt/01-prompt-basics/)
+- [7.5.4 Structured Output](/ch07-llm-principles/ch05-prompt/03-structured-output/)
+- [8.3.9 Template-Based Document Generation (Word / PPT)](/ch08-rag/ch03-app-dev/08-template-doc-generation/)
 
 ### Tool Calling and Workflows
 
@@ -269,9 +269,9 @@ Related courses:
 - File export
 
 Related courses:
-- [8.3.4 Function Calling Practice](../ch03-app-dev/03-function-calling.md)
-- [8.3.6 Dialogue Systems and Multi-Turn Management](../ch03-app-dev/05-dialog-system.md)
-- [9.2.5 Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
+- [8.3.4 Function Calling Practice](/ch08-rag/ch03-app-dev/03-function-calling/)
+- [8.3.6 Dialogue Systems and Multi-Turn Management](/ch08-rag/ch03-app-dev/05-dialog-system/)
+- [9.2.5 Plan-and-Execute](/ch09-agent/ch02-reasoning/04-plan-and-execute/)
 
 ## Why Not Let the Model Directly Generate a Word File?
 

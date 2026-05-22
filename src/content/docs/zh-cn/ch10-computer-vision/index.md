@@ -39,7 +39,7 @@ head:
 | 10.3 | 目标检测 | 理解框、置信度、IoU、mAP、YOLO | 预测框和阈值记录 |
 | 10.4 | 图像分割 | 理解 mask 和像素级标签 | mask 可视化和 IoU/Dice 记录 |
 | 10.5 | 进阶专题 | 只在需要时选择 OCR、视频、人脸、3D 或医学方向 | 方向说明和场景边界 |
-| 10.6 | 阶段项目 | 运行 [10.6.4 实操：构建一个可复现的视觉迷你流水线](./ch06-projects/03-hands-on-vision-workshop.md) | 生成图像、mask、框、指标、失败报告 |
+| 10.6 | 阶段项目 | 运行 [10.6.4 实操：构建一个可复现的视觉迷你流水线](/zh-cn/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/) | 生成图像、mask、框、指标、失败报告 |
 
 ## 第一个可运行循环：零依赖检查像素
 
@@ -145,4 +145,4 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 - 选择 accuracy/F1、mAP、IoU 或 Dice 等合适指标；
 - 跑通可复现视觉迷你流水线，并写一段失败分析。
 
-可打印清单见 [10.0 学习检查表](./study-guide.md)。如果想直接做项目，从 [10.6.4 实操：构建一个可复现的视觉迷你流水线](./ch06-projects/03-hands-on-vision-workshop.md) 开始。
+可打印清单见 [10.0 学习检查表](/zh-cn/ch10-computer-vision/study-guide/)。如果想直接做项目，从 [10.6.4 实操：构建一个可复现的视觉迷你流水线](/zh-cn/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/) 开始。

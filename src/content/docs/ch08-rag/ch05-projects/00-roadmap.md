@@ -68,7 +68,7 @@ If `ready` is `False`, do not add another feature yet. Complete the evidence loo
 | 4 | SOP document assistant | Document parsing, structured output, and template rendering |
 | 5 | Full hands-on workshop | A minimum reproducible loop before adding real APIs or databases |
 
-If you need a guided baseline, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./05-stage-hands-on-workshop.md).
+If you need a guided baseline, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](/ch08-rag/ch05-projects/05-stage-hands-on-workshop/).
 
 ## Evidence to Keep
 

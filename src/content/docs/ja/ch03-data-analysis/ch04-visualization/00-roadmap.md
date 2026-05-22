@@ -76,10 +76,10 @@ saved: sales_trend.png
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [3.4.2 Matplotlib 基礎](./01-matplotlib.md) | Figure、Axes、折れ線/棒/散布図 |
-| 2 | [3.4.3 Seaborn 統計可視化](./02-seaborn.md) | 探索用グラフを素早く作る |
-| 3 | [3.4.5 可視化ベストプラクティス](./04-best-practices.md) | グラフ選択、ラベル、色、誤解を招く表現 |
-| 4 | [3.4.4 Plotly インタラクティブ可視化](./03-plotly.md) | プロジェクトで必要なときだけ使う |
+| 1 | [3.4.2 Matplotlib 基礎](/ja/ch03-data-analysis/ch04-visualization/01-matplotlib/) | Figure、Axes、折れ線/棒/散布図 |
+| 2 | [3.4.3 Seaborn 統計可視化](/ja/ch03-data-analysis/ch04-visualization/02-seaborn/) | 探索用グラフを素早く作る |
+| 3 | [3.4.5 可視化ベストプラクティス](/ja/ch03-data-analysis/ch04-visualization/04-best-practices/) | グラフ選択、ラベル、色、誤解を招く表現 |
+| 4 | [3.4.4 Plotly インタラクティブ可視化](/ja/ch03-data-analysis/ch04-visualization/03-plotly/) | プロジェクトで必要なときだけ使う |
 
 ## 合格ライン
 

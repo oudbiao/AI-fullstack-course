@@ -88,11 +88,11 @@ training_accuracy: 1.0
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [5.5.2 特徴量理解](./01-feature-understanding.md) | 特徴量タイプ、target、リークリスク |
-| 2 | [5.5.3 データ前処理](./02-preprocessing.md) | スケーリング、エンコード、欠損値 |
-| 3 | [5.5.4 特徴量作成](./03-feature-construction.md) | 比率、ビン分割、日付、交互作用 |
-| 4 | [5.5.5 特徴量選択](./04-feature-selection.md) | ノイズ、冗長性、リークを減らす |
-| 5 | [5.5.6 Pipeline](./05-pipeline.md) | 再現可能な前処理と学習 |
+| 1 | [5.5.2 特徴量理解](/ja/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding/) | 特徴量タイプ、target、リークリスク |
+| 2 | [5.5.3 データ前処理](/ja/ch05-machine-learning/ch05-feature-engineering/02-preprocessing/) | スケーリング、エンコード、欠損値 |
+| 3 | [5.5.4 特徴量作成](/ja/ch05-machine-learning/ch05-feature-engineering/03-feature-construction/) | 比率、ビン分割、日付、交互作用 |
+| 4 | [5.5.5 特徴量選択](/ja/ch05-machine-learning/ch05-feature-engineering/04-feature-selection/) | ノイズ、冗長性、リークを減らす |
+| 5 | [5.5.6 Pipeline](/ja/ch05-machine-learning/ch05-feature-engineering/05-pipeline/) | 再現可能な前処理と学習 |
 
 ## 合格ライン
 

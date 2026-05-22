@@ -44,7 +44,7 @@ First understand the text workflow, then study model families.
 | 11.4 | Sequence labeling | understand NER and token-level fields | entity examples and boundary cases |
 | 11.5 | Seq2Seq and attention | understand generation and translation history | summary or translation notes |
 | 11.6 | Pretrained models | compare BERT, GPT, T5, Transformers usage | model choice note |
-| 11.7 | Stage project | run [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md) | data files, metrics, extraction outputs, failure report |
+| 11.7 | Stage project | run [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop/) | data files, metrics, extraction outputs, failure report |
 
 ## First Runnable Loop: Labels, Rules, And Evaluation
 
@@ -155,7 +155,7 @@ Before leaving this elective, you should be able to:
 - choose classification, extraction, summarization, QA, retrieval, or pretrained-model comparison by output type;
 - run the reproducible NLP mini pipeline and keep metrics plus failure cases.
 
-For a printable checklist, use [11.0 Learning Checklist](./study-guide.md). For the guided project, start with [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md).
+For a printable checklist, use [11.0 Learning Checklist](/ch11-nlp/study-guide/). For the guided project, start with [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop/).
 
 <details>
 <summary>Check reasoning and explanation</summary>

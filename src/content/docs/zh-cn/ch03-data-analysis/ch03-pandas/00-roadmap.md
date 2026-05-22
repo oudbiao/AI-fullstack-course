@@ -63,14 +63,14 @@ print(summary)
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [3.3.2 核心数据结构](./01-core-structures.md) | `Series`、`DataFrame`、`Index` |
-| 2 | [3.3.3 数据读取与写入](./02-read-write.md) | CSV、Excel、JSON、导出 |
-| 3 | [3.3.4 数据选择与筛选](./03-selection-filter.md) | `loc`、`iloc`、条件筛选 |
-| 4 | [3.3.5 数据清洗](./04-data-cleaning.md) | 缺失值、重复值、类型 |
-| 5 | [3.3.6 数据转换](./05-data-transform.md) | 新列、映射、字符串和日期处理 |
-| 6 | [3.3.7 分组与聚合](./06-groupby.md) | `groupby`、指标、类别/月度汇总 |
-| 7 | [3.3.8 数据合并](./07-merge.md) | 安全合并多张表 |
-| 8 | [3.3.9 时间序列](./08-time-series.md) | 日期索引、重采样、时间窗口 |
+| 1 | [3.3.2 核心数据结构](/zh-cn/ch03-data-analysis/ch03-pandas/01-core-structures/) | `Series`、`DataFrame`、`Index` |
+| 2 | [3.3.3 数据读取与写入](/zh-cn/ch03-data-analysis/ch03-pandas/02-read-write/) | CSV、Excel、JSON、导出 |
+| 3 | [3.3.4 数据选择与筛选](/zh-cn/ch03-data-analysis/ch03-pandas/03-selection-filter/) | `loc`、`iloc`、条件筛选 |
+| 4 | [3.3.5 数据清洗](/zh-cn/ch03-data-analysis/ch03-pandas/04-data-cleaning/) | 缺失值、重复值、类型 |
+| 5 | [3.3.6 数据转换](/zh-cn/ch03-data-analysis/ch03-pandas/05-data-transform/) | 新列、映射、字符串和日期处理 |
+| 6 | [3.3.7 分组与聚合](/zh-cn/ch03-data-analysis/ch03-pandas/06-groupby/) | `groupby`、指标、类别/月度汇总 |
+| 7 | [3.3.8 数据合并](/zh-cn/ch03-data-analysis/ch03-pandas/07-merge/) | 安全合并多张表 |
+| 8 | [3.3.9 时间序列](/zh-cn/ch03-data-analysis/ch03-pandas/08-time-series/) | 日期索引、重采样、时间窗口 |
 
 ## 通过标准
 

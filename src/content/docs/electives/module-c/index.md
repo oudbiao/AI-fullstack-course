@@ -46,10 +46,10 @@ This is the smallest baseline habit: define features, compare distance, predict,
 
 | Step | Lesson | Practice Output |
 |---|---|---|
-| 1 | [E.C.1 SVM](./01-svm.md) | Explain margin, support vectors, `C`, and kernel choice |
-| 2 | [E.C.2 KNN](./02-knn.md) | Build a distance-voting baseline |
-| 3 | [E.C.3 Naive Bayes](./03-naive-bayes.md) | Convert evidence counts into class probabilities |
-| 4 | [E.C.4 LDA](./04-lda.md) | Project features to separate classes |
+| 1 | [E.C.1 SVM](/electives/module-c/01-svm/) | Explain margin, support vectors, `C`, and kernel choice |
+| 2 | [E.C.2 KNN](/electives/module-c/02-knn/) | Build a distance-voting baseline |
+| 3 | [E.C.3 Naive Bayes](/electives/module-c/03-naive-bayes/) | Convert evidence counts into class probabilities |
+| 4 | [E.C.4 LDA](/electives/module-c/04-lda/) | Project features to separate classes |
 
 ## Evidence to Keep
 

@@ -72,10 +72,10 @@ next_step: inspect confused classes and add augmentation
 
 | 順番 | 読む | 提出するもの |
 |---|---|---|
-| 1 | [6.8.2 画像分類](./01-image-classification.md) | データセット、CNN/転移 baseline、予測サンプル |
-| 2 | [6.8.3 感情分析](./02-sentiment-analysis.md) | テキスト処理、学習ログ、エラー例 |
-| 3 | [6.8.4 生成実践](./03-generative-practice.md) | 生成サンプルとレビュー記録 |
-| 4 | [6.8.5 DL 実践ワークショップ](./04-hands-on-dl-workshop.md) | 再現可能な PyTorch 証拠パック |
+| 1 | [6.8.2 画像分類](/ja/ch06-deep-learning/ch08-projects/01-image-classification/) | データセット、CNN/転移 baseline、予測サンプル |
+| 2 | [6.8.3 感情分析](/ja/ch06-deep-learning/ch08-projects/02-sentiment-analysis/) | テキスト処理、学習ログ、エラー例 |
+| 3 | [6.8.4 生成実践](/ja/ch06-deep-learning/ch08-projects/03-generative-practice/) | 生成サンプルとレビュー記録 |
+| 4 | [6.8.5 DL 実践ワークショップ](/ja/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop/) | 再現可能な PyTorch 証拠パック |
 
 ## プロジェクト成果物基準
 

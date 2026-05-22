@@ -53,11 +53,11 @@ Read the shape as `[batch, channels, height, width]`. The convolution changed `3
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [6.3.2 Convolution Basics](./01-convolution-basics.md) | kernel, stride, padding, channel |
-| 2 | [6.3.3 CNN Structure](./02-cnn-structure.md) | conv block, pooling, classifier head |
-| 3 | [6.3.4 Classic Architectures](./03-classic-architectures.md) | LeNet, AlexNet, VGG, ResNet intuition |
-| 4 | [6.3.5 Transfer Learning](./04-transfer-learning.md) | frozen backbone, fine-tuning |
-| 5 | [6.3.6 Image Classification Practice](./05-image-classification-practice.md) | dataset, training, prediction examples |
+| 1 | [6.3.2 Convolution Basics](/ch06-deep-learning/ch03-cnn/01-convolution-basics/) | kernel, stride, padding, channel |
+| 2 | [6.3.3 CNN Structure](/ch06-deep-learning/ch03-cnn/02-cnn-structure/) | conv block, pooling, classifier head |
+| 3 | [6.3.4 Classic Architectures](/ch06-deep-learning/ch03-cnn/03-classic-architectures/) | LeNet, AlexNet, VGG, ResNet intuition |
+| 4 | [6.3.5 Transfer Learning](/ch06-deep-learning/ch03-cnn/04-transfer-learning/) | frozen backbone, fine-tuning |
+| 5 | [6.3.6 Image Classification Practice](/ch06-deep-learning/ch03-cnn/05-image-classification-practice/) | dataset, training, prediction examples |
 
 ## Evidence to Keep
 

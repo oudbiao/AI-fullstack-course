@@ -54,10 +54,10 @@ mean_accuracy: 0.933
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [5.4.2 评估指标](./01-metrics.md) | accuracy、precision、recall、F1、R2、RMSE |
-| 2 | [5.4.3 交叉验证](./02-cross-validation.md) | 稳定估计、数据划分风险 |
-| 3 | [5.4.4 偏差与方差](./03-bias-variance.md) | 欠拟合、过拟合、学习曲线 |
-| 4 | [5.4.5 超参数调优](./04-hyperparameter-tuning.md) | 网格搜索、对比记录 |
+| 1 | [5.4.2 评估指标](/zh-cn/ch05-machine-learning/ch04-evaluation/01-metrics/) | accuracy、precision、recall、F1、R2、RMSE |
+| 2 | [5.4.3 交叉验证](/zh-cn/ch05-machine-learning/ch04-evaluation/02-cross-validation/) | 稳定估计、数据划分风险 |
+| 3 | [5.4.4 偏差与方差](/zh-cn/ch05-machine-learning/ch04-evaluation/03-bias-variance/) | 欠拟合、过拟合、学习曲线 |
+| 4 | [5.4.5 超参数调优](/zh-cn/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning/) | 网格搜索、对比记录 |
 
 ## 通过标准
 

@@ -57,7 +57,7 @@ If labels, fields, or knowledge boundaries are unclear, fix the task definition 
 | 4 | QA | Retrieval, citation, refusal, no-answer evaluation |
 | 5 | Hands-on workshop | Reproducible mini pipeline before larger project pages |
 
-Run [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./05-hands-on-nlp-workshop.md) before expanding the project.
+Run [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop/) before expanding the project.
 
 ## Project Deliverable Standards
 

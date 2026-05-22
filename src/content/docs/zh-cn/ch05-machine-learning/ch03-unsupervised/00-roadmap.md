@@ -57,9 +57,9 @@ inertia: 43.44
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [5.3.2 聚类](./01-clustering.md) | K-Means、聚类解释、错误的簇数选择 |
-| 2 | [5.3.3 降维](./02-dimensionality-reduction.md) | PCA、可视化、压缩 |
-| 3 | [5.3.4 异常检测](./03-anomaly-detection.md) | 离群点、阈值、告警证据 |
+| 1 | [5.3.2 聚类](/zh-cn/ch05-machine-learning/ch03-unsupervised/01-clustering/) | K-Means、聚类解释、错误的簇数选择 |
+| 2 | [5.3.3 降维](/zh-cn/ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction/) | PCA、可视化、压缩 |
+| 3 | [5.3.4 异常检测](/zh-cn/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection/) | 离群点、阈值、告警证据 |
 
 ## 通过标准
 

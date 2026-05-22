@@ -60,11 +60,11 @@ first_prediction: 137.9
 
 | 顺序 | 阅读 | 比较什么 |
 |---|---|---|
-| 1 | [5.2.2 线性回归](./01-linear-regression.md) | 简单数值预测 |
-| 2 | [5.2.3 逻辑回归](./02-logistic-regression.md) | 分类概率 |
-| 3 | [5.2.4 决策树](./03-decision-trees.md) | 规则、非线性、过拟合 |
-| 4 | [5.2.5 集成学习](./04-ensemble-learning.md) | bagging、boosting、更强表格模型 |
-| 5 | [5.2.6 支持向量机](./05-svm.md) | 间隔、边界、经典分类器直觉 |
+| 1 | [5.2.2 线性回归](/zh-cn/ch05-machine-learning/ch02-supervised/01-linear-regression/) | 简单数值预测 |
+| 2 | [5.2.3 逻辑回归](/zh-cn/ch05-machine-learning/ch02-supervised/02-logistic-regression/) | 分类概率 |
+| 3 | [5.2.4 决策树](/zh-cn/ch05-machine-learning/ch02-supervised/03-decision-trees/) | 规则、非线性、过拟合 |
+| 4 | [5.2.5 集成学习](/zh-cn/ch05-machine-learning/ch02-supervised/04-ensemble-learning/) | bagging、boosting、更强表格模型 |
+| 5 | [5.2.6 支持向量机](/zh-cn/ch05-machine-learning/ch02-supervised/05-svm/) | 间隔、边界、经典分类器直觉 |
 
 ## 通过标准
 

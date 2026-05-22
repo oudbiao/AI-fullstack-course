@@ -61,10 +61,10 @@ The number moves toward `3`, and the loss gets smaller. That is the training ide
 
 | Order | Read | What to focus on first |
 |---|---|---|
-| 1 | [4.3.2 Derivatives](./01-derivatives.md) | rate of change |
-| 2 | [4.3.3 Partial Derivatives and Gradients](./02-partial-derivatives-gradient.md) | many parameters changing together |
-| 3 | [4.3.4 Gradient Descent](./03-gradient-descent.md) | update loop, learning rate, loss curve |
-| 4 | [4.3.5 Backpropagation](./04-chain-rule-backprop.md) | chain rule, `loss.backward()` intuition |
+| 1 | [4.3.2 Derivatives](/ch04-ai-math/ch03-calculus/01-derivatives/) | rate of change |
+| 2 | [4.3.3 Partial Derivatives and Gradients](/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient/) | many parameters changing together |
+| 3 | [4.3.4 Gradient Descent](/ch04-ai-math/ch03-calculus/03-gradient-descent/) | update loop, learning rate, loss curve |
+| 4 | [4.3.5 Backpropagation](/ch04-ai-math/ch03-calculus/04-chain-rule-backprop/) | chain rule, `loss.backward()` intuition |
 
 ## Evidence to Keep
 

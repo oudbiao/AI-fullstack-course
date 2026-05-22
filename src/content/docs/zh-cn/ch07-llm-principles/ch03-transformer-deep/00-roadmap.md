@@ -49,11 +49,11 @@ for row in mask:
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
-| 1 | [7.3.2 架构回顾](./01-architecture-review.md) | attention、残差、归一化 |
-| 2 | [7.3.3 现代解码器块](./02-modern-decoder-block.md) | 仅解码器 LLM 块 |
-| 3 | [7.3.4 模型变体](./02-model-variants.md) | 编码器、解码器、编码器-解码器 |
-| 4 | [7.3.5 高效 Attention](./03-efficient-attention.md) | KV cache、MQA/GQA、长上下文 |
-| 5 | [7.3.6 规模与计算](./04-scale-computation.md) | 成本、延迟、显存 |
+| 1 | [7.3.2 架构回顾](/zh-cn/ch07-llm-principles/ch03-transformer-deep/01-architecture-review/) | attention、残差、归一化 |
+| 2 | [7.3.3 现代解码器块](/zh-cn/ch07-llm-principles/ch03-transformer-deep/02-modern-decoder-block/) | 仅解码器 LLM 块 |
+| 3 | [7.3.4 模型变体](/zh-cn/ch07-llm-principles/ch03-transformer-deep/02-model-variants/) | 编码器、解码器、编码器-解码器 |
+| 4 | [7.3.5 高效 Attention](/zh-cn/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention/) | KV cache、MQA/GQA、长上下文 |
+| 5 | [7.3.6 规模与计算](/zh-cn/ch07-llm-principles/ch03-transformer-deep/04-scale-computation/) | 成本、延迟、显存 |
 
 ## 留下的证据
 

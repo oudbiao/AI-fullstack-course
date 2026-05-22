@@ -75,7 +75,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 
 每章都要留下一个能证明这一层可用的产物。截图有帮助，但日志、README 命令、小数据集、指标表和失败笔记更强，因为它们之后还能帮助你排错。
 
-可选背景：如果想知道这些能力是怎样发展出来的，可以快速看一眼 [AI 15 阶段发展史](/zh-cn/appendix/ai-milestones)。
+可选背景：如果想知道这些能力是怎样发展出来的，可以快速看一眼 [AI 15 阶段发展史](/zh-cn/appendix/ai-milestones/)。
 
 下一步，规划你推进主线的节奏。
 

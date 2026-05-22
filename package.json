@@ -6,16 +6,19 @@
     "start": "npm run build && npm run serve",
     "dev": "astro dev --host 0.0.0.0",
     "preview": "astro preview --host 0.0.0.0",
-    "build": "astro build && node scripts/filter_sitemap_redirects.mjs dist && node scripts/strip_build_null_bytes.js dist",
+    "build": "astro build && node scripts/filter_sitemap_redirects.mjs dist && node scripts/strip_build_null_bytes.js dist && node scripts/qa_generated_site.mjs dist",
     "build:docker": "node scripts/build_docker_low_memory.js",
+    "links:starlight": "node scripts/normalize_starlight_links.mjs",
     "serve": "astro preview --host 0.0.0.0",
     "serve:static": "node scripts/serve_static_build.js --root dist",
-    "clean": "rm -rf .astro dist",
+    "clean": "rm -rf .astro dist build",
+    "clean:workspace": "rm -rf .astro dist build tmp __pycache__ scripts/__pycache__ .codex .docusaurus",
     "dev:clean": "npm run clean && npm run dev",
     "images:dry-run": "python3 scripts/generate_course_images.py --dry-run",
     "images:placeholders": "python3 scripts/generate_course_images.py --ensure-placeholders",
     "images:generate": "python3 scripts/generate_course_images.py",
-    "validate:docs": "npm run build"
+    "validate:docs": "npm run build",
+    "qa:dist": "node scripts/qa_generated_site.mjs dist"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.39.2",

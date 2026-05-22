@@ -630,9 +630,9 @@ H(P) + KL =     1.2796
 
 次に読むのにおすすめなのは、たとえば次のページです。
 
-- [5 第5章のトップページ](../../ch05-machine-learning/index.md)
-- [5.2.3 ロジスティック回帰](../../ch05-machine-learning/ch02-supervised/02-logistic-regression.md)
-- [5.4.2 評価指標](../../ch05-machine-learning/ch04-evaluation/01-metrics.md)
+- [5 第5章のトップページ](/ja/ch05-machine-learning/)
+- [5.2.3 ロジスティック回帰](/ja/ch05-machine-learning/ch02-supervised/02-logistic-regression/)
+- [5.4.2 評価指標](/ja/ch05-machine-learning/ch04-evaluation/01-metrics/)
 
 :::note[本章のまとめ]
 確率と統計の4つの授業で、あなたは次のことを学びました。

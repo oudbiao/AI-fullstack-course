@@ -499,7 +499,7 @@ plt.show()
 
 この 3 つの問いは、次の内容へ自然につながります。
 
-- [4.1.5 ベクトル空間と線形変換](./04-vector-spaces.md)
+- [4.1.5 ベクトル空間と線形変換](/ja/ch04-ai-math/ch01-linear-algebra/04-vector-spaces/)
 
 ```mermaid
 flowchart LR

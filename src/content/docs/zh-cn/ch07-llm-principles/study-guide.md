@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF"
 ---
-这页当成可打印检查表使用。需要完整讲解时，回到 [第 7 章入口页](./index.md)。
+这页当成可打印检查表使用。需要完整讲解时，回到 [第 7 章入口页](/zh-cn/ch07-llm-principles/)。
 
 ![大模型学习进化路径](/img/course/ch07-study-guide-evolution-line.webp)
 
@@ -31,7 +31,7 @@ head:
 | `prompt_eval_cases.csv` | 至少五条固定输入和一个简单分数字段 |
 | `structured_output_schema.json` | 必填字段和允许的数据类型 |
 | `failure_cases.md` | 至少三个失败输出和可能原因 |
-| `llm_stage_workshop_output.txt` | [7.8.4 实操：第 7 章完整工作坊](./ch08-projects/03-stage-hands-on-workshop.md) 的输出 |
+| `llm_stage_workshop_output.txt` | [7.8.4 实操：第 7 章完整工作坊](/zh-cn/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) 的输出 |
 | `README.md` | 如何运行、哪些通过、哪些失败、下一步怎么试 |
 
 ## 质量闸门

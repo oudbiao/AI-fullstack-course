@@ -46,7 +46,7 @@ The workshop belongs at the end. First build the mental model, then run the full
 | 7.1 | NLP crash course | Run tokenizer and embedding examples | Notes that explain token, vector, and context |
 | 7.2 | LLM overview and history | Mark where scale, data, instruction tuning, and alignment changed model behavior | One timeline or capability map |
 | 7.5 | Prompt engineering | Compare prompt versions with fixed inputs | Prompt versions, outputs, scores, failures |
-| 7.8 | Stage project | Run [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) | Terminal output, pass rate, README notes |
+| 7.8 | Stage project | Run [7.8.4 Hands-on: Full Chapter 7 Workshop](/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) | Terminal output, pass rate, README notes |
 | 7.3-7.4 | Transformer and pretraining | Read for intuition, not memorization | A diagram that explains attention, context, and training objective |
 | 7.6 | Fine-tuning | Decide whether a task needs Prompt, RAG, or fine-tuning | A short decision table |
 | 7.7 | Alignment | Check failure modes and safety boundaries | A safety/evaluation checklist |
@@ -179,7 +179,7 @@ Before entering Chapter 8, you should be able to:
 - decide whether a task should start with Prompt, structured output, RAG, fine-tuning, tools, or an Agent;
 - run the full chapter workshop and record the result in a short README.
 
-For a printable checklist, use [7.0 Learning Checklist](./study-guide.md). For the guided project, start with [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md).
+For a printable checklist, use [7.0 Learning Checklist](/ch07-llm-principles/study-guide/). For the guided project, start with [7.8.4 Hands-on: Full Chapter 7 Workshop](/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/).
 
 <details>
 <summary>Check reasoning and explanation</summary>

@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "RAG チェックリスト, LLM アプリチェックリスト, ベクトル検索, RAG 評価, 大モデル工程"
 ---
-このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 8 章入口ページ](./index.md) に戻ってください。
+このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 8 章入口ページ](/ja/ch08-rag/) に戻ってください。
 
 ![RAG ポートフォリオ証拠パック](/img/course/ch08-rag-evidence-pack-ja.webp)
 
@@ -32,7 +32,7 @@ head:
 | `eval_questions.csv` | 少なくとも10個の固定質問と期待出典または回答ポイント |
 | `failure_cases.md` | 少なくとも3つの失敗例。document、chunking、retrieval、generation、citation、deploy に分類 |
 | `rag_config.md` | chunk サイズ、overlap、top-k、rerank の有無、Prompt 版 |
-| `rag_app_workshop_output.txt` | [8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](./ch05-projects/05-stage-hands-on-workshop.md) の出力 |
+| `rag_app_workshop_output.txt` | [8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](/ja/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) の出力 |
 | `README.md` | 実行コマンド、例の質問、引用付き回答、評価結果、次の修正 |
 
 ## 品質ゲート

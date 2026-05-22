@@ -54,9 +54,9 @@ action: stop or reduce learning rate if validation keeps worsening
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
-| 1 | [6.7.2 超参数调优](./01-hyperparameter-tuning.md) | 学习率、batch size、优化器 |
-| 2 | [6.7.3 训练诊断](./02-training-diagnosis.md) | loss 曲线、过拟合、不稳定 |
-| 3 | [6.7.4 模型压缩](./03-model-compression.md) | 更小、更快、更适合部署的模型 |
+| 1 | [6.7.2 超参数调优](/zh-cn/ch06-deep-learning/ch07-training-tips/01-hyperparameter-tuning/) | 学习率、batch size、优化器 |
+| 2 | [6.7.3 训练诊断](/zh-cn/ch06-deep-learning/ch07-training-tips/02-training-diagnosis/) | loss 曲线、过拟合、不稳定 |
+| 3 | [6.7.4 模型压缩](/zh-cn/ch06-deep-learning/ch07-training-tips/03-model-compression/) | 更小、更快、更适合部署的模型 |
 
 ## 留下的证据
 

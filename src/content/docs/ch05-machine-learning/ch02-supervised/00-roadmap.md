@@ -60,11 +60,11 @@ The score is not perfect, and that is useful. A baseline tells you where later m
 
 | Order | Read | What to compare |
 |---|---|---|
-| 1 | [5.2.2 Linear Regression](./01-linear-regression.md) | simple numeric prediction |
-| 2 | [5.2.3 Logistic Regression](./02-logistic-regression.md) | classification probability |
-| 3 | [5.2.4 Decision Trees](./03-decision-trees.md) | rules, nonlinearity, overfitting |
-| 4 | [5.2.5 Ensemble Learning](./04-ensemble-learning.md) | bagging, boosting, stronger tabular models |
-| 5 | [5.2.6 Support Vector Machines](./05-svm.md) | margin, boundary, classic classifier intuition |
+| 1 | [5.2.2 Linear Regression](/ch05-machine-learning/ch02-supervised/01-linear-regression/) | simple numeric prediction |
+| 2 | [5.2.3 Logistic Regression](/ch05-machine-learning/ch02-supervised/02-logistic-regression/) | classification probability |
+| 3 | [5.2.4 Decision Trees](/ch05-machine-learning/ch02-supervised/03-decision-trees/) | rules, nonlinearity, overfitting |
+| 4 | [5.2.5 Ensemble Learning](/ch05-machine-learning/ch02-supervised/04-ensemble-learning/) | bagging, boosting, stronger tabular models |
+| 5 | [5.2.6 Support Vector Machines](/ch05-machine-learning/ch02-supervised/05-svm/) | margin, boundary, classic classifier intuition |
 
 ## Evidence to Keep
 

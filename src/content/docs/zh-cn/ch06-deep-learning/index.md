@@ -37,14 +37,14 @@ batch 数据 -> 模型前向 -> 损失 -> 反向传播梯度 -> 优化器更新 
 
 | 页面 | 跟着做 | 留下的证据 |
 |---|---|---|
-| [6.1 神经网络基础](ch01-nn-basics/00-roadmap.md) | 理解神经元、激活函数、前向/反向传播、优化器、正则化和初始化 | 一份手写训练闭环说明 |
-| [6.2 PyTorch](ch02-pytorch/00-roadmap.md) | 练习 tensor、autograd、`nn.Module`、Dataset、DataLoader 和最小训练循环 | 一个可运行 PyTorch 脚本 |
-| [6.5 Transformer](ch05-transformer/00-roadmap.md) | 学 Query、Key、Value、自注意力、位置编码和 Transformer block | 一张 attention 输入/输出图 |
-| [6.8 项目](ch08-projects/00-roadmap.md) 和 [6.8.5 工作坊](ch08-projects/04-hands-on-dl-workshop.md) | 在图像、情感或生成项目之前，先做 PyTorch 证据包 | 日志、曲线、checkpoint、shape trace、README |
-| [6.3 CNN](ch03-cnn/00-roadmap.md) | 用图像分类理解数据形状、卷积、池化和迁移学习 | shape 记录和一次图像分类运行 |
-| [6.4 RNN](ch04-rnn/00-roadmap.md) | 理解序列数据为什么需要记忆，以及 LSTM/GRU 在 Transformer 前解决了什么 | 一条序列模型说明 |
-| [6.1.8 可选深度学习历史](ch01-nn-basics/06-history-breakthroughs.md) | 学完主训练闭环后，再浏览 backprop、CNN、RNN、Attention、Transformer 为什么出现 | 一条“这个架构为什么存在”的说明 |
-| [6.6 生成模型](ch06-generative/00-roadmap.md) 和 [6.7 训练技巧](ch07-training-tips/00-roadmap.md) | 在训练闭环稳定后作为扩展学习 | 一条调参或诊断记录 |
+| [6.1 神经网络基础](/zh-cn/ch06-deep-learning/ch01-nn-basics/00-roadmap/) | 理解神经元、激活函数、前向/反向传播、优化器、正则化和初始化 | 一份手写训练闭环说明 |
+| [6.2 PyTorch](/zh-cn/ch06-deep-learning/ch02-pytorch/00-roadmap/) | 练习 tensor、autograd、`nn.Module`、Dataset、DataLoader 和最小训练循环 | 一个可运行 PyTorch 脚本 |
+| [6.5 Transformer](/zh-cn/ch06-deep-learning/ch05-transformer/00-roadmap/) | 学 Query、Key、Value、自注意力、位置编码和 Transformer block | 一张 attention 输入/输出图 |
+| [6.8 项目](/zh-cn/ch06-deep-learning/ch08-projects/00-roadmap/) 和 [6.8.5 工作坊](/zh-cn/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop/) | 在图像、情感或生成项目之前，先做 PyTorch 证据包 | 日志、曲线、checkpoint、shape trace、README |
+| [6.3 CNN](/zh-cn/ch06-deep-learning/ch03-cnn/00-roadmap/) | 用图像分类理解数据形状、卷积、池化和迁移学习 | shape 记录和一次图像分类运行 |
+| [6.4 RNN](/zh-cn/ch06-deep-learning/ch04-rnn/00-roadmap/) | 理解序列数据为什么需要记忆，以及 LSTM/GRU 在 Transformer 前解决了什么 | 一条序列模型说明 |
+| [6.1.8 可选深度学习历史](/zh-cn/ch06-deep-learning/ch01-nn-basics/06-history-breakthroughs/) | 学完主训练闭环后，再浏览 backprop、CNN、RNN、Attention、Transformer 为什么出现 | 一条“这个架构为什么存在”的说明 |
+| [6.6 生成模型](/zh-cn/ch06-deep-learning/ch06-generative/00-roadmap/) 和 [6.7 训练技巧](/zh-cn/ch06-deep-learning/ch07-training-tips/00-roadmap/) | 在训练闭环稳定后作为扩展学习 | 一条调参或诊断记录 |
 
 ## 必修主线、扩展和深度挑战
 
@@ -153,4 +153,4 @@ loss 方向：loss 总体下降
 - Attention 为什么能建模上下文？
 - Transformer 和后面的大模型有什么关系？
 
-需要打印式清单时，打开 [6.0 学习指南与任务单](./study-guide.md)。后面的大模型、RAG 和多模态模型都会建立在这些表示学习概念上。
+需要打印式清单时，打开 [6.0 学习指南与任务单](/zh-cn/ch06-deep-learning/study-guide/)。后面的大模型、RAG 和多模态模型都会建立在这些表示学习概念上。

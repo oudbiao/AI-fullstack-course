@@ -429,7 +429,7 @@ for chunk in build_chunks("sop_doc_001", "docx", pages):
 スキャンされた SOP、チェックリスト、写真資料をたくさん扱うなら、このステップは非常に重要です。
 
 関連する内容は以下も参照してください。
-- [10.5.4 OCR 文字認識](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+- [10.5.4 OCR 文字認識](/ja/ch10-computer-vision/ch05-advanced/03-ocr/)
 
 ## 最初に作るときの、いちばん安全な範囲設定
 

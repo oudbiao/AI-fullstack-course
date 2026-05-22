@@ -60,10 +60,10 @@ This is the database loop: create a table, insert rows, ask a question with SQL,
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [3.5.2 Relational Database Basics](./01-relational-db.md) | tables, rows, columns, primary keys, foreign keys |
-| 2 | [3.5.3 SQL Basics](./02-sql-basics.md) | `SELECT`, `WHERE`, `JOIN`, `GROUP BY` |
-| 3 | [3.5.4 Python Database Operations](./03-python-db.md) | `sqlite3`, Pandas read/write, query results |
-| 4 | [3.5.5 Database Design](./04-db-design.md) | split tables, avoid duplication, keep relationships clear |
+| 1 | [3.5.2 Relational Database Basics](/ch03-data-analysis/ch05-database/01-relational-db/) | tables, rows, columns, primary keys, foreign keys |
+| 2 | [3.5.3 SQL Basics](/ch03-data-analysis/ch05-database/02-sql-basics/) | `SELECT`, `WHERE`, `JOIN`, `GROUP BY` |
+| 3 | [3.5.4 Python Database Operations](/ch03-data-analysis/ch05-database/03-python-db/) | `sqlite3`, Pandas read/write, query results |
+| 4 | [3.5.5 Database Design](/ch03-data-analysis/ch05-database/04-db-design/) | split tables, avoid duplication, keep relationships clear |
 
 ## Evidence to Keep
 

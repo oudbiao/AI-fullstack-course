@@ -54,10 +54,10 @@ One score is a snapshot. Several folds tell you whether the result is stable eno
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [5.4.2 Evaluation Metrics](./01-metrics.md) | accuracy, precision, recall, F1, R2, RMSE |
-| 2 | [5.4.3 Cross-Validation](./02-cross-validation.md) | stable estimates, data split risk |
-| 3 | [5.4.4 Bias and Variance](./03-bias-variance.md) | underfitting, overfitting, learning curves |
-| 4 | [5.4.5 Hyperparameter Tuning](./04-hyperparameter-tuning.md) | grid search, comparison records |
+| 1 | [5.4.2 Evaluation Metrics](/ch05-machine-learning/ch04-evaluation/01-metrics/) | accuracy, precision, recall, F1, R2, RMSE |
+| 2 | [5.4.3 Cross-Validation](/ch05-machine-learning/ch04-evaluation/02-cross-validation/) | stable estimates, data split risk |
+| 3 | [5.4.4 Bias and Variance](/ch05-machine-learning/ch04-evaluation/03-bias-variance/) | underfitting, overfitting, learning curves |
+| 4 | [5.4.5 Hyperparameter Tuning](/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning/) | grid search, comparison records |
 
 ## Evidence to Keep
 

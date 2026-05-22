@@ -11,9 +11,11 @@ export async function getStaticPaths() {
     if (slug === "index") slug = "";
     slug = slug.replace(/\/index$/, "");
 
+    const target = slug ? `/zh-cn/${slug}/` : "/zh-cn/";
+
     pathsBySlug.set(slug, {
       params: { slug },
-      props: { target: slug ? `/zh-cn/${slug}` : "/zh-cn" },
+      props: { target },
     });
   }
 
@@ -23,18 +25,20 @@ export async function getStaticPaths() {
 }
 
 const { target } = Astro.props;
+const canonical = new URL(target, Astro.site ?? "https://airoads.org").href;
 ---
 
 <!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <meta name="robots" content="noindex" />
+    <title>Chinese course redirect | AI Roads</title>
+    <meta name="robots" content="noindex,follow" />
     <meta http-equiv="refresh" content={`0;url=${target}`} />
-    <link rel="canonical" href={target} />
+    <link rel="canonical" href={canonical} />
     <script is:inline define:vars={{ target }}>location.replace(target);</script>
   </head>
   <body>
-    <a href={target}>Continue to the Chinese course</a>
+    <p>Moved to <a href={target}>the Chinese course</a>.</p>
   </body>
 </html>

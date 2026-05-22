@@ -64,7 +64,7 @@ evidence: goal, trace, tools, failure, eval
 | 3 | 多 Agent 开发团队 | 角色分工、交接、评审闭环、合并负责人 |
 | 4 | 实操工作坊 | 最小可追踪单 Agent 基线 |
 
-扩展项目前，先运行 [9.10.5 实操：构建可追踪单 Agent 助手](./04-stage-hands-on-workshop.md)。
+扩展项目前，先运行 [9.10.5 实操：构建可追踪单 Agent 助手](/zh-cn/ch09-agent/ch10-projects/04-stage-hands-on-workshop/)。
 
 ## 项目交付物标准
 

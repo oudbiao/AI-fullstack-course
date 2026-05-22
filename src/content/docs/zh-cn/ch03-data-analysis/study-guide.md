@@ -11,7 +11,7 @@ head:
 ---
 ![数据分析学习指南最小闭环](/img/course/ch03-study-guide-data-loop-vertical.webp)
 
-主要学习路线已经放在 [第 3 章入口](./)。本页只作为练习时快速查看的清单。
+主要学习路线已经放在 [第 3 章入口](/zh-cn/ch03-data-analysis/)。本页只作为练习时快速查看的清单。
 
 ## 一句话模型
 

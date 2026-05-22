@@ -44,7 +44,7 @@ Do the workshop after the basics. First make the retrieval chain visible; then w
 | 8.1 | RAG basics, document processing, retrieval, evaluation | Build a tiny document-to-answer loop | chunks, top-k output, cited answer |
 | 8.3 | LLM app development | Wrap the RAG loop with API, tools, dialog, or document parsing | request/response sample and error path |
 | 8.4 | Engineering practices | Add async, logging, monitoring, API design, or Docker notes | logs, config, deployment checklist |
-| 8.5 | Stage project | Run [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md) | workshop output, one added doc, one added eval case |
+| 8.5 | Stage project | Run [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) | workshop output, one added doc, one added eval case |
 | 8.2 | Deployment and unified APIs | Understand cloud API, local model, and unified calling layer | one calling note or config comparison |
 
 ## Core Path, Extensions, And Depth
@@ -177,7 +177,7 @@ Before entering Chapter 9, you should be able to:
 - separate document, chunking, retrieval, generation, citation, and deployment failures;
 - run the full Chapter 8 workshop, add one document, add one evaluation case, and record the result in a README.
 
-For a printable checklist, use [8.0 Learning Checklist](./study-guide.md). For the guided project, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md).
+For a printable checklist, use [8.0 Learning Checklist](/ch08-rag/study-guide/). For the guided project, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](/ch08-rag/ch05-projects/05-stage-hands-on-workshop/).
 
 <details>
 <summary>Check reasoning and explanation</summary>

@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "LLM study checklist, Prompt evaluation, Transformer, fine-tuning, RLHF"
 ---
-Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 7 entry page](./index.md).
+Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 7 entry page](/ch07-llm-principles/).
 
 ![LLM study guide evolution path](/img/course/ch07-study-guide-evolution-line-en.webp)
 
@@ -31,7 +31,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `prompt_eval_cases.csv` | At least five fixed inputs and a simple score column |
 | `structured_output_schema.json` | Required fields and allowed value types |
 | `failure_cases.md` | At least three failed outputs and the likely cause |
-| `llm_stage_workshop_output.txt` | Output from [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) |
+| `llm_stage_workshop_output.txt` | Output from [7.8.4 Hands-on: Full Chapter 7 Workshop](/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) |
 | `README.md` | How to run, what passed, what failed, what to try next |
 
 ## Evidence to Keep

@@ -53,11 +53,11 @@ feature_shape: (1, 8, 32, 32)
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [6.3.2 畳み込み基礎](./01-convolution-basics.md) | kernel、stride、padding、channel |
-| 2 | [6.3.3 CNN 構造](./02-cnn-structure.md) | 畳み込みブロック、pooling、分類ヘッド |
-| 3 | [6.3.4 古典的アーキテクチャ](./03-classic-architectures.md) | LeNet、AlexNet、VGG、ResNet の直感 |
-| 4 | [6.3.5 転移学習](./04-transfer-learning.md) | backbone 凍結、fine-tuning |
-| 5 | [6.3.6 画像分類実践](./05-image-classification-practice.md) | データセット、学習、予測例 |
+| 1 | [6.3.2 畳み込み基礎](/ja/ch06-deep-learning/ch03-cnn/01-convolution-basics/) | kernel、stride、padding、channel |
+| 2 | [6.3.3 CNN 構造](/ja/ch06-deep-learning/ch03-cnn/02-cnn-structure/) | 畳み込みブロック、pooling、分類ヘッド |
+| 3 | [6.3.4 古典的アーキテクチャ](/ja/ch06-deep-learning/ch03-cnn/03-classic-architectures/) | LeNet、AlexNet、VGG、ResNet の直感 |
+| 4 | [6.3.5 転移学習](/ja/ch06-deep-learning/ch03-cnn/04-transfer-learning/) | backbone 凍結、fine-tuning |
+| 5 | [6.3.6 画像分類実践](/ja/ch06-deep-learning/ch03-cnn/05-image-classification-practice/) | データセット、学習、予測例 |
 
 ## 残す証拠
 

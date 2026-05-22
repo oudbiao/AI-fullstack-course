@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "AIGC 检查表, 多模态检查表, 图像生成, 多模态 RAG, 创意工作流"
 ---
-这页当成可打印检查表使用。需要完整讲解时，回到 [第 12 章入口页](./index.md)。
+这页当成可打印检查表使用。需要完整讲解时，回到 [第 12 章入口页](/zh-cn/ch12-multimodal/)。
 
 ![多模态作品集证据包](/img/course/ch12-multimodal-evidence-pack.webp)
 

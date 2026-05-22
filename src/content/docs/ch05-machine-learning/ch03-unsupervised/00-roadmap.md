@@ -57,9 +57,9 @@ Clustering gives group IDs, not human meaning. You still need charts, feature su
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [5.3.2 Clustering](./01-clustering.md) | K-Means, cluster interpretation, bad cluster choices |
-| 2 | [5.3.3 Dimensionality Reduction](./02-dimensionality-reduction.md) | PCA, visualization, compression |
-| 3 | [5.3.4 Anomaly Detection](./03-anomaly-detection.md) | outliers, thresholds, alert evidence |
+| 1 | [5.3.2 Clustering](/ch05-machine-learning/ch03-unsupervised/01-clustering/) | K-Means, cluster interpretation, bad cluster choices |
+| 2 | [5.3.3 Dimensionality Reduction](/ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction/) | PCA, visualization, compression |
+| 3 | [5.3.4 Anomaly Detection](/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection/) | outliers, thresholds, alert evidence |
 
 ## Evidence to Keep
 

@@ -11,7 +11,7 @@ head:
 ---
 ![Deep learning study guide training loop](/img/course/ch06-study-guide-training-loop-en.webp)
 
-The main study route is now in [Chapter 6 entry](./). Use this page only as a quick checklist while you practice.
+The main study route is now in [Chapter 6 entry](/ch06-deep-learning/). Use this page only as a quick checklist while you practice.
 
 ## One-Line Mental Model
 

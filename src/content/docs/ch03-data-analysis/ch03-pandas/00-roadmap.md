@@ -63,14 +63,14 @@ You just did the core Pandas loop: create/read data, clean missing values, add a
 
 | Order | Read | What to practice |
 |---|---|---|
-| 1 | [3.3.2 Core Data Structures](./01-core-structures.md) | `Series`, `DataFrame`, `Index` |
-| 2 | [3.3.3 Data Reading and Writing](./02-read-write.md) | CSV, Excel, JSON, export |
-| 3 | [3.3.4 Selection and Filtering](./03-selection-filter.md) | `loc`, `iloc`, conditions |
-| 4 | [3.3.5 Data Cleaning](./04-data-cleaning.md) | missing values, duplicates, types |
-| 5 | [3.3.6 Data Transformation](./05-data-transform.md) | new columns, mapping, string/date handling |
-| 6 | [3.3.7 Grouping and Aggregation](./06-groupby.md) | `groupby`, metrics, category/month summaries |
-| 7 | [3.3.8 Data Merging](./07-merge.md) | join multiple tables safely |
-| 8 | [3.3.9 Time Series](./08-time-series.md) | date index, resampling, time windows |
+| 1 | [3.3.2 Core Data Structures](/ch03-data-analysis/ch03-pandas/01-core-structures/) | `Series`, `DataFrame`, `Index` |
+| 2 | [3.3.3 Data Reading and Writing](/ch03-data-analysis/ch03-pandas/02-read-write/) | CSV, Excel, JSON, export |
+| 3 | [3.3.4 Selection and Filtering](/ch03-data-analysis/ch03-pandas/03-selection-filter/) | `loc`, `iloc`, conditions |
+| 4 | [3.3.5 Data Cleaning](/ch03-data-analysis/ch03-pandas/04-data-cleaning/) | missing values, duplicates, types |
+| 5 | [3.3.6 Data Transformation](/ch03-data-analysis/ch03-pandas/05-data-transform/) | new columns, mapping, string/date handling |
+| 6 | [3.3.7 Grouping and Aggregation](/ch03-data-analysis/ch03-pandas/06-groupby/) | `groupby`, metrics, category/month summaries |
+| 7 | [3.3.8 Data Merging](/ch03-data-analysis/ch03-pandas/07-merge/) | join multiple tables safely |
+| 8 | [3.3.9 Time Series](/ch03-data-analysis/ch03-pandas/08-time-series/) | date index, resampling, time windows |
 
 ## Evidence to Keep
 

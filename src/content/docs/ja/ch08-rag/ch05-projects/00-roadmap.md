@@ -68,7 +68,7 @@ evidence: docs, eval, citations, failures
 | 4 | SOP 文書アシスタント | 文書解析、構造化出力、テンプレート描画 |
 | 5 | フル実践ワークショップ | 実 API や DB を足す前の最小再現ループ |
 
-ガイド付き baseline が必要なら、[8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](./05-stage-hands-on-workshop.md) から始めます。
+ガイド付き baseline が必要なら、[8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](/ja/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) から始めます。
 
 ## 残す証拠
 

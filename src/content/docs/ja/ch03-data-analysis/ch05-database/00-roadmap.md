@@ -72,10 +72,10 @@ tool 80
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
-| 1 | [3.5.2 リレーショナルデータベース基礎](./01-relational-db.md) | 表、行、列、主キー、外部キー |
-| 2 | [3.5.3 SQL 基礎](./02-sql-basics.md) | `SELECT`、`WHERE`、`JOIN`、`GROUP BY` |
-| 3 | [3.5.4 Python データベース操作](./03-python-db.md) | `sqlite3`、Pandas の読み書き、クエリ結果 |
-| 4 | [3.5.5 データベース設計](./04-db-design.md) | テーブル分割、重複削減、関係の整理 |
+| 1 | [3.5.2 リレーショナルデータベース基礎](/ja/ch03-data-analysis/ch05-database/01-relational-db/) | 表、行、列、主キー、外部キー |
+| 2 | [3.5.3 SQL 基礎](/ja/ch03-data-analysis/ch05-database/02-sql-basics/) | `SELECT`、`WHERE`、`JOIN`、`GROUP BY` |
+| 3 | [3.5.4 Python データベース操作](/ja/ch03-data-analysis/ch05-database/03-python-db/) | `sqlite3`、Pandas の読み書き、クエリ結果 |
+| 4 | [3.5.5 データベース設計](/ja/ch03-data-analysis/ch05-database/04-db-design/) | テーブル分割、重複削減、関係の整理 |
 
 ## 合格ライン
 

@@ -484,7 +484,7 @@ After reading this section, the most valuable things to carry forward are these 
 
 These three questions will naturally lead you to:
 
-- [4.1.5 Vector Spaces and Linear Transformations](./04-vector-spaces.md)
+- [4.1.5 Vector Spaces and Linear Transformations](/ch04-ai-math/ch01-linear-algebra/04-vector-spaces/)
 
 ```mermaid
 flowchart LR

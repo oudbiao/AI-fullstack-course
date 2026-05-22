@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "计算机视觉检查表, 图像分类, 目标检测, 图像分割, 视觉指标"
 ---
-这页当成可打印检查表使用。需要完整讲解时，回到 [第 10 章入口页](./index.md)。
+这页当成可打印检查表使用。需要完整讲解时，回到 [第 10 章入口页](/zh-cn/ch10-computer-vision/)。
 
 ![视觉作品集证据包](/img/course/ch10-vision-evidence-pack.webp)
 

@@ -31,12 +31,12 @@ head:
 
 | ページ | 手を動かすこと | 残す証拠 |
 |---|---|---|
-| [3.1.1 純粋な Python データ処理](ch01-warmup/01-pure-python-data.md) | list と dict で小さな表を処理する | 純粋な Python で表処理がつらくなる理由のメモ |
-| [3.2.1 NumPy 概要](ch02-numpy/01-overview.md) から [3.2.7 乱数と統計](ch02-numpy/07-random-stats.md) | 配列、shape、スライス、ブロードキャスト、ベクトル化を練習する | NumPy 練習ファイル |
-| [3.3.1 Pandas の中心構造](ch03-pandas/01-core-structures.md) から [3.3.8 時系列](ch03-pandas/08-time-series.md) | 表を読み、欠損を処理し、groupby、merge、書き出しを行う | クリーニング済みデータとログ |
-| [3.4.1 Matplotlib](ch04-visualization/01-matplotlib.md) から [3.4.4 可視化ベストプラクティス](ch04-visualization/04-best-practices.md) | 明確な質問に答えるグラフを描く | 3 つのグラフと、それぞれ 1 つの結論 |
-| [3.5.1 関係データベース](ch05-database/01-relational-db.md) から [3.5.4 データベース設計](ch05-database/04-db-design.md) | SQL で実データを絞り込み、集計し、結合する | クエリまたは join の例 |
-| [3.6.1 EDA プロジェクト](ch06-projects/01-eda-project.md) と [3.6.3 ハンズオンワークショップ](ch06-projects/03-hands-on-data-workshop.md) | 再現可能なデータパイプラインとレポートを作る | 元データ、整形済みデータ、グラフ、レポート、README |
+| [3.1.1 純粋な Python データ処理](/ja/ch03-data-analysis/ch01-warmup/01-pure-python-data/) | list と dict で小さな表を処理する | 純粋な Python で表処理がつらくなる理由のメモ |
+| [3.2.1 NumPy 概要](/ja/ch03-data-analysis/ch02-numpy/01-overview/) から [3.2.7 乱数と統計](/ja/ch03-data-analysis/ch02-numpy/07-random-stats/) | 配列、shape、スライス、ブロードキャスト、ベクトル化を練習する | NumPy 練習ファイル |
+| [3.3.1 Pandas の中心構造](/ja/ch03-data-analysis/ch03-pandas/01-core-structures/) から [3.3.8 時系列](/ja/ch03-data-analysis/ch03-pandas/08-time-series/) | 表を読み、欠損を処理し、groupby、merge、書き出しを行う | クリーニング済みデータとログ |
+| [3.4.1 Matplotlib](/ja/ch03-data-analysis/ch04-visualization/01-matplotlib/) から [3.4.4 可視化ベストプラクティス](/ja/ch03-data-analysis/ch04-visualization/04-best-practices/) | 明確な質問に答えるグラフを描く | 3 つのグラフと、それぞれ 1 つの結論 |
+| [3.5.1 関係データベース](/ja/ch03-data-analysis/ch05-database/01-relational-db/) から [3.5.4 データベース設計](/ja/ch03-data-analysis/ch05-database/04-db-design/) | SQL で実データを絞り込み、集計し、結合する | クエリまたは join の例 |
+| [3.6.1 EDA プロジェクト](/ja/ch03-data-analysis/ch06-projects/01-eda-project/) と [3.6.3 ハンズオンワークショップ](/ja/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop/) | 再現可能なデータパイプラインとレポートを作る | 元データ、整形済みデータ、グラフ、レポート、README |
 
 本章でよく使う用語：
 
@@ -153,7 +153,7 @@ Visualization    ...
 - どの結論はデータに支えられ、どこはまだ不確かですか？
 - 他の人が README を見て分析を再実行できますか？
 
-印刷用のチェックリストが必要なときは、[3.0 学習ガイドとタスクリスト](./study-guide.md) を使ってください。次の章では、このデータ感覚を使って確率、ベクトル、勾配、モデル評価を理解します。
+印刷用のチェックリストが必要なときは、[3.0 学習ガイドとタスクリスト](/ja/ch03-data-analysis/study-guide/) を使ってください。次の章では、このデータ感覚を使って確率、ベクトル、勾配、モデル評価を理解します。
 
 
 <details>

@@ -31,13 +31,13 @@ head:
 
 | ページ | 手を動かすこと | 残す証拠 |
 |---|---|---|
-| [1.1.1 ターミナルとコマンドライン](ch01-terminal/01-why-cli.md) | ターミナルを開き、`pwd`、`ls`、`cd` を実行する | 短いコマンドログ |
-| [1.1.2 基本的なターミナル操作](ch01-terminal/02-basic-operations.md) | 練習フォルダでファイルを作成・移動・確認・削除する | フォルダのスクリーンショットまたは端末出力 |
-| [1.1.3 パッケージマネージャ](ch01-terminal/03-package-managers.md) | 自分の環境でツールを入れる方法を確認する | ツールのバージョンメモ |
-| [1.2.1 Git の基礎](ch02-git/01-git-basics.md) と [1.2.2 Git の基本操作](ch02-git/02-core-operations.md) | 最初のローカルプロジェクト記録を保存する | clean な Git commit 1 回 |
-| [1.3.1 Python 環境](ch03-devenv/01-python-env.md) | 仮想環境を作り、その中で Python を実行する | Python バージョンと環境コマンド |
-| [1.3.2 VS Code](ch03-devenv/02-vscode.md) と [1.3.3 Jupyter](ch03-devenv/03-jupyter.md) | エディタでコードを書き、Notebook で探索する | エディタ/Notebook の動作メモ |
-| [1.4.1 ハンズオンワークショップ](ch04-workshop/01-hands-on-tools-workshop.md) | ターミナル、Python、エディタ、Notebook、Git をつなげる | 再現可能な `ai-learning-lab` README |
+| [1.1.1 ターミナルとコマンドライン](/ja/ch01-tools/ch01-terminal/01-why-cli/) | ターミナルを開き、`pwd`、`ls`、`cd` を実行する | 短いコマンドログ |
+| [1.1.2 基本的なターミナル操作](/ja/ch01-tools/ch01-terminal/02-basic-operations/) | 練習フォルダでファイルを作成・移動・確認・削除する | フォルダのスクリーンショットまたは端末出力 |
+| [1.1.3 パッケージマネージャ](/ja/ch01-tools/ch01-terminal/03-package-managers/) | 自分の環境でツールを入れる方法を確認する | ツールのバージョンメモ |
+| [1.2.1 Git の基礎](/ja/ch01-tools/ch02-git/01-git-basics/) と [1.2.2 Git の基本操作](/ja/ch01-tools/ch02-git/02-core-operations/) | 最初のローカルプロジェクト記録を保存する | clean な Git commit 1 回 |
+| [1.3.1 Python 環境](/ja/ch01-tools/ch03-devenv/01-python-env/) | 仮想環境を作り、その中で Python を実行する | Python バージョンと環境コマンド |
+| [1.3.2 VS Code](/ja/ch01-tools/ch03-devenv/02-vscode/) と [1.3.3 Jupyter](/ja/ch01-tools/ch03-devenv/03-jupyter/) | エディタでコードを書き、Notebook で探索する | エディタ/Notebook の動作メモ |
+| [1.4.1 ハンズオンワークショップ](/ja/ch01-tools/ch04-workshop/01-hands-on-tools-workshop/) | ターミナル、Python、エディタ、Notebook、Git をつなげる | 再現可能な `ai-learning-lab` README |
 
 ワークショップは最後に置きます。統合のための実践なので、先に部品を学び、そのあと組み合わせます。
 

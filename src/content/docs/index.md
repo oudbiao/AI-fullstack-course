@@ -45,6 +45,10 @@ head:
   </section>
 </div>
 
+::::note[Follow AI Roads]
+Please keep an eye on airoads.org as the course continues to improve. If enough learners gather here, we will consider creating a study group so everyone can learn, ask questions, and move through the path together.
+::::
+
 ## Choose Your Starting Move
 
 <div class="course-path-grid">

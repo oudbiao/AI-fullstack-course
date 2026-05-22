@@ -45,10 +45,10 @@ asyncio.run(main())
 
 | 步骤 | 课程 | 练习产物 |
 |---|---|---|
-| 1 | [E.B.1 装饰器](./01-decorators-advanced.md) | 不改业务代码就加 timing 或 logging |
-| 2 | [E.B.2 迭代器与生成器](./02-iterators-advanced.md) | 不一次性加载全部数据也能流式处理 |
-| 3 | [E.B.3 并发](./03-concurrency.md) | 用 timeout、cancel 和限流思维运行 async 任务 |
-| 4 | [E.B.4 元编程](./04-metaprogramming.md) | 显式注册工具或 handler |
+| 1 | [E.B.1 装饰器](/zh-cn/electives/module-b/01-decorators-advanced/) | 不改业务代码就加 timing 或 logging |
+| 2 | [E.B.2 迭代器与生成器](/zh-cn/electives/module-b/02-iterators-advanced/) | 不一次性加载全部数据也能流式处理 |
+| 3 | [E.B.3 并发](/zh-cn/electives/module-b/03-concurrency/) | 用 timeout、cancel 和限流思维运行 async 任务 |
+| 4 | [E.B.4 元编程](/zh-cn/electives/module-b/04-metaprogramming/) | 显式注册工具或 handler |
 
 ## 通过标准
 

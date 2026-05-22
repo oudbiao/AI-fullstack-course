@@ -18,7 +18,7 @@ After completing this section, you will be able to:
 - See why large models made Agents truly usable
 - Experience the differences between systems from different stages through a small example
 
-If you want a broader AI timeline, read this page together with [A.3 AI Development History: 15 Stages and Key Papers](/appendix/ai-milestones). This section focuses only on the Agent thread.
+If you want a broader AI timeline, read this page together with [A.3 AI Development History: 15 Stages and Key Papers](/appendix/ai-milestones/). This section focuses only on the Agent thread.
 
 ![Agent system lineage map from scripts to modern LLM agents](/img/course/appendix-agent-system-lineage-map-en.webp)
 

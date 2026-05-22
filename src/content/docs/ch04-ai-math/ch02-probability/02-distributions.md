@@ -458,7 +458,7 @@ After looking at distributions, the most valuable questions to carry forward are
 
 These questions will naturally lead you to:
 
-- [4.2.4 Basics of Statistical Inference](./03-statistical-inference.md)
+- [4.2.4 Basics of Statistical Inference](/ch04-ai-math/ch02-probability/03-statistical-inference/)
 
 :::note[Connecting ahead]
 - **Next section**: Statistical inference — inferring distribution parameters from data

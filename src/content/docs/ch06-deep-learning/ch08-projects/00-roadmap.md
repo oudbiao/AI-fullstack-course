@@ -72,10 +72,10 @@ This keeps the project from becoming a one-time demo. A good Chapter 6 project s
 
 | Order | Read | What to deliver |
 |---|---|---|
-| 1 | [6.8.2 Image Classification](./01-image-classification.md) | dataset, CNN/transfer baseline, prediction samples |
-| 2 | [6.8.3 Sentiment Analysis](./02-sentiment-analysis.md) | text pipeline, training log, error examples |
-| 3 | [6.8.4 Generative Practice](./03-generative-practice.md) | generated samples and review notes |
-| 4 | [6.8.5 Hands-on DL Workshop](./04-hands-on-dl-workshop.md) | one reproducible PyTorch evidence pack |
+| 1 | [6.8.2 Image Classification](/ch06-deep-learning/ch08-projects/01-image-classification/) | dataset, CNN/transfer baseline, prediction samples |
+| 2 | [6.8.3 Sentiment Analysis](/ch06-deep-learning/ch08-projects/02-sentiment-analysis/) | text pipeline, training log, error examples |
+| 3 | [6.8.4 Generative Practice](/ch06-deep-learning/ch08-projects/03-generative-practice/) | generated samples and review notes |
+| 4 | [6.8.5 Hands-on DL Workshop](/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop/) | one reproducible PyTorch evidence pack |
 
 ## Project Deliverable Standards
 
