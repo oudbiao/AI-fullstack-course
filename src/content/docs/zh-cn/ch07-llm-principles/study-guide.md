@@ -31,6 +31,7 @@ head:
 | `prompt_eval_cases.csv` | 至少五条固定输入和一个简单分数字段 |
 | `structured_output_schema.json` | 必填字段和允许的数据类型 |
 | `failure_cases.md` | 至少三个失败输出和可能原因 |
+| `mini_gpt2_train_log.txt` | [7.4.5 租 GPU 跑通手搓 GPT-2](/zh-cn/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) 的训练日志 |
 | `llm_stage_workshop_output.txt` | [7.8.4 实操：第 7 章完整工作坊](/zh-cn/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) 的输出 |
 | `README.md` | 如何运行、哪些通过、哪些失败、下一步怎么试 |
 
@@ -42,6 +43,7 @@ head:
 | 结构化输出 | 解析器会拒绝缺字段或类型错误。 |
 | 失败分析 | 每个失败都有可能原因：指令、输入、结构约束、缺少知识或安全边界。 |
 | 方法选择 | 决策表能解释为什么先用 Prompt、RAG、微调、工具或 Agent。 |
+| 手搓 GPT-2 | 能跑通 mini GPT-2，并说清 embedding、attention、loss 和 generate 在代码里的位置。 |
 
 预期结果：你的第 7 章文件夹里有 Prompt 版本、固定评测样本、解析器/schema 检查、失败笔记、工作坊输出，以及说明方法选择的 README。
 
@@ -52,6 +54,7 @@ head:
 - 你能校验 JSON 输出，而不是相信“看起来像 JSON”的文本吗？
 - 你能说明什么时候缺少信息应该用 RAG，而不是继续加长 Prompt 吗？
 - 你能说明什么时候“长期行为适配”才可能值得微调吗？
+- 你能租用或打开一台 GPU Notebook，跑通 mini GPT-2，并保存 loss 下降和生成文本吗？
 
 <details>
 <summary>检查思路与讲解</summary>
@@ -75,5 +78,6 @@ head:
 评估用例：带分数和失败备注的固定输入
 架构检查：结构化输出已解析并验证
 方法选择：Prompt/RAG/微调/工具决策已写明
+手搓记录：mini GPT-2 训练日志、环境信息和生成样例
 结束证明：工作坊产出加 README 说明
 ```

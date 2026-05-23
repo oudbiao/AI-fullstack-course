@@ -53,6 +53,7 @@ from -> text
 | 1 | [7.4.2 预训练数据](/zh-cn/ch07-llm-principles/ch04-pretraining/01-pretraining-data/) | 来源、过滤、去重、污染 |
 | 2 | [7.4.3 预训练方法](/zh-cn/ch07-llm-principles/ch04-pretraining/02-pretraining-methods/) | next-token prediction、loss、scaling |
 | 3 | [7.4.4 预训练工程](/zh-cn/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering/) | 分布式训练、checkpoint、监控 |
+| 4 | [7.4.5 租 GPU 跑通手搓 GPT-2](/zh-cn/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) | 选平台、开环境、逐行跑通 mini GPT-2 |
 
 ## 留下的证据
 
@@ -64,6 +65,7 @@ from -> text
 数据风险：污染、重复或低质量混合
 目标说明：目标决定行为和架构匹配
 工程说明：分片、断点续训、吞吐量和监控
+实操桥接：能在免费或低价 GPU 上跑通一个 mini GPT-2 训练脚本
 ```
 
 ## 通过标准

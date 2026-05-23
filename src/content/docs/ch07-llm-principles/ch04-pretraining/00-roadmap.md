@@ -53,6 +53,7 @@ This tiny example is the shape of next-token prediction. Real pretraining repeat
 | 1 | [7.4.2 Pretraining Data](/ch07-llm-principles/ch04-pretraining/01-pretraining-data/) | sources, filtering, deduplication, contamination |
 | 2 | [7.4.3 Pretraining Methods](/ch07-llm-principles/ch04-pretraining/02-pretraining-methods/) | next-token prediction, loss, scaling |
 | 3 | [7.4.4 Pretraining Engineering](/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering/) | distributed training, checkpoints, monitoring |
+| 4 | [7.4.5 Rent a GPU and Run a Hand-Built GPT-2](/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) | platform choice, environment setup, mini GPT-2 walkthrough |
 
 ## Evidence to Keep
 
@@ -64,6 +65,7 @@ sample_pairs: next-token training pairs from one sentence
 data_risk: contamination, duplication, or low-quality mixture
 objective_note: objective shapes behavior and architecture fit
 engineering_note: sharding, resume, throughput, and monitoring
+hands_on_bridge: run a mini GPT-2 training script on free or low-cost compute
 ```
 
 ## Pass Check

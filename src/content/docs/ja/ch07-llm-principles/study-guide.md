@@ -31,6 +31,7 @@ head:
 | `prompt_eval_cases.csv` | 少なくとも5つの固定入力と簡単なスコア列 |
 | `structured_output_schema.json` | 必須フィールドと許可する値の型 |
 | `failure_cases.md` | 少なくとも3つの失敗出力と推定原因 |
+| `mini_gpt2_train_log.txt` | [7.4.5 GPU を借りて手作り GPT-2 を動かす](/ja/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) の学習ログ |
 | `llm_stage_workshop_output.txt` | [7.8.4 実践：第 7 章フルワークショップ](/ja/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) の出力 |
 | `README.md` | 実行方法、通った点、失敗した点、次に試すこと |
 
@@ -42,8 +43,9 @@ head:
 | 構造化出力 | parser が欠落フィールドや型違いを拒否する。 |
 | 失敗分析 | 各失敗に、指示、入力、スキーマ、知識不足、安全性のいずれかの推定原因がある。 |
 | 手法選択 | 決定表が、Prompt、RAG、微調整、ツール、Agent のどれを先に使うか説明している。 |
+| 手作り GPT-2 | mini GPT-2 を動かし、embedding、attention、loss、generate の位置を説明できる。 |
 
-期待される結果：第 7 章のフォルダに、Prompt 版、固定評価ケース、parser/schema チェック、失敗メモ、ワークショップ出力、手法選択を説明する README がそろっている状態です。
+期待される結果：第 7 章のフォルダに、Prompt 版、固定評価ケース、parser/schema チェック、失敗メモ、mini GPT-2 学習ログ、ワークショップ出力、手法選択を説明する README がそろっている状態です。
 
 ## 章を出る前の質問
 
@@ -52,6 +54,7 @@ head:
 - JSON らしく見える文章を信じるのではなく、JSON 出力を検証できますか？
 - 情報不足のとき、長い Prompt ではなく RAG が必要になる場面を説明できますか？
 - 繰り返す振る舞いの適応が、微調整を検討する理由になる場面を説明できますか？
+- GPU Notebook を開く、または借りて、mini GPT-2 を動かし、loss と生成文を保存できますか？
 
 <details>
 <summary>確認の考え方と解説</summary>
@@ -75,5 +78,6 @@ head:
 評価ケース：スコアと失敗メモ付きの固定入力
 スキーマ確認: 構造化出力が解析され検証される
 手法選択：Prompt/RAG/微調整/ツールの判断が記録されている
+手作り記録：mini GPT-2 の学習ログ、環境情報、生成サンプル
 退出証拠：ワークショップ出力と README のメモ
 ```
