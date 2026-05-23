@@ -22,6 +22,7 @@ Use outside resources only when they solve a current bottleneck. Do not collect 
 | LLM usage | Hugging Face docs, model provider docs | Chapters 7-8 |
 | RAG / Agent engineering | LangChain, LangGraph, LlamaIndex, MCP docs | Chapters 8-9 projects |
 | CV / NLP / multimodal | CS231n, CS224n, OpenCV, diffusion and multimodal docs | Chapters 10-12 |
+| Open-source LLM deployment | Datawhale Self-LLM, Hugging Face Transformers, vLLM, SGLang, llama.cpp, Ollama | Chapter 13 |
 
 ## One-resource rule
 

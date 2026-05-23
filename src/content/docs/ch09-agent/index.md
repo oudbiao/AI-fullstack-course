@@ -19,7 +19,7 @@ Do not start with multi-agent frameworks. Start with one small Agent that can sh
 
 You have already built an LLM response loop and a RAG evidence loop. This chapter adds controlled action: the system decides the next step, calls allowed tools, reads observations, updates state, and stops with a replayable trace.
 
-This is the final core application layer in the main route. After this chapter, Chapters 10-12 become product specializations: vision, NLP, and multimodal workflows can plug into the same evidence, tool, trace, and safety habits.
+This is the final core application layer in the main route. After this chapter, Chapters 10-12 become product specializations, and Chapter 13 adds open-source model runtime ownership. Vision, NLP, multimodal workflows, and self-hosted LLMs can all plug into the same evidence, tool, trace, and safety habits.
 
 ## See the Agent Execution Loop
 

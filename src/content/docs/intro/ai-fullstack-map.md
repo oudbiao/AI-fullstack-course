@@ -14,7 +14,7 @@ head:
 Read the picture first. The course is one engineering path:
 
 ```text
-tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/delivery
+tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/runtime delivery
 ```
 
 You do not need every detail now. Just remember:
@@ -37,7 +37,7 @@ You do not need every detail now. Just remember:
 | LLM | 7 | Prompt, tokens, embeddings, Transformer intuition | Which behavior comes from data, decoding, or context? |
 | RAG | 8 | Retrieval trace and answer evaluation | Did the answer use the right evidence? |
 | Agent | 9 | Tool traces, permissions, memory notes, deployment notes | What can fail when users, files, and actions are real? |
-| Specialization / delivery | 10-12 and electives | Vision/NLP/multimodal demos, exported assets, deployment notes | Which domain constraints change the product decision? |
+| Specialization / runtime delivery | 10-13 and electives | Vision/NLP/multimodal/open-source LLM demos, exported assets, deployment notes | Which domain and runtime constraints change the product decision? |
 
 The course is not a pile of topics. It is a debugging stack and a portfolio stack. When an AI application behaves badly, the cause may live several layers below the feature you are looking at. When a reviewer asks what you built, your evidence should show which layers you controlled.
 
@@ -54,19 +54,20 @@ A strong career-transition project can start as one small assistant or automatio
 | LLM | Prompt variants, structured output, token/cost notes, and limitations |
 | RAG | Documents, chunks, retrieval trace, citation check, and answer evaluation |
 | Agent | Tool permission boundary, action trace, memory rule, and rollback note |
-| Specialization / delivery | Vision, NLP, multimodal, deployment, or product-specific review evidence |
+| Specialization / runtime delivery | Vision, NLP, multimodal, open-source LLM runtime, deployment, or product-specific review evidence |
 
 ## Main Line And Expansion Tracks
 
 Use Chapters 1-9 as the default main line. After Chapter 9, you should be able to build a small LLM/RAG/Agent project with evidence, logs, and a safety boundary.
 
-Then choose Chapters 10-12 by product need:
+Then choose Chapters 10-13 by product need:
 
 | Need | Choose | Why |
 |---|---|---|
 | Images, cameras, OCR, detection, segmentation | Chapter 10 Computer Vision | The output is visual: labels, boxes, masks, text, or video events |
 | Text labels, extraction, summaries, linguistic evaluation | Chapter 11 NLP | The output is a text task with labels, fields, spans, or generated text |
 | Images, PDFs, audio, video, creative assets, multimodal RAG | Chapter 12 Multimodal/AIGC | The workflow mixes modalities and needs source, prompt, review, and export records |
+| Open-source model hosting, private deployment, runtime ownership | Chapter 13 Open-Source LLM Deployment | The project must control model files, serving API, licenses, cost, and fine-tuning decisions |
 | Deployment, advanced Python, classic ML depth | Electives | The main project needs a specific engineering or algorithmic side skill |
 
 ## How To Use The Map
@@ -84,7 +85,7 @@ Next, plan how you will pace the main route.
 Keep this page's proof of learning as a small evidence card:
 
 ```text
-capability_map: tools, Python, data, math, ML, DL, LLM, RAG, Agent, and specialization links
+capability_map: tools, Python, data, math, ML, DL, LLM, RAG, Agent, specialization, and runtime links
 project_thread: one assistant, automation, analysis, or multimodal project idea
 current_position: what you already know and what you will postpone
 next_step: one concrete chapter or workshop to start next

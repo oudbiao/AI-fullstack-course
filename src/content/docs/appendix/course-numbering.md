@@ -1,6 +1,6 @@
 ---
 title: "A.2 Course Numbering Convention"
-description: "Explains the mapping between source directories like ch01-tools and ch02-python and the displayed chapters 1–12 on the website, so course maintenance stays consistent."
+description: "Explains the mapping between source directories like ch01-tools and ch02-python and the displayed chapters 1–13 on the website, so course maintenance stays consistent."
 head:
   - tag: meta
     attrs:
@@ -14,7 +14,7 @@ head:
 :::tip[Reading tip]
 When maintaining the course, keep the page title, sidebar order, source directories, and image names aligned with one another. When reading the diagram, separate the “display number” from the “file path” to avoid mixing up chxx with Chinese chapter numbers.
 :::
-When the course pages are shown to learners, use the display numbering from Chapter 1 to Chapter 12 consistently. The source directories are also aligned with the displayed chapter numbers: `ch01-*` corresponds to Chapter 1, `ch02-*` corresponds to Chapter 2, and so on.
+When the course pages are shown to learners, use the display numbering from Chapter 1 to Chapter 13 consistently. The source directories are also aligned with the displayed chapter numbers: `ch01-*` corresponds to Chapter 1, `ch02-*` corresponds to Chapter 2, and so on.
 
 The second half of each directory name is used to describe the topic. For example, `ch05-machine-learning` means Chapter 5, Machine Learning, and `ch09-agent` means Chapter 9, AI Agent. The “Tracks 1–4” in the sidebar are only learning groups and do not represent the file directory hierarchy.
 
@@ -34,6 +34,7 @@ The second half of each directory name is used to describe the topic. For exampl
 | `docs/ch10-computer-vision` | Chapter 10 | Computer Vision |
 | `docs/ch11-nlp` | Chapter 11 | Natural Language Processing |
 | `docs/ch12-multimodal` | Chapter 12 | AIGC and Multimodality |
+| `docs/ch13-open-source-llm` | Chapter 13 | Open-Source LLM Deployment and Fine-Tuning |
 
 ## Writing rules
 
@@ -60,7 +61,7 @@ Inside an article, body headings should stay natural and short. Use numbers in t
 
 When referring to file paths, code scripts, image filenames, or internal links, use source directory names like `ch05-machine-learning`.
 
-Do not add old-style stage directories or stage directories with letter suffixes. When adding new chapters, images, or script configurations, prioritize the numbering system from `ch01-*` to `ch12-*`.
+Do not add old-style stage directories or stage directories with letter suffixes. When adding new chapters, images, or script configurations, prioritize the numbering system from `ch01-*` to `ch13-*`.
 
 If a sentence must include both, the recommended format is:
 

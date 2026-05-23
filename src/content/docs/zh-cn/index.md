@@ -1,6 +1,6 @@
 ---
 title: "AI 全栈工程课程"
-description: "面向就业/转型的 AI 全栈实践课程：用 Python、数据、ML、LLM、RAG、Agent 和多模态交付，做出可检查的 AI 应用。"
+description: "面向就业/转型的 AI 全栈实践课程：用 Python、数据、ML、LLM、RAG、Agent、多模态交付和开源模型部署，做出可检查的 AI 应用。"
 sidebar:
   order: 0
 head:
@@ -27,8 +27,8 @@ head:
 
   <section class="course-signal-grid" aria-label="课程摘要">
     <div>
-      <p class="course-signal-stat"><strong>12</strong><span>章</span></p>
-      <p>核心内容，从工具到多模态交付</p>
+      <p class="course-signal-stat"><strong>13</strong><span>章</span></p>
+      <p>核心内容，从工具到开源模型交付</p>
     </div>
     <div>
       <p class="course-signal-stat"><strong>9</strong><span>章</span></p>
@@ -96,6 +96,11 @@ head:
     <span>第 10-12 章</span>
     <strong>扩展技术栈</strong>
     <p>计算机视觉、NLP、多模态工作流、AIGC、伦理和交付策略。</p>
+  </a>
+  <a class="course-track-card" href="/zh-cn/ch13-open-source-llm/">
+    <span>第 13 章</span>
+    <strong>掌握模型运行时</strong>
+    <p>开源大模型选型、本地服务、评估、LoRA 判断和可复现运行手册。</p>
   </a>
 </div>
 

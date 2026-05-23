@@ -1,6 +1,6 @@
 ---
 title: "AI Full-Stack Engineering Course"
-description: "A practical AI full-stack course for career transition: build inspectable AI applications with Python, data, ML, LLM, RAG, Agent, and multimodal delivery."
+description: "A practical AI full-stack course for career transition: build inspectable AI applications with Python, data, ML, LLM, RAG, Agent, multimodal delivery, and open-source model deployment."
 sidebar:
   order: 0
 head:
@@ -27,8 +27,8 @@ head:
 
   <section class="course-signal-grid" aria-label="Course summary">
     <div>
-      <p class="course-signal-stat"><strong>12</strong><span>chapters</span></p>
-      <p>Core content from tools to multimodal delivery</p>
+      <p class="course-signal-stat"><strong>13</strong><span>chapters</span></p>
+      <p>Core content from tools to open-source model delivery</p>
     </div>
     <div>
       <p class="course-signal-stat"><strong>9</strong><span>main chapters</span></p>
@@ -96,6 +96,11 @@ Please keep an eye on airoads.org as the course continues to improve. If enough 
     <span>Chapters 10-12</span>
     <strong>Extend the Stack</strong>
     <p>Computer vision, NLP, multimodal workflows, AIGC, ethics, and delivery strategy.</p>
+  </a>
+  <a class="course-track-card" href="./ch13-open-source-llm">
+    <span>Chapter 13</span>
+    <strong>Own the Runtime</strong>
+    <p>Open-source LLM selection, local serving, evaluation, LoRA decisions, and reproducible runbooks.</p>
   </a>
 </div>
 

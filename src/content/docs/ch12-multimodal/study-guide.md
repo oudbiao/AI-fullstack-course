@@ -51,7 +51,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 - Can you explain what must be checked before external release?
 - Can you package the result as a final portfolio or capstone demo?
 
-If the answer is yes, the course has a complete end-to-end path: foundations, data, models, LLM apps, Agents, and multimodal product workflows.
+If the answer is yes, you have the multimodal delivery path. Move to Chapter 13 when the project needs open-source model hosting, runtime ownership, or fine-tuning decisions.
 
 <details>
 <summary>Check reasoning and explanation</summary>

@@ -14,7 +14,7 @@ head:
 先看图。课程是一条工程路线：
 
 ```text
-tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/delivery
+tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/runtime delivery
 ```
 
 现在不需要懂每个细节，只记住：
@@ -37,7 +37,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 | LLM | 7 | prompt、token、embedding、Transformer 直觉 | 行为来自数据、解码还是上下文 |
 | RAG | 8 | 检索 trace 和回答评估 | 答案有没有用对证据 |
 | Agent | 9 | 工具 trace、权限、记忆边界、部署记录 | 当用户、文件和动作都是真的，会在哪里失败 |
-| 专项 / 交付 | 10-12 和选修 | 视觉/NLP/多模态演示、导出资产、部署记录 | 哪些领域约束会改变产品决策 |
+| 专项 / 运行时交付 | 10-13 和选修 | 视觉/NLP/多模态/开源大模型演示、导出资产、部署记录 | 哪些领域与运行时约束会改变产品决策 |
 
 这门课不是主题堆叠，而是一套调试栈，也是一套作品集栈。AI 应用表现不好时，原因可能藏在你正在看的功能下面好几层。当审阅者问你做了什么时，证据应该能说明你控制了哪些层。
 
@@ -54,19 +54,20 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 | LLM | Prompt 变体、结构化输出、token/成本笔记和局限 |
 | RAG | 文档、chunk、检索 trace、引用检查和回答评估 |
 | Agent | 工具权限边界、动作 trace、记忆规则和回滚说明 |
-| 专项 / 交付 | 视觉、NLP、多模态、部署或产品专项审查证据 |
+| 专项 / 运行时交付 | 视觉、NLP、多模态、开源大模型运行时、部署或产品专项审查证据 |
 
 ## 主线和扩展路线
 
 默认先按第 1-9 章走主线。完成第 9 章后，你应该能做出一个小型 LLM/RAG/Agent 项目，并留下证据、日志和安全边界。
 
-然后按产品需要选择第 10-12 章：
+然后按产品需要选择第 10-13 章：
 
 | 需求 | 选择 | 原因 |
 |---|---|---|
 | 图像、摄像头、OCR、检测、分割 | 第 10 章 计算机视觉 | 输出是视觉结果：标签、框、mask、文字或视频事件 |
 | 文本标签、信息抽取、摘要、语言评估 | 第 11 章 NLP | 输出是文本任务：标签、字段、span 或生成文本 |
 | 图片、PDF、音频、视频、创意资产、多模态 RAG | 第 12 章 多模态/AIGC | 工作流混合多种模态，需要来源、prompt、审查和导出记录 |
+| 开源模型托管、私有化部署、运行时掌控 | 第 13 章 开源大模型部署 | 项目必须控制模型文件、服务 API、许可证、成本和微调决策 |
 | 部署、进阶 Python、经典 ML 深度 | 选修模块 | 主项目需要某个具体工程或算法旁支能力 |
 
 ## 怎样使用这张地图
@@ -84,7 +85,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 学完这一页，至少保留这张证据卡：
 
 ```text
-能力映射：工具、Python、数据、数学、ML、DL、LLM、RAG、Agent 和专长链接
+能力映射：工具、Python、数据、数学、ML、DL、LLM、RAG、Agent、专项和运行时链接
 项目线：一个助手、自动化、分析或多模态项目想法
 当前位置：你已经知道什么，以及你会暂时搁置什么
 下一步：本周开始一个具体的章节或工作坊

@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import remarkCourseTextBlocks from "./src/utils/remarkCourseTextBlocks.mjs";
 
 const siteDescription =
-  "A complete free learning path from AI fundamentals to AI Agent development, covering Python, data analysis, machine learning, deep learning, LLMs, RAG, and AI Agents.";
+  "A complete free learning path from AI fundamentals to AI Agent development and open-source LLM deployment, covering Python, data analysis, machine learning, deep learning, LLMs, RAG, AI Agents, multimodal AI, and model operations.";
 
 const siteUrl = "https://airoads.org";
 const siteTitle = "AI Roads";
@@ -79,6 +79,7 @@ const structuredData = {
         "retrieval-augmented generation",
         "AI agents",
         "multimodal AI applications",
+        "open-source LLM deployment",
       ],
       audience: {
         "@type": "Audience",
@@ -87,7 +88,7 @@ const structuredData = {
       hasCourseInstance: {
         "@type": "CourseInstance",
         courseMode: ["online", "self-paced"],
-        courseWorkload: "Self-paced 12-week learning path",
+        courseWorkload: "Self-paced 13-chapter learning path",
       },
     },
   ],
@@ -173,6 +174,11 @@ const sectionDefinitions = [
     label: "12 Multimodal AIGC",
     translations: { "zh-CN": "12 多模态 AIGC", "ja-JP": "12 マルチモーダル AIGC" },
     directory: "ch12-multimodal",
+  },
+  {
+    label: "13 Open-Source LLM",
+    translations: { "zh-CN": "13 开源大模型", "ja-JP": "13 オープンソース LLM" },
+    directory: "ch13-open-source-llm",
   },
   {
     label: "E Electives",

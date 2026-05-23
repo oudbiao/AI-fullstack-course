@@ -11,7 +11,7 @@ head:
 ---
 ![Main visual for AIGC and Multimodal](/img/course/ch12-multimodal-aigc-en.webp)
 
-Chapter 12 is the final expansion: **AI is no longer only text.** Images, PDFs, audio, video, screenshots, charts, and generated assets can all enter the same product workflow.
+Chapter 12 is the multimodal expansion: **AI is no longer only text.** Images, PDFs, audio, video, screenshots, charts, and generated assets can all enter the same product workflow.
 
 Do not chase every new demo. First learn how to turn non-text inputs into structured records, connect them to RAG or Agents, generate or edit assets, review risks, and export something usable.
 

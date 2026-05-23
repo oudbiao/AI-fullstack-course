@@ -11,7 +11,7 @@ head:
 ---
 ![Main route and project thread planning map](/img/course/intro-learning-path-selection-en.webp)
 
-Do not start by creating many separate routes. Use one main route first: **Chapter 1 -> Chapter 9 in order, one small output per stage, then choose one specialization from Chapters 10-12 only when your project needs it.**
+Do not start by creating many separate routes. Use one main route first: **Chapter 1 -> Chapter 9 in order, one small output per stage, then choose a specialization from Chapters 10-12 or the open-source runtime path in Chapter 13 only when your project needs it.**
 
 | Your situation | How to pace the same route |
 |---|---|
@@ -42,9 +42,9 @@ Do not judge progress by pages read. Judge it by evidence.
 | Foundations | 1-3 | A reproducible project folder, Python scripts, cleaned data, charts | README rerun test, edge cases, data quality notes |
 | Model understanding | 4-6 | One model experiment with a metric and failure samples | Bias/variance notes, ablation, training diagnosis, decision memo |
 | LLM applications | 7-9 | Prompt tests, RAG retrieval trace, Agent tool trace | Fixed eval set, safety boundary, cost/latency notes, demo script |
-| Specialization | 10-12 | One vision, NLP, or multimodal demo with saved inputs and outputs | Domain metric, review checklist, deployment constraint, portfolio write-up |
+| Specialization and runtime | 10-13 | One vision, NLP, multimodal, or open-source LLM runtime demo with saved inputs and outputs | Domain metric, review checklist, deployment/runtime constraint, portfolio write-up |
 
-The specialization chapters are not a reward for finishing everything. They are a deliberate branch: choose them when the product needs images, text pipelines, multimodal assets, or domain-specific evaluation.
+The specialization chapters are not a reward for finishing everything. They are a deliberate branch: choose them when the product needs images, text pipelines, multimodal assets, open-source model deployment, or domain-specific evaluation.
 
 ## Weekly Loop
 

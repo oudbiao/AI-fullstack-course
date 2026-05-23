@@ -22,6 +22,7 @@ sidebar:
 | 大模型使用 | Hugging Face 文档、模型服务商文档 | 第 7-8 章 |
 | RAG / Agent 工程 | LangChain、LangGraph、LlamaIndex、MCP 文档 | 第 8-9 章项目 |
 | CV / NLP / 多模态 | CS231n、CS224n、OpenCV、扩散模型和多模态资料 | 第 10-12 章 |
+| 开源大模型部署 | Datawhale Self-LLM、Hugging Face Transformers、vLLM、SGLang、llama.cpp、Ollama | 第 13 章 |
 
 ## 一个卡点只选一个资源
 

@@ -10850,6 +10850,211 @@ register_remake_job(
     footer="マルチモーダルは align、understand、review、deliver の順で進める。",
 )
 
+def ch13_generated_prompt(
+    *,
+    language: str,
+    title: str,
+    subtitle: str,
+    labels: list[tuple[str, str]],
+    footer: str,
+    scene: str,
+) -> str:
+    label_lines = "\n".join(
+        f"- Big visible label exactly: \"{label}\". One short nearby note exactly: \"{note}\""
+        for label, note in labels
+    )
+    allowed_text_count = 3 + len(labels) * 2
+    return f"""
+Create one complete vertical 9:16 final bitmap teaching image for Chapter 13 of an AI full-stack engineering course.
+Target language: {language}.
+The image must be a direct image2 teaching illustration, not a generated background for later text overlay.
+
+Teaching role:
+{scene}
+
+Style:
+- Practical classroom notebook / whiteboard teaching style with a light production workbench feeling.
+- It should feel like a learner can follow the workflow, not like a marketing poster.
+- Use a real vertical composition, not a stretched landscape layout.
+- Do not use white rounded-box SVG infographic aesthetics, slide-deck panels, UI card stacks, or pure text poster layouts.
+- Use four large hand-drawn zones, thick marker arrows, visible folders, simple terminal/code screens, review stamps, before/after states, and evidence artifacts.
+- Use generous whitespace. The image should still look clear when viewed on a phone.
+- If the concept feels dense, simplify the visible scene instead of shrinking text.
+- Draw documents, folders, terminals, app screens, binders, and sticky notes as mostly blank objects. They can show checkmarks, arrows, or generic empty lines, but no readable internal lists.
+
+Language and text:
+- Put all teaching text directly inside the image.
+- Text must be sparse, large, readable on mobile, and physically attached to the object it explains.
+- Only show the title, subtitle, required labels, required notes, and footer. Do not add background sentences, long table rows, long terminal output, tiny file text, or decorative filler writing.
+- Do not write labels inside file bodies, folders, model cards, app endpoint boxes, README pages, terminals, notebooks, mugs, shelves, side monitors, or background objects. Those objects must stay blank except for icons and checkmarks.
+- There should be exactly {allowed_text_count} readable text groups total: the title, the subtitle, the footer, and the required label/note pairs. No side checklists, workflow notebooks, sticky-note slogans, endpoint paths, internal document titles, or extra review words.
+- Use the target language naturally. Technical tokens such as LLM, GPU/CPU, CUDA, API, README, Prompt, RAG, LoRA, vLLM, SGLang, Ollama, Transformers, JSON, CSV may remain in English where appropriate.
+- Do not include any other language, pseudo text, gibberish, filler UI text, tiny unreadable labels, watermarks, real brand logos, animal mascots, corporate icons, or logo-like pictograms.
+- If a terminal or file appears, keep it blank except for a single generic OK mark or the required label. Do not invent exact benchmark scores, costs, latency numbers, dates, versions, disk capacities, API keys, secrets, order ids, citations, licenses, model names, or metrics. Use qualitative gauges or blank sample placeholders instead.
+
+Visible title exactly:
+"{title}"
+
+Visible subtitle exactly:
+"{subtitle}"
+
+Required visible labels and notes. Include all of them, readable, near the matching visual action:
+{label_lines}
+
+Visible footer exactly:
+"{footer}"
+""".strip()
+
+
+CH13_RUNTIME_LABELS = {
+    "en": [
+        ("1 Choose", "model + license"),
+        ("2 Run", "runtime + API"),
+        ("3 Check", "eval + failures"),
+        ("4 Ship", "README + rollback"),
+    ],
+    "zh": [
+        ("1 选型", "模型 + 许可证"),
+        ("2 跑通", "运行时 + API"),
+        ("3 验证", "评估 + 失败样本"),
+        ("4 发布", "README + 回滚"),
+    ],
+    "ja": [
+        ("1 選ぶ", "model + license"),
+        ("2 動かす", "runtime + API"),
+        ("3 確かめる", "eval + failures"),
+        ("4 出す", "README + rollback"),
+    ],
+}
+
+CH13_EVIDENCE_LABELS = {
+    "en": [
+        ("Environment", "device ready"),
+        ("Decision", "why this model"),
+        ("Run record", "prompt + output"),
+        ("Release notes", "rerun + stop"),
+    ],
+    "zh": [
+        ("环境证据", "设备可用"),
+        ("选型证据", "为什么选它"),
+        ("运行证据", "Prompt + 输出"),
+        ("发布证据", "重跑 + 停止"),
+    ],
+    "ja": [
+        ("環境", "device ready"),
+        ("選定理由", "why this model"),
+        ("実行記録", "prompt + output"),
+        ("公開メモ", "rerun + stop"),
+    ],
+}
+
+CH13_RUNTIME_SCENE = """
+Show a learner following a four-step open-source LLM deployment loop on a vertical classroom whiteboard:
+1 choose the model with a large model card and license folder,
+2 run it with a simple laptop/server and one generic API cable,
+3 check it with a small prompt card and failure sticky note,
+4 ship it with a README binder and rollback handle.
+Keep the board spacious and hand-drawn. The model card, license folder, laptop, API cable, prompt card, failure note, README binder, and rollback handle must be visual objects, not text containers. Background terminals and papers may be visible, but their text must be blank or generic OK marks. Do not show real runtime logos, animal mascots, provider logos, or brand-style icons.
+""".strip()
+
+CH13_EVIDENCE_SCENE = """
+Show a simple evidence-audit desk for open-source LLM deployment with only four large artifact trays.
+Each tray contains mostly blank papers or folders plus one big icon: device, decision stamp, run/play mark, stop/rollback mark.
+Use checkmarks, locks, clocks, stop icons, and arrows as symbols only. Do not write reviewer checklists, workflow notes, sticky-note slogans, file contents, command outputs, endpoint lists, timestamps, versions, capacities, or benchmark values.
+The image should feel like a clean classroom visual: four big evidence blocks, plenty of blank space, no dense paperwork.
+""".strip()
+
+for locale, suffix, language in [("zh", "", "Simplified Chinese"), ("en", "-en", "English"), ("ja", "-ja", "Japanese")]:
+    runtime_title = {
+        "zh": "开源大模型运行时闭环",
+        "en": "Open-Source LLM Runtime Loop",
+        "ja": "OSS LLM ランタイムループ",
+    }[locale]
+    runtime_subtitle = {
+        "zh": "选模型、跑服务、留证据。",
+        "en": "Choose, run, check, ship.",
+        "ja": "選ぶ、動かす、確かめる、出す。",
+    }[locale]
+    runtime_footer = {
+        "zh": "运行时、评估、回滚清楚后，才算部署。",
+        "en": "Deploy only after runtime, eval, and rollback are clear.",
+        "ja": "runtime、eval、rollback が見えたら deployment。",
+    }[locale]
+    runtime_alt = {
+        "zh": "开源大模型运行时闭环：模型选型、环境、运行时、服务化、评估、适配和发布证据。",
+        "en": "Open-source LLM runtime loop: model choice, environment, runtime, serving, evaluation, adaptation, and release evidence.",
+        "ja": "オープンソース LLM ランタイムループ：model choice、environment、runtime、serving、evaluation、adaptation、release evidence。",
+    }[locale]
+    runtime_page = {
+        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/index.md",
+        "en": "src/content/docs/ch13-open-source-llm/index.md",
+        "ja": "src/content/docs/ja/ch13-open-source-llm/index.md",
+    }[locale]
+    register_remake_job(
+        filename=f"ch13-open-source-llm-runtime-loop{suffix}.png",
+        title=runtime_title,
+        suggested_page=runtime_page,
+        alt=runtime_alt,
+        scene=CH13_RUNTIME_SCENE,
+        subtitle=runtime_subtitle,
+        items=remake_items(*CH13_RUNTIME_LABELS[locale]),
+        footer=runtime_footer,
+        prompt=ch13_generated_prompt(
+            language=language,
+            title=runtime_title,
+            subtitle=runtime_subtitle,
+            labels=CH13_RUNTIME_LABELS[locale],
+            footer=runtime_footer,
+            scene=CH13_RUNTIME_SCENE,
+        ),
+        generated_only=True,
+    )
+
+    evidence_title = {
+        "zh": "开源大模型部署证据包",
+        "en": "Open-Source LLM Evidence Pack",
+        "ja": "OSS LLM Evidence Pack",
+    }[locale]
+    evidence_subtitle = {
+        "zh": "留下可复现文件，不靠一次聊天。",
+        "en": "Keep repeatable files, not one lucky chat.",
+        "ja": "1回の chat ではなく、再現できる files を残す。",
+    }[locale]
+    evidence_footer = {
+        "zh": "证据要能重跑，也能安全停止。",
+        "en": "Evidence must be rerunnable and stoppable.",
+        "ja": "Evidence は再実行でき、止められること。",
+    }[locale]
+    evidence_alt = {
+        "zh": "开源大模型部署证据包：环境报告、模型决策、运行手册、首次运行、评估样本、README 和回滚。",
+        "en": "Open-source LLM evidence pack: environment report, model decision, runbook, first run, evaluation cases, README, and rollback.",
+        "ja": "オープンソース LLM evidence pack：environment report、model decision、runbook、first run、evaluation cases、README、rollback。",
+    }[locale]
+    evidence_page = {
+        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/study-guide.md",
+        "en": "src/content/docs/ch13-open-source-llm/study-guide.md",
+        "ja": "src/content/docs/ja/ch13-open-source-llm/study-guide.md",
+    }[locale]
+    register_remake_job(
+        filename=f"ch13-open-source-llm-evidence-pack{suffix}.png",
+        title=evidence_title,
+        suggested_page=evidence_page,
+        alt=evidence_alt,
+        scene=CH13_EVIDENCE_SCENE,
+        subtitle=evidence_subtitle,
+        items=remake_items(*CH13_EVIDENCE_LABELS[locale]),
+        footer=evidence_footer,
+        prompt=ch13_generated_prompt(
+            language=language,
+            title=evidence_title,
+            subtitle=evidence_subtitle,
+            labels=CH13_EVIDENCE_LABELS[locale],
+            footer=evidence_footer,
+            scene=CH13_EVIDENCE_SCENE,
+        ),
+        generated_only=True,
+    )
+
 
 SVG_REPLACEMENT_CALLOUTS_5 = remake_callouts(
     boxes=[

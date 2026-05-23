@@ -14,7 +14,7 @@ head:
 まず図を見ます。コースは1本のエンジニアリングの道です。
 
 ```text
-tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/delivery
+tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/runtime delivery
 ```
 
 今は細部を全部理解しなくて大丈夫です。
@@ -37,7 +37,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 | LLM | 7 | prompt、tokens、embeddings、Transformer の直感 | 振る舞いは data、decoding、context のどこから来るか |
 | RAG | 8 | 検索トレースと回答評価 | 答えは正しい根拠を使ったか |
 | Agent | 9 | ツールトレース、権限、記憶境界、デプロイメモ | ユーザー、ファイル、操作が本物になったらどこで失敗するか |
-| 専門分野 / 成果物 | 10-12 と選択モジュール | vision/NLP/マルチモーダルデモ、書き出した成果物、デプロイメモ | ドメイン制約がプロダクト判断をどう変えるか |
+| 専門分野 / ランタイム成果物 | 10-13 と選択モジュール | vision/NLP/マルチモーダル/オープンソース LLM デモ、書き出した成果物、デプロイメモ | ドメイン制約とランタイム制約がプロダクト判断をどう変えるか |
 
 この講座はトピックの山ではなく、デバッグの積み重ねであり、ポートフォリオの積み重ねでもあります。AI アプリケーションの挙動が悪いとき、原因は見ている機能より何層も下にあることがあります。レビューする人に何を作ったか聞かれたとき、証拠はどの層を制御したかを示す必要があります。
 
@@ -54,19 +54,20 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 | LLM | Prompt variants、structured output、token/cost メモ、限界 |
 | RAG | documents、chunks、retrieval trace、citation check、answer evaluation |
 | Agent | tool permission boundary、action trace、memory rule、rollback note |
-| 専門分野 / 成果物 | vision、NLP、multimodal、deployment、またはプロダクト固有のレビュー証拠 |
+| 専門分野 / ランタイム成果物 | vision、NLP、multimodal、オープンソース LLM ランタイム、deployment、またはプロダクト固有のレビュー証拠 |
 
 ## メインラインと拡張トラック
 
 まず第1-9章を標準のメインラインとして進めます。第9章まで終えると、小さな LLM/RAG/Agent プロジェクトを、根拠、ログ、安全境界つきで作れる状態を目指します。
 
-その後、第10-12章はプロダクト上の必要に合わせて選びます。
+その後、第10-13章はプロダクト上の必要に合わせて選びます。
 
 | 必要なこと | 選ぶ章 | 理由 |
 |---|---|---|
 | 画像、カメラ、OCR、検出、セグメンテーション | 第10章 Computer Vision | 出力がラベル、枠、マスク、文字、動画イベントなどの視覚結果になる |
 | テキストラベル、抽出、要約、言語評価 | 第11章 NLP | 出力がラベル、フィールド、範囲、生成テキストなどのテキストタスクになる |
 | 画像、PDF、音声、動画、クリエイティブ素材、multimodal RAG | 第12章 Multimodal/AIGC | モダリティが混ざり、出典、プロンプト、レビュー、書き出し記録が必要になる |
+| オープンソースモデルのホスティング、私有化配置、ランタイム所有 | 第13章 Open-Source LLM Deployment | model files、serving API、license、cost、fine-tuning 判断をプロジェクト側で制御する必要がある |
 | デプロイ、Python 上級、古典的 ML の深掘り | 選択モジュール | メインプロジェクトに特定のエンジニアリングまたはアルゴリズムの補助スキルが必要になる |
 
 ## マップの使い方
@@ -84,7 +85,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/deliv
 このページを終えたら、この証拠カードを残します。
 
 ```text
-機能マップ：tools、Python、data、math、ML、DL、LLM、RAG、Agent、および専門分野の関連付け
+機能マップ：tools、Python、data、math、ML、DL、LLM、RAG、Agent、専門分野、ランタイムの関連付け
 プロジェクト軸: assistant、automation、analysis、または multimodal project の案を1つ
 現在位置: すでに分かっていることと、後回しにすること
 次の行動：次に始める具体的な章かワークショップを1つ

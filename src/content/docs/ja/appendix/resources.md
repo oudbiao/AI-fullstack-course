@@ -22,6 +22,7 @@ sidebar:
 | LLM 利用 | Hugging Face docs、モデル提供元の docs | 第 7-8 章 |
 | RAG / Agent 工学 | LangChain、LangGraph、LlamaIndex、MCP docs | 第 8-9 章のプロジェクト |
 | CV / NLP / マルチモーダル | CS231n、CS224n、OpenCV、拡散モデルとマルチモーダル資料 | 第 10-12 章 |
+| オープンソース LLM 配置 | Datawhale Self-LLM、Hugging Face Transformers、vLLM、SGLang、llama.cpp、Ollama | 第 13 章 |
 
 ## 1 つの詰まりには 1 つのリソース
 
