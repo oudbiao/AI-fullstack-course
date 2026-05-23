@@ -1,191 +1,119 @@
 # AI Roads
 
-> A free, beginner-friendly AI engineering curriculum that starts with developer foundations and grows into machine learning, deep learning, LLM applications, RAG, AI Agents, and multimodal AIGC.
+<div align="center">
+  <img src="./public/img/logo.svg" width="96" alt="AI Roads logo">
+  <h3>A free multilingual AI engineering curriculum for practical builders.</h3>
+  <p>
+    English |
+    <a href="./README_zh.md">简体中文</a> |
+    <a href="./README_ja.md">日本語</a>
+  </p>
+  <p>
+    <a href="https://airoads.org">Official Site</a>
+  </p>
+</div>
 
-## Official Site
+---
 
-[https://airoads.org](https://airoads.org)
+AI Roads is a free, beginner-friendly AI engineering curriculum. It starts with developer foundations and grows into Python, data analysis, AI math, machine learning, deep learning, LLM principles, RAG, AI Agents, multimodal AIGC, and open-source LLM deployment.
 
-The website defaults to English. Learners can switch to Simplified Chinese or Japanese from the language dropdown in the navigation bar.
+This repository powers the public learning website at [airoads.org](https://airoads.org). The site defaults to English, with full Simplified Chinese and Japanese routes available from the language switcher.
 
-## What This Project Is
+## Project Goal
 
-This repository powers the AI Roads learning website. It is designed for beginners who want a practical, project-driven path into modern AI engineering rather than a scattered list of articles.
+AI Roads is designed for learners who want a practical path into modern AI engineering instead of a scattered list of articles. The course emphasizes:
 
-The site is now built with Astro Starlight as a static documentation experience. Starlight handles the docs shell, search, sidebar, table of contents, multilingual routes, sitemap output, and dark/light theme behavior, while this repository owns the course content, visual assets, branding, validation scripts, and deployment glue.
+1. Clear learning order from tools to production-oriented AI projects.
+2. Runnable lessons with commands, code, outputs, and evidence to keep.
+3. Visual explanations, diagrams, and localized teaching assets.
+4. Project checkpoints that turn learning into portfolio work.
+5. Multilingual content for English, Simplified Chinese, and Japanese.
+6. Validation and deployment scripts for a production static learning site.
 
-The course combines:
+The learning principle is simple: do not only read. Each stage should leave something runnable, explainable, and presentable.
 
-- Step-by-step lessons for new learners.
-- Visual explanations, diagrams, and comics for difficult concepts.
-- Project checkpoints that turn knowledge into portfolio work.
-- Internationalized content for English, Simplified Chinese, and Japanese.
-- A homepage overview that invites learners to follow airoads.org, with a future study group considered if enough learners gather.
-- Deployment, validation, sitemap, and maintenance scripts for a production learning site.
+## Who This Is For
+
+AI Roads is suitable for:
+
+- Beginners who want to enter AI engineering from the ground up.
+- Developers who know some programming and want a structured AI path.
+- Learners who want to build projects, not only read concepts.
+- Students preparing portfolios around LLM, RAG, Agent, CV, NLP, or multimodal work.
+- Course maintainers who want a multilingual static documentation site with strong QA checks.
+
+## Course Roadmap
+
+```text
+0   Start-here guides
+1   Developer Tools
+2   Python Programming
+3   Data Analysis and Visualization
+4   Minimal Math Foundations for AI
+5   Machine Learning
+6   Deep Learning and Transformer Foundations
+7   LLM Principles, Prompting, and Fine-Tuning
+8   LLM Application Development and RAG
+9   AI Agents and Agentic Systems
+10  Computer Vision
+11  NLP Specialization After LLMs
+12  AIGC and Multimodal
+13  Open-Source LLM Deployment and Fine-Tuning
+E   Elective modules
+A   Appendix
+```
+
+The recommended route is to finish chapters 1-9 first, then choose chapters 10-13 based on your project direction.
+
+## Learning Stations
+
+- **1 Developer Tools**: terminal, Git, local development environment.
+- **2 Python Programming**: syntax, data structures, files, OOP, APIs, projects.
+- **3 Data Analysis**: NumPy, Pandas, visualization, databases.
+- **4 AI Math**: linear algebra, probability, calculus, optimization.
+- **5 Machine Learning**: supervised learning, unsupervised learning, evaluation, feature engineering.
+- **6 Deep Learning**: PyTorch, neural networks, CNN, RNN, Transformer, generative models.
+- **7 LLM Principles**: NLP basics, Transformer internals, pretraining, prompting, fine-tuning, alignment.
+- **8 RAG Applications**: document processing, vector databases, retrieval, evaluation, deployment.
+- **9 AI Agents**: planning, tools, memory, MCP, multi-agent systems, observability, safety.
+- **10 Computer Vision**: classification, detection, segmentation, OCR, video, 3D vision.
+- **11 NLP Specialization**: text representation, classification, extraction, Seq2Seq, pretrained models.
+- **12 Multimodal AIGC**: vision-language models, image/video/audio generation, ethics, product prototypes.
+- **13 Open-Source LLMs**: local model runtime, serving, evaluation, GPU rental discipline, LoRA decisions.
 
 ## Website Stack
 
-| Layer | Current choice |
+| Layer | Choice |
 |---|---|
 | Static site framework | Astro 6 |
 | Documentation UI | Astro Starlight |
 | Content format | Markdown / MDX-compatible Starlight docs |
-| Search index | Starlight Pagefind integration |
+| Search | Starlight Pagefind integration |
 | Locales | English root, Simplified Chinese `/zh-cn/`, Japanese `/ja/` |
 | Production domain | `https://airoads.org` |
-| Social preview image | `public/img/social-card.png` |
-| Favicon | `public/img/favicon.svg` and `public/img/favicon.png` |
-| Search discovery | `public/robots.txt`, Astro sitemap index, Google verification, Bing verification, IndexNow key |
-
-## Course Path
-
-The public course uses a clear, hierarchical numbering system:
-
-```text
-0         Start-here guides before Chapter 1
-1-12      Main course chapters
-N.0       Chapter study guide and task sheet
-N.M       Section inside a chapter
-N.M.K     Individual lesson page inside a section
-E.X       Elective module
-E.X.K     Elective lesson page
-A.K       Appendix page
-```
-
-For example, `4.1.2` means Chapter 4, section 1, lesson 2. It should not appear as a local-only `1.2`, because readers who open a page directly need to know where they are in the whole course.
-
-The recommended path is:
-
-```mermaid
-flowchart LR
-  A[1 Developer Tools] --> B[2 Python]
-  B --> C[3 Data Analysis]
-  C --> D[4 AI Math]
-  D --> E[5 Machine Learning]
-  E --> F[6 Deep Learning]
-  F --> G[7 LLM Principles]
-  G --> H[8 RAG Applications]
-  H --> I[9 Agent Systems]
-  I --> J{Specialization}
-  J --> K[10 Computer Vision]
-  J --> L[11 NLP Specialization]
-  J --> M[12 Multimodal AIGC]
-```
-
-## Learning Stations
-
-| Station | Focus | Outcome |
-|---|---|---|
-| 1 Developer Tools Foundations | Terminal, Git, development environment | Run code, manage projects, and work independently |
-| 2 Python Programming Foundations | Python syntax, data structures, files, OOP, projects | Build CLI tools, scrapers, APIs, and small AI API demos |
-| 3 Data Analysis and Visualization | NumPy, Pandas, charts, databases | Clean, analyze, and explain real datasets |
-| 4 Minimal Math Foundations for AI | Linear algebra, probability, calculus, optimization | Understand vectors, matrices, probability, gradients, and loss |
-| 5 Machine Learning from Basics to Practice | Supervised learning, unsupervised learning, evaluation, features | Build prediction, churn, and segmentation projects |
-| 6 Deep Learning and Transformer Foundations | Neural networks, PyTorch, CNN, RNN, Transformer, generative models | Train and diagnose deep learning models |
-| 7 LLM Principles, Prompting, and Fine-Tuning | NLP, Transformer internals, pretraining, prompting, fine-tuning, alignment | Choose between prompting, RAG, fine-tuning, and alignment methods |
-| 8 LLM Application Development and RAG | RAG, document processing, vector databases, deployment, evaluation | Build cited, logged, evaluated knowledge-base assistants |
-| 9 AI Agents and Agentic Systems | Planning, tools, memory, MCP, multi-agent systems, safety | Build traceable AI Agent workflows with guardrails |
-| 10 Computer Vision | Classification, detection, segmentation, OCR, video, 3D vision | Build visual AI projects with metrics and failure analysis |
-| 11 NLP Specialization After LLMs | Text basics, embeddings, classification, extraction, Seq2Seq, pretrained models | Build text projects for QA, extraction, summarization, or semantic graphs after the main LLM/RAG/Agent path |
-| 12 AIGC and Multimodal | Vision-language models, image/video/audio generation, ethics, product projects | Build multimodal creative AI prototypes |
-
-## Beginner Learning Strategy
-
-Treat the course as a project-upgrade path:
-
-- First, read the learning map and station guide.
-- Then follow stations 1-9 in order.
-- Finally choose station 10, 11, or 12 for a specialization project.
-- Do not only read pages. Each stage should leave you with something runnable, explainable, and presentable.
-
-## Internationalization
-
-| Locale | URL pattern | Role |
-|---|---|---|
-| English | `/` | Default language and canonical root experience |
-| Simplified Chinese | `/zh-cn/` | Full localized course content and localized visuals |
-| Japanese | `/ja/` | Full localized course content and localized visuals |
-
-Default English content lives in `src/content/docs/`. Localized content lives under `src/content/docs/zh-cn/` and `src/content/docs/ja/`.
-
-## Visual Learning Assets
-
-The course includes many static diagrams, comics, and localized images under `public/img/course/`. These visuals are part of the learning experience, especially for math, machine learning, deep learning, LLMs, RAG, Agent systems, and AI history.
-
-README intentionally stays mostly text-based so it remains fast to load, easy to maintain, and easy to read in package managers, GitHub previews, and terminals. Course visuals belong in the website pages where they can support the lesson context directly.
-
-## Brand Assets
-
-AI Roads uses a minimal AI learning road mark for the site logo, favicon, and social sharing card.
-
-| Asset | Path | Notes |
-|---|---|---|
-| Header logo source | `src/assets/logo.svg` | Imported by Starlight from `astro.config.mjs` |
-| Public logo | `public/img/logo.svg` | Reusable public SVG mark |
-| Social card | `public/img/social-card.png` | 1200 x 630 PNG for Open Graph and Twitter previews |
-| Favicon SVG | `public/img/favicon.svg` | Primary browser favicon |
-| Favicon PNG | `public/img/favicon.png` | 32 x 32 fallback favicon |
-
-Regenerate brand image assets after changing the brand design:
-
-```bash
-node scripts/generate_brand_assets.mjs
-```
-
-After regenerating, run `npm run build` and confirm the generated HTML still points at `https://airoads.org/img/social-card.png`.
-
-## SEO And Indexing
-
-The production site is optimized for Google and Bing discovery:
-
-- `robots.txt` allows public crawling and points search engines to `https://airoads.org/sitemap-index.xml`.
-- Astro/Starlight generates canonical URLs, locale alternates, meta descriptions, Open Graph metadata, Twitter card metadata, and sitemap files for English, Simplified Chinese, and Japanese pages.
-- Global JSON-LD describes AI Roads as an organization, website, and free online course.
-- Google Search Console and Bing Webmaster Tools verification files live in `public/`.
-- Bing IndexNow verification uses `public/a4e8d4b6c0f1424c910f2ad7360b8e5f.txt`.
-
-After deploying a fresh production build, submit the current sitemap URLs to IndexNow:
-
-```bash
-npm run seo:indexnow
-```
-
-Preview the IndexNow payload without submitting:
-
-```bash
-npm run seo:indexnow:dry-run
-```
+| Course assets | `public/img/course/` |
+| Validation | Markdown, internal links, sidebars, course structure, diagrams, generated-site QA |
 
 ## Repository Structure
 
-| Path | Purpose |
-|---|---|
-| `src/content/docs/` | Starlight course content, including English root docs and localized `zh-cn` / `ja` docs |
-| `public/img/course/` | Course diagrams, comics, and localized images |
-| `public/img/logo.svg`, `public/img/social-card.png`, `public/img/favicon.*` | AI Roads brand and sharing assets |
-| `public/robots.txt`, `public/*SiteAuth*`, `public/google*.html`, `public/a4e8d4b6c0f1424c910f2ad7360b8e5f.txt` | Search-engine discovery and verification assets |
-| `src/scripts/render-course-diagrams.js` | Client-side renderer for Mermaid relationship diagrams and stable course summary maps |
-| `src/styles/starlight.css` | Site-level style customizations |
-| `astro.config.mjs` | Astro Starlight configuration, locales, sidebar, sitemap, and metadata |
-| `scripts/` | Validation, sitemap, image-generation, and maintenance scripts |
-| `docker/` | Nginx runtime configuration for Docker deployment |
-| `.github/workflows/` | GitHub Actions deployment workflow |
-
-Folder names such as `ch01-tools/` and `ch12-multimodal/` are maintenance paths. Learners should follow the public numbering shown in the sidebar: `0` for start-here pages, `1-12` for the main course, `E` for electives, and `A` for appendix pages.
+```text
+src/content/docs/        Course content in English, zh-cn, and ja
+public/img/course/       Course diagrams, comics, and localized images
+public/img/logo.svg      Public AI Roads logo
+public/img/social-card.png
+src/styles/starlight.css Site-level Starlight custom styles
+astro.config.mjs         Astro Starlight config, locales, sidebar, sitemap, metadata
+scripts/                 Validation, sitemap, image generation, SEO, and maintenance scripts
+docker/                  Nginx runtime configuration for Docker deployment
+nginx/                   Production proxy examples
+```
 
 ## Local Development
 
 Use Node.js 18 or newer.
 
-Install dependencies:
-
 ```bash
 npm install
-```
-
-Run the development site:
-
-```bash
 npm run dev
 ```
 
@@ -195,61 +123,58 @@ Build the full static site:
 npm run build
 ```
 
-Validate course structure, internal links, sitemap filtering, and generated HTML cleanup:
-
-```bash
-npm run validate:docs
-```
-
-Normalize Starlight doc links after moving or renaming Markdown pages:
-
-```bash
-npm run links:starlight
-```
-
-Run the generated-site QA audit against `dist/`:
-
-```bash
-npm run qa:dist
-```
-
-Validate every diagram block in the Markdown course content:
-
-```bash
-npm run qa:diagrams
-```
-
-Use `mermaid` fences only for relationship diagrams where graph layout is useful, such as `flowchart`, `erDiagram`, or `xychart-beta`. Use `course-map` fences for lesson summaries and grouped knowledge cards; those render as responsive HTML/CSS cards instead of relying on Mermaid's mindmap layout. For important visual explainers that need stronger art direction than code-generated diagrams can provide, prefer a dedicated static SVG/PNG asset under `public/img/course/`.
-
-After starting a local preview server, run browser-level rendering QA for pages that contain diagrams:
-
-```bash
-npm run qa:rendered-diagrams -- http://localhost:4173/zh-cn/ch03-data-analysis/ch01-warmup/01-pure-python-data/
-```
-
-Dry-run the Bing IndexNow submission payload:
-
-```bash
-npm run seo:indexnow:dry-run
-```
-
-Serve the generated build:
+Serve the generated site:
 
 ```bash
 npm run serve
 ```
 
-Clean generated Astro output:
+## Quality Checks
+
+The production build validates diagrams, generates the Astro/Starlight site, filters legacy sitemap redirects, strips unexpected NUL bytes, and runs generated-site QA.
+
+Useful commands:
 
 ```bash
-npm run clean
+npm run build
+npm run qa:diagrams
+npm run qa:dist
+npm run seo:indexnow:dry-run
+```
+
+For direct script checks:
+
+```bash
+python3 validate_markdown_fences.py
+python3 validate_internal_links.py
+python3 validate_sidebars.py
+python3 validate_course_structure.py
+python3 scripts/validate_course_image_refs.py
+```
+
+## Visual Assets
+
+Course visuals are part of the learning material. They live under `public/img/course/` and include diagrams, result maps, comics, and localized teaching images. When adding or replacing course images, keep the image tied to the nearby lesson, code, or output evidence.
+
+Brand assets:
+
+```text
+src/assets/logo.svg
+public/img/logo.svg
+public/img/social-card.png
+public/img/favicon.svg
+public/img/favicon.png
+```
+
+Regenerate brand assets after changing the brand design:
+
+```bash
+node scripts/generate_brand_assets.mjs
 ```
 
 ## Deployment
 
-The deployment flow builds a new image while the old container keeps serving traffic. It then runs a preflight check against the new image and only replaces the production container after the new build is ready. This reduces downtime compared with stopping the old container before compilation.
-
-The production build also validates Mermaid diagrams, removes legacy `/zh-Hans/` redirect URLs from the sitemap, strips unexpected NUL bytes from generated HTML, and runs `scripts/qa_generated_site.mjs`. That generated-site QA checks page title / H1 shape, meta descriptions, robots directives, canonical URLs, Open Graph and Twitter metadata, JSON-LD, locale alternates, local asset references, image alt text, sitemap hygiene, Google/Bing verification assets, IndexNow verification, old-domain residue, Docusaurus residue, and homepage social preview metadata. English, Simplified Chinese, and Japanese pages are generated together from Astro Starlight.
+The deployment flow builds a new static site, validates generated pages, and serves the production output through the configured runtime. The Docker path builds a new image while the old container keeps serving traffic, then replaces it only after preflight checks pass.
 
 Before publishing a site change, run:
 
@@ -257,7 +182,23 @@ Before publishing a site change, run:
 npm run build
 ```
 
-For branding or metadata changes, also inspect the generated homepage HTML for canonical URLs, favicons, and social preview metadata.
+For SEO maintenance:
+
+```bash
+npm run seo:indexnow
+```
+
+## Contributing
+
+Issues and pull requests are welcome. Good contributions usually fall into one of these categories:
+
+- Fix unclear lessons or broken links.
+- Add runnable examples, expected outputs, or troubleshooting notes.
+- Improve multilingual consistency across English, Simplified Chinese, and Japanese.
+- Improve course diagrams or localized teaching images.
+- Strengthen validation, deployment, or SEO scripts.
+
+When changing course content, keep the three language routes aligned in structure and meaning.
 
 ## License
 
