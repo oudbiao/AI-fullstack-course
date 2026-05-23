@@ -124,6 +124,21 @@ const strongEvidenceLabelHints = [
   "期待される成果",
 ];
 
+const evidenceCardCopy = {
+  en: {
+    ariaLabel: "Learning evidence card",
+    placeholder: "To be filled",
+  },
+  zh: {
+    ariaLabel: "学习证据卡",
+    placeholder: "待填写",
+  },
+  ja: {
+    ariaLabel: "学習証拠カード",
+    placeholder: "未記入",
+  },
+};
+
 function extractText(node) {
   if (!node) return "";
   if (typeof node.value === "string") return node.value;
@@ -283,19 +298,26 @@ function humanizeLabel(label) {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-function formatValue(value) {
+function localeForFile(file) {
+  const filePath = file?.path ?? file?.history?.[0] ?? "";
+  if (/[/\\]src[/\\]content[/\\]docs[/\\]zh-cn[/\\]/.test(filePath)) return "zh";
+  if (/[/\\]src[/\\]content[/\\]docs[/\\]ja[/\\]/.test(filePath)) return "ja";
+  return "en";
+}
+
+function formatValue(value, copy) {
   if (!value.trim()) {
-    return '<span class="course-evidence-card__placeholder">待填写 / To fill</span>';
+    return `<span class="course-evidence-card__placeholder">${escapeHtml(copy.placeholder)}</span>`;
   }
 
   return escapeHtml(value).replaceAll("-&gt;", '<span class="course-evidence-card__arrow">→</span>');
 }
 
-function toEvidenceCardHtml(entries) {
+function toEvidenceCardHtml(entries, copy) {
   const rows = entries
     .map((entry) => {
       const label = escapeHtml(humanizeLabel(entry.label));
-      const value = formatValue(entry.value);
+      const value = formatValue(entry.value, copy);
 
       return [
         '  <div class="course-evidence-card__row">',
@@ -306,7 +328,7 @@ function toEvidenceCardHtml(entries) {
     })
     .join("\n");
 
-  return `<dl class="course-evidence-card" aria-label="Learning evidence card">\n${rows}\n</dl>`;
+  return `<dl class="course-evidence-card" aria-label="${escapeHtml(copy.ariaLabel)}">\n${rows}\n</dl>`;
 }
 
 function appendMetaOption(meta, option) {
@@ -335,7 +357,7 @@ function toFlowLineHtml(steps) {
   return `<div class="course-flow-line" aria-label="Process flow">${content}</div>`;
 }
 
-function transformCourseTextBlocks(parent) {
+function transformCourseTextBlocks(parent, copy) {
   if (!Array.isArray(parent.children)) return;
 
   for (let index = 0; index < parent.children.length; index += 1) {
@@ -354,7 +376,7 @@ function transformCourseTextBlocks(parent) {
       if (shouldTransformEvidenceCard(node, previousText, entries)) {
         parent.children[index] = {
           type: "html",
-          value: toEvidenceCardHtml(entries),
+          value: toEvidenceCardHtml(entries, copy),
         };
         continue;
       }
@@ -374,12 +396,13 @@ function transformCourseTextBlocks(parent) {
       continue;
     }
 
-    transformCourseTextBlocks(node);
+    transformCourseTextBlocks(node, copy);
   }
 }
 
 export default function remarkCourseTextBlocks() {
-  return (tree) => {
-    transformCourseTextBlocks(tree);
+  return (tree, file) => {
+    const copy = evidenceCardCopy[localeForFile(file)] ?? evidenceCardCopy.en;
+    transformCourseTextBlocks(tree, copy);
   };
 }
