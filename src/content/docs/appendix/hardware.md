@@ -1,5 +1,6 @@
 ---
 title: "A.5 Hardware and Cloud Resource Guide"
+description: "Decide when to use local hardware, cloud GPUs, or APIs for each stage of the AI full-stack course."
 sidebar:
   order: 2
 ---

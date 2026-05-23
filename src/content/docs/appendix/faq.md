@@ -1,5 +1,6 @@
 ---
 title: "A.6 Frequently Asked Questions"
+description: "Quick answers for common AI learning doubts, with next actions for math, GPUs, projects, pacing, papers, and job readiness."
 sidebar:
   order: 3
 ---

@@ -1,5 +1,6 @@
 ---
 title: "A.8 Learning Rescue for Stuck Points"
+description: "Diagnose common learning and coding blockers with environment checks, minimal reproduction, debugging order, and help requests."
 sidebar:
   order: 5
 ---

@@ -548,6 +548,11 @@ function courseDiagramRenderer() {
 export default defineConfig({
   site: siteUrl,
   trailingSlash: "ignore",
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1200,
+    },
+  },
   markdown: {
     remarkPlugins: [remarkCourseTextBlocks],
   },

@@ -1,5 +1,6 @@
 ---
 title: "A.10 Job Search Preparation Checklist"
+description: "Turn course evidence into portfolio projects, README stories, interview preparation, and a focused job-search sprint."
 sidebar:
   order: 7
 ---

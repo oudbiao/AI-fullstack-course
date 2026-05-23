@@ -100,8 +100,8 @@ cd /Users/carl/Downloads/ai-fullstack-course
 git add .
 git commit -m "Configure GitHub Actions deployment"
 
-# 推送到 GitHub
-git push origin master
+# 推送到 GitHub（当前部署工作流监听 main）
+git push origin main
 ```
 
 ## 监控部署进度
@@ -120,11 +120,13 @@ git push → GitHub Actions 触发
   ↓
 通过 SSH 连接到服务器
   ↓
-git pull 获取最新代码
+git fetch/reset 获取最新代码
   ↓
-docker-compose build 构建镜像
+docker compose build 构建镜像
   ↓
-docker-compose up -d 启动容器
+预热验证新镜像
+  ↓
+docker compose up -d 替换容器
   ↓
 ✅ 部署完成
 ```
@@ -155,15 +157,16 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub username@server_ip
 - 确保在 GitHub Settings → Secrets 中添加了 `SERVER_IP`
 - 检查值不为空且格式正确
 
-### 错误：`docker-compose: command not found`
+### 错误：`docker compose` 或 `docker-compose` 不可用
 
-**原因：** 生产服务器上未安装 Docker Compose
+**原因：** 生产服务器上未安装 Docker Compose 插件或旧版 `docker-compose`
 
 **解决方案：**
 ```bash
-# 在生产服务器上安装
-curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+# 优先安装 Docker Compose v2 插件；安装后应能运行：
+docker compose version
+
+# 如果服务器只提供旧命令，也要确认可用：
 docker-compose --version
 ```
 
@@ -181,4 +184,3 @@ docker-compose --version
 - 部署脚本：[scripts/deploy.sh](scripts/deploy.sh)
 - Docker 配置：[docker-compose.yml](docker-compose.yml)
 - 部署指南：[DOCKER-DEPLOYMENT.md](DOCKER-DEPLOYMENT.md)
-

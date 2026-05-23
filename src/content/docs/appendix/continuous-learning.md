@@ -1,5 +1,6 @@
 ---
 title: "A.7 Continuous Learning Methodology in AI"
+description: "Build a sustainable AI learning loop that balances foundations, projects, frontier tracking, review, and evidence."
 sidebar:
   order: 4
 ---

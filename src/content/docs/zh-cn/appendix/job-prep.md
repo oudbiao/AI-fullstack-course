@@ -1,5 +1,6 @@
 ---
 title: "A.10 求职准备检查清单"
+description: "把课程证据整理成作品集项目、README 故事、面试表达和聚焦的求职冲刺计划。"
 sidebar:
   order: 7
 ---

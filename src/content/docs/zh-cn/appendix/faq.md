@@ -1,5 +1,6 @@
 ---
 title: "A.6 常见问题"
+description: "回答 AI 学习中的常见疑问，并把数学、GPU、项目、节奏、论文和求职焦虑转成下一步行动。"
 sidebar:
   order: 3
 ---

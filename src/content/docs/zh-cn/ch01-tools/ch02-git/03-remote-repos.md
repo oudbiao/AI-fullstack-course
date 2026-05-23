@@ -263,9 +263,9 @@ git remote -v
 
 ## ✨ 主要特性
 
-- 特性1：XXX
-- 特性2：XXX
-- 特性3：XXX
+- 特性1：训练一个基线图像分类模型
+- 特性2：保存指标和示例预测结果
+- 特性3：记录如何重新运行实验
 
 ## 🛠️ 技术栈
 
@@ -394,7 +394,7 @@ git push          # 然后再推送
 
 ```bash
 # 方案1：只克隆最新版本（不要完整历史），大幅加速
-git clone --depth 1 git@github.com:xxx/yyy.git
+git clone --depth 1 git@github.com:yourname/ai-image-classifier.git
 
 # 方案2：使用镜像加速
 # 将 github.com 替换为镜像站点（具体镜像地址请搜索最新可用的）

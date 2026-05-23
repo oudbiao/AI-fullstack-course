@@ -1,5 +1,6 @@
 ---
 title: "A.1 Recommended Learning Resources"
+description: "Choose outside learning resources by current bottleneck so reading turns back into course projects and evidence."
 sidebar:
   order: 1
 ---

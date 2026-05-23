@@ -9,7 +9,7 @@ GitHub Actions 自动触发
     ↓
 通过 SSH 连接服务器
     ↓
-执行部署脚本：git pull → docker-compose build → docker-compose up
+执行部署脚本：git fetch/reset → docker compose build → 预热验证 → docker compose up
     ↓
 部署完成，自动更新网站
 ```
@@ -64,54 +64,58 @@ cd /opt/ai-course
 
 # 确保 Docker 和 Docker Compose 已安装
 docker --version
-docker-compose --version
+docker compose version || docker-compose --version
 
 # 创建必要目录
 mkdir -p logs
 ```
 
-### 第 4 步：配置 docker-compose.yml
+### 第 4 步：确认 docker-compose.yml
 
-在项目根目录确保有 `docker-compose.yml`，内容类似：
+项目根目录已经包含生产使用的 `docker-compose.yml`。它会构建 `ai-course` 服务，暴露容器内 `3000` 端口，并加入 `proxy-net` 外部网络供 Nginx 反向代理访问：
 
 ```yaml
-version: '3.8'
-
 services:
   ai-course:
     build: .
+    image: ai-fullstack-course:latest
     container_name: ai-fullstack-course
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=production
     restart: unless-stopped
     networks:
       - ai-network
+      - proxy-net
 
 networks:
   ai-network:
     driver: bridge
+  proxy-net:
+    external: true
 ```
 
-### 第 5 步：配置 Dockerfile
+### 第 5 步：确认 Dockerfile
 
-项目根目录需要 `Dockerfile`：
+项目根目录已经包含当前 Dockerfile。它使用多阶段构建：先用 Node 22 Alpine 安装依赖并执行低内存 Astro 构建，再用 Nginx 静态服务 `dist/` 产物。
 
 ```dockerfile
-FROM node:18-alpine
+FROM node:22-alpine AS builder
 
 WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY astro.config.mjs ./
+COPY scripts ./scripts
+COPY src ./src
+COPY public ./public
+RUN npm run build:docker
 
-COPY package*.json ./
-RUN npm ci --only=production
-
-COPY . .
-RUN npm run build
+FROM nginx:1.27-alpine
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 3000
-
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
 ## 测试部署
@@ -121,7 +125,7 @@ CMD ["npm", "start"]
 1. 进入仓库 → Actions 标签
 2. 选择 "Auto Deploy to Server" 工作流
 3. 点击 "Run workflow"
-4. 选择分支（master 或 main）
+4. 选择分支 `main`
 5. 点击绿色 "Run workflow" 按钮
 
 ### 方法 2：通过推送代码测试
@@ -133,7 +137,7 @@ echo "# Test" >> README.md
 # 提交并推送
 git add .
 git commit -m "test deploy"
-git push origin master
+git push origin main
 ```
 
 然后到 GitHub 仓库的 Actions 标签查看部署进度。
@@ -151,13 +155,13 @@ git push origin master
 
 ```bash
 # Docker 容器日志
-docker-compose logs -f ai-course
+docker compose logs -f ai-course
 
 # 查看最近 100 行
-docker-compose logs --tail=100 ai-course
+docker compose logs --tail=100 ai-course
 
 # 查看特定时间段的日志
-docker-compose logs --since 10m ai-course
+docker compose logs --since 10m ai-course
 ```
 
 ## 故障排查
@@ -187,9 +191,9 @@ ping 8.8.8.8
 
 # 手动运行部署脚本测试
 cd /opt/ai-course
-docker-compose down
-docker-compose build  # 这可能需要几分钟
-docker-compose up -d
+docker compose down
+docker compose build ai-course  # 这可能需要几分钟
+docker compose up -d ai-course
 ```
 
 ### 问题 3：Docker build failed
@@ -199,7 +203,7 @@ docker-compose up -d
 **解决**：
 ```bash
 # 查看 Docker 日志
-docker-compose build --no-cache
+docker compose build --no-cache ai-course
 
 # 检查磁盘空间
 df -h
@@ -218,7 +222,7 @@ docker system prune -a -f
 lsof -i :3000
 
 # 停止占用该端口的容器/进程
-docker-compose down
+docker compose down
 ps aux | grep node
 kill -9 <PID>
 ```
@@ -231,19 +235,17 @@ kill -9 <PID>
 cd /opt/ai-course
 
 # 1. 拉取最新代码
-git pull origin master
+git fetch origin main
+git reset --hard origin/main
 
-# 2. 停止容器
-docker-compose down
+# 2. 构建新镜像
+docker compose build ai-course
 
-# 3. 构建镜像
-docker-compose build
+# 3. 替换线上容器
+docker compose up -d --no-deps --force-recreate ai-course
 
-# 4. 启动容器
-docker-compose up -d
-
-# 5. 查看状态
-docker-compose ps
+# 4. 查看状态
+docker compose ps
 ```
 
 ## 高级配置
@@ -293,7 +295,6 @@ on:
     - cron: '0 2 * * *'  # 每天 02:00 UTC
   push:
     branches:
-      - master
       - main
 ```
 
@@ -339,4 +340,4 @@ on:
 
 - GitHub Actions 官方文档：https://docs.github.com/en/actions
 - SSH 问题排查：运行 `ssh -v user@host` 查看详细日志
-- Docker 问题：查看 `docker-compose logs`
+- Docker 问题：查看 `docker compose logs`

@@ -1,5 +1,6 @@
 ---
 title: "A.5 硬件与云资源指南"
+description: "根据课程阶段和真实任务，判断什么时候使用本地硬件、云 GPU、API 或托管服务。"
 sidebar:
   order: 2
 ---

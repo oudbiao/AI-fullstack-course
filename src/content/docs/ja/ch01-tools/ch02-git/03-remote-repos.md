@@ -275,9 +275,9 @@ GitHub の各プロジェクトのトップページには、自動で `README.m
 
 ## ✨ 主な特徴
 
-- 特徴1：XXX
-- 特徴2：XXX
-- 特徴3：XXX
+- 特徴1：ベースライン画像分類モデルを学習する
+- 特徴2：指標と予測例を保存する
+- 特徴3：実験を再実行する手順を記録する
 
 ## 🛠️ 技術スタック
 
@@ -394,7 +394,7 @@ git push          # そのあとで push する
 
 ```bash
 # 方法1：最新バージョンだけを clone する（完全な履歴は取らない）。かなり速くなる
-git clone --depth 1 git@github.com:xxx/yyy.git
+git clone --depth 1 git@github.com:yourname/ai-image-classifier.git
 
 # 方法2：ミラーを使って高速化する
 # github.com をミラーサイトに置き換える（具体的なミラーURLは、最新の利用可能なものを検索してください）

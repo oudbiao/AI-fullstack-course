@@ -2,14 +2,12 @@
 
 ## 本地开发环境
 
-### 当前状态
-- ✅ 应用通过 `npm start` 运行在 `http://localhost:3000`
-- ❌ Docker 构建因网络问题受阻（Docker daemon 无法连接到 Docker Hub）
+### 当前推荐
+- ✅ 本地内容开发优先使用 `npm run dev`
+- ✅ 本地生产预览使用 `npm run build && npm run serve`
+- ✅ Docker 用于接近生产环境的构建和 Nginx 静态服务验证
 
-### 原因
-- 您的系统使用代理 (Surge) 监听 `127.0.0.1:6152`
-- OrbStack (macOS Docker 替代品) 的 daemon 未能正确使用该代理
-- Docker daemon 无法从 Docker Hub 拉取 `node:lts-bookworm` 镜像
+如果 Docker 无法拉取基础镜像，通常是 Docker daemon 网络或代理配置问题，而不是项目构建脚本问题。当前 Dockerfile 会清空构建容器内常见的宿主机代理变量，避免 `127.0.0.1` 代理地址被错误带进容器。
 
 ## 生产环境部署
 
@@ -28,39 +26,38 @@ cd /opt/ai-course
 git clone https://github.com/oudbiao/AI-fullstack-course.git .
 ```
 
-2. **无需代理参数，直接构建**
+2. **直接构建**
 ```bash
-docker-compose build
+docker compose build ai-course
 ```
 
 3. **启动容器**
 ```bash
-docker-compose up -d
+docker compose up -d ai-course
 ```
 
 ### Dockerfile 配置说明
 
-Dockerfile 已配置为：
-- `ARG` 用于构建参数（仅在构建时有效）
-- **生产环境中不包含代理设置**（干净的运行时环境）
+Dockerfile 使用多阶段构建：
+- `node:22-alpine` 阶段安装依赖并运行 `npm run build:docker`
+- `nginx:1.27-alpine` 阶段只复制 `dist/` 静态产物
+- 构建阶段设置低内存 `NODE_OPTIONS`，适配小型服务器
+- 构建容器会清空常见代理环境变量，运行时镜像不包含本地代理设置
 
-**本地开发构建（需要代理）：**
+**本地 Docker 构建：**
 ```bash
-docker-compose build \
-  --build-arg http_proxy=http://127.0.0.1:6152 \
-  --build-arg https_proxy=http://127.0.0.1:6152 \
-  --build-arg all_proxy=socks5://127.0.0.1:6153
+docker compose build ai-course
 ```
 
-**生产构建（无需代理）：**
+**生产构建：**
 ```bash
-docker-compose build
+docker compose build ai-course
 ```
 
 ## 最佳实践
 
 ### 开发阶段
-- ✅ 使用 `npm start` 本地开发
+- ✅ 使用 `npm run dev` 本地开发
 - 优点：快速刷新、易于调试、无需 Docker
 
 ### 部署阶段
@@ -75,7 +72,7 @@ docker-compose build
 1. 代码推送到 GitHub
 2. GitHub Actions 触发
 3. 通过 SSH 连接到生产服务器
-4. 服务器上执行：`git pull → docker-compose build → docker-compose up -d`
+4. 服务器上执行：`git fetch/reset → docker compose build → 预热验证 → docker compose up -d`
 5. 应用自动更新和重启
 
 ## 故障排除
@@ -105,9 +102,9 @@ docker-compose build
 
 | 环节 | 命令 | 说明 |
 |------|------|------|
-| 本地开发 | `npm start` | 开发服务器，http://localhost:3000 |
-| 本地测试Docker | `docker-compose build --build-arg ...` | 需要代理参数 |
-| 生产构建 | `docker-compose build` | 无需代理参数 |
-| 生产运行 | `docker-compose up -d` | 后台运行 |
+| 本地开发 | `npm run dev` | Astro 开发服务器 |
+| 本地生产预览 | `npm run build && npm run serve` | 构建并预览静态站点 |
+| 本地测试 Docker | `docker compose build ai-course` | 使用生产 Dockerfile 构建 |
+| 生产构建 | `docker compose build ai-course` | 构建 Nginx 静态镜像 |
+| 生产运行 | `docker compose up -d ai-course` | 后台运行 |
 | 推送更新 | `git push origin main` | 触发 GitHub Actions |
-

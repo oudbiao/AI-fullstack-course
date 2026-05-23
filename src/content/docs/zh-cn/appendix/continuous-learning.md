@@ -1,5 +1,6 @@
 ---
 title: "A.7 AI 持续学习方法"
+description: "建立可持续的 AI 学习循环，在基础、项目、前沿跟踪、复盘和证据之间保持平衡。"
 sidebar:
   order: 4
 ---

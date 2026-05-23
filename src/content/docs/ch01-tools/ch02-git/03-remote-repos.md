@@ -263,9 +263,9 @@ Use 2–3 sentences to describe the project background, the problem it solves, a
 
 ## ✨ Key Features
 
-- Feature 1: XXX
-- Feature 2: XXX
-- Feature 3: XXX
+- Feature 1: trains a baseline image classifier
+- Feature 2: saves metrics and example predictions
+- Feature 3: documents how to rerun the experiment
 
 ## 🛠️ Tech Stack
 
@@ -394,7 +394,7 @@ Cloning GitHub projects can be slow in some regions. Here are a few solutions:
 
 ```bash
 # Option 1: Clone only the latest version (do not download full history), which is much faster
-git clone --depth 1 git@github.com:xxx/yyy.git
+git clone --depth 1 git@github.com:yourname/ai-image-classifier.git
 
 # Option 2: Use a mirror for acceleration
 # Replace github.com with a mirror site (please search for the latest available mirror URL)
