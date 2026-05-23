@@ -13,36 +13,41 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![Open-source LLM deployment evidence pack](/img/course/ch13-open-source-llm-evidence-pack-en.webp)
 
+If you have not run the lab yet, complete [13.1 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/) before using this checklist.
+
 ## Two-Hour First Pass
 
-| Time box | Do this | Stop when you can say |
-|---|---|---|
-| 20 min | Read the deployment loop | "A model is not deployed until runtime, API, logs, eval, and rollback are known." |
-| 20 min | Run the environment check | "I know whether this machine has usable CUDA or only CPU." |
-| 25 min | Run the runbook script | "I can choose a runtime from hardware and project constraints." |
-| 25 min | Build a five-prompt eval table | "I can compare model behavior before changing runtime or tuning." |
-| 30 min | Write the adaptation decision | "I can explain why I chose Prompt, RAG, quantization, LoRA, or no tuning." |
+1. **20 min: Read the deployment loop**
+   Stop when you can say, "A model is not deployed until runtime, API, logs, eval, and rollback are known."
+
+2. **20 min: Run the environment check**
+   Stop when you can say, "I know whether this machine has usable CUDA or only CPU."
+
+3. **25 min: Run the runbook script**
+   Stop when you can say, "I can choose a runtime from hardware and project constraints."
+
+4. **25 min: Build a five-prompt eval table**
+   Stop when you can say, "I can compare model behavior before changing runtime or tuning."
+
+5. **30 min: Write the adaptation decision**
+   Stop when you can say, "I can explain why I chose Prompt, RAG, quantization, LoRA, or no tuning."
 
 ## Required Evidence
 
-| Evidence | Minimum version |
-|---|---|
-| `environment_report.txt` | Python, torch, CUDA/device, platform, disk or instance note |
-| `model_decision.md` | model, size, license, source, reason, rejected alternatives |
-| `open_llm_runbook.json` | runtime choice, adaptation choice, required evidence |
-| `first_run.md` | exact command, prompt, output, latency or memory note |
-| `eval_cases.csv` | at least five prompts, expected behavior, pass/fail, notes |
-| `README.md` | setup, run, evaluate, stop server, rollback or shutdown |
+- `environment_report.txt`: Python, torch, CUDA/device, platform, disk or instance note.
+- `model_decision.md`: model, size, license, source, reason, rejected alternatives.
+- `open_llm_runbook.json`: runtime choice, adaptation choice, required evidence.
+- `first_run.md`: exact command, prompt, output, latency or memory note.
+- `eval_cases.csv`: at least five prompts, expected behavior, pass/fail, notes.
+- `README.md`: setup, run, evaluate, stop server, rollback or shutdown.
 
 ## Quality Gates
 
-| Gate | Pass condition |
-|---|---|
-| Reproducibility | Another engineer can identify model version, runtime, command, and environment. |
-| Safety | License, privacy, auth, logging, and shutdown are checked before sharing. |
-| Evaluation | Runtime or tuning changes are compared on the same eval cases. |
-| Cost control | GPU rental time, memory, latency, and stop procedure are recorded. |
-| Adaptation | Fine-tuning is justified by repeated evidence, not one disappointing answer. |
+- **Reproducibility**: another engineer can identify model version, runtime, command, and environment.
+- **Safety**: license, privacy, auth, logging, and shutdown are checked before sharing.
+- **Evaluation**: runtime or tuning changes are compared on the same eval cases.
+- **Cost control**: GPU rental time, memory, latency, and stop procedure are recorded.
+- **Adaptation**: fine-tuning is justified by repeated evidence, not one disappointing answer.
 
 ## Exit Questions
 

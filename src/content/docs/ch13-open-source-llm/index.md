@@ -15,6 +15,8 @@ Chapter 13 turns open-source model use into an engineering workflow. The goal is
 
 Use [Datawhale Self-LLM](https://github.com/datawhalechina/self-llm) as a broad reference library. This chapter provides the course path around it: smaller choices, fewer moving parts, and explicit pass checks.
 
+If you want to follow commands immediately, start with [13.1 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/). This page explains the route; 13.1 provides commands, code, outputs, and failure handling.
+
 ## Where This Fits
 
 By now you can build LLM, RAG, and Agent workflows. This chapter answers a different question:
@@ -25,27 +27,36 @@ Open-source LLM work is mostly systems work. You must control hardware, drivers,
 
 ## The Deployment Loop
 
-| Step | Decision | Evidence to keep |
-|---|---|---|
-| Select | model family, license, size, context, language, modality | model card, license note, why this model |
-| Prepare | GPU/CPU, CUDA, PyTorch, disk, network, secrets | environment report, cost estimate |
-| Run | Transformers, Ollama, llama.cpp, vLLM, SGLang, or vendor runtime | exact command, model path, first response |
-| Serve | OpenAI-compatible API, internal SDK, or batch script | request/response sample, error path |
-| Evaluate | fixed prompts, RAG cases, safety cases, latency/cost | eval table, failure notes |
-| Adapt | Prompt, RAG, quantization, LoRA, or full fine-tune | decision memo, adapter artifact, before/after |
-| Release | README, container, runbook, monitoring, shutdown plan | deployment checklist, rollback notes |
+1. **Select**
+   Decide model family, license, size, context length, language, and modality. Keep the model card, license note, and reason for choosing it.
+
+2. **Prepare**
+   Confirm GPU/CPU, CUDA, PyTorch, disk, network, and secrets. Keep the environment report and cost estimate.
+
+3. **Run**
+   Choose Transformers, Ollama, llama.cpp, vLLM, SGLang, or a vendor runtime. Keep the exact command, model path, and first response.
+
+4. **Serve**
+   Wrap the model as an OpenAI-compatible API, internal SDK, or batch script. Keep a request/response sample and error path.
+
+5. **Evaluate**
+   Fix prompts, RAG cases, safety cases, latency, and cost checks. Keep the eval table and failure notes.
+
+6. **Adapt**
+   Choose among Prompt, RAG, quantization, LoRA, or full fine-tuning. Keep the decision memo, adapter artifact, and before/after notes.
+
+7. **Release**
+   Package the README, container, runbook, monitoring, and shutdown plan. Keep the deployment checklist and rollback notes.
 
 ## Learning Order And Task List
 
-| Order | Do this | Stop when you have |
-|---|---|---|
-| 1 | Pick one model and one runtime | a written model/runtime decision |
-| 2 | Verify the environment | Python, PyTorch, CUDA or CPU status saved |
-| 3 | Run one local inference | prompt, output, command, model version |
-| 4 | Wrap it as an API or script | one repeatable request/response |
-| 5 | Run a tiny evaluation set | at least five prompts and pass/fail notes |
-| 6 | Decide whether to fine-tune | a reasoned choice: no tuning, LoRA, or full training |
-| 7 | Package the runbook | README, commands, cost, limits, shutdown |
+1. Pick one model and one runtime; stop when you have a written model/runtime decision.
+2. Verify the environment; stop when Python, PyTorch, CUDA or CPU status is saved.
+3. Run one local inference; stop when you have prompt, output, command, and model version.
+4. Wrap it as an API or script; stop when you have one repeatable request/response.
+5. Run a tiny evaluation set; stop when you have at least five prompts and pass/fail notes.
+6. Decide whether to fine-tune; stop when you can justify no tuning, LoRA, or full training.
+7. Package the runbook; stop when README, commands, cost, limits, and shutdown are written.
 
 The stage deliverables are a runnable runbook, environment report, five-case evaluation table, model/runtime decision memo, and README with shutdown or rollback notes.
 
@@ -142,13 +153,20 @@ The output should become your deployment runbook. Before running a large model, 
 
 ## Read the Runbook Line by Line
 
-| Code part | What it means | What you change first |
-|---|---|---|
-| `project = {...}` | The project constraint card. It turns "I want to run a model" into hardware, privacy, users, latency, and tuning requirements. | Change `task`, `privacy`, `available_vram_gb`, and `needs_fine_tuning`. |
-| `choose_runtime(info)` | The runtime decision rule. It prevents you from renting a GPU or downloading a model before checking memory. | Adjust VRAM thresholds after you know the real instance or local machine. |
-| `choose_adaptation(info)` | The fine-tuning gate. Private knowledge should usually try RAG before training. | Set `needs_fine_tuning` to `True` only after fixed eval cases keep failing. |
-| `plan = {...}` | The deployment checklist that connects model choice, runtime choice, and required evidence. | Add project-specific evidence such as auth, logging, or rollback notes. |
-| `write_text(...)` and `print(...)` | The script saves the same plan to disk and terminal output, so the run can be reviewed later. | Commit or archive `open_llm_runbook.json` with the rest of the experiment notes. |
+1. **`project = {...}`**
+   This is the project constraint card. It turns "I want to run a model" into hardware, privacy, users, latency, and tuning requirements. Change `task`, `privacy`, `available_vram_gb`, and `needs_fine_tuning` first.
+
+2. **`choose_runtime(info)`**
+   This is the runtime decision rule. It prevents you from renting a GPU or downloading a model before checking memory. Adjust the VRAM thresholds after you know the real instance or local machine.
+
+3. **`choose_adaptation(info)`**
+   This is the fine-tuning gate. Private knowledge should usually try RAG before training. Set `needs_fine_tuning` to `True` only after fixed eval cases keep failing.
+
+4. **`plan = {...}`**
+   This is the deployment checklist that connects model choice, runtime choice, and required evidence. Add project-specific evidence such as auth, logging, or rollback notes.
+
+5. **`write_text(...)` and `print(...)`**
+   These lines save the same plan to disk and terminal output, so the run can be reviewed later. Commit or archive `open_llm_runbook.json` with the rest of the experiment notes.
 
 If you can explain each row, you understand the script. If a row feels vague, edit the project card and run it again before touching a GPU.
 
@@ -177,27 +195,51 @@ Save the output. If the environment is not visible, the model result is not repr
 
 Treat a rented GPU as a short experiment, not a permanent computer. Free or no-rental paths come first: a local quantized model, a school or company GPU, or a notebook platform's free quota if available. If those are too slow or unavailable, rent only enough time to prove one model/runtime loop.
 
-| Step | Action | Evidence to save |
-|---|---|---|
-| 1. Define the run | Write the target model size, runtime, expected first prompt, and maximum rental time. | `gpu_plan.md` with stop time and budget guardrail |
-| 2. Pick the instance | Choose Linux, enough VRAM for the model, enough disk for weights, and SSH access. | instance type, VRAM, disk, hourly price note |
-| 3. Lock access down | Use SSH keys, keep the model API private by default, and open only the ports you need. | security note and exposed ports |
-| 4. Prepare the environment | Run `python -V`, torch/CUDA check, `nvidia-smi` if available, and disk check. | `environment_report.txt` |
-| 5. Run one model path | Download or mount one model, run one prompt, then save command, output, and failure notes. | `first_run.md` |
-| 6. Stop and archive | Copy runbook, logs, eval cases, and README back to your project; then stop or destroy the instance. | shutdown screenshot or stop note |
+1. **Define the run**
+   Write the target model size, runtime, expected first prompt, and maximum rental time. Save `gpu_plan.md` with stop time and budget guardrail.
+
+2. **Pick the instance**
+   Choose Linux, enough VRAM for the model, enough disk for weights, and SSH access. Save instance type, VRAM, disk, and hourly price note.
+
+3. **Lock access down**
+   Use SSH keys, keep the model API private by default, and open only the ports you need. Save a security note and exposed ports.
+
+4. **Prepare the environment**
+   Run `python -V`, torch/CUDA check, `nvidia-smi` if available, and disk check. Save `environment_report.txt`.
+
+5. **Run one model path**
+   Download or mount one model, run one prompt, then save command, output, and failure notes. Save `first_run.md`.
+
+6. **Stop and archive**
+   Copy runbook, logs, eval cases, and README back to your project, then stop or destroy the instance. Save a shutdown screenshot or stop note.
 
 The most important command is often the last one: stop the machine. A successful experiment that keeps billing silently is still an engineering failure.
 
 ## Runtime Choices
 
-| Runtime | Use when | Avoid when |
-|---|---|---|
-| Transformers | learning, debugging, custom Python pipelines | you need high-throughput serving immediately |
-| Ollama / LM Studio | local demo, laptop testing, non-engineer handoff | you need precise production control |
-| llama.cpp | CPU or quantized edge experiments | you need standard GPU server features |
-| vLLM | OpenAI-compatible high-throughput API serving | your GPU or dependency setup is not ready |
-| SGLang | structured generation, serving, and agentic workloads | you need the simplest possible first run |
-| Cloud model API | product prototype with low ops burden | privacy, cost, or latency requires local control |
+**Transformers**
+
+Use it for learning, debugging, and custom Python pipelines. Avoid treating it as the final server when you immediately need high-throughput serving.
+
+**Ollama / LM Studio**
+
+Use it for local demos, laptop testing, and non-engineer handoff. Avoid it when you need precise production control.
+
+**llama.cpp**
+
+Use it for CPU or quantized edge experiments. Avoid it when you need standard GPU server features.
+
+**vLLM**
+
+Use it for OpenAI-compatible high-throughput API serving. Avoid it when your GPU or dependency setup is not ready.
+
+**SGLang**
+
+Use it for structured generation, serving, and agentic workloads. Avoid it when you only need the simplest possible first run.
+
+**Cloud model API**
+
+Use it for product prototypes with low operational burden. Avoid it when privacy, cost, or latency requires local control.
 
 Start with the simplest runtime that proves the product behavior. Upgrade only when latency, cost, privacy, or throughput demands it.
 
@@ -205,13 +247,25 @@ Start with the simplest runtime that proves the product behavior. Upgrade only w
 
 Do not fine-tune just because the model gave one bad answer.
 
-| Symptom | Try first | Fine-tune only if |
-|---|---|---|
-| Missing private knowledge | RAG | retrieval is correct but behavior is still wrong |
-| Wrong output format | schema, parser, examples | many fixed cases still fail |
-| Wrong tone or role | system prompt and examples | the same style issue repeats across many examples |
-| Domain terms weak | glossary, RAG, few-shot | you have enough labeled domain examples |
-| Too slow or expensive | smaller model, quantization, batching | behavior is good and runtime still fails constraints |
+**Missing private knowledge**
+
+Try RAG first. Fine-tune only if retrieval is correct but behavior is still wrong.
+
+**Wrong output format**
+
+Try schema constraints, a parser, and examples first. Fine-tune only if many fixed cases still fail.
+
+**Wrong tone or role**
+
+Try the system prompt and examples first. Fine-tune only if the same style issue repeats across many examples.
+
+**Domain terms weak**
+
+Try a glossary, RAG, and few-shot examples first. Fine-tune only if you have enough labeled domain examples.
+
+**Too slow or expensive**
+
+Try a smaller model, quantization, and batching first. Move toward training only if behavior is good and runtime still fails constraints.
 
 For most course projects, LoRA is the first serious adaptation method. Full fine-tuning is a later engineering choice, not the default.
 

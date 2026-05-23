@@ -13,36 +13,41 @@ head:
 
 ![オープンソース LLM デプロイ証拠パック](/img/course/ch13-open-source-llm-evidence-pack-ja.webp)
 
+まだ手を動かしていない場合は、この checklist の前に [13.1 実践：オープンソース LLM を動かしてサービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) を完了してください。
+
 ## 2時間の初回通読
 
-| 時間 | やること | ここまで言えたら止める |
-|---|---|---|
-| 20 分 | deployment loop を読む | 「runtime、API、logs、eval、rollback が分かって初めて model deployment と言える。」 |
-| 20 分 | environment check を動かす | 「このマシンが CUDA を使えるか、CPU だけか分かる。」 |
-| 25 分 | runbook script を動かす | 「hardware と project constraints から runtime を選べる。」 |
-| 25 分 | 5 prompt の eval table を作る | 「runtime や tuning を変える前に model behavior を比較できる。」 |
-| 30 分 | adaptation decision を書く | 「Prompt、RAG、quantization、LoRA、no tuning の理由を説明できる。」 |
+1. **20 分：deployment loop を読む**
+   「runtime、API、logs、eval、rollback が分かって初めて model deployment と言える」と言えたら止めます。
+
+2. **20 分：environment check を動かす**
+   「このマシンが CUDA を使えるか、CPU だけか分かる」と言えたら止めます。
+
+3. **25 分：runbook script を動かす**
+   「hardware と project constraints から runtime を選べる」と言えたら止めます。
+
+4. **25 分：5 prompt の eval table を作る**
+   「runtime や tuning を変える前に model behavior を比較できる」と言えたら止めます。
+
+5. **30 分：adaptation decision を書く**
+   「Prompt、RAG、quantization、LoRA、no tuning の理由を説明できる」と言えたら止めます。
 
 ## 必ず残す証拠
 
-| 証拠 | 最小版 |
-|---|---|
-| `environment_report.txt` | Python、torch、CUDA/device、platform、disk または instance note |
-| `model_decision.md` | model、size、license、source、reason、rejected alternatives |
-| `open_llm_runbook.json` | runtime choice、adaptation choice、required evidence |
-| `first_run.md` | exact command、prompt、output、latency または memory note |
-| `eval_cases.csv` | 5つ以上の prompts、expected behavior、pass/fail、notes |
-| `README.md` | setup、run、evaluate、stop server、rollback または shutdown |
+- `environment_report.txt`：Python、torch、CUDA/device、platform、disk または instance note。
+- `model_decision.md`：model、size、license、source、reason、rejected alternatives。
+- `open_llm_runbook.json`：runtime choice、adaptation choice、required evidence。
+- `first_run.md`：exact command、prompt、output、latency または memory note。
+- `eval_cases.csv`：5つ以上の prompts、expected behavior、pass/fail、notes。
+- `README.md`：setup、run、evaluate、stop server、rollback または shutdown。
 
 ## 品質ゲート
 
-| ゲート | 合格条件 |
-|---|---|
-| Reproducibility | 他のエンジニアが model version、runtime、command、environment を特定できる。 |
-| Safety | 共有前に license、privacy、auth、logging、shutdown を確認している。 |
-| Evaluation | runtime や tuning の変更を同じ eval cases で比較している。 |
-| Cost control | GPU rental time、memory、latency、stop procedure を記録している。 |
-| Adaptation | fine-tuning が1回の不満ではなく繰り返す証拠に基づいている。 |
+- **Reproducibility**：他のエンジニアが model version、runtime、command、environment を特定できる。
+- **Safety**：共有前に license、privacy、auth、logging、shutdown を確認している。
+- **Evaluation**：runtime や tuning の変更を同じ eval cases で比較している。
+- **Cost control**：GPU rental time、memory、latency、stop procedure を記録している。
+- **Adaptation**：fine-tuning が1回の不満ではなく繰り返す証拠に基づいている。
 
 ## 章を出る前の質問
 
