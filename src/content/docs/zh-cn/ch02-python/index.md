@@ -27,17 +27,35 @@ Python 之所以是 AI 主线语言，是因为同一个闭环以后会变成数
 
 ## 学习顺序与任务表
 
-下面这一张表同时作为本章学习指南和任务清单。
+这份清单同时作为本章学习指南和任务单。按顺序推进，每一步都留下一个能复查的产物。
 
-| 页面 | 跟着做 | 留下的证据 |
-|---|---|---|
-| [2.1.1 Python 介绍](/zh-cn/ch02-python/ch01-basics/01-intro/) 到 [2.1.5 流程控制](/zh-cn/ch02-python/ch01-basics/05-control-flow/) | 手敲变量、输入输出、条件和循环的小脚本 | 5 个改过并能输出结果的小脚本 |
-| [2.1.6 数据结构](/zh-cn/ch02-python/ch01-basics/06-data-structures/) | 用列表、字典和 JSON 形状对象保存同一组任务 | 一段说明：为什么这个结构更合适 |
-| [2.1.7 函数基础](/zh-cn/ch02-python/ch01-basics/07-functions/) 和 [2.1.8 模块与包](/zh-cn/ch02-python/ch01-basics/08-modules/) | 把重复逻辑拆成函数和模块 | 一个输入、返回值清楚的脚本 |
-| [2.2.2 异常处理](/zh-cn/ch02-python/ch02-advanced/02-exceptions/) 和 [2.2.3 文件操作](/zh-cn/ch02-python/ch02-advanced/03-file-io/) | 保存数据、重新读取，并处理文件缺失或损坏 | 一个 JSON/文本文件和一条调试记录 |
-| [2.2.1 面向对象](/zh-cn/ch02-python/ch02-advanced/01-oop/)、[2.2.5 迭代器](/zh-cn/ch02-python/ch02-advanced/05-iterators-generators/)、[2.2.6 类型提示](/zh-cn/ch02-python/ch02-advanced/06-type-hints/) | 先浏览，项目需要结构或清晰度时再回头用 | 一个重构过的函数或类 |
-| [2.3.1 任务管理器](/zh-cn/ch02-python/ch03-projects/01-todo-cli/) 到 [2.3.4 AI API 体验](/zh-cn/ch02-python/ch03-projects/04-ai-api-experience/) | 做能保存数据、采集数据、提供 API、调用 AI API 的小项目 | 带 README 运行命令的项目文件夹 |
-| [2.3.5 跟做工作坊](/zh-cn/ch02-python/ch03-projects/05-hands-on-python-workshop/) | 串起 CLI 命令、JSON 持久化、统计和报告导出 | `ch02_output/` 和终端输出 |
+1. **[2.1.1 Python 介绍](/zh-cn/ch02-python/ch01-basics/01-intro/) 到 [2.1.5 流程控制](/zh-cn/ch02-python/ch01-basics/05-control-flow/)**
+   跟着做：手敲变量、输入输出、条件和循环的小脚本。
+   留下证据：5 个改过并能输出结果的小脚本。
+
+2. **[2.1.6 数据结构](/zh-cn/ch02-python/ch01-basics/06-data-structures/)**
+   跟着做：用列表、字典和 JSON 形状对象保存同一组任务。
+   留下证据：一段说明，解释为什么某个结构更合适。
+
+3. **[2.1.7 函数基础](/zh-cn/ch02-python/ch01-basics/07-functions/) 和 [2.1.8 模块与包](/zh-cn/ch02-python/ch01-basics/08-modules/)**
+   跟着做：把重复逻辑拆成函数和模块。
+   留下证据：一个输入、返回值清楚的脚本。
+
+4. **[2.2.2 异常处理](/zh-cn/ch02-python/ch02-advanced/02-exceptions/) 和 [2.2.3 文件操作](/zh-cn/ch02-python/ch02-advanced/03-file-io/)**
+   跟着做：保存数据、重新读取，并处理文件缺失或损坏。
+   留下证据：一个 JSON/文本文件和一条调试记录。
+
+5. **[2.2.1 面向对象](/zh-cn/ch02-python/ch02-advanced/01-oop/)、[2.2.5 迭代器](/zh-cn/ch02-python/ch02-advanced/05-iterators-generators/)、[2.2.6 类型提示](/zh-cn/ch02-python/ch02-advanced/06-type-hints/)**
+   跟着做：先浏览，项目需要结构或清晰度时再回头用。
+   留下证据：一个重构过的函数或类。
+
+6. **[2.3.1 任务管理器](/zh-cn/ch02-python/ch03-projects/01-todo-cli/) 到 [2.3.4 AI API 体验](/zh-cn/ch02-python/ch03-projects/04-ai-api-experience/)**
+   跟着做：做能保存数据、采集数据、提供 API、调用 AI API 的小项目。
+   留下证据：带 README 运行命令的项目文件夹。
+
+7. **[2.3.5 跟做工作坊](/zh-cn/ch02-python/ch03-projects/05-hands-on-python-workshop/)**
+   跟着做：串起 CLI 命令、JSON 持久化、统计和报告导出。
+   留下证据：`ch02_output/` 和终端输出。
 
 本章常见术语：
 

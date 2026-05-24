@@ -33,18 +33,39 @@ batch データ -> モデル forward -> loss -> 勾配 backward -> optimizer ste
 
 ## 学習順序とタスクリスト
 
-この表を、本章の学習ガイド兼タスクリストとして使います。まず中核ルート **6.1 -> 6.2 -> 6.5 -> 6.8** を進みます。CNN、RNN、生成モデル、学習テクニックは、プロジェクトで必要になったときに戻る拡張として扱います。
+このチェックリストを、本章の学習ガイド兼タスクリストとして使います。まず中核ルート **6.1 -> 6.2 -> 6.5 -> 6.8** を進みます。CNN、RNN、生成モデル、学習テクニックは、プロジェクトで必要になったときに戻る拡張として扱います。
 
-| ページ | 手を動かすこと | 残す証拠 |
-|---|---|---|
-| [6.1 ニューラルネットワーク基礎](/ja/ch06-deep-learning/ch01-nn-basics/00-roadmap/) | ニューロン、活性化、forward/backward、optimizer、正則化、初期化を理解する | 手書きの学習ループ説明 |
-| [6.2 PyTorch](/ja/ch06-deep-learning/ch02-pytorch/00-roadmap/) | tensor、autograd、`nn.Module`、Dataset、DataLoader、最小学習ループを練習する | 実行できる PyTorch スクリプト |
-| [6.5 Transformer](/ja/ch06-deep-learning/ch05-transformer/00-roadmap/) | Query、Key、Value、self-attention、位置エンコーディング、Transformer block を学ぶ | attention の入出力図 |
-| [6.8 プロジェクト](/ja/ch06-deep-learning/ch08-projects/00-roadmap/) と [6.8.5 ワークショップ](/ja/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop/) | 画像、感情分析、生成プロジェクトの前に PyTorch 証拠パックを作る | ログ、曲線、checkpoint、shape trace、README |
-| [6.3 CNN](/ja/ch06-deep-learning/ch03-cnn/00-roadmap/) | 画像分類でデータ形状、畳み込み、プーリング、転移学習をつなげる | shape メモと画像分類の実行結果 |
-| [6.4 RNN](/ja/ch06-deep-learning/ch04-rnn/00-roadmap/) | 系列データに記憶が必要な理由、LSTM/GRU が Transformer 前に解いた問題を理解する | 系列モデルメモ |
-| [6.1.8 任意の深層学習史](/ja/ch06-deep-learning/ch01-nn-basics/06-history-breakthroughs/) | 主な学習ループを理解してから、backprop、CNN、RNN、Attention、Transformer がなぜ現れたかを読む | 「この構造がある理由」のメモ |
-| [6.6 生成モデル](/ja/ch06-deep-learning/ch06-generative/00-roadmap/) と [6.7 学習テクニック](/ja/ch06-deep-learning/ch07-training-tips/00-roadmap/) | 学習ループが安定してから拡張として扱う | チューニングまたは診断メモ |
+1. **[6.1 ニューラルネットワーク基礎](/ja/ch06-deep-learning/ch01-nn-basics/00-roadmap/)**
+   手を動かすこと：ニューロン、活性化、forward/backward、optimizer、正則化、初期化を理解する。
+   残す証拠：手書きの学習ループ説明。
+
+2. **[6.2 PyTorch](/ja/ch06-deep-learning/ch02-pytorch/00-roadmap/)**
+   手を動かすこと：tensor、autograd、`nn.Module`、Dataset、DataLoader、最小学習ループを練習する。
+   残す証拠：実行できる PyTorch スクリプト。
+
+3. **[6.5 Transformer](/ja/ch06-deep-learning/ch05-transformer/00-roadmap/)**
+   手を動かすこと：Query、Key、Value、self-attention、位置エンコーディング、Transformer block を学ぶ。
+   残す証拠：attention の入出力図。
+
+4. **[6.8 プロジェクト](/ja/ch06-deep-learning/ch08-projects/00-roadmap/) と [6.8.5 ワークショップ](/ja/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop/)**
+   手を動かすこと：画像、感情分析、生成プロジェクトの前に PyTorch 証拠パックを作る。
+   残す証拠：ログ、曲線、checkpoint、shape trace、README。
+
+5. **[6.3 CNN](/ja/ch06-deep-learning/ch03-cnn/00-roadmap/)**
+   手を動かすこと：画像分類でデータ形状、畳み込み、プーリング、転移学習をつなげる。
+   残す証拠：shape メモと画像分類の実行結果。
+
+6. **[6.4 RNN](/ja/ch06-deep-learning/ch04-rnn/00-roadmap/)**
+   手を動かすこと：系列データに記憶が必要な理由、LSTM/GRU が Transformer 前に解いた問題を理解する。
+   残す証拠：系列モデルメモ。
+
+7. **[6.1.8 任意の深層学習史](/ja/ch06-deep-learning/ch01-nn-basics/06-history-breakthroughs/)**
+   手を動かすこと：主な学習ループを理解してから、backprop、CNN、RNN、Attention、Transformer がなぜ現れたかを読む。
+   残す証拠：「この構造がある理由」のメモ。
+
+8. **[6.6 生成モデル](/ja/ch06-deep-learning/ch06-generative/00-roadmap/) と [6.7 学習テクニック](/ja/ch06-deep-learning/ch07-training-tips/00-roadmap/)**
+   手を動かすこと：学習ループが安定してから拡張として扱う。
+   残す証拠：チューニングまたは診断メモ。
 
 ## 必修ルート、拡張、深掘り
 

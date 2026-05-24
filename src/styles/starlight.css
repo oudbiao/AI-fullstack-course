@@ -149,8 +149,21 @@ body {
 }
 
 .sl-markdown-content table {
-  display: table;
-  width: 100%;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.sl-markdown-content th,
+.sl-markdown-content td {
+  min-width: min(13rem, 70vw);
+  vertical-align: top;
+}
+
+.sl-markdown-content th:first-child,
+.sl-markdown-content td:first-child {
+  min-width: min(9rem, 58vw);
 }
 
 .sl-markdown-content th {

@@ -33,17 +33,35 @@ Start with a baseline before chasing model names. A baseline tells you whether l
 
 ## Learning Order And Task List
 
-Use this table as both the chapter guide and the task sheet.
+Use this checklist as both the chapter guide and the task sheet. Establish the baseline and evaluation habit before expanding the model search.
 
-| Page | Follow-along action | Evidence to keep |
-|---|---|---|
-| [5.1 ML Basics](/ch05-machine-learning/ch01-ml-basics/00-roadmap/) | Identify classification, regression, clustering, anomaly detection, features, labels, train/test split, and sklearn flow | A problem-definition note |
-| [5.1.5 ML History](/ch05-machine-learning/ch01-ml-basics/04-history-breakthroughs/) | Optional background: skim how classic algorithms appeared | A short “why this algorithm exists” note |
-| [5.2 Supervised Learning](/ch05-machine-learning/ch02-supervised/00-roadmap/) | Run regression and classification examples before comparing many models | One baseline score and one improved score |
-| [5.3 Unsupervised Learning](/ch05-machine-learning/ch03-unsupervised/00-roadmap/) | Try clustering, dimensionality reduction, and anomaly detection when labels are missing | One chart or cluster interpretation |
-| [5.4 Evaluation](/ch05-machine-learning/ch04-evaluation/00-roadmap/) | Choose metrics, use cross-validation, diagnose bias/variance, tune carefully | Metric choice and error samples |
-| [5.5 Feature Engineering](/ch05-machine-learning/ch05-feature-engineering/00-roadmap/) | Handle missing values, categories, scaling, feature construction, feature selection, and Pipeline | Feature processing log and leakage check |
-| [5.6 Projects](/ch05-machine-learning/ch06-projects/00-roadmap/) and [5.6.6 Workshop](/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop/) | Build a reproducible evidence pack before larger house-price, churn, segmentation, or Kaggle work | README, model comparison, errors, and next-step plan |
+1. **[5.1 ML Basics](/ch05-machine-learning/ch01-ml-basics/00-roadmap/)**
+   Follow along: identify classification, regression, clustering, anomaly detection, features, labels, train/test split, and sklearn flow.
+   Evidence to keep: a problem-definition note.
+
+2. **[5.1.5 ML History](/ch05-machine-learning/ch01-ml-basics/04-history-breakthroughs/)**
+   Follow along: optional background; skim how classic algorithms appeared.
+   Evidence to keep: a short “why this algorithm exists” note.
+
+3. **[5.2 Supervised Learning](/ch05-machine-learning/ch02-supervised/00-roadmap/)**
+   Follow along: run regression and classification examples before comparing many models.
+   Evidence to keep: one baseline score and one improved score.
+
+4. **[5.3 Unsupervised Learning](/ch05-machine-learning/ch03-unsupervised/00-roadmap/)**
+   Follow along: try clustering, dimensionality reduction, and anomaly detection when labels are missing.
+   Evidence to keep: one chart or cluster interpretation.
+
+5. **[5.4 Evaluation](/ch05-machine-learning/ch04-evaluation/00-roadmap/)**
+   Follow along: choose metrics, use cross-validation, diagnose bias/variance, and tune carefully.
+   Evidence to keep: metric choice and error samples.
+
+6. **[5.5 Feature Engineering](/ch05-machine-learning/ch05-feature-engineering/00-roadmap/)**
+   Follow along: handle missing values, categories, scaling, feature construction, feature selection, and Pipeline.
+   Evidence to keep: feature processing log and leakage check.
+
+7. **[5.6 Projects](/ch05-machine-learning/ch06-projects/00-roadmap/) and [5.6.6 Workshop](/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop/)**
+   Follow along: build a reproducible evidence pack before larger house-price, churn, segmentation, or Kaggle work.
+   Evidence to keep: README, model comparison, errors, and next-step plan.
 
 ## Core Path, Extensions, And Depth
 

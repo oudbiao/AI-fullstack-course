@@ -27,17 +27,35 @@ Python が AI の主流であり続けるのは、この同じ流れが後でデ
 
 ## 学習順序とタスクリスト
 
-この表を、本章の学習ガイド兼タスクリストとして使います。
+このチェックリストを、本章の学習ガイド兼タスクリストとして使います。順番に進め、それぞれのステップで確認できる成果物を残します。
 
-| ページ | 手を動かすこと | 残す証拠 |
-|---|---|---|
-| [2.1.1 Python イントロダクション](/ja/ch02-python/ch01-basics/01-intro/) から [2.1.5 制御フロー](/ja/ch02-python/ch01-basics/05-control-flow/) | 変数、入出力、条件分岐、ループの小さなスクリプトを入力して変える | 期待どおりに出力する 5 つのスクリプト |
-| [2.1.6 データ構造](/ja/ch02-python/ch01-basics/06-data-structures/) | 同じタスクリストを、リスト・辞書・JSON 形のオブジェクトで保存してみる | どの構造が合うかを説明するメモ |
-| [2.1.7 関数の基礎](/ja/ch02-python/ch01-basics/07-functions/) と [2.1.8 モジュールとパッケージ](/ja/ch02-python/ch01-basics/08-modules/) | 繰り返し処理を関数とモジュールへ分ける | 入力と戻り値が明確なスクリプト |
-| [2.2.2 例外処理](/ja/ch02-python/ch02-advanced/02-exceptions/) と [2.2.3 ファイル操作](/ja/ch02-python/ch02-advanced/03-file-io/) | データを保存し、読み戻し、ファイル欠落や破損を扱う | JSON/テキストファイルとデバッグメモ 1 件 |
-| [2.2.1 オブジェクト指向](/ja/ch02-python/ch02-advanced/01-oop/)、[2.2.5 イテレータ](/ja/ch02-python/ch02-advanced/05-iterators-generators/)、[2.2.6 型ヒント](/ja/ch02-python/ch02-advanced/06-type-hints/) | まず軽く読み、プロジェクトで構造や明確さが必要になったら戻る | リファクタした関数またはクラス |
-| [2.3.1 タスク管理ツール](/ja/ch02-python/ch03-projects/01-todo-cli/) から [2.3.4 AI API 体験](/ja/ch02-python/ch03-projects/04-ai-api-experience/) | データ保存、データ収集、API 提供、AI API 呼び出しの小プロジェクトを作る | README の実行コマンド付きプロジェクトフォルダ |
-| [2.3.5 ハンズオンワークショップ](/ja/ch02-python/ch03-projects/05-hands-on-python-workshop/) | CLI コマンド、JSON 永続化、統計、レポート出力をつなげる | `ch02_output/` とターミナル出力 |
+1. **[2.1.1 Python イントロダクション](/ja/ch02-python/ch01-basics/01-intro/) から [2.1.5 制御フロー](/ja/ch02-python/ch01-basics/05-control-flow/)**
+   手を動かすこと：変数、入出力、条件分岐、ループの小さなスクリプトを入力して変える。
+   残す証拠：期待どおりに出力する 5 つのスクリプト。
+
+2. **[2.1.6 データ構造](/ja/ch02-python/ch01-basics/06-data-structures/)**
+   手を動かすこと：同じタスクリストを、リスト・辞書・JSON 形のオブジェクトで保存してみる。
+   残す証拠：どの構造が合うかを説明するメモ。
+
+3. **[2.1.7 関数の基礎](/ja/ch02-python/ch01-basics/07-functions/) と [2.1.8 モジュールとパッケージ](/ja/ch02-python/ch01-basics/08-modules/)**
+   手を動かすこと：繰り返し処理を関数とモジュールへ分ける。
+   残す証拠：入力と戻り値が明確なスクリプト。
+
+4. **[2.2.2 例外処理](/ja/ch02-python/ch02-advanced/02-exceptions/) と [2.2.3 ファイル操作](/ja/ch02-python/ch02-advanced/03-file-io/)**
+   手を動かすこと：データを保存し、読み戻し、ファイル欠落や破損を扱う。
+   残す証拠：JSON/テキストファイルとデバッグメモ 1 件。
+
+5. **[2.2.1 オブジェクト指向](/ja/ch02-python/ch02-advanced/01-oop/)、[2.2.5 イテレータ](/ja/ch02-python/ch02-advanced/05-iterators-generators/)、[2.2.6 型ヒント](/ja/ch02-python/ch02-advanced/06-type-hints/)**
+   手を動かすこと：まず軽く読み、プロジェクトで構造や明確さが必要になったら戻る。
+   残す証拠：リファクタした関数またはクラス。
+
+6. **[2.3.1 タスク管理ツール](/ja/ch02-python/ch03-projects/01-todo-cli/) から [2.3.4 AI API 体験](/ja/ch02-python/ch03-projects/04-ai-api-experience/)**
+   手を動かすこと：データ保存、データ収集、API 提供、AI API 呼び出しの小プロジェクトを作る。
+   残す証拠：README の実行コマンド付きプロジェクトフォルダ。
+
+7. **[2.3.5 ハンズオンワークショップ](/ja/ch02-python/ch03-projects/05-hands-on-python-workshop/)**
+   手を動かすこと：CLI コマンド、JSON 永続化、統計、レポート出力をつなげる。
+   残す証拠：`ch02_output/` とターミナル出力。
 
 本章でよく使う用語：
 

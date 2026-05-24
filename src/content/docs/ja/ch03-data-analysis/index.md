@@ -27,16 +27,31 @@ head:
 
 ## 学習順序とタスクリスト
 
-この表を、本章の学習ガイド兼タスクリストとして使います。
+このチェックリストを、本章の学習ガイド兼タスクリストとして使います。各ステップで、データの出所、変化、結論の根拠を説明できるようにします。
 
-| ページ | 手を動かすこと | 残す証拠 |
-|---|---|---|
-| [3.1.1 純粋な Python データ処理](/ja/ch03-data-analysis/ch01-warmup/01-pure-python-data/) | list と dict で小さな表を処理する | 純粋な Python で表処理がつらくなる理由のメモ |
-| [3.2.1 NumPy 概要](/ja/ch03-data-analysis/ch02-numpy/01-overview/) から [3.2.7 乱数と統計](/ja/ch03-data-analysis/ch02-numpy/07-random-stats/) | 配列、shape、スライス、ブロードキャスト、ベクトル化を練習する | NumPy 練習ファイル |
-| [3.3.1 Pandas の中心構造](/ja/ch03-data-analysis/ch03-pandas/01-core-structures/) から [3.3.8 時系列](/ja/ch03-data-analysis/ch03-pandas/08-time-series/) | 表を読み、欠損を処理し、groupby、merge、書き出しを行う | クリーニング済みデータとログ |
-| [3.4.1 Matplotlib](/ja/ch03-data-analysis/ch04-visualization/01-matplotlib/) から [3.4.4 可視化ベストプラクティス](/ja/ch03-data-analysis/ch04-visualization/04-best-practices/) | 明確な質問に答えるグラフを描く | 3 つのグラフと、それぞれ 1 つの結論 |
-| [3.5.1 関係データベース](/ja/ch03-data-analysis/ch05-database/01-relational-db/) から [3.5.4 データベース設計](/ja/ch03-data-analysis/ch05-database/04-db-design/) | SQL で実データを絞り込み、集計し、結合する | クエリまたは join の例 |
-| [3.6.1 EDA プロジェクト](/ja/ch03-data-analysis/ch06-projects/01-eda-project/) と [3.6.3 ハンズオンワークショップ](/ja/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop/) | 再現可能なデータパイプラインとレポートを作る | 元データ、整形済みデータ、グラフ、レポート、README |
+1. **[3.1.1 純粋な Python データ処理](/ja/ch03-data-analysis/ch01-warmup/01-pure-python-data/)**
+   手を動かすこと：list と dict で小さな表を処理する。
+   残す証拠：純粋な Python で表処理がつらくなる理由のメモ。
+
+2. **[3.2.1 NumPy 概要](/ja/ch03-data-analysis/ch02-numpy/01-overview/) から [3.2.7 乱数と統計](/ja/ch03-data-analysis/ch02-numpy/07-random-stats/)**
+   手を動かすこと：配列、shape、スライス、ブロードキャスト、ベクトル化を練習する。
+   残す証拠：NumPy 練習ファイル。
+
+3. **[3.3.1 Pandas の中心構造](/ja/ch03-data-analysis/ch03-pandas/01-core-structures/) から [3.3.8 時系列](/ja/ch03-data-analysis/ch03-pandas/08-time-series/)**
+   手を動かすこと：表を読み、欠損を処理し、groupby、merge、書き出しを行う。
+   残す証拠：クリーニング済みデータとログ。
+
+4. **[3.4.1 Matplotlib](/ja/ch03-data-analysis/ch04-visualization/01-matplotlib/) から [3.4.4 可視化ベストプラクティス](/ja/ch03-data-analysis/ch04-visualization/04-best-practices/)**
+   手を動かすこと：明確な質問に答えるグラフを描く。
+   残す証拠：3 つのグラフと、それぞれ 1 つの結論。
+
+5. **[3.5.1 関係データベース](/ja/ch03-data-analysis/ch05-database/01-relational-db/) から [3.5.4 データベース設計](/ja/ch03-data-analysis/ch05-database/04-db-design/)**
+   手を動かすこと：SQL で実データを絞り込み、集計し、結合する。
+   残す証拠：クエリまたは join の例。
+
+6. **[3.6.1 EDA プロジェクト](/ja/ch03-data-analysis/ch06-projects/01-eda-project/) と [3.6.3 ハンズオンワークショップ](/ja/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop/)**
+   手を動かすこと：再現可能なデータパイプラインとレポートを作る。
+   残す証拠：元データ、整形済みデータ、グラフ、レポート、README。
 
 本章でよく使う用語：
 

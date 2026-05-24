@@ -27,16 +27,31 @@ head:
 
 ## 学习顺序与任务表
 
-下面这一张表同时作为本章学习指南和任务清单。
+这份清单同时作为本章学习指南和任务单。每一步都要能说明数据从哪里来、怎样变、结论靠什么支撑。
 
-| 页面 | 跟着做 | 留下的证据 |
-|---|---|---|
-| [3.1.1 纯 Python 数据处理](/zh-cn/ch03-data-analysis/ch01-warmup/01-pure-python-data/) | 用列表和字典处理一张小表 | 一段说明：为什么纯 Python 处理表格会变累 |
-| [3.2.1 NumPy 概览](/zh-cn/ch03-data-analysis/ch02-numpy/01-overview/) 到 [3.2.7 随机数与统计](/zh-cn/ch03-data-analysis/ch02-numpy/07-random-stats/) | 练习数组、形状、切片、广播和向量化计算 | 一个 NumPy 练习文件 |
-| [3.3.1 Pandas 核心结构](/zh-cn/ch03-data-analysis/ch03-pandas/01-core-structures/) 到 [3.3.8 时间序列](/zh-cn/ch03-data-analysis/ch03-pandas/08-time-series/) | 读取表格、清洗缺失值、分组、合并并导出结果 | 清洗后的数据和清洗记录 |
-| [3.4.1 Matplotlib](/zh-cn/ch03-data-analysis/ch04-visualization/01-matplotlib/) 到 [3.4.4 可视化最佳实践](/zh-cn/ch03-data-analysis/ch04-visualization/04-best-practices/) | 画出能回答明确问题的图表 | 3 张图，每张配 1 条结论 |
-| [3.5.1 关系型数据库](/zh-cn/ch03-data-analysis/ch05-database/01-relational-db/) 到 [3.5.4 数据库设计](/zh-cn/ch03-data-analysis/ch05-database/04-db-design/) | 学会用 SQL 筛选、分组和连接真实应用数据 | 一个查询或 join 示例 |
-| [3.6.1 EDA 项目](/zh-cn/ch03-data-analysis/ch06-projects/01-eda-project/) 和 [3.6.3 跟做工作坊](/zh-cn/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop/) | 搭建可复现的数据流水线和报告 | 原始数据、清洗数据、图表、报告和 README |
+1. **[3.1.1 纯 Python 数据处理](/zh-cn/ch03-data-analysis/ch01-warmup/01-pure-python-data/)**
+   跟着做：用列表和字典处理一张小表。
+   留下证据：一段说明，解释为什么纯 Python 处理表格会变累。
+
+2. **[3.2.1 NumPy 概览](/zh-cn/ch03-data-analysis/ch02-numpy/01-overview/) 到 [3.2.7 随机数与统计](/zh-cn/ch03-data-analysis/ch02-numpy/07-random-stats/)**
+   跟着做：练习数组、形状、切片、广播和向量化计算。
+   留下证据：一个 NumPy 练习文件。
+
+3. **[3.3.1 Pandas 核心结构](/zh-cn/ch03-data-analysis/ch03-pandas/01-core-structures/) 到 [3.3.8 时间序列](/zh-cn/ch03-data-analysis/ch03-pandas/08-time-series/)**
+   跟着做：读取表格、清洗缺失值、分组、合并并导出结果。
+   留下证据：清洗后的数据和清洗记录。
+
+4. **[3.4.1 Matplotlib](/zh-cn/ch03-data-analysis/ch04-visualization/01-matplotlib/) 到 [3.4.4 可视化最佳实践](/zh-cn/ch03-data-analysis/ch04-visualization/04-best-practices/)**
+   跟着做：画出能回答明确问题的图表。
+   留下证据：3 张图，每张配 1 条结论。
+
+5. **[3.5.1 关系型数据库](/zh-cn/ch03-data-analysis/ch05-database/01-relational-db/) 到 [3.5.4 数据库设计](/zh-cn/ch03-data-analysis/ch05-database/04-db-design/)**
+   跟着做：学会用 SQL 筛选、分组和连接真实应用数据。
+   留下证据：一个查询或 join 示例。
+
+6. **[3.6.1 EDA 项目](/zh-cn/ch03-data-analysis/ch06-projects/01-eda-project/) 和 [3.6.3 跟做工作坊](/zh-cn/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop/)**
+   跟着做：搭建可复现的数据流水线和报告。
+   留下证据：原始数据、清洗数据、图表、报告和 README。
 
 本章常见术语：
 

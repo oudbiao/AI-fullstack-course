@@ -33,18 +33,39 @@ Do not start by chasing large models. First make a small model train, log what h
 
 ## Learning Order And Task List
 
-Use this table as both the chapter guide and the task sheet. Follow the core path first: **6.1 -> 6.2 -> 6.5 -> 6.8**. Treat CNN, RNN, generative models, and training tips as extensions you return to when a project needs them.
+Use this checklist as both the chapter guide and the task sheet. Follow the core path first: **6.1 -> 6.2 -> 6.5 -> 6.8**. Treat CNN, RNN, generative models, and training tips as extensions you return to when a project needs them.
 
-| Page | Follow-along action | Evidence to keep |
-|---|---|---|
-| [6.1 Neural Network Basics](/ch06-deep-learning/ch01-nn-basics/00-roadmap/) | Understand neurons, activations, forward/backward pass, optimizers, regularization, and initialization | One hand-written training-loop explanation |
-| [6.2 PyTorch](/ch06-deep-learning/ch02-pytorch/00-roadmap/) | Practice tensors, autograd, `nn.Module`, Dataset, DataLoader, and a minimal training loop | One runnable PyTorch script |
-| [6.5 Transformer](/ch06-deep-learning/ch05-transformer/00-roadmap/) | Learn Query, Key, Value, self-attention, positional encoding, and Transformer blocks | One attention input/output diagram |
-| [6.8 Projects](/ch06-deep-learning/ch08-projects/00-roadmap/) and [6.8.5 Workshop](/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop/) | Build a PyTorch evidence pack before larger image, sentiment, or generative projects | Logs, curves, checkpoint, shape trace, README |
-| [6.3 CNN](/ch06-deep-learning/ch03-cnn/00-roadmap/) | Use image classification to connect data shape, convolution, pooling, and transfer learning | Shape notes and one image-classification run |
-| [6.4 RNN](/ch06-deep-learning/ch04-rnn/00-roadmap/) | Learn why sequence data needs memory and how LSTM/GRU helped before Transformer | One sequence-model note |
-| [6.1.8 Optional DL History](/ch06-deep-learning/ch01-nn-basics/06-history-breakthroughs/) | Skim why backprop, CNN, RNN, Attention, and Transformer appeared after you know the main loop | A short “why this architecture exists” note |
-| [6.6 Generative Models](/ch06-deep-learning/ch06-generative/00-roadmap/) and [6.7 Training Tips](/ch06-deep-learning/ch07-training-tips/00-roadmap/) | Treat as extensions after the training loop is stable | One tuning or diagnosis note |
+1. **[6.1 Neural Network Basics](/ch06-deep-learning/ch01-nn-basics/00-roadmap/)**
+   Follow along: understand neurons, activations, forward/backward pass, optimizers, regularization, and initialization.
+   Evidence to keep: one hand-written training-loop explanation.
+
+2. **[6.2 PyTorch](/ch06-deep-learning/ch02-pytorch/00-roadmap/)**
+   Follow along: practice tensors, autograd, `nn.Module`, Dataset, DataLoader, and a minimal training loop.
+   Evidence to keep: one runnable PyTorch script.
+
+3. **[6.5 Transformer](/ch06-deep-learning/ch05-transformer/00-roadmap/)**
+   Follow along: learn Query, Key, Value, self-attention, positional encoding, and Transformer blocks.
+   Evidence to keep: one attention input/output diagram.
+
+4. **[6.8 Projects](/ch06-deep-learning/ch08-projects/00-roadmap/) and [6.8.5 Workshop](/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop/)**
+   Follow along: build a PyTorch evidence pack before larger image, sentiment, or generative projects.
+   Evidence to keep: logs, curves, checkpoint, shape trace, and README.
+
+5. **[6.3 CNN](/ch06-deep-learning/ch03-cnn/00-roadmap/)**
+   Follow along: use image classification to connect data shape, convolution, pooling, and transfer learning.
+   Evidence to keep: shape notes and one image-classification run.
+
+6. **[6.4 RNN](/ch06-deep-learning/ch04-rnn/00-roadmap/)**
+   Follow along: learn why sequence data needs memory and how LSTM/GRU helped before Transformer.
+   Evidence to keep: one sequence-model note.
+
+7. **[6.1.8 Optional DL History](/ch06-deep-learning/ch01-nn-basics/06-history-breakthroughs/)**
+   Follow along: skim why backprop, CNN, RNN, Attention, and Transformer appeared after you know the main loop.
+   Evidence to keep: a short “why this architecture exists” note.
+
+8. **[6.6 Generative Models](/ch06-deep-learning/ch06-generative/00-roadmap/) and [6.7 Training Tips](/ch06-deep-learning/ch07-training-tips/00-roadmap/)**
+   Follow along: treat as extensions after the training loop is stable.
+   Evidence to keep: one tuning or diagnosis note.
 
 ## Core Path, Extensions, And Depth
 
