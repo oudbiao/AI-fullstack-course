@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "open-source LLM model selection, runtime decision, Ollama, llama.cpp, vLLM, SGLang, quantization"
 ---
-![オープンソース LLM runtime loop](/img/course/ch13-open-source-llm-runtime-loop-ja.webp)
+![OSS LLM runtime decision map](/img/course/ch13-open-source-llm-runtime-decision-ja.webp)
 
 よいオープンソース LLM プロジェクトは、最初の download より前に始まります。このレッスンでは、model selection を書面の decision に変え、hardware、license、latency target、product boundary に合わない model へ時間を使いすぎないようにします。
 

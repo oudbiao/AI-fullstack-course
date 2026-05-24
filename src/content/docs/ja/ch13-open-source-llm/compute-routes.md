@@ -21,11 +21,73 @@ head:
 
 ## ルート比較
 
-| ルート | 使う場面 | 最初の目標 | 向かないこと | 残す証拠 |
-|---|---|---|---|---|
-| ローカル CPU | 自分のマシンで安全に最初の実行をしたい | `sshleifer/tiny-gpt2`、量子化小モデル、評価 script、local API skeleton | 7B 品質、高スループット、長い context serving の証明 | `environment_report.txt`、`first_run.md`、`eval_results.csv` |
-| 無料 Colab | 一時的な notebook と、使える場合の GPU がほしい | 小型 instruct model、tokenizer check、短い評価、小型 LoRA dry run | private data、長時間 job、公開 service、GPU 保証つき計画 | notebook copy、runtime type、`nvidia-smi` または CPU note、保存 output |
-| レンタル GPU | 予測できる VRAM、SSH、serving、7B 級 test が必要 | vLLM/SGLang server、固定 eval set、latency と memory check | budget なしの開始、public port 露出、eval 前の training | `gpu_plan.md`、`environment_report.txt`、request/response log、shutdown proof |
+<div class="course-route-list">
+  <section class="course-route-card">
+    <h3>ローカル CPU</h3>
+    <dl>
+      <div>
+        <dt>使う場面</dt>
+        <dd>自分のマシンで安全に最初の実行をしたい。</dd>
+      </div>
+      <div>
+        <dt>最初の目標</dt>
+        <dd><code>sshleifer/tiny-gpt2</code>、量子化小モデル、評価 script、local API skeleton。</dd>
+      </div>
+      <div>
+        <dt>向かないこと</dt>
+        <dd>7B 品質、高スループット、長い context serving の証明。</dd>
+      </div>
+      <div>
+        <dt>残す証拠</dt>
+        <dd><code>environment_report.txt</code>、<code>first_run.md</code>、<code>eval_results.csv</code>。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>無料 Colab</h3>
+    <dl>
+      <div>
+        <dt>使う場面</dt>
+        <dd>一時的な notebook と、使える場合の GPU がほしい。</dd>
+      </div>
+      <div>
+        <dt>最初の目標</dt>
+        <dd>小型 instruct model、tokenizer check、短い評価、小型 LoRA dry run。</dd>
+      </div>
+      <div>
+        <dt>向かないこと</dt>
+        <dd>private data、長時間 job、公開 service、GPU 保証つき計画。</dd>
+      </div>
+      <div>
+        <dt>残す証拠</dt>
+        <dd>notebook copy、runtime type、<code>nvidia-smi</code> または CPU note、保存 output。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>レンタル GPU</h3>
+    <dl>
+      <div>
+        <dt>使う場面</dt>
+        <dd>予測できる VRAM、SSH、serving、7B 級 test が必要。</dd>
+      </div>
+      <div>
+        <dt>最初の目標</dt>
+        <dd>vLLM/SGLang server、固定 eval set、latency と memory check。</dd>
+      </div>
+      <div>
+        <dt>向かないこと</dt>
+        <dd>budget なしの開始、public port 露出、eval 前の training。</dd>
+      </div>
+      <div>
+        <dt>残す証拠</dt>
+        <dd><code>gpu_plan.md</code>、<code>environment_report.txt</code>、request/response log、shutdown proof。</dd>
+      </div>
+    </dl>
+  </section>
+</div>
 
 Colab は良い学習ルートですが、利用できるときに使うリソースとして扱います。Google [Colab FAQ](https://research.google.com/colaboratory/intl/en-GB/faq.html) では、無料 compute resources には GPU/TPU が含まれる場合がある一方で、リソースは保証も無制限もされず、利用制限は変動し得ると説明されています。無料 GPU が使えない場合でも CPU で実験ループを通せる計画にしてください。
 

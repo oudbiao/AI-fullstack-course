@@ -11,7 +11,7 @@ head:
 ---
 这页当成可打印检查表使用。需要完整讲解时，回到 [第 13 章入口页](/zh-cn/ch13-open-source-llm/)。
 
-![开源大模型部署证据包](/img/course/ch13-open-source-llm-evidence-pack.webp)
+![第13章学习检查表](/img/course/ch13-open-source-llm-study-checklist.webp)
 
 如果你还没有亲手运行，请先完成 [13.1 计算路线：本地 CPU、免费 Colab、租 GPU](/zh-cn/ch13-open-source-llm/compute-routes/)，再完成 [13.2 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)。然后用 [13.3 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 和 [13.4 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 补齐部署证据。
 

@@ -11,7 +11,7 @@ head:
 ---
 このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 13 章入口ページ](/ja/ch13-open-source-llm/) に戻ってください。
 
-![オープンソース LLM デプロイ証拠パック](/img/course/ch13-open-source-llm-evidence-pack-ja.webp)
+![第13章 OSS LLM 学習チェックリスト](/img/course/ch13-open-source-llm-study-checklist-ja.webp)
 
 まだ手を動かしていない場合は、まず [13.1 計算ルート：ローカル CPU、無料 Colab、レンタル GPU](/ja/ch13-open-source-llm/compute-routes/) を完了し、その後 [13.2 実践：オープンソース LLM を動かしてサービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) に進みます。続いて [13.3 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/) と [13.4 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/) で deployment evidence を完成させます。
 

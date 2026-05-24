@@ -10951,6 +10951,30 @@ CH13_RUNTIME_LABELS = {
     ],
 }
 
+CH13_DECISION_LABELS = {
+    "en": [
+        ("Task", "chat, JSON, tools"),
+        ("License", "read model card"),
+        ("Hardware", "CPU, Colab, GPU"),
+        ("Runtime", "debug, local, serve"),
+        ("Fallback", "smaller or cloud"),
+    ],
+    "zh": [
+        ("任务", "聊天、JSON、工具"),
+        ("许可证", "先看 model card"),
+        ("硬件", "CPU、Colab、GPU"),
+        ("运行时", "调试、本地、服务化"),
+        ("兜底", "更小模型或云 API"),
+    ],
+    "ja": [
+        ("タスク", "chat、JSON、tools"),
+        ("ライセンス", "model card を読む"),
+        ("ハード", "CPU、Colab、GPU"),
+        ("Runtime", "debug、local、serve"),
+        ("Fallback", "小モデル or cloud"),
+    ],
+}
+
 CH13_EVIDENCE_LABELS = {
     "en": [
         ("Environment", "device ready"),
@@ -10969,6 +10993,30 @@ CH13_EVIDENCE_LABELS = {
         ("選定理由", "why this model"),
         ("実行記録", "prompt + output"),
         ("公開メモ", "rerun + stop"),
+    ],
+}
+
+CH13_STUDY_GUIDE_LABELS = {
+    "en": [
+        ("Route", "compute_route.md"),
+        ("Run", "first_run.md"),
+        ("Decide", "model decision"),
+        ("Evaluate", "five cases"),
+        ("Release", "README + stop"),
+    ],
+    "zh": [
+        ("路线", "compute_route.md"),
+        ("运行", "first_run.md"),
+        ("决策", "模型选择记录"),
+        ("评估", "五条固定样本"),
+        ("发布", "README + 停止"),
+    ],
+    "ja": [
+        ("ルート", "compute_route.md"),
+        ("実行", "first_run.md"),
+        ("判断", "model decision"),
+        ("評価", "固定5ケース"),
+        ("公開", "README + stop"),
     ],
 }
 
@@ -11008,11 +11056,23 @@ Show a learner following a four-step open-source LLM deployment loop on a vertic
 Keep the board spacious and hand-drawn. The model card, license folder, laptop, API cable, prompt card, failure note, README binder, and rollback handle must be visual objects, not text containers. Background terminals and papers may be visible, but their text must be blank or generic OK marks. Do not show real runtime logos, animal mascots, provider logos, or brand-style icons.
 """.strip()
 
+CH13_DECISION_SCENE = """
+Show a vertical classroom whiteboard for model and runtime selection, not a deployment loop.
+The learner should see a decision ladder: task fit, license fit, hardware fit, runtime fit, and fallback. Draw one model card moving through five large checkpoints, then branching to three runtime stations: Transformers for debugging, llama.cpp/Ollama-style local running, and vLLM/SGLang-style serving. Use generic runtime desks without real logos. Add a small fallback arrow to a smaller model or cloud API if the route fails.
+Keep the layout spacious and hand-drawn, like a teacher's whiteboard. Do not show dense comparison tables, tiny model-name lists, real provider logos, benchmark numbers, prices, GPU model names, screenshots, or pasted UI cards.
+""".strip()
+
 CH13_EVIDENCE_SCENE = """
 Show a simple evidence-audit desk for open-source LLM deployment with only four large artifact trays.
 Each tray contains mostly blank papers or folders plus one big icon: device, decision stamp, run/play mark, stop/rollback mark.
 Use checkmarks, locks, clocks, stop icons, and arrows as symbols only. Do not write reviewer checklists, workflow notes, sticky-note slogans, file contents, command outputs, endpoint lists, timestamps, versions, capacities, or benchmark values.
 The image should feel like a clean classroom visual: four big evidence blocks, plenty of blank space, no dense paperwork.
+""".strip()
+
+CH13_STUDY_GUIDE_SCENE = """
+Show a vertical printable study checklist for Chapter 13 as a hand-drawn whiteboard worksheet.
+The learner should see the chapter's proof path as five large checkboxes connected by a simple line: choose route, run first model, write decision, evaluate five cases, release with stop plan. Include a small clock and folder shelf to imply a two-hour first pass and evidence collection.
+This should be a checklist map, not the same evidence-pack tray image and not a runtime loop. Keep text large, sparse, and localized. Do not show dense tables, tiny checklists, screenshots, real logos, invented metrics, costs, dates, or model versions.
 """.strip()
 
 CH13_COMPUTE_ROUTE_SCENE = """
@@ -11157,6 +11217,51 @@ for locale, suffix, language in [("zh", "", "Simplified Chinese"), ("en", "-en",
         generated_only=True,
     )
 
+    decision_title = {
+        "zh": "开源大模型运行时决策",
+        "en": "Open-Source LLM Runtime Decision",
+        "ja": "OSS LLM Runtime Decision",
+    }[locale]
+    decision_subtitle = {
+        "zh": "先看任务、许可证和硬件，再选运行时。",
+        "en": "Choose runtime after task, license, and hardware.",
+        "ja": "task、license、hardware の後で runtime を選ぶ。",
+    }[locale]
+    decision_footer = {
+        "zh": "模型变大前，先写清楚为什么和怎么退回。",
+        "en": "Before going bigger, write why and how to fall back.",
+        "ja": "大きくする前に、理由と fallback を書く。",
+    }[locale]
+    decision_alt = {
+        "zh": "开源大模型运行时决策图：从任务、许可证、硬件、运行时和兜底路径判断模型与运行方案。",
+        "en": "Open-source LLM runtime decision map: choose the model and runtime through task fit, license fit, hardware fit, runtime fit, and fallback.",
+        "ja": "OSS LLM runtime decision map：task fit、license fit、hardware fit、runtime fit、fallback で model と runtime を選ぶ。",
+    }[locale]
+    decision_page = {
+        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/model-runtime-decision.md",
+        "en": "src/content/docs/ch13-open-source-llm/model-runtime-decision.md",
+        "ja": "src/content/docs/ja/ch13-open-source-llm/model-runtime-decision.md",
+    }[locale]
+    register_remake_job(
+        filename=f"ch13-open-source-llm-runtime-decision{suffix}.png",
+        title=decision_title,
+        suggested_page=decision_page,
+        alt=decision_alt,
+        scene=CH13_DECISION_SCENE,
+        subtitle=decision_subtitle,
+        items=remake_items(*CH13_DECISION_LABELS[locale]),
+        footer=decision_footer,
+        prompt=ch13_generated_prompt(
+            language=language,
+            title=decision_title,
+            subtitle=decision_subtitle,
+            labels=CH13_DECISION_LABELS[locale],
+            footer=decision_footer,
+            scene=CH13_DECISION_SCENE,
+        ),
+        generated_only=True,
+    )
+
     evidence_title = {
         "zh": "开源大模型部署证据包",
         "en": "Open-Source LLM Evidence Pack",
@@ -11178,9 +11283,9 @@ for locale, suffix, language in [("zh", "", "Simplified Chinese"), ("en", "-en",
         "ja": "オープンソース LLM evidence pack：environment report、model decision、runbook、first run、evaluation cases、README、rollback。",
     }[locale]
     evidence_page = {
-        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/study-guide.md",
-        "en": "src/content/docs/ch13-open-source-llm/study-guide.md",
-        "ja": "src/content/docs/ja/ch13-open-source-llm/study-guide.md",
+        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/serving-evaluation-runbook.md",
+        "en": "src/content/docs/ch13-open-source-llm/serving-evaluation-runbook.md",
+        "ja": "src/content/docs/ja/ch13-open-source-llm/serving-evaluation-runbook.md",
     }[locale]
     register_remake_job(
         filename=f"ch13-open-source-llm-evidence-pack{suffix}.png",
@@ -11198,6 +11303,51 @@ for locale, suffix, language in [("zh", "", "Simplified Chinese"), ("en", "-en",
             labels=CH13_EVIDENCE_LABELS[locale],
             footer=evidence_footer,
             scene=CH13_EVIDENCE_SCENE,
+        ),
+        generated_only=True,
+    )
+
+    study_title = {
+        "zh": "第13章学习检查表",
+        "en": "Chapter 13 Study Checklist",
+        "ja": "第13章 学習チェックリスト",
+    }[locale]
+    study_subtitle = {
+        "zh": "按路线、运行、决策、评估、发布留下证据。",
+        "en": "Keep evidence for route, run, decision, eval, and release.",
+        "ja": "route、run、decision、eval、release の証拠を残す。",
+    }[locale]
+    study_footer = {
+        "zh": "检查表不是总结页；它是离章前的验收单。",
+        "en": "This checklist is the exit gate, not a summary poster.",
+        "ja": "checklist はまとめではなく、章を出る gate。",
+    }[locale]
+    study_alt = {
+        "zh": "第13章学习检查表：选择计算路线、完成首次运行、写模型决策、跑五条评估样本，并用 README 和停止步骤完成发布证据。",
+        "en": "Chapter 13 study checklist: choose a compute route, complete the first run, write the model decision, run five evaluation cases, and finish release evidence with README and stop steps.",
+        "ja": "第13章学習チェックリスト：計算ルートを選び、初回実行を終え、model decision を書き、5つの evaluation cases を走らせ、README と stop step で release evidence を完成させる。",
+    }[locale]
+    study_page = {
+        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/study-guide.md",
+        "en": "src/content/docs/ch13-open-source-llm/study-guide.md",
+        "ja": "src/content/docs/ja/ch13-open-source-llm/study-guide.md",
+    }[locale]
+    register_remake_job(
+        filename=f"ch13-open-source-llm-study-checklist{suffix}.png",
+        title=study_title,
+        suggested_page=study_page,
+        alt=study_alt,
+        scene=CH13_STUDY_GUIDE_SCENE,
+        subtitle=study_subtitle,
+        items=remake_items(*CH13_STUDY_GUIDE_LABELS[locale]),
+        footer=study_footer,
+        prompt=ch13_generated_prompt(
+            language=language,
+            title=study_title,
+            subtitle=study_subtitle,
+            labels=CH13_STUDY_GUIDE_LABELS[locale],
+            footer=study_footer,
+            scene=CH13_STUDY_GUIDE_SCENE,
         ),
         generated_only=True,
     )

@@ -20,6 +20,7 @@ This index tracks course-image QA reports that are useful for future maintenance
 | [ch13 final image QA](ch13-open-source-llm-final/qa-report.md) | Chapter 13 open-source LLM image set | Accepted and promoted |
 | [ch13 route refine](ch13-overview-route-refine/qa-report.md) | Chapter 13 overview route refinement | Accepted and promoted |
 | [ch13 compute routes refine](ch13-compute-routes-refine/qa-report.md) | Chapter 13 local CPU, free Colab, rented GPU route image | Accepted and promoted |
+| [ch13 image dedup final](ch13-image-dedup-final/qa-report.md) | Chapter 13 runtime-decision and study-checklist image deduplication | Accepted and promoted |
 
 ## Maintenance checklist
 

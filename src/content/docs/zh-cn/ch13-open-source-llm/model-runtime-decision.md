@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "开源大模型选型, 运行时决策, Ollama, llama.cpp, vLLM, SGLang, 量化"
 ---
-![开源大模型运行时闭环](/img/course/ch13-open-source-llm-runtime-loop.webp)
+![开源大模型运行时决策图](/img/course/ch13-open-source-llm-runtime-decision.webp)
 
 一个好的开源大模型项目，在第一次下载模型前就已经开始了。本节把模型选择变成书面决策，避免你把时间浪费在硬件、许可证、延迟目标或产品边界都撑不住的模型上。
 

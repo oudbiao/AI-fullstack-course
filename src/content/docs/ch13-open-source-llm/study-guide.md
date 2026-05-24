@@ -11,7 +11,7 @@ head:
 ---
 Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 13 entry page](/ch13-open-source-llm/).
 
-![Open-source LLM deployment evidence pack](/img/course/ch13-open-source-llm-evidence-pack-en.webp)
+![Chapter 13 open-source LLM study checklist](/img/course/ch13-open-source-llm-study-checklist-en.webp)
 
 If you have not run the lab yet, first complete [13.1 Compute Routes: Local CPU, Free Colab, Rented GPU](/ch13-open-source-llm/compute-routes/), then [13.2 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/). Use [13.3 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/) and [13.4 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/) to finish the deployment evidence.
 

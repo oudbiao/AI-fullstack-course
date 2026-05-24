@@ -21,11 +21,73 @@ This page gives you three routes:
 
 ## Route Comparison
 
-| Route | Use when | Good first target | Do not use it for | Evidence to keep |
-|---|---|---|---|---|
-| Local CPU | You want the safest first run on your own machine | `sshleifer/tiny-gpt2`, quantized small model, evaluation script, local API skeleton | proving 7B quality, high throughput, long context serving | `environment_report.txt`, `first_run.md`, `eval_results.csv` |
-| Free Colab | You need a temporary notebook and a GPU may be available | small instruct model, tokenizer checks, short evaluation, tiny LoRA dry run | private data, long jobs, public services, guaranteed GPU planning | notebook copy, runtime type, `nvidia-smi` or CPU note, saved outputs |
-| Rented GPU | You need predictable VRAM, SSH, serving, or a 7B-class test | vLLM/SGLang server, fixed eval set, latency and memory check | starting without budget, exposing a public port, training before eval | `gpu_plan.md`, `environment_report.txt`, request/response log, shutdown proof |
+<div class="course-route-list">
+  <section class="course-route-card">
+    <h3>Local CPU</h3>
+    <dl>
+      <div>
+        <dt>Use When</dt>
+        <dd>You want the safest first run on your own machine.</dd>
+      </div>
+      <div>
+        <dt>First Target</dt>
+        <dd><code>sshleifer/tiny-gpt2</code>, quantized small model, evaluation script, local API skeleton.</dd>
+      </div>
+      <div>
+        <dt>Not For</dt>
+        <dd>Proving 7B quality, high throughput, or long-context serving.</dd>
+      </div>
+      <div>
+        <dt>Evidence</dt>
+        <dd><code>environment_report.txt</code>, <code>first_run.md</code>, <code>eval_results.csv</code>.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>Free Colab</h3>
+    <dl>
+      <div>
+        <dt>Use When</dt>
+        <dd>You need a temporary notebook and a GPU may be available.</dd>
+      </div>
+      <div>
+        <dt>First Target</dt>
+        <dd>Small instruct model, tokenizer checks, short evaluation, tiny LoRA dry run.</dd>
+      </div>
+      <div>
+        <dt>Not For</dt>
+        <dd>Private data, long jobs, public services, or guaranteed-GPU planning.</dd>
+      </div>
+      <div>
+        <dt>Evidence</dt>
+        <dd>Notebook copy, runtime type, <code>nvidia-smi</code> or CPU note, saved outputs.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>Rented GPU</h3>
+    <dl>
+      <div>
+        <dt>Use When</dt>
+        <dd>You need predictable VRAM, SSH, serving, or a 7B-class test.</dd>
+      </div>
+      <div>
+        <dt>First Target</dt>
+        <dd>vLLM/SGLang server, fixed eval set, latency and memory check.</dd>
+      </div>
+      <div>
+        <dt>Not For</dt>
+        <dd>Starting without budget, exposing a public port, or training before eval.</dd>
+      </div>
+      <div>
+        <dt>Evidence</dt>
+        <dd><code>gpu_plan.md</code>, <code>environment_report.txt</code>, request/response log, shutdown proof.</dd>
+      </div>
+    </dl>
+  </section>
+</div>
 
 Colab is a good learning route, but treat it as opportunistic. Google's [Colab FAQ](https://research.google.com/colaboratory/intl/en-GB/faq.html) says free compute resources can include GPUs and TPUs, but resources are not guaranteed or unlimited and usage limits can fluctuate. Write your plan so the lab still works on CPU if the free GPU is unavailable.
 

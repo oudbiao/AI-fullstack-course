@@ -21,11 +21,73 @@ head:
 
 ## 路线对比
 
-| 路线 | 适合什么时候 | 第一个目标 | 不适合做什么 | 要留下的证据 |
-|---|---|---|---|---|
-| 本地 CPU | 想在自己的机器上安全跑通第一轮 | `sshleifer/tiny-gpt2`、量化小模型、评估脚本、本地 API 骨架 | 证明 7B 质量、高吞吐、长上下文服务 | `environment_report.txt`、`first_run.md`、`eval_results.csv` |
-| 免费 Colab | 需要临时 Notebook，且可能拿到 GPU | 小型 instruct 模型、tokenizer 检查、短评估、小型 LoRA 预演 | 私密数据、长任务、公开服务、保证 GPU 的计划 | notebook 副本、runtime 类型、`nvidia-smi` 或 CPU 记录、保存输出 |
-| 租 GPU | 需要稳定显存、SSH、服务化或 7B 级测试 | vLLM/SGLang 服务、固定评估集、延迟和显存检查 | 没预算就开始、公开暴露端口、评估前先训练 | `gpu_plan.md`、`environment_report.txt`、请求/响应日志、关机证明 |
+<div class="course-route-list">
+  <section class="course-route-card">
+    <h3>本地 CPU</h3>
+    <dl>
+      <div>
+        <dt>适合</dt>
+        <dd>想在自己的机器上安全跑通第一轮。</dd>
+      </div>
+      <div>
+        <dt>第一目标</dt>
+        <dd><code>sshleifer/tiny-gpt2</code>、量化小模型、评估脚本、本地 API 骨架。</dd>
+      </div>
+      <div>
+        <dt>不适合</dt>
+        <dd>证明 7B 质量、高吞吐、长上下文服务。</dd>
+      </div>
+      <div>
+        <dt>留下证据</dt>
+        <dd><code>environment_report.txt</code>、<code>first_run.md</code>、<code>eval_results.csv</code>。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>免费 Colab</h3>
+    <dl>
+      <div>
+        <dt>适合</dt>
+        <dd>需要临时 Notebook，且可能拿到 GPU。</dd>
+      </div>
+      <div>
+        <dt>第一目标</dt>
+        <dd>小型 instruct 模型、tokenizer 检查、短评估、小型 LoRA 预演。</dd>
+      </div>
+      <div>
+        <dt>不适合</dt>
+        <dd>私密数据、长任务、公开服务、保证 GPU 的计划。</dd>
+      </div>
+      <div>
+        <dt>留下证据</dt>
+        <dd>Notebook 副本、runtime 类型、<code>nvidia-smi</code> 或 CPU 记录、保存输出。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>租 GPU</h3>
+    <dl>
+      <div>
+        <dt>适合</dt>
+        <dd>需要稳定显存、SSH、服务化或 7B 级测试。</dd>
+      </div>
+      <div>
+        <dt>第一目标</dt>
+        <dd>vLLM/SGLang 服务、固定评估集、延迟和显存检查。</dd>
+      </div>
+      <div>
+        <dt>不适合</dt>
+        <dd>没预算就开始、公开暴露端口、评估前先训练。</dd>
+      </div>
+      <div>
+        <dt>留下证据</dt>
+        <dd><code>gpu_plan.md</code>、<code>environment_report.txt</code>、请求/响应日志、关机证明。</dd>
+      </div>
+    </dl>
+  </section>
+</div>
 
 Colab 是很好的学习路线，但要把它当成“有机会就用”的资源。Google [Colab FAQ](https://research.google.com/colaboratory/intl/en-GB/faq.html) 说明：Colab 可以免费提供包含 GPU/TPU 在内的计算资源，但资源不保证、不是无限的，使用限制也会波动。你的计划应该保证即使拿不到免费 GPU，也能先在 CPU 上跑通实验闭环。
 
