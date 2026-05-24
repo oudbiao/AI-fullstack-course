@@ -15,7 +15,7 @@ head:
 
 [Datawhale Self-LLM](https://github.com/datawhalechina/self-llm) は広いモデルと事例のリファレンスとして使えます。この章では、それを学習コースとして進めるために、選択肢を絞り、手順と合格基準を明確にします。
 
-すぐにコマンドを動かしたい場合は、[13.1 実践：オープンソース LLM を動かしてサービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) から始めてください。このページはルートを説明し、13.1 はコマンド、コード、出力、失敗時の対応を扱います。
+すぐにコマンドを動かしたい場合は、[13.1 実践：オープンソース LLM を動かしてサービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) から始めてください。その後、[13.2 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/) で model/runtime pair を選び、[13.3 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/) で demo を再現可能な release path に変えます。
 
 ## この章の位置づけ
 
@@ -53,10 +53,11 @@ head:
 1. 1つのモデルと1つのランタイムを選び、model/runtime decision を残します。
 2. 環境を確認し、Python、PyTorch、CUDA または CPU 状態を保存します。
 3. ローカル推論を1回動かし、prompt、output、command、model version を残します。
-4. API または script として包み、再実行できる request/response を残します。
-5. 小さな評価セットを動かし、5つ以上の prompt と pass/fail notes を残します。
-6. 微調整が必要か判断し、no tuning、LoRA、full training の理由を書きます。
-7. runbook をまとめ、README、commands、cost、limits、shutdown を残します。
+4. [13.2 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/) で runtime を比較し、この model/runtime pair で十分な理由を書きます。
+5. API または script として包み、再実行できる request/response を残します。
+6. 小さな評価セットを動かし、5つ以上の prompt と pass/fail notes を残します。
+7. [13.3 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/) で release path をまとめ、README、commands、cost、limits、shutdown を残します。
+8. 微調整が必要か判断し、no tuning、LoRA、full training の理由を書きます。
 
 この段階の成果物は、実行できる runbook、環境レポート、5ケース評価表、model/runtime decision memo、shutdown または rollback を含む README です。
 

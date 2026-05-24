@@ -13,7 +13,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![Open-source LLM deployment evidence pack](/img/course/ch13-open-source-llm-evidence-pack-en.webp)
 
-If you have not run the lab yet, complete [13.1 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/) before using this checklist.
+If you have not run the lab yet, complete [13.1 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/) before using this checklist. Then use [13.2 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/) and [13.3 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/) to finish the deployment evidence.
 
 ## Two-Hour First Pass
 
@@ -31,6 +31,9 @@ If you have not run the lab yet, complete [13.1 Hands-on: Run and Serve an Open-
 
 5. **30 min: Write the adaptation decision**
    Stop when you can say, "I can explain why I chose Prompt, RAG, quantization, LoRA, or no tuning."
+
+6. **30 min: Write the release runbook**
+   Stop when you can say, "Another engineer can start, test, stop, and roll back this service."
 
 ## Required Evidence
 

@@ -15,7 +15,7 @@ Chapter 13 turns open-source model use into an engineering workflow. The goal is
 
 Use [Datawhale Self-LLM](https://github.com/datawhalechina/self-llm) as a broad reference library. This chapter provides the course path around it: smaller choices, fewer moving parts, and explicit pass checks.
 
-If you want to follow commands immediately, start with [13.1 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/). This page explains the route; 13.1 provides commands, code, outputs, and failure handling.
+If you want to follow commands immediately, start with [13.1 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/). Then use [13.2 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/) to choose a model/runtime pair, and [13.3 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/) to turn the demo into a repeatable release path.
 
 ## Where This Fits
 
@@ -53,10 +53,11 @@ Open-source LLM work is mostly systems work. You must control hardware, drivers,
 1. Pick one model and one runtime; stop when you have a written model/runtime decision.
 2. Verify the environment; stop when Python, PyTorch, CUDA or CPU status is saved.
 3. Run one local inference; stop when you have prompt, output, command, and model version.
-4. Wrap it as an API or script; stop when you have one repeatable request/response.
-5. Run a tiny evaluation set; stop when you have at least five prompts and pass/fail notes.
-6. Decide whether to fine-tune; stop when you can justify no tuning, LoRA, or full training.
-7. Package the runbook; stop when README, commands, cost, limits, and shutdown are written.
+4. Compare runtime choices in [13.2 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/); stop when you know why this model/runtime pair is enough.
+5. Wrap it as an API or script; stop when you have one repeatable request/response.
+6. Run a tiny evaluation set; stop when you have at least five prompts and pass/fail notes.
+7. Turn the result into [13.3 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/); stop when README, commands, cost, limits, and shutdown are written.
+8. Decide whether to fine-tune; stop when you can justify no tuning, LoRA, or full training.
 
 The stage deliverables are a runnable runbook, environment report, five-case evaluation table, model/runtime decision memo, and README with shutdown or rollback notes.
 

@@ -13,7 +13,7 @@ head:
 
 ![オープンソース LLM デプロイ証拠パック](/img/course/ch13-open-source-llm-evidence-pack-ja.webp)
 
-まだ手を動かしていない場合は、この checklist の前に [13.1 実践：オープンソース LLM を動かしてサービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) を完了してください。
+まだ手を動かしていない場合は、この checklist の前に [13.1 実践：オープンソース LLM を動かしてサービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) を完了してください。その後、[13.2 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/) と [13.3 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/) で deployment evidence を完成させます。
 
 ## 2時間の初回通読
 
@@ -31,6 +31,9 @@ head:
 
 5. **30 分：adaptation decision を書く**
    「Prompt、RAG、quantization、LoRA、no tuning の理由を説明できる」と言えたら止めます。
+
+6. **30 分：release runbook を書く**
+   「別の engineer がこの service を start、test、stop、rollback できる」と言えたら止めます。
 
 ## 必ず残す証拠
 

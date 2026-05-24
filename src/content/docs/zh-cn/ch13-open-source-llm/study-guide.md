@@ -13,7 +13,7 @@ head:
 
 ![开源大模型部署证据包](/img/course/ch13-open-source-llm-evidence-pack.webp)
 
-如果你还没有亲手运行，请先完成 [13.1 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)，再回到这张检查表。
+如果你还没有亲手运行，请先完成 [13.1 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)，再回到这张检查表。然后用 [13.2 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 和 [13.3 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 补齐部署证据。
 
 ## 两小时快速通读
 
@@ -31,6 +31,9 @@ head:
 
 5. **30 分钟：写适配决策**
    能说出“我能解释为什么选 Prompt、RAG、量化、LoRA 或不微调”就停。
+
+6. **30 分钟：写发布 runbook**
+   能说出“另一个工程师可以启动、测试、停止和回滚这个服务”就停。
 
 ## 必须留下的证据
 

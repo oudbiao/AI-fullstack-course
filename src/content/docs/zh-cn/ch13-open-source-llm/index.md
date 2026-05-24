@@ -15,7 +15,7 @@ head:
 
 可以把 [Datawhale Self-LLM](https://github.com/datawhalechina/self-llm) 当成模型和案例参考库。本章提供课程自己的学习路径：选择更小，步骤更明确，检查标准更可执行。
 
-如果你想直接跟做，先进入 [13.1 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)。本页负责解释路线，13.1 负责命令、代码、输出和失败处理。
+如果你想直接跟做，先进入 [13.1 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)。然后用 [13.2 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 选择模型/运行时组合，再用 [13.3 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 把 demo 变成可重复发布路径。
 
 ## 这一章的位置
 
@@ -53,10 +53,11 @@ head:
 1. 选一个模型和一个运行时，停在模型/运行时决策说明。
 2. 验证环境，停在 Python、PyTorch、CUDA 或 CPU 状态记录。
 3. 跑一次本地推理，停在 Prompt、输出、命令和模型版本。
-4. 封装成 API 或脚本，停在可重复的请求/响应。
-5. 跑一个小评估集，停在至少五个 Prompt 和通过/失败备注。
-6. 判断是否需要微调，停在不微调、LoRA 或全参训练的理由。
-7. 打包运行手册，停在 README、命令、成本、限制和关机步骤。
+4. 进入 [13.2 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 比较运行时，停在“为什么当前组合足够”的说明。
+5. 封装成 API 或脚本，停在可重复的请求/响应。
+6. 跑一个小评估集，停在至少五个 Prompt 和通过/失败备注。
+7. 进入 [13.3 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 整理发布路径，停在 README、命令、成本、限制和关机步骤。
+8. 判断是否需要微调，停在不微调、LoRA 或全参训练的理由。
 
 本阶段交付物是可运行 runbook、环境报告、五条样本评估表、模型/运行时决策说明，以及包含停止或回滚步骤的 README。
 
