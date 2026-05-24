@@ -143,6 +143,21 @@ Do not only compare the final scores. Ask: which classes are easy, which are har
 | Project-ready | You can explain why the chosen metric matches the goal, and show one error sample instead of trusting one score. |
 | Deeper check | You can test for leakage, compare two feature choices, and say what would change in a real product or dataset update. |
 
+## Failure Sample Drill
+
+Before leaving the chapter, save one wrong prediction or weak cluster interpretation. Write it in this format:
+
+```text
+case_id:
+input_summary:
+true_or_expected:
+model_output:
+why_it_matters:
+next_controlled_change:
+```
+
+This small failure note is more useful than another model name. It teaches the habit you will reuse in deep learning curves, prompt evaluation, RAG retrieval errors, and Agent traces.
+
 ## Evidence to Keep
 
 Keep this page's proof of learning as a small evidence card:

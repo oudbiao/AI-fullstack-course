@@ -154,6 +154,21 @@ loss 方向：loss 总体下降
 | 项目可用 | 能运行一个小 PyTorch 模型，观察 loss 变化，并解释 tensor shape。 |
 | 深度检查 | 能故意把一个很小的 batch 过拟合，再解释为什么在训练更大模型前这个测试有用。 |
 
+## 失败样本练习
+
+离开本章前，保存一次失败或可疑的训练运行。用这个格式写：
+
+```text
+run_id:
+symptom: shape mismatch、loss 不动、过拟合、OOM 或 attention 输出看不懂
+first_check:
+likely_cause:
+fix_attempt:
+result_after_fix:
+```
+
+这样训练失败就变成可恢复的工程记录。目标不是避免所有错误，而是知道出错时先打印哪些证据。
+
 ## 常见失败
 
 | 现象 | 先检查什么 | 常见修复 |

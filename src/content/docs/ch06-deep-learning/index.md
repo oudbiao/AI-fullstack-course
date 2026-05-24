@@ -154,6 +154,21 @@ Before entering LLMs, make sure the following connections are clear:
 | Project-ready | You can run a small PyTorch model, watch loss change, and interpret tensor shapes. |
 | Deeper check | You can overfit one tiny batch on purpose, then explain why that test is useful before training a bigger model. |
 
+## Failure Sample Drill
+
+Before leaving the chapter, save one failed or suspicious training run. Use this format:
+
+```text
+run_id:
+symptom: shape mismatch, flat loss, overfitting, OOM, or confusing attention output
+first_check:
+likely_cause:
+fix_attempt:
+result_after_fix:
+```
+
+This makes training failure recoverable. The point is not to avoid all errors; the point is to know which evidence to print first.
+
 ## Common Failures
 
 | Symptom | First thing to check | Usual fix |

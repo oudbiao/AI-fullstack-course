@@ -143,6 +143,21 @@ Logistic regression
 | 项目可用 | 能解释为什么选这个指标，并展示一条错误样本，而不是只相信一个分数。 |
 | 深度检查 | 能检查泄漏、比较两种特征方案，并说明真实产品或数据更新后会有什么变化。 |
 
+## 失败样本练习
+
+离开本章前，保存一个错误预测或解释不好的聚类样本。用这个格式写：
+
+```text
+case_id:
+input_summary:
+true_or_expected:
+model_output:
+why_it_matters:
+next_controlled_change:
+```
+
+这条小失败备注比再记一个模型名更有用。它会变成后面读深度学习曲线、Prompt 评估、RAG 检索错误和 Agent trace 的共同习惯。
+
 ## 留下的证据
 
 学完这一页，至少保留这张证据卡：

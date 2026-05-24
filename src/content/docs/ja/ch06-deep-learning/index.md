@@ -154,6 +154,21 @@ LLM に入る前に、次のつながりを確認してください。
 | プロジェクト利用可 | 小さな PyTorch モデルを実行し、loss の変化を見て、tensor shape を解釈できる。 |
 | 深い確認 | 1 つのごく小さい batch を意図的に過学習させ、そのテストが大きなモデル前に役立つ理由を説明できる。 |
 
+## 失敗サンプル練習
+
+この章を出る前に、失敗した、または疑わしい training run を1つ保存します。次の形式で書きます。
+
+```text
+run_id:
+symptom: shape mismatch、flat loss、overfitting、OOM、confusing attention output
+first_check:
+likely_cause:
+fix_attempt:
+result_after_fix:
+```
+
+これにより、training failure は回復可能な engineering record になります。目的はすべての error を避けることではなく、最初にどの evidence を表示するかを知ることです。
+
 ## よくある失敗
 
 | 症状 | 最初に確認すること | よくある修正 |

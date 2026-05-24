@@ -143,6 +143,21 @@ Logistic regression
 | プロジェクト利用可 | その指標が目的に合う理由を説明し、1 つのエラーサンプルを示せる。 |
 | 深い確認 | リークを確認し、2 つの特徴量案を比べ、実際の製品やデータ更新で何が変わるか言える。 |
 
+## 失敗サンプル練習
+
+この章を出る前に、間違った予測または弱いクラスタ解釈を1つ保存します。次の形式で書きます。
+
+```text
+case_id:
+input_summary:
+true_or_expected:
+model_output:
+why_it_matters:
+next_controlled_change:
+```
+
+この小さな failure note は、別の model name を覚えるより役立ちます。後の deep learning curves、prompt evaluation、RAG retrieval errors、Agent traces を読む共通習慣になります。
+
 ## 残す証拠
 
 このページを終えたら、この evidence card を残します。
