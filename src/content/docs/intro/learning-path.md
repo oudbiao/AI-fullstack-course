@@ -20,6 +20,17 @@ Do not start by creating many separate routes. Use one main route first: **Chapt
 | I need a portfolio | Strengthen README, screenshots, logs, metrics, traces, and failure samples in every stage |
 | I care about models | Spend more time on math, ML, DL, and Transformer, but still finish the LLM/RAG/Agent application loop |
 
+## Three Pacing Options
+
+**Fast route: 2-4 weeks**
+For learners who already code and want the map first. Run each chapter's first runnable loop and stage workshop, then keep the README, output, and failure notes. Pick only one Chapter 10-13 branch that matches the project.
+
+**Standard route: 8-12 weeks**
+For learners building steadily from engineering foundations into AI applications. Follow Chapters 1-9 in order, finish each study guide and stage project, then choose 1-2 specialization chapters from 10-13.
+
+**Deep route: 16+ weeks**
+For learners turning the course into a serious portfolio. Every stage should include before/after comparisons, a fixed eval set, failure samples, and decision notes. Chapter 13 should include a real small-model run or GPU serving path.
+
 ## Choose One Project Thread
 
 Pick one simple project idea that can grow as you learn. It does not need to be impressive on day one.
@@ -32,6 +43,19 @@ Pick one simple project idea that can grow as you learn. It does not need to be 
 | Domain analysis notebook | dataset -> charts -> baseline model -> LLM explanation -> deployable report |
 
 The project thread is not a new path. It is the continuity device that turns separate chapters into one explainable body of work.
+
+If you do not know what to choose, use [0.5 Capstone Project Thread: Course Knowledge Assistant](/intro/capstone-thread/). It turns the chapter outputs into one demonstrable AI application.
+
+## How To Choose Chapters 10-13
+
+After Chapter 9, you do not need to read Chapters 10-13 in order. Choose by product need:
+
+- If the input is images, screenshots, video frames, OCR, or bounding boxes, start with Chapter 10.
+- If the core task is classification, extraction, summarization, labeling, or text evaluation, start with Chapter 11.
+- If the workflow mixes PDFs, images, audio, video, creative assets, or review steps, start with Chapter 12.
+- If the project needs local deployment, rented GPUs, model files, open-source model evaluation, or LoRA decisions, start with Chapter 13.
+
+There is also a runtime shortcut: if Chapter 7's mini GPT-2 lab is what excites you most, take **Chapter 7 -> Chapter 13 -> Chapter 8/9**. That gives you model runtime intuition before attaching it to RAG and Agent systems.
 
 ## Stage Exit Checks
 
