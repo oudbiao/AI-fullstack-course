@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "オープンソース LLM, ローカル LLM デプロイ, vLLM, SGLang, Transformers, LoRA, モデル serving"
 ---
-![オープンソース LLM ランタイムデプロイループ](/img/course/ch13-open-source-llm-runtime-loop-ja.webp)
+![第13章 OSS LLM ルート図](/img/course/ch13-open-source-llm-overview-route-ja.webp)
 
 第 13 章では、オープンソース LLM の利用をエンジニアリングワークフローとして扱います。目的はモデル名を集めることではありません。モデルを選び、明確な環境で動かし、安定したインターフェースで公開し、挙動を評価し、他のエンジニアが再現できる証拠を残すことです。
 

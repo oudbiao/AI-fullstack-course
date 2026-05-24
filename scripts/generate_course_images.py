@@ -10876,11 +10876,11 @@ Style:
 - Practical classroom notebook / whiteboard teaching style with a light production workbench feeling.
 - It should feel like a learner can follow the workflow, not like a marketing poster.
 - Use a real vertical composition, not a stretched landscape layout.
-- Do not use white rounded-box SVG infographic aesthetics, slide-deck panels, UI card stacks, or pure text poster layouts.
-- Use four large hand-drawn zones, thick marker arrows, visible folders, simple terminal/code screens, review stamps, before/after states, and evidence artifacts.
+- Do not use white rounded-box SVG infographic aesthetics, slide-deck panels, UI card stacks, pure text poster layouts, sticker collages, or pasted-text mockups.
+- Use a native hand-drawn marker/whiteboard composition with a few large teaching zones, thick marker arrows, visible folders, simple terminal/code screens, review stamps, before/after states, and evidence artifacts.
 - Use generous whitespace. The image should still look clear when viewed on a phone.
 - If the concept feels dense, simplify the visible scene instead of shrinking text.
-- Draw documents, folders, terminals, app screens, binders, and sticky notes as mostly blank objects. They can show checkmarks, arrows, or generic empty lines, but no readable internal lists.
+- Draw documents, folders, terminals, app screens, binders, and sticky notes as mostly blank hand-drawn objects. They can show checkmarks, arrows, or generic empty lines, but no readable internal lists.
 
 Language and text:
 - Put all teaching text directly inside the image.
@@ -10905,6 +10905,30 @@ Visible footer exactly:
 "{footer}"
 """.strip()
 
+
+CH13_OVERVIEW_LABELS = {
+    "en": [
+        ("1 Route", "select -> run -> serve"),
+        ("2 Self-LLM", "model-specific notes"),
+        ("3 Lab", "tiny model first"),
+        ("4 Evaluate", "five fixed cases"),
+        ("5 Decide", "RAG, LoRA, or no tuning"),
+    ],
+    "zh": [
+        ("1 路线", "选型 -> 运行 -> 服务化"),
+        ("2 Self-LLM", "模型专项参考"),
+        ("3 实操", "先跑 tiny model"),
+        ("4 评估", "五个固定样本"),
+        ("5 决策", "RAG、LoRA 或不微调"),
+    ],
+    "ja": [
+        ("1 ルート", "選定 -> 実行 -> serving"),
+        ("2 Self-LLM", "モデル別メモ"),
+        ("3 実践", "小モデルから"),
+        ("4 評価", "固定5ケース"),
+        ("5 判断", "RAG、LoRA、微調整なし"),
+    ],
+}
 
 CH13_RUNTIME_LABELS = {
     "en": [
@@ -10948,6 +10972,12 @@ CH13_EVIDENCE_LABELS = {
     ],
 }
 
+CH13_OVERVIEW_SCENE = """
+Show the Chapter 13 entry route as a vertical classroom whiteboard map, not a runtime execution loop.
+The learner should see the chapter-level path: first understand the engineering loop, then use Self-LLM as a model-specific reference, then run the hands-on lab with a tiny model, then evaluate with fixed cases, then decide whether RAG, LoRA, quantization, or no tuning is the next step.
+Use one continuous hand-drawn route line across a whiteboard or lined notebook page. Draw a route sign, a Self-LLM reference shelf, a small terminal lab bench, an evaluation clipboard, and a final decision fork as visual objects. Keep all documents and terminal screens mostly blank except for generic marks. Do not draw a collage of pasted stickers, app cards, screenshots, provider logos, SVG-style rounded cards, dense model-name lists, or a marketing poster.
+""".strip()
+
 CH13_RUNTIME_SCENE = """
 Show a learner following a four-step open-source LLM deployment loop on a vertical classroom whiteboard:
 1 choose the model with a large model card and license folder,
@@ -10965,6 +10995,51 @@ The image should feel like a clean classroom visual: four big evidence blocks, p
 """.strip()
 
 for locale, suffix, language in [("zh", "", "Simplified Chinese"), ("en", "-en", "English"), ("ja", "-ja", "Japanese")]:
+    overview_title = {
+        "zh": "第13章开源大模型路线图",
+        "en": "Chapter 13 Open-Source LLM Route",
+        "ja": "第13章 OSS LLM ルート図",
+    }[locale]
+    overview_subtitle = {
+        "zh": "先学工程闭环，再查 Self-LLM 的模型路线。",
+        "en": "Use the loop first; use Self-LLM for model-specific paths.",
+        "ja": "先に工程ループ、次に Self-LLM のモデル別ルート。",
+    }[locale]
+    overview_footer = {
+        "zh": "概览定路线，实操跑证据；不要只跑一次聊天。",
+        "en": "Overview first, hands-on next: choose one route and keep evidence.",
+        "ja": "概要で道筋を決め、実践で証拠を残す。",
+    }[locale]
+    overview_alt = {
+        "zh": "第13章开源大模型路线图：先理解工程闭环，再参考 Self-LLM，完成实操、评估和适配决策。",
+        "en": "Chapter 13 open-source LLM route map: understand the engineering loop, use Self-LLM as a reference, run the lab, evaluate, and decide adaptation.",
+        "ja": "第13章 OSS LLM ルート図：工程ループを理解し、Self-LLM を参照し、実践、評価、適応判断へ進む。",
+    }[locale]
+    overview_page = {
+        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/index.md",
+        "en": "src/content/docs/ch13-open-source-llm/index.md",
+        "ja": "src/content/docs/ja/ch13-open-source-llm/index.md",
+    }[locale]
+    register_remake_job(
+        filename=f"ch13-open-source-llm-overview-route{suffix}.png",
+        title=overview_title,
+        suggested_page=overview_page,
+        alt=overview_alt,
+        scene=CH13_OVERVIEW_SCENE,
+        subtitle=overview_subtitle,
+        items=remake_items(*CH13_OVERVIEW_LABELS[locale]),
+        footer=overview_footer,
+        prompt=ch13_generated_prompt(
+            language=language,
+            title=overview_title,
+            subtitle=overview_subtitle,
+            labels=CH13_OVERVIEW_LABELS[locale],
+            footer=overview_footer,
+            scene=CH13_OVERVIEW_SCENE,
+        ),
+        generated_only=True,
+    )
+
     runtime_title = {
         "zh": "开源大模型运行时闭环",
         "en": "Open-Source LLM Runtime Loop",
@@ -10986,9 +11061,9 @@ for locale, suffix, language in [("zh", "", "Simplified Chinese"), ("en", "-en",
         "ja": "オープンソース LLM ランタイムループ：model choice、environment、runtime、serving、evaluation、adaptation、release evidence。",
     }[locale]
     runtime_page = {
-        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/index.md",
-        "en": "src/content/docs/ch13-open-source-llm/index.md",
-        "ja": "src/content/docs/ja/ch13-open-source-llm/index.md",
+        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab.md",
+        "en": "src/content/docs/ch13-open-source-llm/hands-on-open-llm-lab.md",
+        "ja": "src/content/docs/ja/ch13-open-source-llm/hands-on-open-llm-lab.md",
     }[locale]
     register_remake_job(
         filename=f"ch13-open-source-llm-runtime-loop{suffix}.png",

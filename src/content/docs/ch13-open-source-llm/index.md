@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "open-source LLM, local LLM deployment, vLLM, SGLang, Transformers, LoRA, model serving"
 ---
-![Open-source LLM runtime deployment loop](/img/course/ch13-open-source-llm-runtime-loop-en.webp)
+![Chapter 13 open-source LLM route map](/img/course/ch13-open-source-llm-overview-route-en.webp)
 
 Chapter 13 turns open-source model use into an engineering workflow. The goal is not to collect every model name. The goal is to choose a model, run it in a known environment, expose it through a stable interface, evaluate behavior, and keep enough evidence that another engineer can reproduce the result.
 

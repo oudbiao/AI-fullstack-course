@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "开源大模型, 本地大模型部署, vLLM, SGLang, Transformers, LoRA, 模型服务"
 ---
-![开源大模型运行时部署闭环](/img/course/ch13-open-source-llm-runtime-loop.webp)
+![第13章开源大模型路线图](/img/course/ch13-open-source-llm-overview-route.webp)
 
 第 13 章把开源大模型使用变成工程流程。目标不是收集模型名字，而是能选择一个模型，在明确环境里跑起来，用稳定接口暴露出来，评估行为，并留下别人可以复现的证据。
 
