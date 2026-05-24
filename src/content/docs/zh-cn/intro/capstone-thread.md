@@ -48,6 +48,22 @@ capstone-course-assistant/
 
 第一天只需要建文件夹和 README。后面的文件会随着章节自然长出来。
 
+## 作品集提交模板
+
+每个大阶段结束后，都用同一种最终打包格式。这样项目会变得可审阅，而不是一堆散乱 demo。
+
+```text
+README.md                  它做什么、如何运行、暂不支持什么
+run.sh or commands.md       精确重跑路径
+data_note.md                来源、字段、清洗规则、隐私说明
+eval_cases.csv              用于对比的固定问题或输入
+failure_cases.md            至少一个真实失败和可能原因
+screenshots/ or outputs/    可见结果、图表、trace 或 API 响应
+release_note.md             本章新增了什么，下一步测试什么
+```
+
+最低版本：README、一条运行命令、一个输出和一个失败备注。更强作品集版本：固定评估集、before/after 对比、成本或延迟备注、安全边界和简短演示脚本。
+
 ## 按章节成长
 
 **第 1-3 章：可复现工作台**

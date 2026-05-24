@@ -48,6 +48,22 @@ capstone-course-assistant/
 
 On day one, only create the folder and README. The other files should appear naturally as the chapters add capability.
 
+## Portfolio Submission Template
+
+Use the same final package format after every major stage. This keeps the project reviewable instead of becoming a pile of demos.
+
+```text
+README.md                  what it does, how to run, what is not supported
+run.sh or commands.md       exact rerun path
+data_note.md                source, fields, cleaning rules, privacy notes
+eval_cases.csv              fixed questions or inputs used for comparison
+failure_cases.md            at least one honest failure and suspected cause
+screenshots/ or outputs/    visible result, chart, trace, or API response
+release_note.md             what changed this chapter and what to test next
+```
+
+Minimum version: README, one run command, one output, and one failure note. Strong portfolio version: fixed eval set, before/after comparison, cost or latency note, safety boundary, and a short demo script.
+
 ## Growth By Chapter
 
 **Chapters 1-3: reproducible workbench**

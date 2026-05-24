@@ -48,6 +48,22 @@ capstone-course-assistant/
 
 初日はフォルダと README だけで十分です。他のファイルは、章が進むにつれて自然に増えます。
 
+## ポートフォリオ提出テンプレート
+
+各大きな stage の終わりに、同じ package format を使います。これにより、project は demo の寄せ集めではなく、review できる成果物になります。
+
+```text
+README.md                  何をするか、どう実行するか、何をまだ支援しないか
+run.sh or commands.md       正確な rerun path
+data_note.md                source、fields、cleaning rules、privacy notes
+eval_cases.csv              比較に使う fixed questions または inputs
+failure_cases.md            少なくとも1つの honest failure と suspected cause
+screenshots/ or outputs/    visible result、chart、trace、API response
+release_note.md             この章で何が変わり、次に何を test するか
+```
+
+最小版は README、1つの run command、1つの output、1つの failure note です。強いポートフォリオ版は fixed eval set、before/after comparison、cost または latency note、safety boundary、短い demo script を含みます。
+
 ## 章ごとの成長
 
 **第1-3章：再現可能な作業台**

@@ -59,7 +59,7 @@ There is also a runtime shortcut: if Chapter 7's mini GPT-2 lab is what excites 
 
 ## Stage Exit Checks
 
-Do not judge progress by pages read. Judge it by evidence.
+Do not judge progress by pages read. Judge it by evidence. Each stage should end with a small reviewable package, not just a memory that something worked.
 
 | Stage | Chapters | Minimum evidence | Deeper evidence for experienced learners |
 |---|---|---|---|
@@ -69,6 +69,20 @@ Do not judge progress by pages read. Judge it by evidence.
 | Specialization and runtime | 10-13 | One vision, NLP, multimodal, or open-source LLM runtime demo with saved inputs and outputs | Domain metric, review checklist, deployment/runtime constraint, portfolio write-up |
 
 The specialization chapters are not a reward for finishing everything. They are a deliberate branch: choose them when the product needs images, text pipelines, multimodal assets, open-source model deployment, or domain-specific evaluation.
+
+## Stage Deliverable Rhythm
+
+At the end of each stage, package one small deliverable:
+
+```text
+what changed: one new capability
+how to rerun: exact command or notebook cell
+what proves it: screenshot, metric, trace, or output file
+what failed: one failure sample or limitation
+what comes next: one controlled next experiment
+```
+
+This rhythm makes the course useful for job transition and portfolio review: every stage leaves something another person can inspect.
 
 ## Weekly Loop
 
