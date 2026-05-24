@@ -377,9 +377,13 @@ function auditSitemaps(issues, summary) {
   const sitemapFiles = walkFiles(distRoot, (file) => path.basename(file).startsWith("sitemap") && file.endsWith(".xml"));
   summary.sitemapFiles = sitemapFiles.length;
   const sitemapIndex = path.join(distRoot, "sitemap-index.xml");
+  const sitemapAlias = path.join(distRoot, "sitemap.xml");
   const sitemapZero = path.join(distRoot, "sitemap-0.xml");
   if (!fs.existsSync(sitemapIndex)) {
     issues.push("sitemap-index.xml: missing sitemap index");
+  }
+  if (!fs.existsSync(sitemapAlias)) {
+    issues.push("sitemap.xml: missing sitemap alias for Google Search Console");
   }
   if (!fs.existsSync(sitemapZero)) {
     issues.push("sitemap-0.xml: missing primary sitemap");
@@ -406,6 +410,16 @@ function auditSitemaps(issues, summary) {
     }
     if (!content.includes(`${siteUrl}/sitemap-0.xml`)) {
       issues.push("sitemap-index.xml: missing sitemap-0.xml location");
+    }
+  }
+
+  if (fs.existsSync(sitemapAlias)) {
+    const content = fs.readFileSync(sitemapAlias, "utf8");
+    if (!/<sitemapindex\b/i.test(content)) {
+      issues.push("sitemap.xml: expected sitemapindex root");
+    }
+    if (!content.includes(`${siteUrl}/sitemap-0.xml`)) {
+      issues.push("sitemap.xml: missing sitemap-0.xml location");
     }
   }
 
@@ -446,11 +460,11 @@ function assertSeoAssets(issues, summary) {
     if (!/^Allow:\s*\/\s*$/im.test(robots)) {
       issues.push("robots.txt: missing Allow: /");
     }
-    if (!/^Sitemap:\s*https:\/\/airoads\.org\/sitemap-index\.xml\s*$/im.test(robots)) {
-      issues.push("robots.txt: sitemap does not point to https://airoads.org/sitemap-index.xml");
+    if (!/^Sitemap:\s*https:\/\/airoads\.org\/sitemap\.xml\s*$/im.test(robots)) {
+      issues.push("robots.txt: sitemap does not point to https://airoads.org/sitemap.xml");
     }
-    if (/^Sitemap:\s*https:\/\/airoads\.org\/sitemap\.xml\s*$/im.test(robots)) {
-      issues.push("robots.txt: still points to missing sitemap.xml");
+    if (/^Sitemap:\s*https:\/\/learning\.airoads\.org\//im.test(robots)) {
+      issues.push("robots.txt: still points to old learning.airoads.org domain");
     }
   }
 

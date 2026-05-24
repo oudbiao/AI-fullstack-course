@@ -79,6 +79,7 @@ function validateOutput() {
     ["dist/ja/index.html", 'lang="ja-JP"'],
     ["dist/zh-Hans/index.html", 'href="/zh-cn/"'],
     ["dist/sitemap-index.xml", "sitemap-0.xml"],
+    ["dist/sitemap.xml", "sitemap-0.xml"],
   ];
 
   for (const [relativePath, expectedText] of checks) {
