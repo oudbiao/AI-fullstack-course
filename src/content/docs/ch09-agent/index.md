@@ -61,6 +61,16 @@ Build a single traceable Agent before multi-agent systems. Follow the core singl
 | Optional extension | MCP, framework comparison, multi-agent coordination, deployment operations, cost optimization | Return here after the single-Agent loop is stable and the product needs integration or scale |
 | Depth challenge | Compare the same task as a workflow, RAG flow, function call, and Agent trace, then justify the simplest safe design | This keeps Agent use intentional rather than fashionable |
 
+## Time Budget And Deliverable
+
+| Pace | What to finish | Portfolio deliverable |
+|---|---|---|
+| Fast pass | One traceable Agent loop with a blocked unsafe tool | `agent_traces.jsonl` plus a short trace explanation |
+| Standard pass | Core path 9.1 -> 9.2 -> 9.3 -> 9.4 -> 9.8 -> 9.10 | `tools_schema.md`, `safety_boundary.md`, eval cases, and failure trace |
+| Deep pass | Add MCP, framework comparison, deployment readiness, or multi-agent coordination only after the single-Agent loop works | design memo explaining why Agent is safer or more useful than workflow/RAG/function calling |
+
+A strong Chapter 9 output proves control. It should show what the Agent was allowed to do, what it was not allowed to do, how it stopped, and how a reviewer can replay the trace.
+
 ## First Runnable Loop: Print the Trace
 
 This offline script has no LLM dependency. It teaches the engineering habit: every action must be replayable. Later, replace the fixed `plan` with a model-generated plan, but keep the trace format.

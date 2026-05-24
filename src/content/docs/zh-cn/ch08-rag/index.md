@@ -55,6 +55,16 @@ head:
 | 可选扩展 | 本地模型服务、统一 API、LangChain/LlamaIndex、高级 RAG、Docker 部署 | 当项目需要规模化、框架接入或运维深度时再回来 |
 | 深度挑战 | 固定同一组评估问题，只改一个检索或切块变量，再比较带引用答案 | 避免凭感觉调 RAG |
 
+## 时间预算与交付物
+
+| 节奏 | 完成什么 | 作品集交付物 |
+|---|---|---|
+| 快速通过 | Tiny RAG、top-k 打印、一个带引用回答、一个无法回答样例 | `rag_trace.md`，包含 query、chunks、answer 和失败备注 |
+| 标准完成 | 核心路径 8.1 -> 8.3 -> 8.4 -> 8.5 | README 章节，包含 API 请求/响应、评估样本和新增文档 |
+| 深度完成 | 增加一个扩展，如本地服务、reranking、框架接入或 Docker | before/after 评估表、延迟/成本备注和部署清单 |
+
+强的第 8 章成果不是聊天截图，而是一条可重跑证据路径：document -> chunk -> retrieval -> answer -> citation -> evaluation。
+
 ## 第一个可运行循环：不用框架的迷你 RAG（Tiny RAG）
 
 在 LangChain、LlamaIndex 或向量数据库之前，先跑最小链路。目标不是检索器很强，而是看清每一步。

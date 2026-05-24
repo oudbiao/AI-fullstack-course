@@ -55,6 +55,16 @@ Do the workshop after the basics. First make the retrieval chain visible; then w
 | Optional extension | Local model serving, unified APIs, LangChain/LlamaIndex, advanced RAG, Docker deployment | Return here when the project needs scale, framework integration, or operations depth |
 | Depth challenge | Keep the same evaluation questions, change one retrieval or chunking variable, and compare cited answers | This prevents "it feels better" RAG tuning |
 
+## Time Budget And Deliverable
+
+| Pace | What to finish | Portfolio deliverable |
+|---|---|---|
+| Fast pass | Tiny RAG, top-k printout, one cited answer, one no-answer case | `rag_trace.md` with query, chunks, answer, and failure note |
+| Standard pass | Core path 8.1 -> 8.3 -> 8.4 -> 8.5 | README section with API request/response, eval case, and added document |
+| Deep pass | Add one extension such as local serving, reranking, framework integration, or Docker | before/after eval table, latency/cost note, and deployment checklist |
+
+A strong Chapter 8 output is not a chatbot screenshot. It is a rerunnable evidence path: document -> chunk -> retrieval -> answer -> citation -> evaluation.
+
 ## First Runnable Loop: Tiny RAG Without a Framework
 
 Before LangChain, LlamaIndex, or a vector database, run the smallest possible chain. The goal is not a powerful retriever; the goal is to see every step.
