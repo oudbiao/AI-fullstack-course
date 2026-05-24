@@ -23,12 +23,17 @@ Your folder should end with:
 openllm_lab/
   environment_report.py
   environment_report.txt
+  requirements-freeze.txt
+  model_decision.md
   run_local_llm.py
   first_run.md
   eval_cases.csv
   eval_openllm.py
   eval_results.csv
+  eval_summary.json
   serve_openai_like.py
+  gpu_plan.md
+  lora_decision.md
   README.md
 ```
 
@@ -56,6 +61,38 @@ Good for a rented GPU or enough local VRAM. Run the small loop first, then upgra
 
 Start with the smoke test. Do not begin by downloading a large model.
 
+First write `model_decision.md`:
+
+```md
+# Model Decision
+
+## Task
+
+Course knowledge assistant, first validating the local model runtime path.
+
+## Selected model
+
+- Smoke test: sshleifer/tiny-gpt2
+- Next model: Qwen/Qwen2.5-0.5B-Instruct
+
+## License and source
+
+- Source: Hugging Face model page
+- License check: read the model card before real deployment
+
+## Runtime
+
+- First run: Transformers
+- GPU server candidate: vLLM
+
+## Rejected for now
+
+- 7B model: wait until the tiny and 0.5B loops have evidence
+- Fine-tuning: wait until fixed eval cases show repeated failures
+```
+
+Self-LLM can guide the exact model route later, but this decision card should stay in your own project.
+
 ## 1. Create the Project Environment
 
 ```bash
@@ -67,9 +104,12 @@ source .venv/bin/activate
 
 python -m pip install -U pip
 python -m pip install "torch" "transformers>=4.41" "accelerate" "safetensors" "sentencepiece" "fastapi" "uvicorn"
+python -m pip freeze > requirements-freeze.txt
 ```
 
 If `torch` fails to install, use the PyTorch website to choose the command for your operating system and accelerator. Do not skip this step; every later model load depends on it.
+
+`requirements-freeze.txt` is not something to memorize. It is evidence of the exact package environment where this run happened.
 
 ## 2. Write the Environment Check
 
@@ -255,12 +295,12 @@ If the download is slow, do not switch models yet. Run the evaluation and API se
 Create `eval_cases.csv`:
 
 ```csv
-id,prompt,expected_behavior
-case_001,Explain why model license matters before deployment.,mentions license or usage limits
-case_002,Give one reason to run a fixed eval set before LoRA.,mentions before after comparison
-case_003,What should be saved after the first local model run?,mentions command prompt output or environment
-case_004,Why should a rented GPU be stopped after the experiment?,mentions cost or billing
-case_005,When should RAG be tried before fine-tuning?,mentions private knowledge or retrieval
+id,prompt,expected_behavior,must_include_any
+case_001,Explain why model license matters before deployment.,mentions license or usage limits,license|usage|restriction|permission
+case_002,Give one reason to run a fixed eval set before LoRA.,mentions before after comparison,before|after|compare|evaluation
+case_003,What should be saved after the first local model run?,mentions command prompt output or environment,command|prompt|output|environment
+case_004,Why should a rented GPU be stopped after the experiment?,mentions cost or billing,cost|billing|money|charge
+case_005,When should RAG be tried before fine-tuning?,mentions private knowledge or retrieval,private|retrieval|document|knowledge
 ```
 
 Create `eval_openllm.py`:
@@ -281,13 +321,18 @@ rows = []
 with open("eval_cases.csv", newline="", encoding="utf-8") as file:
     for case in csv.DictReader(file):
         output, elapsed = generate_once(tokenizer, model, device, case["prompt"], max_new_tokens=80)
-        passed = bool(output.strip()) and output != "(empty output)"
+        output_lower = output.lower()
+        keywords = [item.strip().lower() for item in case["must_include_any"].split("|") if item.strip()]
+        matched_keywords = [keyword for keyword in keywords if keyword in output_lower]
+        passed = bool(matched_keywords)
         rows.append(
             {
                 "id": case["id"],
                 "prompt": case["prompt"],
                 "expected_behavior": case["expected_behavior"],
+                "must_include_any": case["must_include_any"],
                 "passed": passed,
+                "matched_keywords": "|".join(matched_keywords),
                 "latency_seconds": round(elapsed, 2),
                 "output": output.replace("\n", " "),
             }
@@ -302,7 +347,7 @@ summary = {
     "model": model_id,
     "device": device,
     "total": len(rows),
-    "passed_nonempty": sum(row["passed"] for row in rows),
+    "passed_keyword_check": sum(row["passed"] for row in rows),
 }
 Path("eval_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 print(json.dumps(summary, indent=2))
@@ -314,7 +359,20 @@ Run it:
 python eval_openllm.py
 ```
 
-This first check only verifies non-empty output. In a real project, open `eval_results.csv`, review answers manually, and replace `passed` with real pass/fail notes. Fixed cases matter more than one good chat because they let you compare model, runtime, quantization, or LoRA changes.
+This is a rough keyword check. `tiny-gpt2` may fail it, and that is useful: "runs locally" and "solves the task" are different claims. In a real project, open `eval_results.csv`, review answers manually, and replace `passed` with real pass/fail notes.
+
+Read the eval table through three questions:
+
+1. **Is it repeatable?**
+   Can the same prompts run again after changing model, runtime, or settings?
+
+2. **Can failures be bucketed?**
+   Is the issue missing knowledge, wrong format, wrong language, refusal, or high latency?
+
+3. **Does the next step change only one factor?**
+   Fix the eval set first, then change model, prompt, RAG, quantization, or LoRA. Do not change everything at once.
+
+Fixed cases matter more than one good chat because they let you compare model, runtime, quantization, or LoRA changes.
 
 ## 5. Serve a Local OpenAI-Style API
 
@@ -407,12 +465,34 @@ Save the health response, request JSON, and response JSON. If a service cannot b
 
 The small FastAPI service is a teaching skeleton, not a high-throughput server. With an NVIDIA GPU, try vLLM:
 
-```bash
-python -m pip install "vllm"
-vllm serve Qwen/Qwen2.5-0.5B-Instruct --host 0.0.0.0 --port 8000
+First write `gpu_plan.md`:
+
+```md
+# GPU Plan
+
+- Goal: serve one small instruct model through an OpenAI-compatible endpoint
+- Max budget: write your limit here
+- Stop time: write the exact planned stop time here
+- Instance: GPU type, VRAM, disk, region
+- Access: SSH key, no public model API by default
+- Evidence to copy back: environment_report.txt, first_run.md, eval_results.csv, README.md
+- Shutdown proof: screenshot or provider stop note
 ```
 
-Test it:
+On the remote machine, bind the service locally first and test through an SSH tunnel:
+
+```bash
+python -m pip install "vllm"
+vllm serve Qwen/Qwen2.5-0.5B-Instruct --host 127.0.0.1 --port 8000
+```
+
+Open another terminal on your local machine:
+
+```bash
+ssh -L 8000:127.0.0.1:8000 user@your-gpu-host
+```
+
+Then test it:
 
 ```bash
 curl http://127.0.0.1:8000/v1/chat/completions \
@@ -458,6 +538,36 @@ eval_cases.csv     # fixed eval cases, separate from training data
 base_model_note.md # base model, license, version, and reason
 ```
 
+Also write `lora_decision.md`:
+
+```md
+# LoRA Decision
+
+## Repeated failure
+
+Fixed eval case IDs that keep failing:
+
+## Tried before LoRA
+
+- Prompt/schema:
+- RAG/retrieval:
+- Smaller or larger model:
+- Decoding settings:
+
+## Training data
+
+- Sample count:
+- Data owner:
+- Privacy check:
+- Train/eval split:
+
+## Decision
+
+Current choice: no_lora / prepare_lora / full_finetune_not_allowed
+
+Reason:
+```
+
 Self-LLM's LoRA chapters fit after this point: you already have an environment report, base-model choice, fixed evaluation set, and first-run evidence.
 
 ## 8. Debug by Symptom
@@ -499,10 +609,14 @@ uvicorn serve_openai_like:app --host 127.0.0.1 --port 8000
 ## Evidence
 
 - environment_report.txt
+- requirements-freeze.txt
+- model_decision.md
 - first_run.md
 - eval_cases.csv
 - eval_results.csv
 - eval_summary.json
+- gpu_plan.md
+- lora_decision.md
 
 ## Stop
 

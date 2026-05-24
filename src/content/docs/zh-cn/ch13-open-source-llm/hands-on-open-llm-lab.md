@@ -23,12 +23,17 @@ head:
 openllm_lab/
   environment_report.py
   environment_report.txt
+  requirements-freeze.txt
+  model_decision.md
   run_local_llm.py
   first_run.md
   eval_cases.csv
   eval_openllm.py
   eval_results.csv
+  eval_summary.json
   serve_openai_like.py
+  gpu_plan.md
+  lora_decision.md
   README.md
 ```
 
@@ -56,6 +61,38 @@ openllm_lab/
 
 先用默认烟雾测试跑通。不要一上来就下载大模型。
 
+先写 `model_decision.md`：
+
+```md
+# Model Decision
+
+## Task
+
+课程知识助手，先验证本地模型运行链路。
+
+## Selected model
+
+- Smoke test: sshleifer/tiny-gpt2
+- Next model: Qwen/Qwen2.5-0.5B-Instruct
+
+## License and source
+
+- Source: Hugging Face model page
+- License check: read model card before real deployment
+
+## Runtime
+
+- First run: Transformers
+- GPU server candidate: vLLM
+
+## Rejected for now
+
+- 7B model: wait until the tiny and 0.5B loops have evidence
+- Fine-tuning: wait until fixed eval cases show repeated failures
+```
+
+Self-LLM 可以在你换具体模型时作为参考，但这张决策卡要留在自己的项目里。
+
 ## 1. 创建项目和环境
 
 ```bash
@@ -67,9 +104,12 @@ source .venv/bin/activate
 
 python -m pip install -U pip
 python -m pip install "torch" "transformers>=4.41" "accelerate" "safetensors" "sentencepiece" "fastapi" "uvicorn"
+python -m pip freeze > requirements-freeze.txt
 ```
 
 如果 `torch` 安装失败，先去 PyTorch 官网选择适合你系统的安装命令。不要跳过这一步，因为后面所有模型加载都依赖它。
+
+`requirements-freeze.txt` 不是为了让你背依赖版本，而是为了之后能解释“这次运行到底在什么包环境里发生”。
 
 ## 2. 写环境检查脚本
 
@@ -255,12 +295,12 @@ python run_local_llm.py
 新建 `eval_cases.csv`：
 
 ```csv
-id,prompt,expected_behavior
-case_001,Explain why model license matters before deployment.,mentions license or usage limits
-case_002,Give one reason to run a fixed eval set before LoRA.,mentions before after comparison
-case_003,What should be saved after the first local model run?,mentions command prompt output or environment
-case_004,Why should a rented GPU be stopped after the experiment?,mentions cost or billing
-case_005,When should RAG be tried before fine-tuning?,mentions private knowledge or retrieval
+id,prompt,expected_behavior,must_include_any
+case_001,Explain why model license matters before deployment.,mentions license or usage limits,license|usage|restriction|permission
+case_002,Give one reason to run a fixed eval set before LoRA.,mentions before after comparison,before|after|compare|evaluation
+case_003,What should be saved after the first local model run?,mentions command prompt output or environment,command|prompt|output|environment
+case_004,Why should a rented GPU be stopped after the experiment?,mentions cost or billing,cost|billing|money|charge
+case_005,When should RAG be tried before fine-tuning?,mentions private knowledge or retrieval,private|retrieval|document|knowledge
 ```
 
 新建 `eval_openllm.py`：
@@ -281,13 +321,18 @@ rows = []
 with open("eval_cases.csv", newline="", encoding="utf-8") as file:
     for case in csv.DictReader(file):
         output, elapsed = generate_once(tokenizer, model, device, case["prompt"], max_new_tokens=80)
-        passed = bool(output.strip()) and output != "(empty output)"
+        output_lower = output.lower()
+        keywords = [item.strip().lower() for item in case["must_include_any"].split("|") if item.strip()]
+        matched_keywords = [keyword for keyword in keywords if keyword in output_lower]
+        passed = bool(matched_keywords)
         rows.append(
             {
                 "id": case["id"],
                 "prompt": case["prompt"],
                 "expected_behavior": case["expected_behavior"],
+                "must_include_any": case["must_include_any"],
                 "passed": passed,
+                "matched_keywords": "|".join(matched_keywords),
                 "latency_seconds": round(elapsed, 2),
                 "output": output.replace("\n", " "),
             }
@@ -302,7 +347,7 @@ summary = {
     "model": model_id,
     "device": device,
     "total": len(rows),
-    "passed_nonempty": sum(row["passed"] for row in rows),
+    "passed_keyword_check": sum(row["passed"] for row in rows),
 }
 Path("eval_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 print(json.dumps(summary, indent=2))
@@ -314,7 +359,20 @@ print(json.dumps(summary, indent=2))
 python eval_openllm.py
 ```
 
-这里先只做“非空输出”检查。真实项目里，你要人工看 `eval_results.csv`，把 `passed` 改成真正的通过/失败，并写明失败类型。固定样本比一次聊天更重要，因为它让你能比较换模型、换运行时、量化或 LoRA 之后的变化。
+这里做的是很粗的关键词检查。`tiny-gpt2` 很可能不通过，这正好说明“能运行”和“能完成任务”不是一回事。真实项目里，你要人工看 `eval_results.csv`，把 `passed` 改成真正的通过/失败，并写明失败类型。
+
+读评估表时只看三件事：
+
+1. **是否可重复**
+   同一组 prompt 能不能在换模型、换运行时、改参数后重复执行。
+
+2. **失败是否可分桶**
+   是缺知识、格式错、语言错、拒答错，还是延迟太高。
+
+3. **下一步是否只改一个因素**
+   先固定评估集，再换模型、Prompt、RAG、量化或 LoRA。不要一次改很多东西。
+
+固定样本比一次聊天更重要，因为它让你能比较换模型、换运行时、量化或 LoRA 之后的变化。
 
 ## 5. 包成一个 OpenAI 风格本地 API
 
@@ -407,12 +465,34 @@ Ctrl+C
 
 上面的小服务是教学骨架，不是高吞吐生产服务。有 NVIDIA GPU 后，再试 vLLM：
 
-```bash
-python -m pip install "vllm"
-vllm serve Qwen/Qwen2.5-0.5B-Instruct --host 0.0.0.0 --port 8000
+先写 `gpu_plan.md`：
+
+```md
+# GPU Plan
+
+- Goal: serve one small instruct model through an OpenAI-compatible endpoint
+- Max budget: write your limit here
+- Stop time: write the exact planned stop time here
+- Instance: GPU type, VRAM, disk, region
+- Access: SSH key, no public model API by default
+- Evidence to copy back: environment_report.txt, first_run.md, eval_results.csv, README.md
+- Shutdown proof: screenshot or provider stop note
 ```
 
-测试：
+在远程机器上优先绑定本机地址，然后用 SSH tunnel 测试：
+
+```bash
+python -m pip install "vllm"
+vllm serve Qwen/Qwen2.5-0.5B-Instruct --host 127.0.0.1 --port 8000
+```
+
+本地电脑另开终端建立隧道：
+
+```bash
+ssh -L 8000:127.0.0.1:8000 user@your-gpu-host
+```
+
+再测试：
 
 ```bash
 curl http://127.0.0.1:8000/v1/chat/completions \
@@ -458,6 +538,36 @@ eval_cases.csv    # 固定评估样本，不能和训练集混
 base_model_note.md # 基座模型、许可证、版本、选择理由
 ```
 
+同时写 `lora_decision.md`：
+
+```md
+# LoRA Decision
+
+## Repeated failure
+
+固定评估集中反复失败的样本编号：
+
+## Tried before LoRA
+
+- Prompt/schema:
+- RAG/retrieval:
+- Smaller or larger model:
+- Decoding settings:
+
+## Training data
+
+- Sample count:
+- Data owner:
+- Privacy check:
+- Train/eval split:
+
+## Decision
+
+当前选择：no_lora / prepare_lora / full_finetune_not_allowed
+
+理由：
+```
+
 Self-LLM 的 LoRA 教程适合接在这里：你已经有环境报告、基座模型选择、固定评估集和首跑证据，再去跟模型专项教程会稳得多。
 
 ## 8. 按现象排查
@@ -499,10 +609,14 @@ uvicorn serve_openai_like:app --host 127.0.0.1 --port 8000
 ## 证据
 
 - environment_report.txt
+- requirements-freeze.txt
+- model_decision.md
 - first_run.md
 - eval_cases.csv
 - eval_results.csv
 - eval_summary.json
+- gpu_plan.md
+- lora_decision.md
 
 ## 停止
 

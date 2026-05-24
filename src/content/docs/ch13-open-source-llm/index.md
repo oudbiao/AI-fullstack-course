@@ -60,6 +60,42 @@ Open-source LLM work is mostly systems work. You must control hardware, drivers,
 
 The stage deliverables are a runnable runbook, environment report, five-case evaluation table, model/runtime decision memo, and README with shutdown or rollback notes.
 
+## How To Use This With Self-LLM
+
+Self-LLM is best treated as a model-specific reference manual. This chapter is the engineering loop template. Use them together this way:
+
+1. **Build the shared evidence bundle here first**
+   Finish the environment report, model choice, first run, eval table, API request/response, and shutdown step.
+
+2. **Then use Self-LLM for a specific model route**
+   When switching to Qwen, Llama, ChatGLM, InternLM, Baichuan, or another family, use the matching model notes for download, inference, and tuning.
+
+3. **Bring the evidence back to this template**
+   No matter which model tutorial you follow, keep `model_decision.md`, `eval_cases.csv`, `first_run.md`, `README.md`, and shutdown evidence in your own project.
+
+This avoids the common failure mode: the tutorial ran once, but you cannot explain the model, environment, license, evaluation, or stop procedure.
+
+## Model Selection Card
+
+Before switching models, write one selection card. Do not only write "this model is popular."
+
+```text
+candidate_model:
+model_source:
+license:
+parameter_count_and_quantization:
+context_length:
+language_or_domain_fit:
+estimated_vram_or_ram:
+estimated_disk:
+runtime:
+reason_for_choice:
+rejected_models:
+risks: license, privacy, download, VRAM, speed, output quality
+```
+
+If this card is incomplete, do not rent a GPU and do not start fine-tuning yet.
+
 ## First Runnable Loop: Build a Model Runbook
 
 This offline script does not download a model. It teaches the planning habit you need before renting a GPU or starting a long download.

@@ -60,6 +60,42 @@ head:
 
 この段階の成果物は、実行できる runbook、環境レポート、5ケース評価表、model/runtime decision memo、shutdown または rollback を含む README です。
 
+## Self-LLM との使い分け
+
+Self-LLM は、モデル別のリファレンスマニュアルとして使うと強い教材です。この章は engineering loop のテンプレートです。次の順序で組み合わせます。
+
+1. **まずこの章で共通の証拠パックを作る**
+   environment report、model choice、first run、eval table、API request/response、shutdown step を先にそろえます。
+
+2. **次に Self-LLM で具体モデルの道筋を見る**
+   Qwen、Llama、ChatGLM、InternLM、Baichuan などに切り替えるとき、対応する model notes で download、inference、tuning を確認します。
+
+3. **証拠はこのテンプレートへ戻す**
+   どのモデルチュートリアルを参考にしても、`model_decision.md`、`eval_cases.csv`、`first_run.md`、`README.md`、shutdown evidence は自分の project に残します。
+
+これにより、「tutorial は動いたが、model、environment、license、evaluation、stop procedure を説明できない」という失敗を避けられます。
+
+## モデル選定カード
+
+モデルを切り替える前に、1枚の選定カードを書きます。「人気があるから」だけで選ばないでください。
+
+```text
+candidate_model:
+model_source:
+license:
+parameter_count_and_quantization:
+context_length:
+language_or_domain_fit:
+estimated_vram_or_ram:
+estimated_disk:
+runtime:
+reason_for_choice:
+rejected_models:
+risks: license, privacy, download, VRAM, speed, output quality
+```
+
+このカードを埋められない場合は、まだ GPU を借りず、fine-tuning も始めません。
+
 ## 最初に動かすループ：モデル runbook を作る
 
 このオフラインスクリプトはモデルをダウンロードしません。GPU を借りる前、大きなモデルを落とす前に必要な計画習慣を練習します。
