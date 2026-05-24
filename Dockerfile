@@ -33,6 +33,9 @@ COPY scripts ./scripts
 COPY src ./src
 COPY public ./public
 
+ARG CLOUDFLARE_WEB_ANALYTICS_TOKEN=""
+ENV CLOUDFLARE_WEB_ANALYTICS_TOKEN="${CLOUDFLARE_WEB_ANALYTICS_TOKEN}"
+
 # 构建应用：Docker 使用低内存构建脚本，并验证多语言 Starlight 输出。
 RUN npm run build:docker
 

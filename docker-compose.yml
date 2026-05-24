@@ -1,6 +1,9 @@
 services:
   ai-course:
-    build: .
+    build:
+      context: .
+      args:
+        CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${CLOUDFLARE_WEB_ANALYTICS_TOKEN:-}
     image: ai-fullstack-course:latest
     container_name: ai-fullstack-course
     ports:

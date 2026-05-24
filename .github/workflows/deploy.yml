@@ -72,7 +72,7 @@ jobs:
             rm -rf node_modules dist .astro
             cleanup_docker_space
             echo "🔨 构建 Docker 镜像（构建期间旧容器仍在服务）..."
-            $COMPOSE build ai-course
+            CLOUDFLARE_WEB_ANALYTICS_TOKEN='${{ secrets.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}' $COMPOSE build ai-course
 
             # 3. 预热验证新镜像。验证失败时不替换线上容器，旧容器继续服务
             echo "🧪 预热验证新镜像..."

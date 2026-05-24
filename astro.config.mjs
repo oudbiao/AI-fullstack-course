@@ -12,6 +12,21 @@ const siteUrl = "https://airoads.org";
 const siteTitle = "AI Roads";
 const socialCardUrl = `${siteUrl}/img/social-card.png`;
 const repositoryUrl = "https://github.com/oudbiao/AI-fullstack-course";
+const cloudflareWebAnalyticsToken = process.env.CLOUDFLARE_WEB_ANALYTICS_TOKEN?.trim();
+const cloudflareWebAnalyticsHead = cloudflareWebAnalyticsToken
+  ? [
+      {
+        tag: "script",
+        attrs: {
+          defer: true,
+          src: "https://static.cloudflareinsights.com/beacon.min.js",
+          "data-cf-beacon": JSON.stringify({
+            token: cloudflareWebAnalyticsToken,
+          }),
+        },
+      },
+    ]
+  : [];
 const courseKeywords = [
   "AI full-stack course",
   "learn AI",
@@ -689,6 +704,7 @@ export default defineConfig({
           attrs: { type: "application/ld+json" },
           content: JSON.stringify(structuredData),
         },
+        ...cloudflareWebAnalyticsHead,
       ],
       sidebar: sidebarGroups,
       tableOfContents: {

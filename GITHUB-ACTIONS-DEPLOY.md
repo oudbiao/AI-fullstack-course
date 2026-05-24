@@ -38,7 +38,7 @@ cat ~/.ssh/github_deploy
 1. 进入 GitHub 仓库首页
 2. Settings → Secrets and variables → Actions
 3. 点击 "New repository secret"
-4. 添加以下 3 个 Secrets：
+4. 添加以下 Secrets：
 
 #### Secret 1: SERVER_IP
 - **Name**: `SERVER_IP`
@@ -51,6 +51,11 @@ cat ~/.ssh/github_deploy
 #### Secret 3: SERVER_SSH_KEY
 - **Name**: `SERVER_SSH_KEY`
 - **Value**: 第 1 步中 `~/.ssh/github_deploy` 的内容（整个私钥）
+
+#### Secret 4: CLOUDFLARE_WEB_ANALYTICS_TOKEN（可选）
+- **Name**: `CLOUDFLARE_WEB_ANALYTICS_TOKEN`
+- **Value**: Cloudflare Web Analytics 为 `airoads.org` 生成的站点 token
+- **作用**: 构建 Docker 镜像时注入 Cloudflare beacon 脚本，用于统计页面访问量、独立访客、来源和设备等。未配置时网站仍可正常部署，只是不启用访问统计。
 
 ### 第 3 步：在服务器准备部署环境
 

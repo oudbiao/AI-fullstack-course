@@ -49,10 +49,17 @@ Dockerfile 使用多阶段构建：
 docker compose build ai-course
 ```
 
+**带 Cloudflare Web Analytics 的本地构建：**
+```bash
+CLOUDFLARE_WEB_ANALYTICS_TOKEN="your-cloudflare-web-analytics-token" docker compose build ai-course
+```
+
 **生产构建：**
 ```bash
 docker compose build ai-course
 ```
+
+生产部署由 GitHub Actions 传入 `CLOUDFLARE_WEB_ANALYTICS_TOKEN` secret。未设置该 secret 时，构建产物不会注入 Cloudflare Web Analytics 脚本。
 
 ## 最佳实践
 

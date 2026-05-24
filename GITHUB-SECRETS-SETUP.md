@@ -11,6 +11,7 @@ GitHub Secrets 未配置。部署工作流需要三个必需的密钥：
 | `SERVER_IP` | 生产服务器 IP 地址 | `192.168.1.100` |
 | `SERVER_USER` | SSH 登录用户名 | `ubuntu` 或 `root` |
 | `SERVER_SSH_KEY` | SSH 私钥内容 | 见下方说明 |
+| `CLOUDFLARE_WEB_ANALYTICS_TOKEN` | 可选。Cloudflare Web Analytics 站点 token，用于统计页面访问量和访客 | Cloudflare 后台生成的 token |
 
 ## 配置步骤
 
@@ -50,7 +51,7 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub username@server_ip
 1. 打开 GitHub 仓库：https://github.com/oudbiao/AI-fullstack-course
 2. 点击 **Settings** → **Secrets and variables** → **Actions**
 3. 点击 **New repository secret** 按钮
-4. 添加以下三个 Secrets：
+4. 添加以下 Secrets：
 
 **Secret 1: SERVER_IP**
 - Name: `SERVER_IP`
@@ -67,6 +68,12 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub username@server_ip
 - Value: `SSH 私钥内容`（完整内容，包括 `-----BEGIN RSA PRIVATE KEY-----` 和 `-----END RSA PRIVATE KEY-----`）
 - 点击 **Add secret**
 
+**Secret 4: CLOUDFLARE_WEB_ANALYTICS_TOKEN（可选）**
+- Name: `CLOUDFLARE_WEB_ANALYTICS_TOKEN`
+- Value: Cloudflare Web Analytics 里生成的站点 token
+- 用途：构建时把 Cloudflare beacon 脚本注入全站 `<head>`，用于统计页面访问量、独立访客、来源和设备等
+- 不填也可以部署；只是不会注入统计脚本
+
 #### 方法 B：通过 GitHub CLI（高级）
 
 ```bash
@@ -80,6 +87,7 @@ cd /Users/carl/Downloads/ai-fullstack-course
 gh secret set SERVER_IP --body "192.168.1.100"
 gh secret set SERVER_USER --body "ubuntu"
 gh secret set SERVER_SSH_KEY < ~/.ssh/id_rsa
+gh secret set CLOUDFLARE_WEB_ANALYTICS_TOKEN --body "your-cloudflare-web-analytics-token"
 ```
 
 ### 3. 验证 Secrets 已添加
@@ -88,6 +96,7 @@ gh secret set SERVER_SSH_KEY < ~/.ssh/id_rsa
 - ✓ SERVER_IP
 - ✓ SERVER_USER
 - ✓ SERVER_SSH_KEY
+- 可选：CLOUDFLARE_WEB_ANALYTICS_TOKEN
 
 ### 4. 测试部署
 
