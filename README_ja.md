@@ -121,6 +121,7 @@ npm run serve
 npm run build
 npm run qa:diagrams
 npm run qa:dist
+npm run qa:course
 npm run seo:indexnow:dry-run
 ```
 
