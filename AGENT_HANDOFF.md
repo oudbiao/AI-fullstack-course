@@ -36,7 +36,7 @@ This file is for future agents and maintainers. It is not course content. Keep i
 - Intro, Chapters 1-12, electives, and appendix have been optimized across English, Simplified Chinese, and Japanese with image references, evidence sections, exercises, and folded explanations.
 - Chapter 13 has been expanded from a compact lab into a deeper open-source LLM deployment path: chapter entry, hands-on lab, model/runtime decision, serving/evaluation/release runbook, and study guide.
 - The ch08 SOP document assistant intentionally keeps some old `courseware` slugs/image stems for link stability. Do not rename them without adding redirects and updating all references.
-- A course quality dashboard is available as `npm run qa:course` / `python3 scripts/course_quality_dashboard.py`. It checks multilingual mirror coverage, evidence blocks, folded summaries, image refs, direct PNG/JPG refs, unbalanced details tags, duplicate summaries, and visible localized-text residue patterns.
+- A course quality dashboard is available as `npm run qa:course` / `python3 scripts/course_quality_dashboard.py`. It checks multilingual mirror coverage, evidence blocks, folded summaries, image refs, direct PNG/JPG refs, unbalanced details tags, duplicate summaries, visible localized-text residue patterns, English alt text in localized pages, and advisory legacy-context terms with an allowlist.
 
 ## Validation commands
 

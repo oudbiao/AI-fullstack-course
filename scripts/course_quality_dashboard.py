@@ -3,8 +3,9 @@
 
 This script is intentionally read-only. It checks the multilingual course tree for
 mirror coverage, evidence blocks, folded answer blocks, image references, direct
-PNG/JPG references, duplicate summaries, unbalanced details tags, and common
-localized visible-text residue patterns.
+PNG/JPG references, duplicate summaries, unbalanced details tags, common
+localized visible-text residue patterns, English alt text in localized pages,
+and advisory legacy-context terms.
 """
 
 from __future__ import annotations
@@ -38,6 +39,33 @@ VISIBLE_RESIDUE_PATTERNS = [
     r"\bDeep Dive\b",
 ]
 
+LEGACY_CONTEXT_PATTERNS = [
+    r"\bstudent\b",
+    r"\bteacher\b",
+    r"\bclassroom\b",
+    r"\bcourseware\b",
+    r"\bdiscount\b",
+    r"\bbanana\b",
+    r"\bAlice\b",
+    r"\bBob\b",
+    r"\bBMI\b",
+    r"\bshopping\b",
+    r"\bweather\b",
+    r"\bmovie\b",
+]
+
+# These matches are known intentional technical/product contexts, not old classroom
+# examples. The dashboard reports legacy terms as advisory samples only, but this
+# allowlist keeps the samples useful and prevents noisy maintenance churn.
+LEGACY_CONTEXT_ALLOWLIST = [
+    r"ch12-multimodal/.*",
+    r"ch13-open-source-llm/.*",
+    r"ch08-rag/ch05-projects/04-courseware-assistant\.md",
+    r"appendix/.*",
+]
+
+ENGLISH_ALT_PATTERN = re.compile(r"!\[([A-Za-z][^\]]{12,})\]\(([^)]+)\)")
+
 
 def iter_markdown(locale: str) -> list[Path]:
     root = LOCALES[locale]
@@ -62,19 +90,31 @@ def strip_fenced_code(text: str) -> str:
     return re.sub(r"```.*?```", "", text, flags=re.DOTALL)
 
 
+def is_allowlisted(path_key: str, patterns: list[str]) -> bool:
+    return any(re.fullmatch(pattern, path_key) for pattern in patterns)
+
+
 def analyze_file(path: Path, locale: str) -> dict[str, object]:
     text = path.read_text(encoding="utf-8")
     visible = strip_fenced_code(text)
+    path_key = rel_key(path, locale)
     summaries = re.findall(r"<summary>(.*?)</summary>", text, flags=re.DOTALL)
     image_refs = re.findall(r"!\[[^\]]*\]\(([^)]+)\)", text)
     direct_raster_refs = [ref for ref in image_refs if re.search(r"\.(png|jpe?g)(?:$|[?#])", ref, re.I)]
     residue_hits: list[str] = []
+    english_alt_hits: list[str] = []
+    legacy_context_hits: list[str] = []
     if locale in {"zh-cn", "ja"}:
         for pattern in VISIBLE_RESIDUE_PATTERNS:
             if re.search(pattern, visible):
                 residue_hits.append(pattern)
+        english_alt_hits = [match.group(1) for match in ENGLISH_ALT_PATTERN.finditer(visible)]
+    if not is_allowlisted(path_key, LEGACY_CONTEXT_ALLOWLIST):
+        for pattern in LEGACY_CONTEXT_PATTERNS:
+            if re.search(pattern, visible, flags=re.IGNORECASE):
+                legacy_context_hits.append(pattern)
     return {
-        "path": rel_key(path, locale),
+        "path": path_key,
         "has_evidence": EVIDENCE_HEADINGS[locale] in text,
         "has_summary": bool(summaries),
         "duplicate_summaries": [item for item, n in Counter(summaries).items() if n > 1],
@@ -83,6 +123,8 @@ def analyze_file(path: Path, locale: str) -> dict[str, object]:
         "image_count": len(image_refs),
         "direct_raster_refs": direct_raster_refs,
         "visible_residue_hits": residue_hits,
+        "english_alt_hits": english_alt_hits,
+        "legacy_context_hits": legacy_context_hits,
     }
 
 
@@ -107,6 +149,8 @@ def main() -> int:
         duplicate_summaries = [a["path"] for a in analyses if a["duplicate_summaries"]]
         direct_raster = [a for a in analyses if a["direct_raster_refs"]]
         visible_residue = [a for a in analyses if a["visible_residue_hits"]]
+        english_alt = [a for a in analyses if a["english_alt_hits"]]
+        legacy_context = [a for a in analyses if a["legacy_context_hits"]]
 
         locale_report = {
             "pages": len(locale_files),
@@ -117,6 +161,8 @@ def main() -> int:
             "duplicate_summary_pages": len(duplicate_summaries),
             "direct_png_jpg_reference_pages": len(direct_raster),
             "visible_residue_pages": len(visible_residue),
+            "english_alt_text_pages": len(english_alt),
+            "legacy_context_advisory_pages": len(legacy_context),
             "samples": {
                 "missing_evidence": missing_evidence[:10],
                 "missing_answer_summary": missing_answers[:10],
@@ -124,6 +170,8 @@ def main() -> int:
                 "unbalanced": unbalanced[:10],
                 "direct_png_jpg": [a["path"] for a in direct_raster[:10]],
                 "visible_residue": [a["path"] for a in visible_residue[:10]],
+                "english_alt_text": [a["path"] for a in english_alt[:10]],
+                "legacy_context_advisory": [a["path"] for a in legacy_context[:10]],
             },
         }
         report["locales"][locale] = locale_report
@@ -135,6 +183,7 @@ def main() -> int:
                 "duplicate_summary_pages",
                 "direct_png_jpg_reference_pages",
                 "visible_residue_pages",
+                "english_alt_text_pages",
             ]
         ):
             report["status"] = "needs_attention"
