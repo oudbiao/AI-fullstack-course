@@ -17,7 +17,7 @@ Visualization is not decoration. It turns an analysis result into something anot
 
 Use this decision first:
 
-| If you want to show... | Start with... |
+| What you want to show | Start with |
 |---|---|
 | change over time | line chart |
 | category comparison | bar chart |

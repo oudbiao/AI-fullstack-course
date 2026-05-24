@@ -74,13 +74,28 @@ head:
 
 每个阶段结束时，打包一个小产物：
 
-```text
-新增能力：本阶段多了什么能力
-如何重跑：精确命令或 notebook cell
-证明材料：截图、指标、trace 或输出文件
-失败样本：一个失败案例或限制
-下一步：一个可控的后续实验
-```
+<dl class="course-evidence-card">
+  <div class="course-evidence-card__row">
+    <dt>新增能力</dt>
+    <dd>本阶段多了什么能力。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>如何重跑</dt>
+    <dd>精确命令或 <code>notebook cell</code>。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>证明材料</dt>
+    <dd>截图、指标、trace 或输出文件。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>失败样本</dt>
+    <dd>一个失败案例或限制。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>下一步</dt>
+    <dd>一个可控的后续实验。</dd>
+  </div>
+</dl>
 
 这个节奏会让课程更适合转岗和作品集审阅：每个阶段都留下别人能检查的东西。
 
@@ -88,9 +103,17 @@ head:
 
 每周使用同一个循环：
 
-```text
-短读 -> 跑一个东西 -> 改一个条件 -> 记录证据 -> 写一句反思
-```
+<div class="course-flow-line">
+  <span class="course-flow-line__step">短读</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">跑一个东西</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">改一个条件</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">记录证据</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">写一句反思</span>
+</div>
 
 反思可以很短。好的问题包括：
 
@@ -109,11 +132,29 @@ head:
 
 学完这一页，至少保留这张证据卡：
 
-```text
-目标岗位：AI 应用工程师、AI 全栈构建者，或 AI 产品工程师
-每周预算：阅读、运行代码和记录证据的真实小时数
-项目线：一个能跨章节成长的项目想法
-首个产物：本周完成的一个可运行结果
-风险检查：跳过基础、过度阅读、环境搭建阻碍，或目标不清
-期望产出：一份写好的主线计划，以及要打开的下一页具体内容
-```
+<dl class="course-evidence-card">
+  <div class="course-evidence-card__row">
+    <dt>目标岗位</dt>
+    <dd>AI 应用工程师、AI 全栈构建者，或 AI 产品工程师。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>每周预算</dt>
+    <dd>阅读、运行代码和记录证据的真实小时数。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>项目线</dt>
+    <dd>一个能跨章节成长的项目想法。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>首个产物</dt>
+    <dd>本周完成的一个可运行结果。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>风险检查</dt>
+    <dd>跳过基础、过度阅读、环境搭建阻碍，或目标不清。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>期望产出</dt>
+    <dd>一份写好的主线计划，以及要打开的下一页具体内容。</dd>
+  </div>
+</dl>

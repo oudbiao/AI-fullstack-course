@@ -17,7 +17,7 @@ Unsupervised learning starts when the data has no labels. The model does not tel
 
 ![Unsupervised learning chapter flow](/img/course/ch05-unsupervised-chapter-flow-en.webp)
 
-| If you want to... | Start with... |
+| If your goal is | Start with |
 |---|---|
 | find natural groups | clustering |
 | compress high-dimensional data | dimensionality reduction |

@@ -17,7 +17,7 @@ head:
 
 ![无监督学习章节流程](/img/course/ch05-unsupervised-chapter-flow.webp)
 
-| 如果你想... | 先用... |
+| 如果目标是 | 先使用 |
 |---|---|
 | 找自然分组 | 聚类 |
 | 压缩高维数据 | 降维 |

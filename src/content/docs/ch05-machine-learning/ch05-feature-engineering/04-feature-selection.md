@@ -269,7 +269,7 @@ If fewer features produce similar performance but faster training, clearer inter
 
 In real projects, feature selection is not judged only by score. You also need to consider whether it is stable, explainable, deployable, compliant, and cost-effective. A feature that improves AUC by 0.001 but requires integrating an expensive external data source may not be worth deploying.
 
-| Question | Keep the feature if... |
+| Question | Keep the feature when |
 |---|---|
 | Performance | It improves the main metric or keeps the score stable with fewer features |
 | Stability | It is selected consistently across folds or time periods |

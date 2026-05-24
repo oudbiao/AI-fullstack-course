@@ -74,13 +74,28 @@ The specialization chapters are not a reward for finishing everything. They are 
 
 At the end of each stage, package one small deliverable:
 
-```text
-what changed: one new capability
-how to rerun: exact command or notebook cell
-what proves it: screenshot, metric, trace, or output file
-what failed: one failure sample or limitation
-what comes next: one controlled next experiment
-```
+<dl class="course-evidence-card">
+  <div class="course-evidence-card__row">
+    <dt>What changed</dt>
+    <dd>One new capability.</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>How to rerun</dt>
+    <dd>Exact command or <code>notebook cell</code>.</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>What proves it</dt>
+    <dd>Screenshot, metric, trace, or output file.</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>What failed</dt>
+    <dd>One failure sample or limitation.</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>What comes next</dt>
+    <dd>One controlled next experiment.</dd>
+  </div>
+</dl>
 
 This rhythm makes the course useful for job transition and portfolio review: every stage leaves something another person can inspect.
 
@@ -88,9 +103,17 @@ This rhythm makes the course useful for job transition and portfolio review: eve
 
 Use the same loop every week:
 
-```text
-read briefly -> run one thing -> change one condition -> record evidence -> write one reflection
-```
+<div class="course-flow-line">
+  <span class="course-flow-line__step">Read briefly</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">Run one thing</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">Change one condition</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">Record evidence</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">Write one reflection</span>
+</div>
 
 The reflection can be short. Good examples:
 
@@ -109,11 +132,29 @@ Do not redesign your learning plan every week. Read briefly, run something, keep
 
 Keep this page's proof of learning as a small evidence card:
 
-```text
-target_role: AI application engineer, AI full-stack builder, or AI-enabled product engineer
-weekly_budget: realistic hours for reading, running code, and recording evidence
-project_thread: one project idea that can grow across chapters
-first_artifact: one runnable result to finish this week
-risk_check: skipping foundations, over-reading, setup friction, or unclear goal
-Expected_output: a written main-route plan plus the next concrete page to open
-```
+<dl class="course-evidence-card">
+  <div class="course-evidence-card__row">
+    <dt>Target role</dt>
+    <dd>AI application engineer, AI full-stack builder, or AI-enabled product engineer.</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>Weekly budget</dt>
+    <dd>Realistic hours for reading, running code, and recording evidence.</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>Project thread</dt>
+    <dd>One project idea that can grow across chapters.</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>First artifact</dt>
+    <dd>One runnable result to finish this week.</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>Risk check</dt>
+    <dd>Skipping foundations, over-reading, setup friction, or unclear goal.</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>Expected output</dt>
+    <dd>A written main-route plan plus the next concrete page to open.</dd>
+  </div>
+</dl>

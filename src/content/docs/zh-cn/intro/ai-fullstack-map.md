@@ -19,7 +19,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/runti
 
 现在不需要懂每个细节，只记住：
 
-| 如果卡在... | 回到... |
+| 遇到的问题 | 回到哪里 |
 |---|---|
 | 代码跑不起来 | 工具和 Python |
 | 输入很乱 | 数据 |

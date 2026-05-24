@@ -19,7 +19,7 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/runti
 
 You do not need every detail now. Just remember:
 
-| If you are blocked by... | Go back to... |
+| If the problem is | Go back to |
 |---|---|
 | running code | tools and Python |
 | messy inputs | data |

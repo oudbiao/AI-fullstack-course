@@ -149,25 +149,82 @@ body {
 }
 
 .sl-markdown-content table {
-  display: block;
-  width: max-content;
+  display: table;
+  width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 
 .sl-markdown-content th,
 .sl-markdown-content td {
-  min-width: min(13rem, 70vw);
+  min-width: 0;
+  max-width: none;
   vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: auto;
 }
 
-.sl-markdown-content th:first-child,
-.sl-markdown-content td:first-child {
-  min-width: min(9rem, 58vw);
+.sl-markdown-content .sl-heading-wrapper:has(:is([id="stage-exit-checks"], [id="阶段验收"], [id="各段階の終了チェック"])) + p + table th:first-child,
+.sl-markdown-content .sl-heading-wrapper:has(:is([id="stage-exit-checks"], [id="阶段验收"], [id="各段階の終了チェック"])) + p + table td:first-child {
+  width: 18%;
+}
+
+.sl-markdown-content .sl-heading-wrapper:has(:is([id="stage-exit-checks"], [id="阶段验收"], [id="各段階の終了チェック"])) + p + table th:nth-child(2),
+.sl-markdown-content .sl-heading-wrapper:has(:is([id="stage-exit-checks"], [id="阶段验收"], [id="各段階の終了チェック"])) + p + table td:nth-child(2) {
+  width: 13%;
+}
+
+.sl-markdown-content table:has(tr > :nth-child(5)) {
+  display: block;
+  width: max-content;
+  overflow-x: auto;
+  table-layout: auto;
+}
+
+.sl-markdown-content table:has(tr > :nth-child(5)) th,
+.sl-markdown-content table:has(tr > :nth-child(5)) td {
+  min-width: clamp(7.5rem, 14vw, 12rem);
+  max-width: min(24rem, 78vw);
+}
+
+.sl-markdown-content table:has(tr > :nth-child(5)) th:first-child,
+.sl-markdown-content table:has(tr > :nth-child(5)) td:first-child {
+  min-width: clamp(6.5rem, 10vw, 9rem);
 }
 
 .sl-markdown-content th {
   background: var(--course-surface-strong);
+}
+
+.sl-markdown-content td code,
+.sl-markdown-content th code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 50rem) {
+  .sl-markdown-content table:has(tr > :nth-child(4)) {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+    table-layout: auto;
+  }
+
+  .sl-markdown-content table:has(tr > :nth-child(4)) th,
+  .sl-markdown-content table:has(tr > :nth-child(4)) td {
+    width: auto;
+    min-width: min(10.5rem, 72vw);
+    max-width: min(22rem, 82vw);
+  }
+
+  .sl-markdown-content table:has(tr > :nth-child(4)) th:first-child,
+  .sl-markdown-content table:has(tr > :nth-child(4)) td:first-child {
+    min-width: min(8.5rem, 62vw);
+  }
 }
 
 .expressive-code figure .copy {

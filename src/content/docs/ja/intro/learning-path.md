@@ -74,13 +74,28 @@ head:
 
 各段階の終わりに、小さな deliverable を package します。
 
-```text
-何が変わったか: 新しく増えた能力を1つ
-どう再実行するか: 正確な command または notebook cell
-何が証明するか: screenshot、metric、trace、output file
-何が失敗したか: 1つの failure sample または limitation
-次に何をするか: 1つの controlled next experiment
-```
+<dl class="course-evidence-card">
+  <div class="course-evidence-card__row">
+    <dt>何が変わったか</dt>
+    <dd>新しく増えた能力を1つ。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>どう再実行するか</dt>
+    <dd>正確な command または <code>notebook cell</code>。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>何が証明するか</dt>
+    <dd>screenshot、metric、trace、output file。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>何が失敗したか</dt>
+    <dd>1つの failure sample または limitation。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>次に何をするか</dt>
+    <dd>1つの controlled next experiment。</dd>
+  </div>
+</dl>
 
 この rhythm により、course は転職準備や portfolio review に使いやすくなります。各段階で、他の人が確認できるものが残ります。
 
@@ -88,9 +103,17 @@ head:
 
 毎週同じループを使います。
 
-```text
-短く読む -> 1つ動かす -> 条件を1つ変える -> 証拠を記録する -> 1行ふり返る
-```
+<div class="course-flow-line">
+  <span class="course-flow-line__step">短く読む</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">1つ動かす</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">条件を1つ変える</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">証拠を記録する</span>
+  <span class="course-flow-line__arrow">-></span>
+  <span class="course-flow-line__step">1行ふり返る</span>
+</div>
 
 ふり返りは短くてかまいません。よい問いは次のようなものです。
 
@@ -109,11 +132,29 @@ head:
 
 このページを終えたら、この証拠カードを残します。
 
-```text
-目標職種: AIアプリケーションエンジニア、AIフルスタックビルダー、またはAIプロダクトエンジニア
-週の時間配分: 読む、コードを動かす、証拠を記録するための現実的な時間
-プロジェクト軸: 章をまたいで育てられるプロジェクト案を1つ
-最初の成果物: 今週中に終えるための1つの実行可能な結果
-リスク確認：基礎を飛ばす、読みすぎる、セットアップの摩擦、または目標が不明確なこと
-期待される成果：書かれたメインルート計画と、次に開く具体的なページ
-```
+<dl class="course-evidence-card">
+  <div class="course-evidence-card__row">
+    <dt>目標職種</dt>
+    <dd>AIアプリケーションエンジニア、AIフルスタックビルダー、またはAIプロダクトエンジニア。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>週の時間配分</dt>
+    <dd>読む、コードを動かす、証拠を記録するための現実的な時間。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>プロジェクト軸</dt>
+    <dd>章をまたいで育てられるプロジェクト案を1つ。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>最初の成果物</dt>
+    <dd>今週中に終えるための1つの実行可能な結果。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>リスク確認</dt>
+    <dd>基礎を飛ばす、読みすぎる、セットアップの摩擦、または目標が不明確なこと。</dd>
+  </div>
+  <div class="course-evidence-card__row">
+    <dt>期待される成果</dt>
+    <dd>書かれたメインルート計画と、次に開く具体的なページ。</dd>
+  </div>
+</dl>

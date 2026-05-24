@@ -17,7 +17,7 @@ LLM overview is not a model-name list. It helps you decide what a large model ca
 
 ![Large model capability stack and application ecosystem diagram](/img/course/ch07-llm-capability-stack-en.webp)
 
-| Route | Use when... |
+| Route | Use when |
 |---|---|
 | prompt | the model already knows enough and task is simple |
 | RAG | private or changing knowledge must be cited |
