@@ -11,6 +11,10 @@ head:
 ---
 ![SOP document assistant workflow diagram](/img/course/courseware-assistant-workflow-en.webp)
 
+:::note[Legacy URL and asset names]
+This page used to be a courseware-assistant project. The visible lesson has been reframed as an SOP document assistant, but the slug and a few image filenames intentionally keep `courseware` for link stability. When doing a future breaking-link migration, rename the slug and image stems together and add redirects.
+:::
+
 :::tip[Section Positioning]
 This project goes one step further than a typical knowledge base Q&A system.
 It is not just about answering questions. It actually produces:

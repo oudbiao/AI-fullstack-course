@@ -51,13 +51,13 @@ presentable: True
 
 ## この順番で学ぶ
 
-| 手順 | Project Type | Evidence |
+| 手順 | プロジェクト種別 | 残す証拠 |
 |---|---|---|
-| 1 | Classification | dataset split、accuracy/F1、confusion examples |
-| 2 | Detection | box annotations、IoU/mAP、false positives and missed detections |
-| 3 | Segmentation | masks、IoU/Dice、boundary failures |
-| 4 | Industry scenario | risk notes、user impact、deployment idea |
-| 5 | Hands-on workshop | larger project pages の前に reproducible mini pipeline |
+| 1 | 分類 | データ分割、accuracy/F1、混同行列の例 |
+| 2 | 検出 | box annotation、IoU/mAP、誤検出と見逃し |
+| 3 | セグメンテーション | mask、IoU/Dice、境界の失敗例 |
+| 4 | 業務シナリオ | リスクメモ、ユーザー影響、デプロイ案 |
+| 5 | 実践ワークショップ | 大きなプロジェクトページへ進む前の再現可能な mini pipeline |
 
 project を広げる前に、[10.6.4 実践：再現可能な Vision Mini Pipeline を作る](/ja/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop/) を実行します。
 
@@ -65,16 +65,16 @@ project を広げる前に、[10.6.4 実践：再現可能な Vision Mini Pipeli
 
 | 成果物 | 最低要件 | 強いポートフォリオ版 |
 |---|---|---|
-| README | goal、run command、dependencies、examples | task boundary、data source、deployment idea を追加 |
-| Data and annotation | image source、class list、annotation format | annotation examples、quality checks、bias notes を追加 |
-| Results | 1 枚以上の input image と prediction result | correct、false positive、false negative、boundary cases を追加 |
-| Evaluation | Accuracy、F1、mAP、IoU、Dice、OCR hit rate | class、scenario、lighting、clarity ごとの error analysis を追加 |
-| Failure analysis | 1 件以上の real failure | suspected cause、fix action、regression check を追加 |
-| Presentation | screenshot または short GIF で動作を証明 | 明確な visual project page を作る |
+| README | 目的、実行コマンド、依存関係、例 | タスク境界、データ出所、デプロイ案を追加 |
+| データとアノテーション | 画像の出所、クラス一覧、アノテーション形式 | アノテーション例、品質チェック、バイアスメモを追加 |
+| 結果 | 1 枚以上の入力画像と予測結果 | 正解例、誤検出、見逃し、境界ケースを追加 |
+| 評価 | Accuracy、F1、mAP、IoU、Dice、OCR hit rate | クラス、シナリオ、照明、鮮明さごとの error analysis を追加 |
+| 失敗分析 | 1 件以上の実際の失敗 | 推定原因、修正アクション、回帰チェックを追加 |
+| 発表 | スクリーンショットまたは短い GIF で動作を証明 | 明確な visual project page を作る |
 
 ## 合格ライン
 
-vision project が再現可能で、明確な data and annotation rules、適切な metrics、model failure の例を持っていれば、この章は合格です。
+vision project が再現可能で、明確なデータとアノテーション規則、適切な metrics、model failure の例を持っていれば、この章は合格です。
 
 <details>
 <summary>確認の考え方と解説</summary>

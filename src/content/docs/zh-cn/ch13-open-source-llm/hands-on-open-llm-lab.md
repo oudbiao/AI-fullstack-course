@@ -468,15 +468,15 @@ Ctrl+C
 先写 `gpu_plan.md`：
 
 ```md
-# GPU Plan
+# GPU 计划
 
-- Goal: serve one small instruct model through an OpenAI-compatible endpoint
-- Max budget: write your limit here
-- Stop time: write the exact planned stop time here
-- Instance: GPU type, VRAM, disk, region
-- Access: SSH key, no public model API by default
-- Evidence to copy back: environment_report.txt, first_run.md, eval_results.csv, README.md
-- Shutdown proof: screenshot or provider stop note
+- 目标：通过 OpenAI-compatible endpoint 服务一个小型 instruct model
+- 最高预算：写下本次实验的上限
+- 停止时间：写下明确计划停止实例的时间
+- 实例规格：GPU 类型、VRAM、磁盘、区域
+- 访问方式：SSH key，默认不公开模型 API
+- 要复制回本地的证据：environment_report.txt、first_run.md、eval_results.csv、README.md
+- 关机证明：截图或云厂商停止记录
 ```
 
 在远程机器上优先绑定本机地址，然后用 SSH tunnel 测试：

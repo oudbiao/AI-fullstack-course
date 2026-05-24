@@ -11,6 +11,10 @@ head:
 ---
 ![SOP 文档助手工作流图](/img/course/courseware-assistant-workflow.webp)
 
+:::note[历史 URL 与素材命名]
+本页早期是 courseware assistant 项目。当前可见课程已经重构为 SOP 文档助手，但 slug 和少量图片文件名仍保留 `courseware`，用于保持旧链接稳定。以后如果做破坏性链接迁移，应同步重命名 slug、图片 stem，并补充重定向。
+:::
+
 :::tip[本节定位]
 这个项目比普通知识库问答再往前走一步。
 它不只是回答问题，而是实际生成：
