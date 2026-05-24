@@ -19,24 +19,24 @@ head:
 
 まず project behavior を証明できる最小の model と最も単純な runtime を使います。quality、context length、throughput、privacy、cost の証拠が必要性を示したときだけ上に進みます。
 
-## Decision ladder
+## 判断の階段
 
-1. **Task fit**
+1. **タスク適合**
    project が chat、extraction、code、多言語、long context、tool calling、multimodal behavior のどれを必要とするか決めます。
 
-2. **License fit**
+2. **ライセンス適合**
    model を中心に system を作る前に model card と license を読みます。commercial use、redistribution、data-use restrictions のメモを残します。
 
-3. **Hardware fit**
+3. **ハードウェア適合**
    download 前に VRAM/RAM と disk を見積もります。local で動かないなら、より小さな model、quantization、rented GPU、cloud API fallback を選びます。
 
-4. **Runtime fit**
+4. **Runtime 適合**
    学習には Transformers、local handoff には Ollama/LM Studio、quantized CPU/edge test には llama.cpp、server-style inference には vLLM/SGLang を使います。
 
-5. **Evidence fit**
+5. **証拠適合**
    model version、command、first output、evaluation table、stop procedure がそろうまで、decision は完了ではありません。
 
-## Model decision table
+## モデル判断表
 
 `model_runtime_decision.md` を作ります。
 
@@ -66,7 +66,7 @@ rejected_for_now: full fine-tuning, because eval failures are not proven yet
 
 具体的な model name は変わります。しかし decision shape は変えません。
 
-## Runtime selection rules
+## Runtime の選択ルール
 
 **token、prompt、Python behavior を確認したいときは Transformers から始めます。** debug しやすく model API に近い一方、通常は最終的な high-throughput server ではありません。
 

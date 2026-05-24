@@ -13,7 +13,7 @@ head:
 
 モデルを 1 回動かすことは deployment ではありません。model に stable interface、fixed evaluation set、release note、stop or rollback plan がそろったとき、deployment が始まります。このページでは lab を demo から小さな production-style runbook に変えます。
 
-## 最小 release contract
+## 最小リリース契約
 
 local model service を共有する前に、5つの質問に答える contract を書きます。
 
@@ -27,7 +27,7 @@ stop_path: server を止める方法、instance を無効化する方法、cloud
 
 どれか 1 行でも不明なら、その service はまだ experimental です。
 
-## Fixed evaluation set を作る
+## 固定評価セットを作る
 
 少なくとも 5 行の `eval_cases.csv` を作ります。
 
@@ -56,20 +56,20 @@ regression failures: runtime change 後に以前の成功ケースが壊れる
 
 少し弱くても予測可能な model は、serve しにくく、止めにくく、format が不安定な大きな model より現在の project に向いていることがあります。
 
-## Release README template
+## リリース README テンプレート
 
 project README に次を追加します。
 
 ````md
-# Local LLM Service
+# ローカル LLM サービス
 
-## What it does
-- Task:
-- Model and version:
+## 何をするか
+- タスク:
+- モデルとバージョン:
 - Runtime:
-- License note:
+- ライセンスメモ:
 
-## How to run
+## 実行方法
 ```bash
 # environment check
 python -V
@@ -78,27 +78,27 @@ python -V
 python app.py
 ```
 
-## How to test
+## テスト方法
 ```bash
 curl http://127.0.0.1:8000/health
 python run_eval.py --cases eval_cases.csv
 ```
 
-## Known limits
+## 既知の制限
 - Context length:
 - Latency target:
 - Unsupported requests:
 - Privacy constraints:
 
-## How to stop or roll back
-- Stop command:
+## 停止またはロールバック方法
+- 停止コマンド:
 - GPU instance shutdown step:
 - Rollback path:
 ````
 
 README は退屈で正確なものにします。退屈な runbook は、驚きのある deployment より優れています。
 
-## Deployment failure drill
+## デプロイ失敗演習
 
 project 完了と呼ぶ前に、1つ failure を simulate します。
 
