@@ -100,7 +100,7 @@ Please keep an eye on airoads.org as the course continues to improve. If enough 
   <a class="course-track-card" href="./ch13-open-source-llm">
     <span>Chapter 13</span>
     <strong>Own the Runtime</strong>
-    <p>Open-source LLM selection, local serving, evaluation, LoRA decisions, and reproducible runbooks.</p>
+    <p>Open-source LLM compute routes, local serving, evaluation, LoRA decisions, and reproducible runbooks.</p>
   </a>
 </div>
 

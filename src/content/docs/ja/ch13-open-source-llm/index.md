@@ -11,11 +11,18 @@ head:
 ---
 ![第13章 OSS LLM ルート図](/img/course/ch13-open-source-llm-overview-route-ja.webp)
 
-第 13 章では、オープンソース LLM の利用をエンジニアリングワークフローとして扱います。目的はモデル名を集めることではありません。モデルを選び、明確な環境で動かし、安定したインターフェースで公開し、挙動を評価し、他のエンジニアが再現できる証拠を残すことです。
+第 13 章では、オープンソース LLM の利用をエンジニアリングワークフローとして扱います。目的はモデル名を集めることではありません。計算ルートを選び、モデルを選び、明確な環境で動かし、安定したインターフェースで公開し、挙動を評価し、他のエンジニアが再現できる証拠を残すことです。
 
 [Datawhale Self-LLM](https://github.com/datawhalechina/self-llm) は広いモデルと事例のリファレンスとして使えます。この章では、それを学習コースとして進めるために、選択肢を絞り、手順と合格基準を明確にします。
 
-すぐにコマンドを動かしたい場合は、[13.1 実践：オープンソース LLM を動かしてサービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) から始めてください。その後、[13.2 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/) で model/runtime pair を選び、[13.3 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/) で demo を再現可能な release path に変えます。
+既定の学習ルートは次の通りです。
+
+1. [13.1 計算ルート：ローカル CPU、無料 Colab、レンタル GPU](/ja/ch13-open-source-llm/compute-routes/)
+2. [13.2 実践：オープンソース LLM を動かしてサービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/)
+3. [13.3 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/)
+4. [13.4 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/)
+
+すぐにコマンドを動かしたい場合でも、まず計算ルートページから始めます。そこで local CPU、利用できる場合の free Colab、または rented GPU のどれを使うかを決めてから command をコピーします。
 
 ## この章の位置づけ
 
@@ -24,6 +31,19 @@ head:
 > モデルがクラウド API ではなく、自分でダウンロード、ホスト、量子化、サービス化、微調整するものになったら何が変わるか？
 
 オープンソース LLM の作業は、多くの場合システム作業です。ハードウェア、ドライバ、モデルファイル、ランタイム、API 契約、ログ、評価ケース、ロールバックを管理する必要があります。
+
+## この章で証明すること
+
+章の終わりには、次の 4 つを証明できるようにします。
+
+| 証明 | 作るもの | なぜ重要か |
+|---|---|---|
+| 計算ルート | `compute_route.md` と environment report | local CPU、free Colab、rented GPU のどれで走らせるべきかを示す |
+| ランタイム | 初回 model command、prompt、output、API request | model が再実行できる interface を通ることを示す |
+| 評価 | 固定 5 ケースの evaluation table | 「一度答えた」と「比較可能に動く」を分ける |
+| リリース | README、stop step、rollback note | 他の engineer が引き継げるようにする |
+
+このため、章は普通の model tutorial より厳しめです。open-source LLM は、再実行、検査、停止、比較ができて初めて engineering value を持ちます。
 
 ## デプロイループ
 
@@ -50,16 +70,16 @@ head:
 
 ## 学習順序とタスクリスト
 
-1. 1つのモデルと1つのランタイムを選び、model/runtime decision を残します。
-2. 環境を確認し、Python、PyTorch、CUDA または CPU 状態を保存します。
-3. ローカル推論を1回動かし、prompt、output、command、model version を残します。
-4. [13.2 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/) で runtime を比較し、この model/runtime pair で十分な理由を書きます。
-5. API または script として包み、再実行できる request/response を残します。
-6. 小さな評価セットを動かし、5つ以上の prompt と pass/fail notes を残します。
-7. [13.3 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/) で release path をまとめ、README、commands、cost、limits、shutdown を残します。
+1. [13.1 計算ルート](/ja/ch13-open-source-llm/compute-routes/) で実行場所を選び、`compute_route.md` に local CPU、free Colab、rented GPU のどれかと理由を書きます。
+2. 環境を確認し、Python、PyTorch、CUDA/MPS/CPU、disk、reset/rental risk を保存します。
+3. [13.2 実践](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) でローカル推論を1回動かし、prompt、output、command、model version を残します。
+4. API または script として包み、再実行できる request/response と stop command を残します。
+5. 小さな評価セットを動かし、5つ以上の prompt と pass/fail notes を残します。
+6. [13.3 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/) で model/runtime を比較し、この pair で十分な理由を書きます。
+7. [13.4 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/) で release path をまとめ、README、commands、cost、limits、shutdown を残します。
 8. 微調整が必要か判断し、no tuning、LoRA、full training の理由を書きます。
 
-この段階の成果物は、実行できる runbook、環境レポート、5ケース評価表、model/runtime decision memo、shutdown または rollback を含む README です。
+この段階の成果物は、`compute_route.md`、実行できる runbook、環境レポート、5ケース評価表、model/runtime decision memo、shutdown または rollback を含む README です。
 
 ## Self-LLM との使い分け
 

@@ -1,8 +1,8 @@
 ---
-title: "13.1 Hands-on: Run and Serve an Open-Source LLM"
+title: "13.2 Hands-on: Run and Serve an Open-Source LLM"
 description: "Run a reproducible open-source LLM loop: environment check, first Transformers inference, five-case evaluation, and a local OpenAI-style API."
 sidebar:
-  order: 2
+  order: 3
 head:
   - tag: meta
     attrs:
@@ -12,6 +12,8 @@ head:
 ![Open-source LLM runtime deployment loop](/img/course/ch13-open-source-llm-runtime-loop-en.webp)
 
 This page is the runnable lab. You will start with a tiny model and prove the whole loop: environment, inference, evaluation, API serving, and shutdown. The default model is not chosen for answer quality. It is chosen so the code path can run on an ordinary machine before you spend time or money on a larger model.
+
+Before you begin, choose a route in [13.1 Compute Routes: Local CPU, Free Colab, Rented GPU](/ch13-open-source-llm/compute-routes/). This lab is written so the first pass works on local CPU. Colab and rented GPU are upgrades after the evidence loop is clear.
 
 After the loop works, replace `MODEL_ID` with Qwen, Llama, InternLM, ChatGLM, or another model family. Self-LLM is useful because it has model-specific routes; this page gives you the shared engineering skeleton first.
 
@@ -45,7 +47,23 @@ The pass bar is not "the model sounds smart." The pass bar is:
 - the API can be called with `curl`;
 - you know how to stop the service and archive evidence.
 
-## 0. Choose One Model Route
+## 0. Confirm The Compute And Model Route
+
+Create `compute_route.md` from the previous lesson and keep it next to this lab. For the first run, it can be simple:
+
+```md
+# Compute Route
+
+route: local_cpu
+selected_model: sshleifer/tiny-gpt2
+runtime: Transformers
+what_this_proves: environment, model loading, generation, evaluation, local API
+what_this_does_not_prove: answer quality, vLLM throughput, 7B-class serving
+fallback_route: stay on tiny model until the loop is reproducible
+stop_or_rollback: Ctrl+C for local API
+```
+
+Then choose the model route:
 
 **Smoke test: `sshleifer/tiny-gpt2`**
 
@@ -583,6 +601,27 @@ If the API does not start, check whether port 8000 is already occupied, then con
 If vLLM reports out-of-memory, try a smaller model or lower concurrency first. Do not jump straight to LoRA; memory pressure is usually not solved by training.
 
 The final acceptance check is the evidence bundle: `environment_report.txt`, `first_run.md`, `eval_results.csv`, `eval_summary.json`, and the API health/request/response records.
+
+## Evidence to Keep
+
+After completing this page, keep these files as experiment evidence:
+
+```text
+compute_route.md
+model_decision.md
+environment_report.txt
+requirements-freeze.txt
+first_run.md
+eval_cases.csv
+eval_results.csv
+eval_summary.json
+serve_openai_like.py
+gpu_plan.md
+lora_decision.md
+README.md
+```
+
+This evidence set should answer four questions: where the run happened, which model was used, how the fixed cases behaved, and how the service can stop or roll back.
 
 ## 9. Write the README
 

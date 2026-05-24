@@ -13,12 +13,12 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![Open-source LLM deployment evidence pack](/img/course/ch13-open-source-llm-evidence-pack-en.webp)
 
-If you have not run the lab yet, complete [13.1 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/) before using this checklist. Then use [13.2 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/) and [13.3 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/) to finish the deployment evidence.
+If you have not run the lab yet, first complete [13.1 Compute Routes: Local CPU, Free Colab, Rented GPU](/ch13-open-source-llm/compute-routes/), then [13.2 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/). Use [13.3 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/) and [13.4 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/) to finish the deployment evidence.
 
 ## Two-Hour First Pass
 
-1. **20 min: Read the deployment loop**
-   Stop when you can say, "A model is not deployed until runtime, API, logs, eval, and rollback are known."
+1. **20 min: Choose the compute route**
+   Stop when you can say, "This run belongs on local CPU, free Colab, or rented GPU, and I know what that route cannot prove."
 
 2. **20 min: Run the environment check**
    Stop when you can say, "I know whether this machine has usable CUDA or only CPU."
@@ -38,6 +38,7 @@ If you have not run the lab yet, complete [13.1 Hands-on: Run and Serve an Open-
 ## Required Evidence
 
 - `environment_report.txt`: Python, torch, CUDA/device, platform, disk or instance note.
+- `compute_route.md`: local CPU, free Colab, or rented GPU choice with fallback and stop rule.
 - `model_decision.md`: model, size, license, source, reason, rejected alternatives.
 - `open_llm_runbook.json`: runtime choice, adaptation choice, required evidence.
 - `first_run.md`: exact command, prompt, output, latency or memory note.
@@ -49,12 +50,13 @@ If you have not run the lab yet, complete [13.1 Hands-on: Run and Serve an Open-
 - **Reproducibility**: another engineer can identify model version, runtime, command, and environment.
 - **Safety**: license, privacy, auth, logging, and shutdown are checked before sharing.
 - **Evaluation**: runtime or tuning changes are compared on the same eval cases.
-- **Cost control**: GPU rental time, memory, latency, and stop procedure are recorded.
+- **Cost control**: free notebook limits or GPU rental time, memory, latency, and stop procedure are recorded.
 - **Adaptation**: fine-tuning is justified by repeated evidence, not one disappointing answer.
 
 ## Exit Questions
 
 - Can you explain why you chose this model size and license?
+- Can you explain why this run belongs on local CPU, free Colab, or rented GPU?
 - Can you say why this runtime is enough for the current project?
 - Can you run or reproduce the environment check?
 - Can you compare outputs with the same five prompts after a change?
@@ -68,6 +70,7 @@ Keep this page's proof of learning as a small evidence card:
 
 ```text
 environment_report: Python, torch, CUDA/device, platform, and hardware/cost note
+compute_route: local CPU / free Colab / rented GPU, fallback, stop rule
 model_decision: selected model, license, size, source, and rejected alternatives
 runtime_contract: command or endpoint, request format, response format, and error path
 evaluation: fixed prompts, outputs, pass/fail notes, latency or memory note

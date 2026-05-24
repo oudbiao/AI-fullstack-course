@@ -11,11 +11,18 @@ head:
 ---
 ![Chapter 13 open-source LLM route map](/img/course/ch13-open-source-llm-overview-route-en.webp)
 
-Chapter 13 turns open-source model use into an engineering workflow. The goal is not to collect every model name. The goal is to choose a model, run it in a known environment, expose it through a stable interface, evaluate behavior, and keep enough evidence that another engineer can reproduce the result.
+Chapter 13 turns open-source model use into an engineering workflow. The goal is not to collect every model name. The goal is to choose a compute route, choose a model, run it in a known environment, expose it through a stable interface, evaluate behavior, and keep enough evidence that another engineer can reproduce the result.
 
 Use [Datawhale Self-LLM](https://github.com/datawhalechina/self-llm) as a broad reference library. This chapter provides the course path around it: smaller choices, fewer moving parts, and explicit pass checks.
 
-If you want to follow commands immediately, start with [13.1 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/). Then use [13.2 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/) to choose a model/runtime pair, and [13.3 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/) to turn the demo into a repeatable release path.
+The default route is:
+
+1. [13.1 Compute Routes: Local CPU, Free Colab, Rented GPU](/ch13-open-source-llm/compute-routes/)
+2. [13.2 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/)
+3. [13.3 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/)
+4. [13.4 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/)
+
+If you want to follow commands immediately, still start with the compute route page. It will tell you whether to use local CPU, free Colab when available, or a rented GPU before you copy commands.
 
 ## Where This Fits
 
@@ -24,6 +31,19 @@ By now you can build LLM, RAG, and Agent workflows. This chapter answers a diffe
 > What changes when the model is no longer a cloud API, but something you download, host, quantize, serve, or fine-tune yourself?
 
 Open-source LLM work is mostly systems work. You must control hardware, drivers, model files, runtime, API contract, logs, evaluation cases, and rollback.
+
+## What This Chapter Must Prove
+
+By the end of the chapter, you should be able to prove four things:
+
+| Proof | What you produce | Why it matters |
+|---|---|---|
+| Compute proof | `compute_route.md` and environment report | Shows whether the run belongs on local CPU, free Colab, or rented GPU |
+| Runtime proof | first model command, prompt, output, and API request | Shows the model can run through a repeatable interface |
+| Evaluation proof | fixed five-case evaluation table | Separates "it answered once" from "it behaves predictably" |
+| Release proof | README, stop step, rollback note | Makes the result useful to another engineer |
+
+This is the reason the chapter may feel stricter than a model tutorial. Open-source LLM work becomes valuable only when the run can be repeated, inspected, stopped, and compared.
 
 ## The Deployment Loop
 
@@ -50,16 +70,16 @@ Open-source LLM work is mostly systems work. You must control hardware, drivers,
 
 ## Learning Order And Task List
 
-1. Pick one model and one runtime; stop when you have a written model/runtime decision.
-2. Verify the environment; stop when Python, PyTorch, CUDA or CPU status is saved.
-3. Run one local inference; stop when you have prompt, output, command, and model version.
-4. Compare runtime choices in [13.2 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/); stop when you know why this model/runtime pair is enough.
-5. Wrap it as an API or script; stop when you have one repeatable request/response.
-6. Run a tiny evaluation set; stop when you have at least five prompts and pass/fail notes.
-7. Turn the result into [13.3 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/); stop when README, commands, cost, limits, and shutdown are written.
+1. Choose the compute route in [13.1 Compute Routes](/ch13-open-source-llm/compute-routes/); stop when `compute_route.md` says local CPU, free Colab, or rented GPU and why.
+2. Verify the environment; stop when Python, PyTorch, CUDA/MPS/CPU, disk, and reset/rental risk are saved.
+3. Run one local inference in [13.2 Hands-on](/ch13-open-source-llm/hands-on-open-llm-lab/); stop when you have prompt, output, command, and model version.
+4. Wrap it as an API or script; stop when you have one repeatable request/response and a stop command.
+5. Run a tiny evaluation set; stop when you have at least five prompts and pass/fail notes.
+6. Compare model/runtime choices in [13.3 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/); stop when you know why this model/runtime pair is enough.
+7. Turn the result into [13.4 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/); stop when README, commands, cost, limits, and shutdown are written.
 8. Decide whether to fine-tune; stop when you can justify no tuning, LoRA, or full training.
 
-The stage deliverables are a runnable runbook, environment report, five-case evaluation table, model/runtime decision memo, and README with shutdown or rollback notes.
+The stage deliverables are `compute_route.md`, a runnable runbook, environment report, five-case evaluation table, model/runtime decision memo, and README with shutdown or rollback notes.
 
 ## How To Use This With Self-LLM
 

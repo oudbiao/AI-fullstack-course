@@ -1,8 +1,8 @@
 ---
-title: "13.3 Serving, Evaluation, and Release Runbook"
+title: "13.4 Serving, Evaluation, and Release Runbook"
 description: "Build the release discipline for an open-source LLM: API contract, fixed eval set, latency note, failure review, rollback, and shutdown proof."
 sidebar:
-  order: 4
+  order: 5
 head:
   - tag: meta
     attrs:

@@ -1,8 +1,8 @@
 ---
-title: "13.2 モデルと Runtime の決定"
+title: "13.3 モデルと Runtime の決定"
 description: "モデル選定を、ライセンス、サイズ、context length、hardware、quantization、runtime、fallback path を含む engineering decision に変える。"
 sidebar:
-  order: 3
+  order: 4
 head:
   - tag: meta
     attrs:

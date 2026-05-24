@@ -11,11 +11,18 @@ head:
 ---
 ![第13章开源大模型路线图](/img/course/ch13-open-source-llm-overview-route.webp)
 
-第 13 章把开源大模型使用变成工程流程。目标不是收集模型名字，而是能选择一个模型，在明确环境里跑起来，用稳定接口暴露出来，评估行为，并留下别人可以复现的证据。
+第 13 章把开源大模型使用变成工程流程。目标不是收集模型名字，而是能选择计算路线、选择模型，在明确环境里跑起来，用稳定接口暴露出来，评估行为，并留下别人可以复现的证据。
 
 可以把 [Datawhale Self-LLM](https://github.com/datawhalechina/self-llm) 当成模型和案例参考库。本章提供课程自己的学习路径：选择更小，步骤更明确，检查标准更可执行。
 
-如果你想直接跟做，先进入 [13.1 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)。然后用 [13.2 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 选择模型/运行时组合，再用 [13.3 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 把 demo 变成可重复发布路径。
+默认学习路线是：
+
+1. [13.1 计算路线：本地 CPU、免费 Colab、租 GPU](/zh-cn/ch13-open-source-llm/compute-routes/)
+2. [13.2 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)
+3. [13.3 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/)
+4. [13.4 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/)
+
+如果你想直接跟做，也先从计算路线页开始。它会先帮你判断应该用本地 CPU、可用时的免费 Colab，还是租 GPU，然后再复制命令。
 
 ## 这一章的位置
 
@@ -24,6 +31,19 @@ head:
 > 当模型不再只是云 API，而是你自己下载、托管、量化、服务化或微调时，工程上会多出什么？
 
 开源大模型工作本质上是系统工程：硬件、驱动、模型文件、运行时、API 契约、日志、评估集和回滚方案都要可控。
+
+## 本章必须证明什么
+
+学完本章，你应该能证明四件事：
+
+| 证明 | 产物 | 为什么重要 |
+|---|---|---|
+| 计算路线证明 | `compute_route.md` 和环境报告 | 说明这次运行应该在本地 CPU、免费 Colab 还是租 GPU 上进行 |
+| 运行时证明 | 首次模型命令、Prompt、输出和 API 请求 | 说明模型能通过可复现接口跑起来 |
+| 评估证明 | 固定五条样本评估表 | 区分“一次回答成功”和“行为可比较” |
+| 发布证明 | README、停止步骤、回滚备注 | 让另一个工程师也能接手 |
+
+这也是为什么本章会比普通模型教程更严格。开源大模型只有在可重跑、可检查、可停止、可比较时，才真正有工程价值。
 
 ## 部署闭环
 
@@ -50,16 +70,16 @@ head:
 
 ## 学习顺序与任务清单
 
-1. 选一个模型和一个运行时，停在模型/运行时决策说明。
-2. 验证环境，停在 Python、PyTorch、CUDA 或 CPU 状态记录。
-3. 跑一次本地推理，停在 Prompt、输出、命令和模型版本。
-4. 进入 [13.2 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 比较运行时，停在“为什么当前组合足够”的说明。
-5. 封装成 API 或脚本，停在可重复的请求/响应。
-6. 跑一个小评估集，停在至少五个 Prompt 和通过/失败备注。
-7. 进入 [13.3 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 整理发布路径，停在 README、命令、成本、限制和关机步骤。
+1. 在 [13.1 计算路线](/zh-cn/ch13-open-source-llm/compute-routes/) 里选择运行位置，停在 `compute_route.md` 写清本地 CPU、免费 Colab 或租 GPU 以及理由。
+2. 验证环境，停在 Python、PyTorch、CUDA/MPS/CPU、磁盘和重置/租用风险记录。
+3. 在 [13.2 实操](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/) 跑一次本地推理，停在 Prompt、输出、命令和模型版本。
+4. 封装成 API 或脚本，停在可重复请求/响应和停止命令。
+5. 跑一个小评估集，停在至少五个 Prompt 和通过/失败备注。
+6. 进入 [13.3 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 比较模型和运行时，停在“为什么当前组合足够”的说明。
+7. 进入 [13.4 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 整理发布路径，停在 README、命令、成本、限制和关机步骤。
 8. 判断是否需要微调，停在不微调、LoRA 或全参训练的理由。
 
-本阶段交付物是可运行 runbook、环境报告、五条样本评估表、模型/运行时决策说明，以及包含停止或回滚步骤的 README。
+本阶段交付物是 `compute_route.md`、可运行 runbook、环境报告、五条样本评估表、模型/运行时决策说明，以及包含停止或回滚步骤的 README。
 
 ## 怎样配合 Self-LLM 使用
 

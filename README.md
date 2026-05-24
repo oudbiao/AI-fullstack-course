@@ -79,7 +79,7 @@ The recommended route is to finish chapters 1-9 first, then choose chapters 10-1
 - **10 Computer Vision**: classification, detection, segmentation, OCR, video, 3D vision.
 - **11 NLP Specialization**: text representation, classification, extraction, Seq2Seq, pretrained models.
 - **12 Multimodal AIGC**: vision-language models, image/video/audio generation, ethics, product prototypes.
-- **13 Open-Source LLMs**: local model runtime, serving, evaluation, GPU rental discipline, LoRA decisions.
+- **13 Open-Source LLMs**: local CPU, free Colab, and rented GPU routes; model runtime, serving, evaluation, GPU rental discipline, LoRA decisions.
 
 ## Website Stack
 

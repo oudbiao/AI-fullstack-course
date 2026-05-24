@@ -13,12 +13,12 @@ head:
 
 ![开源大模型部署证据包](/img/course/ch13-open-source-llm-evidence-pack.webp)
 
-如果你还没有亲手运行，请先完成 [13.1 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)，再回到这张检查表。然后用 [13.2 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 和 [13.3 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 补齐部署证据。
+如果你还没有亲手运行，请先完成 [13.1 计算路线：本地 CPU、免费 Colab、租 GPU](/zh-cn/ch13-open-source-llm/compute-routes/)，再完成 [13.2 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)。然后用 [13.3 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 和 [13.4 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 补齐部署证据。
 
 ## 两小时快速通读
 
-1. **20 分钟：阅读部署闭环**
-   能说出“模型只有在运行时、API、日志、评估和回滚都清楚后，才算进入部署”就停。
+1. **20 分钟：选择计算路线**
+   能说出“这次运行应该在本地 CPU、免费 Colab 或租 GPU 上做，并且我知道这条路线不能证明什么”就停。
 
 2. **20 分钟：运行环境检查**
    能说出“我知道这台机器能不能用 CUDA，还是只能用 CPU”就停。
@@ -38,6 +38,7 @@ head:
 ## 必须留下的证据
 
 - `environment_report.txt`：Python、torch、CUDA/device、platform、磁盘或实例说明。
+- `compute_route.md`：本地 CPU、免费 Colab 或租 GPU 选择，以及 fallback 和 stop rule。
 - `model_decision.md`：模型、尺寸、许可证、来源、理由、被拒方案。
 - `open_llm_runbook.json`：运行时选择、适配选择、需要保留的证据。
 - `first_run.md`：精确命令、Prompt、输出、延迟或显存备注。
@@ -49,12 +50,13 @@ head:
 - **可复现**：另一个工程师能识别模型版本、运行时、命令和环境。
 - **安全**：对外共享前检查许可证、隐私、鉴权、日志和关机。
 - **评估**：运行时或微调变化都用同一组评估样本比较。
-- **成本控制**：记录 GPU 租用时长、显存、延迟和停止流程。
+- **成本控制**：记录免费 Notebook 限制或 GPU 租用时长、显存、延迟和停止流程。
 - **适配决策**：微调来自重复证据，而不是一次不满意回答。
 
 ## 离章问题
 
 - 你能解释为什么选择这个模型尺寸和许可证吗？
+- 你能解释为什么这次运行适合本地 CPU、免费 Colab 或租 GPU 吗？
 - 你能说明为什么这个运行时足够当前项目使用吗？
 - 你能运行或复现环境检查吗？
 - 改动后，你能用同一组五个 Prompt 比较输出吗？
@@ -68,6 +70,7 @@ head:
 
 ```text
 环境报告：Python、torch、CUDA/device、platform、硬件/成本备注
+计算路线：local CPU / free Colab / rented GPU、fallback、stop rule
 模型决策：选中模型、许可证、尺寸、来源、被拒方案
 运行契约：命令或 endpoint、请求格式、响应格式、错误路径
 评估记录：固定 Prompt、输出、pass/fail、延迟或显存备注

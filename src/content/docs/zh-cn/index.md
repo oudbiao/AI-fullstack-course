@@ -100,7 +100,7 @@ head:
   <a class="course-track-card" href="/zh-cn/ch13-open-source-llm/">
     <span>第 13 章</span>
     <strong>掌握模型运行时</strong>
-    <p>开源大模型选型、本地服务、评估、LoRA 判断和可复现运行手册。</p>
+    <p>开源大模型计算路线、本地服务、评估、LoRA 判断和可复现运行手册。</p>
   </a>
 </div>
 

@@ -1,8 +1,8 @@
 ---
-title: "13.2 模型与运行时决策"
+title: "13.3 模型与运行时决策"
 description: "把模型选择变成工程决策：许可证、尺寸、上下文、硬件、量化、运行时和兜底路径。"
 sidebar:
-  order: 3
+  order: 4
 head:
   - tag: meta
     attrs:

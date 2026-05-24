@@ -19,6 +19,7 @@ This index tracks course-image QA reports that are useful for future maintenance
 | [ch09 agent SOP/status sync](ch09-agent-sop-status-sync-20260521/qa-report.md) | Agent SOP/status image and content sync | Accepted and promoted |
 | [ch13 final image QA](ch13-open-source-llm-final/qa-report.md) | Chapter 13 open-source LLM image set | Accepted and promoted |
 | [ch13 route refine](ch13-overview-route-refine/qa-report.md) | Chapter 13 overview route refinement | Accepted and promoted |
+| [ch13 compute routes refine](ch13-compute-routes-refine/qa-report.md) | Chapter 13 local CPU, free Colab, rented GPU route image | Accepted and promoted |
 
 ## Maintenance checklist
 

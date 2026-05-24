@@ -1,8 +1,8 @@
 ---
-title: "13.2 Model and Runtime Decision"
+title: "13.3 Model and Runtime Decision"
 description: "Turn model choice into an engineering decision: license, size, context length, hardware, quantization, runtime, and fallback path."
 sidebar:
-  order: 3
+  order: 4
 head:
   - tag: meta
     attrs:

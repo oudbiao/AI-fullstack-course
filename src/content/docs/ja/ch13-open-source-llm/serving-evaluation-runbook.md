@@ -1,8 +1,8 @@
 ---
-title: "13.3 Serving、評価、Release Runbook"
+title: "13.4 Serving、評価、Release Runbook"
 description: "オープンソース LLM の release discipline を作る：API contract、fixed eval set、latency note、failure review、rollback、shutdown proof。"
 sidebar:
-  order: 4
+  order: 5
 head:
   - tag: meta
     attrs:

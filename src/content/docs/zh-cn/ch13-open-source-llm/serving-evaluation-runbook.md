@@ -1,8 +1,8 @@
 ---
-title: "13.3 服务化、评估与发布 Runbook"
+title: "13.4 服务化、评估与发布 Runbook"
 description: "建立开源大模型发布纪律：API 契约、固定评估集、延迟说明、失败复盘、回滚和关机证明。"
 sidebar:
-  order: 4
+  order: 5
 head:
   - tag: meta
     attrs:

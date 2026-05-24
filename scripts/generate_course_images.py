@@ -10972,6 +10972,27 @@ CH13_EVIDENCE_LABELS = {
     ],
 }
 
+CH13_COMPUTE_ROUTE_LABELS = {
+    "en": [
+        ("Local CPU", "prove code path"),
+        ("Free Colab", "use if GPU appears"),
+        ("Rented GPU", "serve with stop plan"),
+        ("Evidence", "copy back and stop"),
+    ],
+    "zh": [
+        ("本地 CPU", "先证明代码链路"),
+        ("免费 Colab", "有 GPU 就用"),
+        ("租 GPU", "服务化要有停止计划"),
+        ("证据", "复制回来并停止"),
+    ],
+    "ja": [
+        ("ローカル CPU", "code path を証明"),
+        ("無料 Colab", "GPU があれば使う"),
+        ("レンタル GPU", "stop plan つき serving"),
+        ("証拠", "copy back して止める"),
+    ],
+}
+
 CH13_OVERVIEW_SCENE = """
 Show the Chapter 13 entry route as a vertical classroom whiteboard map, not a runtime execution loop.
 The learner should see the chapter-level path: first understand the engineering loop, then use Self-LLM as a model-specific reference, then run the hands-on lab with a tiny model, then evaluate with fixed cases, then decide whether RAG, LoRA, quantization, or no tuning is the next step.
@@ -10992,6 +11013,12 @@ Show a simple evidence-audit desk for open-source LLM deployment with only four 
 Each tray contains mostly blank papers or folders plus one big icon: device, decision stamp, run/play mark, stop/rollback mark.
 Use checkmarks, locks, clocks, stop icons, and arrows as symbols only. Do not write reviewer checklists, workflow notes, sticky-note slogans, file contents, command outputs, endpoint lists, timestamps, versions, capacities, or benchmark values.
 The image should feel like a clean classroom visual: four big evidence blocks, plenty of blank space, no dense paperwork.
+""".strip()
+
+CH13_COMPUTE_ROUTE_SCENE = """
+Show a vertical classroom whiteboard route selector for where to run an open-source LLM experiment.
+The page should clearly compare three compute routes without looking like a pricing page: local CPU on a laptop, free Colab as a temporary notebook/cloud bench, and rented GPU as a remote server with a visible stop switch. A learner starts at a small model card, chooses one of the three lanes, then all lanes converge into an evidence folder and a stop/shutdown mark.
+Use hand-drawn arrows and simple route signs. Keep screens, notebooks, invoices, and server panels mostly blank except for checkmarks and icons. Do not show real provider logos, real prices, benchmark scores, GPU model names, account screens, screenshots, or brand-style icons. The teaching message is route discipline: start small, use free GPU only when available, rent GPU only with budget, security, and stop proof.
 """.strip()
 
 for locale, suffix, language in [("zh", "", "Simplified Chinese"), ("en", "-en", "English"), ("ja", "-ja", "Japanese")]:
@@ -11036,6 +11063,51 @@ for locale, suffix, language in [("zh", "", "Simplified Chinese"), ("en", "-en",
             labels=CH13_OVERVIEW_LABELS[locale],
             footer=overview_footer,
             scene=CH13_OVERVIEW_SCENE,
+        ),
+        generated_only=True,
+    )
+
+    compute_title = {
+        "zh": "开源大模型计算路线",
+        "en": "Open-Source LLM Compute Routes",
+        "ja": "OSS LLM 計算ルート",
+    }[locale]
+    compute_subtitle = {
+        "zh": "本地 CPU、免费 Colab、租 GPU，先选路线再跑模型。",
+        "en": "Local CPU, free Colab, or rented GPU: choose before running.",
+        "ja": "local CPU、free Colab、rented GPU を先に選ぶ。",
+    }[locale]
+    compute_footer = {
+        "zh": "先证明链路，再升级算力；租用前写停止计划。",
+        "en": "Prove the loop first; rent only with a stop plan.",
+        "ja": "先に loop を証明し、借りる前に stop plan。",
+    }[locale]
+    compute_alt = {
+        "zh": "开源大模型计算路线图：本地 CPU 先证明代码链路，免费 Colab 有 GPU 时使用，租 GPU 用于服务化并必须有停止计划，最后复制证据并停止资源。",
+        "en": "Open-source LLM compute route selector: local CPU proves the code path, free Colab is used if GPU appears, rented GPU serves with a stop plan, and evidence is copied back before shutdown.",
+        "ja": "OSS LLM 計算ルート図：ローカル CPU で code path を証明し、無料 Colab は GPU があれば使い、レンタル GPU は stop plan つきで serving し、証拠を戻して停止する。",
+    }[locale]
+    compute_page = {
+        "zh": "src/content/docs/zh-cn/ch13-open-source-llm/compute-routes.md",
+        "en": "src/content/docs/ch13-open-source-llm/compute-routes.md",
+        "ja": "src/content/docs/ja/ch13-open-source-llm/compute-routes.md",
+    }[locale]
+    register_remake_job(
+        filename=f"ch13-open-source-llm-compute-routes{suffix}.png",
+        title=compute_title,
+        suggested_page=compute_page,
+        alt=compute_alt,
+        scene=CH13_COMPUTE_ROUTE_SCENE,
+        subtitle=compute_subtitle,
+        items=remake_items(*CH13_COMPUTE_ROUTE_LABELS[locale]),
+        footer=compute_footer,
+        prompt=ch13_generated_prompt(
+            language=language,
+            title=compute_title,
+            subtitle=compute_subtitle,
+            labels=CH13_COMPUTE_ROUTE_LABELS[locale],
+            footer=compute_footer,
+            scene=CH13_COMPUTE_ROUTE_SCENE,
         ),
         generated_only=True,
     )
