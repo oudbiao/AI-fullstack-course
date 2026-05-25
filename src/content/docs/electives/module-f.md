@@ -19,6 +19,8 @@ AI product design starts with the user problem, not the model capability. A feat
 
 The first product habit is to make trade-offs explicit before implementation starts.
 
+Read the first image as a launch gate: high value is not enough if risk, cost, or user trust cannot be managed. Read the second image as the operating rhythm after launch: hypothesis, prototype, metric, user feedback, and decision should keep looping.
+
 ## Run a Tiny Prioritization Score
 
 ```python
@@ -67,16 +69,30 @@ The numbers are not final truth. They force you to say what you are optimizing f
 
 After the script prints a ranking, do not stop at the top score. Write one small decision note:
 
-```text
-feature: AI Tutor
-decision: pilot
-success_metric: exercise completion rate improves by 15%
-main_risk: gives confident but wrong explanations
-launch_blocker: no review path for high-risk advice
-next_test: run with 10 real learner questions and record failures
-```
+Example decision note:
+
+- Feature: AI Tutor
+- Decision: pilot
+- Success metric: exercise completion rate improves by 15%.
+- Main risk: it gives confident but wrong explanations.
+- Launch blocker: no review path for high-risk advice.
+- Next test: run with 10 real learner questions and record failures.
 
 This note is the bridge between product thinking and engineering work. Engineers can build from it because it names a metric, a risk, a blocker, and the next experiment.
+
+The launch blocker matters more than the numeric score. A medical diagnosis assistant can score high on user value, but still be blocked if the team cannot provide clinical review, audit logs, escalation, and clear responsibility boundaries.
+
+## Design the Smallest Useful Test
+
+Before building a full feature, define a small test that can change your decision:
+
+| Idea | Smallest useful test |
+|---|---|
+| AI Tutor | Try 10 real learner questions and mark correctness, tone, and next-step usefulness. |
+| AI Customer Service | Run 30 historical tickets and measure containment rate plus unsafe answer rate. |
+| AI Code Review | Compare AI comments with human review on 5 pull requests and count actionable findings. |
+
+The test should have a decision rule before it starts. For example: pilot only if at least 8 of 10 tutor answers are correct, no high-risk answer is unreviewed, and learners say the next step is clear.
 
 ## Product Checklist
 
@@ -86,6 +102,7 @@ This note is the bridge between product thinking and engineering work. Engineers
 | What improves? | Completion rate, time saved, quality, or cost |
 | What can go wrong? | Risk boundary and human fallback |
 | What proves progress? | A metric or user test result |
+| What stops launch? | A concrete blocker, not a vague concern |
 
 ## Evidence to Keep
 
