@@ -6,6 +6,8 @@ sidebar:
 ---
 ![Operators and conditional decision flowchart](/img/course/ch02-operators-decision-flow-en.webp)
 
+Read the picture first: every decision starts from an expression. Comparisons and logical operators turn that expression into `True` or `False`, and the result decides which branch the program takes.
+
 ## What this section is about
 
 In this section, you’ll learn how to calculate and make decisions with data. Operators are not only used in math calculations; they also appear in model metric calculations, conditional filtering, loop decisions, and data cleaning logic. They are the first step in combining variables into program logic.
@@ -231,6 +233,8 @@ if len(data) > 0 and data[0] > 10:
     print("The first element is greater than 10")
 ```
 
+When reading short-circuit expressions, order matters. Put the cheapest and safest check first, and put the operation that may fail or cost more later. You will reuse this habit when checking files, lists, dictionaries, API responses, and model outputs.
+
 ---
 
 ## Assignment operators
@@ -349,6 +353,36 @@ result = (2 ** 3) ** 2   # 64
 :::tip[Practical advice]
 **When you are unsure about precedence, add parentheses!** Parentheses not only ensure the correct order of calculation, they also make code easier to read. No one will laugh at you for using too many parentheses.
 :::
+
+## Expression Debugging Method
+
+When a condition is hard to understand, do not stare at the whole expression at once. Split it into named intermediate variables:
+
+```python
+accuracy = 87.3
+loss = 0.35
+latency_ms = 185
+
+is_accurate_enough = accuracy >= 80
+is_loss_ok = loss < 0.5
+is_latency_ok = latency_ms < 250
+
+can_demo = is_accurate_enough and is_loss_ok and is_latency_ok
+print(is_accurate_enough, is_loss_ok, is_latency_ok, can_demo)
+```
+
+This gives you two benefits. First, the printed values show which small condition failed. Second, the variable names put business meaning into the code, which is easier to review than one long chain of symbols.
+
+After you split the expression, you can print each intermediate variable as a minimal debugging trace. In data cleaning, model evaluation, and API monitoring, many bugs come from a reversed condition, a wrong threshold, or an `and` / `or` combination that does not match the intended rule.
+
+Before trusting a condition, ask three quick questions:
+
+1. Did I compare values with `==`, not assign with `=`?
+2. Did I make the threshold direction clear, such as `latency_ms < 250` instead of a vague variable name?
+3. Did I test at least one passing case and one failing case?
+
+This small habit prevents many beginner bugs. Operators look simple, but most real program decisions are built from them.
+
 ---
 
 ## Comprehensive example: API latency check
