@@ -262,8 +262,10 @@ failure_probe: fluent answer can still be wrong
 
 The core concepts are connected:
 
-```text
-tokens fill the context -> Transformer mixes token information -> logits score next tokens -> sampling chooses one -> adaptation makes behavior useful
-```
+1. Tokens fill the context.
+2. The Transformer mixes token information.
+3. Logits score possible next tokens.
+4. Sampling chooses one token.
+5. Adaptation makes the behavior useful.
 
 Once this loop is clear, RAG, agents, fine-tuning, and evaluation become engineering choices around the same model core.

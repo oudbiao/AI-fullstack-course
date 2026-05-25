@@ -262,8 +262,10 @@ attention メモ: relevance-weighted mixing は事実の証明ではない
 
 核心概念はつながっています。
 
-```text
-tokens fill the context -> Transformer mixes token information -> logits score next tokens -> sampling chooses one -> adaptation makes behavior useful
-```
+1. tokens が context を埋める。
+2. Transformer が token 情報を混ぜる。
+3. logits が次 token の候補に点数をつける。
+4. sampling が 1 つの token を選ぶ。
+5. adaptation が挙動を使いやすくする。
 
 この loop が分かると、RAG、Agent、fine-tuning、evaluation は同じ model core の周りにある engineering choices として見えます。

@@ -150,12 +150,12 @@ This means:
 
 ### Looking at the four methods together
 
-| Method | Where the trainable part is placed | Intuition | Common advantages | Common limitations |
-|---|---|---|---|---|
-| Prompt Tuning | Before the input embedding | Feed the model a soft prompt | Extremely few parameters | Limited transformation power |
-| Prefix Tuning | KV prefix in each layer’s attention | Each layer sees extra context | More expressive than soft prompts | Higher implementation complexity |
-| Adapter | Small bottleneck module between layers | Insert a lightweight plugin | Easy multi-task switching | Adds a little extra computation at inference |
-| IA3 | Activation scaling vector | Adjust the gain of key channels | Extremely few parameters, lightweight implementation | Weaker expressiveness for complex changes |
+| Method | Where it trains | Main trade-off |
+|---|---|---|
+| Prompt Tuning | Before the input embedding | Extremely few parameters, but limited transformation power |
+| Prefix Tuning | KV prefix in each layer's attention | More expressive than soft prompts, but more complex to implement |
+| Adapter | Small bottleneck module between layers | Easy multi-task switching, but adds a little inference compute |
+| IA3 | Activation scaling vector | Very lightweight, but weaker for complex behavior changes |
 
 ![Diagram of where trainable parameters are placed in PEFT methods](/img/course/ch07-peft-placement-family-map-en.webp)
 

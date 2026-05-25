@@ -36,28 +36,13 @@ This is the smallest set that lets the project stand on its own.
 
 ## The folder structure that makes review easy
 
-```text
-project/
-├── README.md
-├── examples/
-│   ├── input-01.json
-│   └── output-01.json
-├── reports/
-│   ├── evaluation.md
-│   └── failure_cases.md
-├── screenshots/
-│   ├── run-01.png
-│   └── before-after.png
-└── src/
-    └── ...
-```
-
 This structure is simple on purpose:
 
 - `README.md` tells the story
-- `examples/` proves the task
-- `reports/` proves the evaluation
-- `screenshots/` proves the project runs
+- `examples/input-01.json` and `examples/output-01.json` prove the task
+- `reports/evaluation.md` and `reports/failure_cases.md` prove evaluation and failure analysis
+- `screenshots/run-01.png` and `screenshots/before-after.png` prove the project runs
+- `src/` keeps the runnable code
 
 ## A README template you can reuse
 
@@ -98,11 +83,11 @@ What would you improve next?
 
 If your project has a fixed test set, keep the results in a small table like this:
 
-| Case ID | Input | Baseline | New Method | Pass? | Note |
-|---|---|---|---|---|---|
-| 001 | Refund request | Generic answer | Domain-aware answer | Yes | Covers policy points |
-| 002 | Address change | Too vague | Clear rule-based reply | Yes | Better structure |
-| 003 | Invoice question | Misses key detail | Correct answer | No | Need more data |
+| Case | Result | Note |
+|---|---|---|
+| 001 Refund request | Domain-aware answer passes | Covers policy points better than the generic baseline |
+| 002 Address change | Rule-based reply passes | Structure is clearer than the baseline |
+| 003 Invoice question | New method fails | Still misses a key detail; needs more data |
 
 This makes it easy to compare versions later.
 

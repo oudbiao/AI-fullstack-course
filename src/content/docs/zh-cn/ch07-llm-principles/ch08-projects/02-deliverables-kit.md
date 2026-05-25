@@ -36,28 +36,13 @@ head:
 
 ## 最容易检查的目录结构
 
-```text
-project/
-├── README.md
-├── examples/
-│   ├── input-01.json
-│   └── output-01.json
-├── reports/
-│   ├── evaluation.md
-│   └── failure_cases.md
-├── screenshots/
-│   ├── run-01.png
-│   └── before-after.png
-└── src/
-    └── ...
-```
-
 这个结构故意做得很简单：
 
 - `README.md` 负责讲故事
-- `examples/` 负责证明任务存在
-- `reports/` 负责证明评测做过
-- `screenshots/` 负责证明项目真的跑过
+- `examples/input-01.json` 和 `examples/output-01.json` 证明任务存在
+- `reports/evaluation.md` 和 `reports/failure_cases.md` 证明评测和失败分析
+- `screenshots/run-01.png` 和 `screenshots/before-after.png` 证明项目真的跑过
+- `src/` 保存可运行代码
 
 ## 可以直接复用的 README 模板
 
@@ -98,11 +83,11 @@ project/
 
 如果你的项目有固定测试集，可以把结果整理成这样的表：
 
-| 案例 ID | 输入 | 基线 | 新方法 | 是否通过 | 备注 |
-|---|---|---|---|---|---|
-| 001 | 退款请求 | 泛化回答 | 领域化回答 | 是 | 覆盖政策点 |
-| 002 | 地址修改 | 太模糊 | 清晰规则回复 | 是 | 结构更完整 |
-| 003 | 发票问题 | 漏掉关键细节 | 正确回答 | 否 | 需要更多数据 |
+| 案例 | 结果 | 备注 |
+|---|---|---|
+| 001 退款请求 | 领域化回答通过 | 比泛化 baseline 更完整地覆盖政策点 |
+| 002 地址修改 | 规则化回复通过 | 结构比 baseline 更清楚 |
+| 003 发票问题 | 新方法未通过 | 仍漏掉关键细节，需要补数据 |
 
 这样以后对比版本会很方便。
 

@@ -262,8 +262,10 @@ temperature 影响：与更具多样性的输出相比的确定性
 
 核心概念是连在一起的：
 
-```text
-tokens fill the context -> Transformer mixes token information -> logits score next tokens -> sampling chooses one -> adaptation makes behavior useful
-```
+1. tokens 填入 context。
+2. Transformer 混合 token 信息。
+3. logits 给候选下一个 token 打分。
+4. sampling 选出一个 token。
+5. adaptation 让行为变得更有用。
 
 看清这条循环以后，RAG、Agent、微调和评估都会变成围绕同一个模型核心做工程选择。
