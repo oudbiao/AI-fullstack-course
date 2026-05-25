@@ -323,6 +323,22 @@ git log --oneline
 
 ---
 
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+このページの合格基準は、コマンドを入力したことではなく、Git の 3 つの状態の流れを説明できることです。
+
+最小証拠は次の通りです。
+
+1. 最初の commit 後、`git log --oneline` に初期 commit がある。
+2. 2 回目の変更後、`git diff` が具体的な差分を示す。
+3. `git add` 後、`git status` で staged 状態を説明できる。
+4. 2 回目の commit 後、履歴に 2 件の commit がある。
+5. 各 commit 後、`git status` が clean に戻る。
+
+modified や untracked が残る場合は、branch に進む前に `working tree -> staging area -> committed history` の流れを確認します。
+</details>
+
 ## まとめ
 
 | 概念 | 一言でいうと | たとえ |

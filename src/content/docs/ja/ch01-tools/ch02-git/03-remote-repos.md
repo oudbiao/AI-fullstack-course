@@ -373,6 +373,22 @@ git push
 
 ---
 
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+このページの合格基準は、local repository と remote repository の関係を他の人が確認できることです。
+
+最小証拠は次の通りです。
+
+1. `git remote -v` が、`origin` と意図した repository を示している。
+2. push 後の `git status` が clean である。
+3. `git log --oneline -3` に、直近の README または code commit が見える。
+4. GitHub 側で同じ commit と README を確認できる。
+5. rejected が出たとき、`git pull` の前に remote 側との差分を説明できる。
+
+`git push -u origin main` は最初の upstream 設定だけで使います。その後の日常フローは `pull -> edit -> add -> commit -> push` です。
+</details>
+
 ## よくある問題
 
 ### push が拒否される（rejected）

@@ -130,3 +130,13 @@ Transformer -> scalable context modeling for LLMs
 ```
 
 Use this as the memory hook whenever an architecture name starts to feel like an isolated fact.
+
+<details>
+<summary>Review notes and pass criteria</summary>
+
+- A passing review should connect every architecture name to a bottleneck it solved, not only to a year.
+- For at least three milestones, write `old limitation -> new mechanism -> code clue`.
+- Keep one example where an architecture name sounds impressive but you cannot yet point to the mechanism. That is the next concept to revisit.
+- The page is complete when the Chapter 6 order feels like a cause-and-effect chain from perceptron limits to scalable attention.
+
+</details>

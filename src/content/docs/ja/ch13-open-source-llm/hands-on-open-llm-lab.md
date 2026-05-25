@@ -662,4 +662,21 @@ uvicorn serve_openai_like:app --host 127.0.0.1 --port 8000
 Ctrl+C でローカル API を停止します。レンタル GPU は、証拠をコピーし終えたらすぐ停止します。
 ````
 
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+合格する lab は、証拠がそろっていれば `sshleifer/tiny-gpt2` のままでもかまいません。tiny model が証明するのは回答品質ではなく engineering path です。
+
+証拠パックは次の順番で確認します。
+
+1. `compute_route.md` が local CPU、free Colab、rented GPU のどれかを説明し、その route が証明しないことも書いている。
+2. `environment_report.txt` と `requirements-freeze.txt` で再現性を確認できる。
+3. `first_run.md` が model、prompt、device、latency、output を記録している。
+4. `eval_cases.csv`、`eval_results.csv`、`eval_summary.json` が「model が動いた」と「task を解けた」を分けている。
+5. API evidence に `/health`、1 回の `/v1/chat/completions` request、1 回の response、stop path がある。
+6. `gpu_plan.md` と `lora_decision.md` が premature upgrade を避けている。大きな serving や fine-tuning には repeated eval evidence が必要です。
+
+よくある失敗は、loop が動く前に smoke test を大きな model に置き換えることです。同じ fixed cases を再実行できるようになってから upgrade します。
+</details>
+
 このページを終えると、「オープンソースモデルはデプロイできる」と読んだだけではなくなります。環境 -> モデル -> 出力 -> 評価 -> API -> 停止、という再現可能な 1 本の経路を実際に走らせた状態になります。

@@ -130,3 +130,13 @@ Transformer -> scalable context modeling for LLMs
 ```
 
 アーキテクチャ名が孤立した事実に見えたら、この流れに戻して考えます。
+
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+- 合格の目安は、各 architecture name を年号だけでなく、それが解決した bottleneck と結びつけられることです。
+- 少なくとも 3 つの節目について、`old limitation -> new mechanism -> code clue` を書きます。
+- 名前は知っているが mechanism を指せない例を 1 つ残します。それが次に戻って確認する概念です。
+- Chapter 6 の順番が、perceptron の限界から scalable attention までの cause-and-effect chain として見えれば、このページは完了です。
+
+</details>

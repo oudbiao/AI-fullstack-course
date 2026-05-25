@@ -261,6 +261,16 @@ GQA/MQA の要点：KV ヘッド数を減らすとキャッシュ負荷が下が
 SwiGLU の要点：gated FFN により大規模時の容量が向上
 ```
 
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+- 合格の目安は、modern decoder の各部品を、それが解決する pressure と結びつけられることです。stability、position、KV cache、FFN capacity です。
+- 実際の model config を 1 つ開き、`num_attention_heads`、`num_key_value_heads`、rotary settings、FFN projections を指します。
+- MHA と GQA を混同する、RoPE を単なる position label だと思う、などの confusion note を 1 つ残します。それが次の code-reading target です。
+- decoder block diagram を見て、どの source-code names を探せばよいか予測できれば、このページは完了です。
+
+</details>
+
 ## まとめ
 
 現代 LLM decoder block は、元の Transformer を否定しているわけではありません。

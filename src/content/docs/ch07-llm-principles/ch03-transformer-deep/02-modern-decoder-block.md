@@ -262,6 +262,16 @@ gqa_mqa: fewer KV heads reduce cache pressure
 swiglu: gated FFN improves capacity at scale
 ```
 
+<details>
+<summary>Review notes and pass criteria</summary>
+
+- A passing review should map each modern decoder part to the pressure it solves: stability, position, KV cache, or FFN capacity.
+- Inspect one real model config and point to `num_attention_heads`, `num_key_value_heads`, rotary settings, and FFN projections.
+- Keep one confusion note, such as mixing MHA with GQA or treating RoPE as only a positional label. That note becomes the next code-reading target.
+- The page is complete when you can read a decoder block diagram and predict which source-code names to search for.
+
+</details>
+
 ## Summary
 
 Modern LLM decoder blocks are not a rejection of the original Transformer.

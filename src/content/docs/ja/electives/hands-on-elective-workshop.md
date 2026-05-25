@@ -270,3 +270,19 @@ inspect: elective_workshop_run/README.md
 失敗確認: この選択科目が不要な場合、または現在の学習者には時期尚早な場合
 期待される成果：メインルートに結びついた小さなポートフォリオ成果物
 ```
+
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+この workshop の合格基準は、6 つの elective directions が reviewable evidence を残すことです。すべての module が production-grade である必要はありません。
+
+実行結果は次の順番で確認します。
+
+1. terminal output に `modules: 6`、`readiness_score`、`inspect` が出ている。
+2. `reports/readiness_score.json` を開き、summary が script で生成されたものだと確認する。
+3. `outputs/module_d_red_team_report.md` を開き、intentional safety failure が記録されている。
+4. `outputs/module_e_dashboard.html` を開き、non-code reviewer でも証拠を読める。
+5. 1 つの module を real evidence に置き換えるときは、evidence source を 1 つだけ変えて script を再実行する。
+
+どの elective を選ぶか迷う場合は、この evidence pack を baseline として残します。main project が deployment、frontend、safety、product judgment を実際に必要としたときだけ module を置き換えます。
+</details>

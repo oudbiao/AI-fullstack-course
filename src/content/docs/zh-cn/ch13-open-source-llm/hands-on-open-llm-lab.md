@@ -662,4 +662,21 @@ uvicorn serve_openai_like:app --host 127.0.0.1 --port 8000
 用 Ctrl+C 停止本地 API。租用 GPU 时，复制完证据后立即停止实例。
 ````
 
+<details>
+<summary>检查思路与讲解</summary>
+
+合格的实验可以继续使用 `sshleifer/tiny-gpt2`，只要证据完整。小模型证明的是工程链路，不是回答质量。
+
+检查证据包时按这个顺序看：
+
+1. `compute_route.md` 说明本地 CPU、免费 Colab 或租 GPU，并写清这条路线不能证明什么。
+2. `environment_report.txt` 和 `requirements-freeze.txt` 让运行可复现。
+3. `first_run.md` 记录模型、prompt、设备、延迟和输出。
+4. `eval_cases.csv`、`eval_results.csv`、`eval_summary.json` 区分“模型跑起来了”和“模型解决了任务”。
+5. API 证据包含 `/health`、一次 `/v1/chat/completions` 请求、一次响应，以及停止方式。
+6. `gpu_plan.md` 和 `lora_decision.md` 避免过早升级：更大模型服务和微调都需要重复评测证据。
+
+最常见错误是在链路跑通前就把烟雾测试换成大模型。先让同一批固定样本能稳定重跑，再升级。
+</details>
+
 学完这一页，你不只是“知道可以部署开源模型”，而是已经跑过一条可复现链路：环境 -> 模型 -> 输出 -> 评估 -> API -> 停止。

@@ -373,6 +373,22 @@ failure_check: untracked files, wrong branch, merge conflict, or remote/auth iss
 Expected_output: a clean Git trace that another learner can replay safely
 ```
 
+<details>
+<summary>Review notes and pass criteria</summary>
+
+This page passes when the relationship between local and remote repositories can be checked by another person, not just when the commands have been typed.
+
+Minimum evidence:
+
+1. `git remote -v` shows `origin` pointing to the intended repository.
+2. `git status` is clean after the push.
+3. `git log --oneline -3` shows the latest README or code commit.
+4. The GitHub page shows the same commit and README.
+5. If push is rejected, you can explain the remote difference before running `git pull` and resolving it.
+
+Use `git push -u origin main` only for the first upstream link. After that, the daily rhythm is `pull -> edit -> add -> commit -> push`.
+</details>
+
 ## Common issues
 
 ### Push rejected
