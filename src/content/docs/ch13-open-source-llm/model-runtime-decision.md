@@ -78,15 +78,77 @@ The exact model names can change. The decision shape should not change.
 
 **Use SGLang when structured generation or agentic serving patterns matter.** It is powerful, but it should still be justified by project requirements rather than novelty.
 
-## Route-Specific Runtime Card
+## Route-Specific Runtime Cards
 
-Use this card to keep the three compute routes honest. The route changes what the first proof can claim.
+Use these cards to keep the three compute routes honest. The route changes what the first proof can claim, so each card separates the model, runtime, evidence, and upgrade signal.
 
-| Route | First model | Runtime | What to prove first | Upgrade signal |
-|---|---|---|---|---|
-| Local CPU | `sshleifer/tiny-gpt2` or a small quantized model | Transformers, llama.cpp, Ollama | environment, download, one prompt, eval script, local API skeleton | the loop is reproducible but quality is too weak |
-| Free Colab | tiny model first, then a small instruct model if GPU appears | Transformers notebook | notebook can rerun, files can be copied back, GPU is optional | GPU is visible and eval cases justify a larger model |
-| Rented GPU | small instruct model before 7B-class | vLLM or SGLang behind localhost / SSH tunnel | known VRAM, endpoint, eval table, latency note, shutdown proof | fixed eval cases pass and service behavior matters |
+<div class="course-route-list">
+  <section class="course-route-card">
+    <h3>Local CPU</h3>
+    <dl>
+      <div>
+        <dt>First Model</dt>
+        <dd><code>sshleifer/tiny-gpt2</code> or a small quantized model.</dd>
+      </div>
+      <div>
+        <dt>Runtime</dt>
+        <dd>Transformers for inspection; llama.cpp or Ollama for quantized local tests.</dd>
+      </div>
+      <div>
+        <dt>First Proof</dt>
+        <dd>Environment, download, one prompt, eval script, and local API skeleton.</dd>
+      </div>
+      <div>
+        <dt>Upgrade Signal</dt>
+        <dd>The loop is reproducible, but quality is too weak for the target task.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>Free Colab</h3>
+    <dl>
+      <div>
+        <dt>First Model</dt>
+        <dd>Tiny model first, then a small instruct model only if GPU is visible.</dd>
+      </div>
+      <div>
+        <dt>Runtime</dt>
+        <dd>Transformers notebook with saved files that can be copied back locally.</dd>
+      </div>
+      <div>
+        <dt>First Proof</dt>
+        <dd>The notebook can rerun, outputs are saved, and GPU use is optional.</dd>
+      </div>
+      <div>
+        <dt>Upgrade Signal</dt>
+        <dd>GPU is visible and fixed eval cases justify trying a larger model.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>Rented GPU</h3>
+    <dl>
+      <div>
+        <dt>First Model</dt>
+        <dd>Small instruct model before trying a 7B-class model.</dd>
+      </div>
+      <div>
+        <dt>Runtime</dt>
+        <dd>vLLM or SGLang behind localhost or an SSH tunnel.</dd>
+      </div>
+      <div>
+        <dt>First Proof</dt>
+        <dd>Known VRAM, endpoint, eval table, latency note, and shutdown proof.</dd>
+      </div>
+      <div>
+        <dt>Upgrade Signal</dt>
+        <dd>Fixed eval cases pass and service behavior, not only one-off generation, matters.</dd>
+      </div>
+    </dl>
+  </section>
+</div>
 
 Do not compare routes as if they prove the same thing. Local CPU proves the workflow. Colab proves a portable notebook path. Rented GPU proves controlled serving and cost discipline.
 

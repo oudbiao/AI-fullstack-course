@@ -176,21 +176,21 @@ body {
   width: 13%;
 }
 
-.sl-markdown-content table:has(tr > :nth-child(5)) {
+.sl-markdown-content table:has(tr > :nth-child(6)) {
   display: block;
   width: max-content;
   overflow-x: auto;
   table-layout: auto;
 }
 
-.sl-markdown-content table:has(tr > :nth-child(5)) th,
-.sl-markdown-content table:has(tr > :nth-child(5)) td {
+.sl-markdown-content table:has(tr > :nth-child(6)) th,
+.sl-markdown-content table:has(tr > :nth-child(6)) td {
   min-width: clamp(7.5rem, 14vw, 12rem);
   max-width: min(24rem, 78vw);
 }
 
-.sl-markdown-content table:has(tr > :nth-child(5)) th:first-child,
-.sl-markdown-content table:has(tr > :nth-child(5)) td:first-child {
+.sl-markdown-content table:has(tr > :nth-child(6)) th:first-child,
+.sl-markdown-content table:has(tr > :nth-child(6)) td:first-child {
   min-width: clamp(6.5rem, 10vw, 9rem);
 }
 

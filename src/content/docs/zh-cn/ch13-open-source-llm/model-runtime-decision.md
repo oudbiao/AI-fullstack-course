@@ -80,13 +80,75 @@ rejected_for_now: full fine-tuning, because eval failures are not proven yet
 
 ## 分路线运行时卡片
 
-用这张卡把三种计算路线分清楚。路线不同，第一轮能证明的东西也不同。
+用这些卡片把三种计算路线分清楚。路线不同，第一轮能证明的东西也不同，所以每张卡都单独拆出模型、运行时、证据和升级信号。
 
-| 路线 | 首个模型 | 运行时 | 先证明什么 | 升级信号 |
-|---|---|---|---|---|
-| 本地 CPU | `sshleifer/tiny-gpt2` 或小型量化模型 | Transformers、llama.cpp、Ollama | 环境、下载、一次 prompt、评估脚本、本地 API 骨架 | 闭环可复现，但质量太弱 |
-| 免费 Colab | 先 tiny model，GPU 可见后再小型 instruct model | Transformers notebook | notebook 能重跑、文件能带回、GPU 只是机会 | GPU 可见，并且评估样本支持换大模型 |
-| 租 GPU | 先小型 instruct model，再考虑 7B 级 | vLLM 或 SGLang，先绑定 localhost / SSH tunnel | 明确显存、endpoint、评估表、延迟说明、关机证明 | 固定评估样本通过，且确实需要服务化 |
+<div class="course-route-list">
+  <section class="course-route-card">
+    <h3>本地 CPU</h3>
+    <dl>
+      <div>
+        <dt>首个模型</dt>
+        <dd><code>sshleifer/tiny-gpt2</code> 或小型量化模型。</dd>
+      </div>
+      <div>
+        <dt>运行时</dt>
+        <dd>用 Transformers 看清代码行为；用 llama.cpp 或 Ollama 做本地量化测试。</dd>
+      </div>
+      <div>
+        <dt>先证明什么</dt>
+        <dd>环境、下载、一次 prompt、评估脚本和本地 API 骨架。</dd>
+      </div>
+      <div>
+        <dt>升级信号</dt>
+        <dd>闭环已经可复现，但目标任务的质量明显不够。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>免费 Colab</h3>
+    <dl>
+      <div>
+        <dt>首个模型</dt>
+        <dd>先跑 tiny model，只有 GPU 可见时再换小型 instruct model。</dd>
+      </div>
+      <div>
+        <dt>运行时</dt>
+        <dd>Transformers notebook，并把输出文件保存到可带回本地的位置。</dd>
+      </div>
+      <div>
+        <dt>先证明什么</dt>
+        <dd>notebook 能重跑、输出能保存，GPU 只是机会而不是前提。</dd>
+      </div>
+      <div>
+        <dt>升级信号</dt>
+        <dd>GPU 可见，并且固定评估样本支持尝试更大模型。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>租 GPU</h3>
+    <dl>
+      <div>
+        <dt>首个模型</dt>
+        <dd>先跑小型 instruct model，再考虑 7B 级模型。</dd>
+      </div>
+      <div>
+        <dt>运行时</dt>
+        <dd>vLLM 或 SGLang，先绑定 localhost 或走 SSH tunnel。</dd>
+      </div>
+      <div>
+        <dt>先证明什么</dt>
+        <dd>明确显存、endpoint、评估表、延迟说明和关机证明。</dd>
+      </div>
+      <div>
+        <dt>升级信号</dt>
+        <dd>固定评估样本通过，而且需要服务行为，而不只是一次生成。</dd>
+      </div>
+    </dl>
+  </section>
+</div>
 
 不要把三条路线当成同一种证明。本地 CPU 证明工作流，Colab 证明可搬运 notebook，租 GPU 证明可控服务和成本纪律。
 

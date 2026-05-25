@@ -80,13 +80,75 @@ rejected_for_now: full fine-tuning, because eval failures are not proven yet
 
 ## ルート別 Runtime カード
 
-このカードで 3 つの compute route を混同しないようにします。route が変わると、最初に証明できる claim も変わります。
+このカードで 3 つの compute route を混同しないようにします。route が変わると、最初に証明できる claim も変わるため、model、runtime、evidence、upgrade signal を分けて確認します。
 
-| ルート | 最初のモデル | Runtime | 最初に証明すること | Upgrade signal |
-|---|---|---|---|---|
-| Local CPU | `sshleifer/tiny-gpt2` または小さな quantized model | Transformers、llama.cpp、Ollama | environment、download、1 prompt、eval script、local API skeleton | loop は再現できるが quality が弱い |
-| Free Colab | tiny model から始め、GPU が見えたら small instruct model | Transformers notebook | notebook が再実行でき、files を持ち帰れ、GPU は optional | GPU が見え、eval cases が大きな model を正当化する |
-| Rented GPU | small instruct model の後に 7B-class | vLLM または SGLang、最初は localhost / SSH tunnel | VRAM、endpoint、eval table、latency note、shutdown proof | fixed eval cases が通り、service behavior が必要 |
+<div class="course-route-list">
+  <section class="course-route-card">
+    <h3>Local CPU</h3>
+    <dl>
+      <div>
+        <dt>最初のモデル</dt>
+        <dd><code>sshleifer/tiny-gpt2</code> または小さな quantized model。</dd>
+      </div>
+      <div>
+        <dt>Runtime</dt>
+        <dd>コード確認には Transformers、quantized local test には llama.cpp または Ollama。</dd>
+      </div>
+      <div>
+        <dt>最初に証明すること</dt>
+        <dd>environment、download、1 prompt、eval script、local API skeleton。</dd>
+      </div>
+      <div>
+        <dt>Upgrade signal</dt>
+        <dd>loop は再現できるが、target task に対して quality が弱い。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>Free Colab</h3>
+    <dl>
+      <div>
+        <dt>最初のモデル</dt>
+        <dd>tiny model から始め、GPU が見えた場合だけ small instruct model へ進む。</dd>
+      </div>
+      <div>
+        <dt>Runtime</dt>
+        <dd>Transformers notebook。出力ファイルは local に持ち帰れる形で保存します。</dd>
+      </div>
+      <div>
+        <dt>最初に証明すること</dt>
+        <dd>notebook が再実行でき、outputs が保存され、GPU は前提ではなく機会であること。</dd>
+      </div>
+      <div>
+        <dt>Upgrade signal</dt>
+        <dd>GPU が見え、fixed eval cases が大きな model を試す理由になる。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="course-route-card">
+    <h3>Rented GPU</h3>
+    <dl>
+      <div>
+        <dt>最初のモデル</dt>
+        <dd>7B-class の前に small instruct model で始める。</dd>
+      </div>
+      <div>
+        <dt>Runtime</dt>
+        <dd>vLLM または SGLang。まず localhost または SSH tunnel の内側に置きます。</dd>
+      </div>
+      <div>
+        <dt>最初に証明すること</dt>
+        <dd>VRAM、endpoint、eval table、latency note、shutdown proof。</dd>
+      </div>
+      <div>
+        <dt>Upgrade signal</dt>
+        <dd>fixed eval cases が通り、1 回の生成ではなく service behavior が必要になる。</dd>
+      </div>
+    </dl>
+  </section>
+</div>
 
 3 つの route を同じ証明として比較しないでください。Local CPU は workflow、Colab は portable notebook path、rented GPU は controlled serving と cost discipline を証明します。
 
