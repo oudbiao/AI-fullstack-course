@@ -53,11 +53,9 @@ The workshop belongs at the end. First build the mental model, then run the full
 
 ## Core Path, Extensions, And Depth
 
-| Layer | What to study now | How to use it |
-|---|---|---|
-| Required core | Tokenization, embeddings, context window, LLM API call, prompt testing, structured output, basic safety checks | These are the minimum skills before RAG and Agent applications |
-| Optional extension | Transformer internals, pretraining details, fine-tuning, alignment history | Return here when model behavior, cost, or adaptation choices need deeper explanation |
-| Depth challenge | Hand-build mini GPT-2, keep a fixed eval set, change one prompt/schema/model setting, and save failures | This turns LLM usage from a demo into an engineering loop |
+- **Required core**: tokenization, embeddings, context window, LLM API call, prompt testing, structured output, and basic safety checks. These are the minimum skills before RAG and Agent applications.
+- **Optional extension**: Transformer internals, pretraining details, fine-tuning, and alignment history. Return here when model behavior, cost, or adaptation choices need deeper explanation.
+- **Depth challenge**: hand-build mini GPT-2, keep a fixed eval set, change one prompt/schema/model setting, and save failures. This turns LLM usage from a demo into an engineering loop.
 
 ## First Runnable Loop: Prompt Testing Without an API
 

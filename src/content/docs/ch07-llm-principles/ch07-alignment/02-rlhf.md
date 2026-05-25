@@ -39,10 +39,8 @@ Only when you see this chain clearly will you understand:
 
 RLHF is not just a technique. Behind it are two especially important milestones:
 
-| Year | Paper | Key Authors | What it solved most importantly |
-|---|---|---|---|
-| 2017 | *Deep Reinforcement Learning from Human Preferences* | Christiano et al. | Formally turned human preferences into a reinforcement learning feedback signal |
-| 2022 | *Training language models to follow instructions with human feedback* | Ouyang et al. | Brought RLHF into the mainline of large language models, solving the problem of “can continue text, but may not answer according to human intent” |
+- **2017, Christiano et al.**: *Deep Reinforcement Learning from Human Preferences* formally turned human preferences into a reinforcement learning feedback signal.
+- **2022, Ouyang et al.**: *Training language models to follow instructions with human feedback* brought RLHF into mainstream LLM training and addressed the gap between “can continue text” and “answers according to human intent.”
 
 For beginners, the most important thing to remember first is:
 
@@ -180,7 +178,7 @@ So one very common engineering intuition in RLHF is:
 
 ### A role table that is useful for beginners
 
-| Component | The most important role to remember |
+| Component | Role |
 |---|---|
 | SFT model | First bring answering ability to a usable level |
 | Reward model | Learn to assign preference scores to answers |

@@ -39,10 +39,8 @@ RLHF と聞くと、最初はふわっとした言い方に聞こえる人が多
 
 RLHF はただのテクニックではありません。背景には、特に知っておくとよい2つの節目があります。
 
-| 年 | 論文 | 主な著者 | 何を最も重要に解決したか |
-|---|---|---|---|
-| 2017 | *Deep Reinforcement Learning from Human Preferences* | Christiano ら | 「人間の嗜好」を強化学習のフィードバック信号として正式に扱った |
-| 2022 | *Training language models to follow instructions with human feedback* | Ouyang ら | RLHF を大規模言語モデルの主流へ押し上げ、「文章は続けられるが、人間の意図通りに答えるとは限らない」問題を解決した |
+- **2017、Christiano ら**: *Deep Reinforcement Learning from Human Preferences* により、「人間の嗜好」を強化学習のフィードバック信号として正式に扱えるようになりました。
+- **2022、Ouyang ら**: *Training language models to follow instructions with human feedback* により、RLHF は大規模言語モデルの主流に入り、「文章は続けられるが、人間の意図通りに答えるとは限らない」問題に対応しました。
 
 初心者がまず覚えるべきなのは、次の一文です。
 
@@ -183,7 +181,7 @@ RLHF でよく使う工程上の直感は、まず次のように覚えるとよ
 
 ### 初心者向けに覚えやすい役割表
 
-| コンポーネント | まず覚えるべき役割 |
+| コンポーネント | 役割 |
 |---|---|
 | SFT モデル | まず回答できる状態にする |
 | 報酬モデル | 回答に嗜好スコアを付ける |

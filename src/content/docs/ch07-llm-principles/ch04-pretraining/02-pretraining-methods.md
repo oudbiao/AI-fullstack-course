@@ -271,7 +271,7 @@ That is also a very important reason behind the T5 route.
 
 ### A Minimal Comparison Table for the Same Sentence and Three Training Objectives
 
-| Method | What the input looks like | What the labels look like | What beginners should remember first |
+| Method | Input | Label | First intuition |
 |---|---|---|---|
 | Causal LM | Sees the previous text | Predicts the next token | More like continuation |
 | Masked LM | Has blanks in the middle | Restores masked tokens | More like fill-in-the-blank |

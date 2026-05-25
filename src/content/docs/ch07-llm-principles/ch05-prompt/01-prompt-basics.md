@@ -158,11 +158,12 @@ This is the most basic value of a Prompt:
 
 ### A Minimal “Bad Prompt -> Good Prompt” Comparison Table
 
-| Version | Prompt | Problem or Advantage |
-|---|---|---|
-| Bad version | Please handle this content for me. | The task, format, and boundaries are all unclear |
-| Slightly better | Please summarize this content. | The task is clear, but the format is still unclear |
-| More stable version | Please summarize the following content into 3 English bullet points, with no more than 20 characters per point, and do not add information beyond the original text. | The task, format, and constraints are all clear |
+- **Bad version**: “Please handle this content for me.”
+  Problem: the task, format, and boundaries are all unclear.
+- **Slightly better**: “Please summarize this content.”
+  Improvement: the task is clear, but the format is still unclear.
+- **More stable version**: “Please summarize the following content into 3 English bullet points, with no more than 20 characters per point, and do not add information beyond the original text.”
+  Advantage: the task, format, and constraints are all clear.
 
 This table is especially useful for beginners, because it lets you see:
 
@@ -359,7 +360,7 @@ So Prompt basics are not an isolated chapter, but the foundation for many system
 
 ### Terms You Will Keep Seeing Later
 
-| Term | Beginner-friendly meaning | Why it connects back to Prompt basics |
+| Term | Meaning | Prompt link |
 |---|---|---|
 | Prompt | The instruction, context, examples, and constraints sent to the model | It is the model’s task brief, so unclear wording creates unclear behavior |
 | Structured output | Output that follows a predictable format such as JSON, a table, or fixed fields | A product often needs parseable data, not just a nice paragraph |

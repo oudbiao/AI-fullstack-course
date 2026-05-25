@@ -143,7 +143,7 @@ Remember this one sentence first:
 
 ### Judgment table for the three types of problems
 
-| Problem symptom | What kind of problem is it more like? | What should you prioritize? |
+| Symptom | Problem type | Prioritize |
 |---|---|---|
 | The model does not know the company’s latest refund policy | Knowledge problem | RAG / retrieval / knowledge base updates |
 | The answer content is correct, but the JSON format is often wrong | Format problem | Prompt / structured output / validation retries |

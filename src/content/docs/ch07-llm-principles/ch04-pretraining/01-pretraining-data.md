@@ -483,13 +483,11 @@ Keep the training corpus and the evaluation set separated. If benchmark question
 :::
 ### Terms worth distinguishing
 
-| Term | What it means | Why it matters in pretraining |
-|---|---|---|
-| Data contamination | Test data, answers, or near-duplicates accidentally enter the training corpus | The model may memorize benchmark patterns instead of learning transferable ability |
-| Evaluation leakage | Information from the evaluation set influences training or prompt design | Scores stop reflecting real unseen performance |
-| Benchmark | A standard test set used to compare models | Public benchmarks are useful, but also easier to leak into web-scale corpora |
-| n-gram / hash check | A way to compare text fragments or fingerprints for overlap | It helps detect exact duplicates and suspiciously similar samples |
-| Versioning | Recording which data sources, filters, and rules produced each corpus version | Without versioning, you cannot explain why a score changed or reproduce a training run |
+- **Data contamination**: test data, answers, or near-duplicates enter the training corpus. The risk is that the model memorizes benchmark patterns instead of learning transferable ability.
+- **Evaluation leakage**: evaluation information influences training or prompt design. Scores stop reflecting real unseen performance.
+- **Benchmark**: a standard test set used to compare models. Public benchmarks are useful, but they are also easier to leak into web-scale corpora.
+- **n-gram / hash check**: a way to compare text fragments or fingerprints for overlap. It helps detect exact duplicates and suspiciously similar samples.
+- **Versioning**: a record of the data sources, filters, and rules behind each corpus version. Without it, you cannot explain score changes or reproduce a training run.
 
 ---
 

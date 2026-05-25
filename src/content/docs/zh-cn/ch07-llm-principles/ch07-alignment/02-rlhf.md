@@ -39,10 +39,8 @@ head:
 
 RLHF 不只是一种技巧，它背后有两个特别值得知道的节点：
 
-| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
-|---|---|---|---|
-| 2017 | *Deep Reinforcement Learning from Human Preferences* | Christiano 等 | 把“人类偏好”正式做成强化学习反馈信号 |
-| 2022 | *Training language models to follow instructions with human feedback* | Ouyang 等 | 把 RLHF 推到大语言模型主线里，解决“会续写但不一定按人类意图回答”的问题 |
+- **2017，Christiano 等**：*Deep Reinforcement Learning from Human Preferences* 把“人类偏好”正式做成强化学习反馈信号。
+- **2022，Ouyang 等**：*Training language models to follow instructions with human feedback* 把 RLHF 推到大语言模型主线里，解决“会续写但不一定按人类意图回答”的问题。
 
 对新人来说，最值得先记的是：
 
@@ -182,7 +180,7 @@ RLHF 则更像在继续教它：
 
 ### 一个很适合初学者先记的角色表
 
-| 组件 | 最值得先记住的角色 |
+| 组件 | 角色 |
 |---|---|
 | SFT 模型 | 先把回答能力拉到可用 |
 | 奖励模型 | 学会给回答打偏好分 |

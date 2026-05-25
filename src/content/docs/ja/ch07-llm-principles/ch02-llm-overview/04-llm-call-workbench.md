@@ -156,21 +156,15 @@ def run_workbench(user_task):
 run_workbench("Explain AI history with simple language.")
 ```
 
-想定される出力の形は次のようになります。
+想定される出力は、次のような検証ログとして読めば十分です。
 
-```text
-used input tokens estimate: 36
-remaining output room     : 3460
-request model             : gpt-5.5
-
-attempt: 1
-validation: era_0_missing_['summary']
-retry fix: strengthen schema instruction and lower temperature
-
-attempt: 2
-validation: valid
-first era: {'period': '1936-1950', ...}
-```
+| 項目 | 例 |
+|---|---|
+| token 見積もり | input 36、output 余裕 3460 |
+| request model | `gpt-5.5` |
+| attempt 1 | `era_0_missing_['summary']` で失敗 |
+| retry fix | schema 指示を強め、temperature を下げる |
+| attempt 2 | `valid` になり、最初の era を確認 |
 
 ![LLM 呼び出しワークベンチ検証リトライ結果図](/img/course/ch07-llm-call-workbench-validation-trace-ja.webp)
 
