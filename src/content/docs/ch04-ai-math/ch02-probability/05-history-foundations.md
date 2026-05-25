@@ -132,7 +132,7 @@ It looks like a loss function on the surface, but underneath it is connected to 
 
 ## Assigning historical milestones to course chapters
 
-| Historical milestone | What a beginner should understand first | Corresponding course chapter |
+| Historical milestone | First idea | Course link |
 |---|---|---|
 | Bayes' rule | New evidence updates the judgment | 2.2 Probability foundations, 5.1 Machine learning basics |
 | Maximum likelihood estimation | Find the parameters that best explain the data | 2.4 Statistical inference, 5.2 Supervised learning |

@@ -607,7 +607,7 @@ Because during training, the true distribution P is fixed (the labels do not cha
 :::
 ### A Comparison Table That's Very Good for Beginners to Remember
 
-| Concept | The Most Important Question to Remember |
+| Concept | Key question |
 |------|------|
 | Information content | How surprising is this event? |
 | Entropy | How uncertain is the system on average? |

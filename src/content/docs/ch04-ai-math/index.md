@@ -35,12 +35,10 @@ Vectors and matrices represent data. Probability describes uncertainty. Loss tel
 
 Study the theory first, then run the full workshop. The workshop is last because it combines the ideas rather than introducing them from zero.
 
-| Page | Follow-along action | Evidence to keep |
-|---|---|---|
-| [4.1 Linear Algebra](/ch04-ai-math/ch01-linear-algebra/00-roadmap/) | Use vectors, matrices, dot product, norm, and cosine similarity to compare examples | One vector similarity calculation |
-| [4.2 Probability and Statistics](/ch04-ai-math/ch02-probability/00-roadmap/) | Simulate uncertainty, distributions, mean, variance, entropy, and loss | One probability or entropy note |
-| [4.3 Calculus and Optimization](/ch04-ai-math/ch03-calculus/00-roadmap/) | Trace derivatives, gradients, learning rate, and gradient descent | One parameter-update table |
-| [4.4 Hands-on Math Workshop](/ch04-ai-math/hands-on-math-workshop/) | Connect vector similarity, probability, entropy/loss, and gradient descent in one runnable script | `ch04_math_workshop_evidence/` |
+1. [4.1 Linear Algebra](/ch04-ai-math/ch01-linear-algebra/00-roadmap/): compare examples with vectors, matrices, dot product, norm, and cosine similarity.
+2. [4.2 Probability and Statistics](/ch04-ai-math/ch02-probability/00-roadmap/): simulate uncertainty, distributions, mean, variance, entropy, and loss.
+3. [4.3 Calculus and Optimization](/ch04-ai-math/ch03-calculus/00-roadmap/): trace derivatives, gradients, learning rate, and gradient descent.
+4. [4.4 Hands-on Math Workshop](/ch04-ai-math/hands-on-math-workshop/): connect the whole chain in one runnable script and keep `ch04_math_workshop_evidence/`.
 
 ## Core Path, Extensions, And Depth
 

@@ -344,7 +344,7 @@ it directly becomes the update action during training.
 
 ### A Comparison Table That Beginners Should Remember First
 
-| Concept | The most important question to remember |
+| Concept | Key question |
 |------|------|
 | Partial derivative | If I turn only this one knob, how does the result change? |
 | Gradient | If I combine the rates of change of all knobs, which direction should I adjust? |

@@ -74,19 +74,13 @@ print(score)
 
 下のスクリプトは、この証拠パックを生成します。
 
-```text
-ml_workshop_run/
-  data/learning_tasks.csv
-  data/schema.json
-  outputs/model_comparison.csv
-  outputs/best_model_metrics.json
-  outputs/threshold_review.csv
-  outputs/error_samples.csv
-  outputs/classification_report.txt
-  reports/leakage_check.md
-  reports/experiment_log.md
-  README.md
-```
+| 領域 | ファイル |
+|---|---|
+| データ | `data/learning_tasks.csv`、`data/schema.json` |
+| モデル出力 | `outputs/model_comparison.csv`、`best_model_metrics.json`、`classification_report.txt` |
+| レビュー出力 | `outputs/threshold_review.csv`、`error_samples.csv` |
+| レポート | `reports/leakage_check.md`、`experiment_log.md` |
+| 再実行ガイド | `README.md` |
 
 ### 実行前に用語を確認する
 

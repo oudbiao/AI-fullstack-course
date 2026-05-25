@@ -35,12 +35,10 @@ head:
 
 先学理论，再做完整工作坊。工作坊放在最后，因为它是把这些概念串起来，而不是从零介绍概念。
 
-| 页面 | 跟着做 | 留下的证据 |
-|---|---|---|
-| [4.1 线性代数](/zh-cn/ch04-ai-math/ch01-linear-algebra/00-roadmap/) | 用向量、矩阵、点积、范数和余弦相似度比较样本 | 一次向量相似度计算 |
-| [4.2 概率与统计](/zh-cn/ch04-ai-math/ch02-probability/00-roadmap/) | 模拟不确定性、分布、均值、方差、熵和损失 | 一条概率或熵的说明 |
-| [4.3 微积分与优化](/zh-cn/ch04-ai-math/ch03-calculus/00-roadmap/) | 跟踪导数、梯度、学习率和梯度下降 | 一张参数更新表 |
-| [4.4 完整数学工作坊](/zh-cn/ch04-ai-math/hands-on-math-workshop/) | 用一个可运行脚本串起向量相似度、概率、熵/损失和梯度下降 | `ch04_math_workshop_evidence/` |
+1. [4.1 线性代数](/zh-cn/ch04-ai-math/ch01-linear-algebra/00-roadmap/)：用向量、矩阵、点积、范数和余弦相似度比较样本。
+2. [4.2 概率与统计](/zh-cn/ch04-ai-math/ch02-probability/00-roadmap/)：模拟不确定性、分布、均值、方差、熵和损失。
+3. [4.3 微积分与优化](/zh-cn/ch04-ai-math/ch03-calculus/00-roadmap/)：跟踪导数、梯度、学习率和梯度下降。
+4. [4.4 完整数学工作坊](/zh-cn/ch04-ai-math/hands-on-math-workshop/)：用一个可运行脚本串起完整链条，并保留 `ch04_math_workshop_evidence/`。
 
 ## 必修主线、扩展和深度挑战
 

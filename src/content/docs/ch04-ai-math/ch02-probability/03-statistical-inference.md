@@ -43,7 +43,7 @@ Important warning: a p-value is **not** “the probability that the null hypothe
 
 There are two especially important historical milestones in this section:
 
-| Year | Milestone | Key Author(s) | What did it solve most importantly? |
+| Year | Milestone | Key author(s) | Main contribution |
 |---|---|---|---|
 | 1922 | Maximum Likelihood Estimation | Ronald Fisher | Systematized the idea of "the parameters that best explain the observed data," becoming an important foundation for statistical learning and loss functions |
 | 1977 | EM Algorithm | Dempster, Laird, Rubin | Provided a stable iterative framework for parameter estimation problems with latent variables and missing information |

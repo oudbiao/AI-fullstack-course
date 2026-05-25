@@ -74,19 +74,13 @@ That is not enough for a real machine learning project. You need to leave a trai
 
 The script below generates this evidence pack:
 
-```text
-ml_workshop_run/
-  data/learning_tasks.csv
-  data/schema.json
-  outputs/model_comparison.csv
-  outputs/best_model_metrics.json
-  outputs/threshold_review.csv
-  outputs/error_samples.csv
-  outputs/classification_report.txt
-  reports/leakage_check.md
-  reports/experiment_log.md
-  README.md
-```
+| Area | Files |
+|---|---|
+| Data | `data/learning_tasks.csv`, `data/schema.json` |
+| Model outputs | `outputs/model_comparison.csv`, `best_model_metrics.json`, `classification_report.txt` |
+| Review outputs | `outputs/threshold_review.csv`, `error_samples.csv` |
+| Reports | `reports/leakage_check.md`, `experiment_log.md` |
+| Rerun guide | `README.md` |
 
 ### Terms to Decode Before Running
 

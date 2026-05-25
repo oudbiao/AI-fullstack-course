@@ -53,14 +53,14 @@ print("single_score:", round(single_score, 2))
 print("all_scores:", all_scores.round(2))
 ```
 
-出力：
+出力の要約：
 
-```text
-student_vector: [90 85 92]
-matrix_shape: (3, 3)
-single_score: 89.8
-all_scores: [89.8 75.6 91.8]
-```
+| 項目 | 値 |
+|---|---|
+| `student_vector` | `[90 85 92]` |
+| `matrix_shape` | `(3, 3)` |
+| `single_score` | `89.8` |
+| `all_scores` | `[89.8 75.6 91.8]` |
 
 `@` ではなく `*` を使うと、重み付きスコアではなく要素ごとの掛け算になります。最初にここを区別できるとかなり楽になります。
 
