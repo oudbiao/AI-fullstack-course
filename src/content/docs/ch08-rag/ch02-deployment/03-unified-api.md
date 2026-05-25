@@ -165,7 +165,7 @@ The advantage of doing this is:
 
 ### A Unified Table That Is Very Easy for Beginners to Remember
 
-| Layer | What should be unified in this layer? |
+| Layer | Unify first |
 |---|---|
 | Request | query / model / provider / parameter format |
 | Response | answer / usage / error |
@@ -386,7 +386,7 @@ These are exactly the places where a unified entry point can shine.
 
 ### A Selection Table That Beginners Can Remember First
 
-| System symptom | What should the unified API layer prioritize first? |
+| System symptom | First priority |
 |---|---|
 | More and more providers | Unify request / response |
 | Logs are harder and harder to understand | Trace and unified logging |

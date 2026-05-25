@@ -49,11 +49,9 @@ Do the workshop after the basics. First make the retrieval chain visible; then w
 
 ## Core Path, Extensions, And Depth
 
-| Layer | What to study now | How to use it |
-|---|---|---|
-| Required core | Document parsing, chunk metadata, top-k retrieval, citations, no-answer handling, fixed evaluation set, request/response logs | These are the minimum skills for trustworthy knowledge-grounded LLM apps |
-| Optional extension | Local model serving, unified APIs, LangChain/LlamaIndex, advanced RAG, Docker deployment | Return here when the project needs scale, framework integration, or operations depth |
-| Depth challenge | Keep the same evaluation questions, change one retrieval or chunking variable, and compare cited answers | This prevents "it feels better" RAG tuning |
+- **Required core**: document parsing, chunk metadata, top-k retrieval, citations, no-answer handling, a fixed evaluation set, and request/response logs. These are the minimum skills for trustworthy knowledge-grounded LLM apps.
+- **Optional extension**: local model serving, unified APIs, LangChain/LlamaIndex, advanced RAG, and Docker deployment. Return here when the project needs scale, framework integration, or operations depth.
+- **Depth challenge**: keep the same evaluation questions, change one retrieval or chunking variable, and compare cited answers. This prevents "it feels better" RAG tuning.
 
 ## Time Budget And Deliverable
 

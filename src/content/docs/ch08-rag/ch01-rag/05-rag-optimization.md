@@ -312,13 +312,11 @@ More context is not always better, especially when the context contains too many
 
 When doing optimization for real, the most useful skill is not memorizing many tricks, but being able to map the symptom to a specific pipeline stage.
 
-| Symptom | What to look at first in the logs | First thing to try | What not to do at the beginning |
-|---|---|---|---|
-| The correct material does not appear at all | Query, raw top-k hits, chunk text | Adjust chunking, keyword search, query rewrite | Directly switch to a larger generation model |
-| The correct material appears, but is ranked too low | Each chunk’s score and ranking | Add rerank, tune hybrid retrieval weights | Blindly increase top-k a lot |
-| The correct material is in the context, but the answer misses conditions | Final context, prompt, answer citations | Adjust context packing, require line-by-line citation | Only change the embedding model |
-| The answer cites the wrong source | Answer, `source_refs`, evidence snippets | Do citation checks, restrict citation format | Only check whether the final answer is fluent |
-| Latency and cost suddenly increase | `top_k`, rerank count, context length | Limit candidate count, caching, hierarchical retrieval | Increase top-k and model size at the same time |
+- **Correct material does not appear**: first inspect the query, raw top-k hits, and chunk text. Try chunking adjustment, keyword search, or query rewrite. Do not begin by switching to a larger generation model.
+- **Correct material is ranked too low**: first inspect each chunk’s score and ranking. Try reranking or hybrid retrieval weights. Do not blindly increase top-k.
+- **Correct material is in context, but conditions are missing**: first inspect final context, prompt, and answer citations. Try context packing and line-by-line citation requirements. Do not only change the embedding model.
+- **Wrong source is cited**: first inspect the answer, `source_refs`, and evidence snippets. Try citation checks and stricter citation format. Do not only check whether the answer sounds fluent.
+- **Latency and cost jump**: first inspect `top_k`, rerank count, and context length. Try candidate limits, caching, or hierarchical retrieval. Do not increase top-k and model size at the same time.
 
 How to use this table: pick one symptom at a time, find the matching logs, and then decide which lever to adjust. Do not change chunk, embedding, top-k, rerank, and prompt all at once when you do not yet know which layer the problem is in.
 

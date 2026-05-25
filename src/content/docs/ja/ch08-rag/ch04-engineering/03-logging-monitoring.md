@@ -247,14 +247,14 @@ for item in trace:
     print(item)
 ```
 
-想定出力：
+想定出力では、同じ `trace_id` で各 stage の latency が並びます。
 
-```text
-{'trace_id': 'trace_001', 'stage': 'api_in', 'latency_ms': 20}
-{'trace_id': 'trace_001', 'stage': 'retrieval', 'latency_ms': 120}
-{'trace_id': 'trace_001', 'stage': 'llm_generate', 'latency_ms': 850}
-{'trace_id': 'trace_001', 'stage': 'response_out', 'latency_ms': 15}
-```
+| stage | latency_ms |
+|---|---:|
+| `api_in` | 20 |
+| `retrieval` | 120 |
+| `llm_generate` | 850 |
+| `response_out` | 15 |
 
 trace の核心は、
 

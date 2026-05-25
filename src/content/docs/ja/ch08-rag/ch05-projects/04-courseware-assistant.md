@@ -196,14 +196,14 @@ for slot in required_slots:
     print(f"{slot}: {count} item(s)", "OK" if count else "CHECK")
 ```
 
-想定出力：
+想定出力では、4 つの slot がすべて `OK` になります。
 
-```text
-policies: 1 item(s) OK
-cases: 1 item(s) OK
-checklists: 1 item(s) OK
-notes: 1 item(s) OK
-```
+| slot | count | status |
+|---|---:|---|
+| `policies` | 1 | OK |
+| `cases` | 1 | OK |
+| `checklists` | 1 | OK |
+| `notes` | 1 | OK |
 
 ## 実プロジェクトらしいシステム分解図
 

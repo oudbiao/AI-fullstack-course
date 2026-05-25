@@ -155,7 +155,7 @@ It is teaching you:
 
 ### A Simple Decision Table for Beginners
 
-| Phenomenon | Which Layer Is More Worth Checking First? |
+| Phenomenon | First layer to check |
 |---|---|
 | A single request is fast, but the system cannot handle the overall load | Throughput and batching |
 | Responses are slow, but the GPU is not fully utilized | Queueing and batch organization |
@@ -328,7 +328,7 @@ These metrics tell you:
 
 ### A Simple Monitoring Table for Beginners
 
-| Metric | What Question Should You Ask First? |
+| Metric | First question |
 |---|---|
 | Average / P95 latency | How long did users actually wait? |
 | Queue length | Are requests piling up? |

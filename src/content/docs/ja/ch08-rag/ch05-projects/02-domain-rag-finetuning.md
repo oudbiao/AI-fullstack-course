@@ -423,25 +423,13 @@ grounding: 回答は A を引用しているが、事実は B から来ている
 
 最終成果物は、次のような構成にまとめるとよいです。
 
-```text
-rag-domain-assistant/
-├── README.md
-├── data/
-│   ├── raw_docs/
-│   ├── chunks.jsonl
-│   └── eval_questions.csv
-├── src/
-│   ├── ingest.py
-│   ├── retrieve.py
-│   ├── answer.py
-│   └── evaluate.py
-├── logs/
-│   ├── retrieval_logs.jsonl
-│   └── failure_cases.md
-└── reports/
-    ├── baseline_result.md
-    └── improvement_record.md
-```
+| 領域 | 入れるファイル |
+|---|---|
+| ルート | `README.md` |
+| `data/` | `raw_docs/`、`chunks.jsonl`、`eval_questions.csv` |
+| `src/` | `ingest.py`、`retrieve.py`、`answer.py`、`evaluate.py` |
+| `logs/` | `retrieval_logs.jsonl`、`failure_cases.md` |
+| `reports/` | `baseline_result.md`、`improvement_record.md` |
 
 最初からすべてのファイルを埋める必要はありませんが、少なくとも次の 3 本の流れが見えるようにしましょう。資料がどうシステムに入るか、質問がどう文書に命中するか、答えがどう評価されるか、です。
 
@@ -473,12 +461,10 @@ rag-domain-assistant/
 
 RAG+微調整プロジェクトで、エンジニアリング力が最もよく出るのは成功例ではなく失敗例です。少なくとも 3 種類は記録するのがおすすめです。
 
-| 失敗タイプ | 現象 | 可能性のある原因 | 次の一手 |
-|---|---|---|---|
-| 検索失敗 | 正しいポリシーが top-k に入らない | chunk の切り方が悪い、キーワードが合わない、embedding が適切でない | チャンク調整、混合検索、クエリ書き換え |
-| 回答失敗 | 資料は取れているが、答えから重要条件が抜ける | prompt の制約が弱い、回答テンプレートが不安定 | 出力形式を強化する、must_contain 検査を増やす |
-| 引用失敗 | 答えの結論と引用部分が一致しない | 引用の結合ミス、モデルの自由な創作 | citation check を入れる、文ごとに根拠を求める |
-| スタイル失敗 | 事実は合っているが、業務表現に合わない | 微調整データや例が足りない | 形式例や教師ありデータを増やす |
+- **検索失敗**: 正しいポリシーが top-k に入りません。chunk、キーワード一致、embedding を確認し、チャンク調整、混合検索、クエリ書き換えを試します。
+- **回答失敗**: 資料は取れているのに、答えから重要条件が抜けます。prompt 制約と回答テンプレートを確認し、出力形式と `must_contain` 検査を強化します。
+- **引用失敗**: 答えの結論と引用部分が一致しません。引用の結合ミスとモデルの自由な創作を確認し、citation check と文ごとの根拠を求めます。
+- **スタイル失敗**: 事実は合っていますが、業務表現に合いません。微調整データと例を確認し、形式例や教師ありデータを増やします。
 
 失敗サンプルをきちんと書くと、成功スクリーンショットだけを貼るよりずっと説得力が出ます。
 

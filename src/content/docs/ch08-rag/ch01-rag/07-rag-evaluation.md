@@ -429,13 +429,11 @@ For a minimal evaluation set, it is recommended to prepare 20–50 questions fir
 
 The value of evaluation is not just producing a total score. It is also about helping you know what to fix next. You can put the table below into your experiment log and attribute every failure to a layer first.
 
-| Failure symptom | Attribution layer | What to check | Next action |
-|---|---|---|---|
-| The correct document did not enter the top-k | Retrieval layer | Query, chunking, embedding, keyword matching | Adjust chunking, add hybrid retrieval, or use query rewrite |
-| The correct document entered the top-k but not the final context | Context layer | Context packing, deduplication, length limits | Adjust ranking, compression, or packing strategy |
-| The context contains evidence but the answer misses key conditions | Generation layer | Prompt, answer format, whether the model follows evidence | Require step-by-step evidence-based answering and preserve constraints |
-| The answer conclusion is correct but the citation does not support it | Citation layer | `source_refs`, citation snippets, answer sentences | Perform citation authenticity checks and forbid unsupported citations |
-| Offline evaluation looks good but users still ask follow-up questions frequently | Product layer | Real question distribution, evaluation-set coverage | Add online questions to the evaluation set |
+- **Retrieval layer**: the correct document did not enter top-k. Check query, chunking, embedding, and keyword matching; then adjust chunking, add hybrid retrieval, or use query rewrite.
+- **Context layer**: the correct document entered top-k but not the final context. Check packing, deduplication, and length limits; then adjust ranking, compression, or packing strategy.
+- **Generation layer**: the context contains evidence but the answer misses key conditions. Check prompt, answer format, and evidence-following behavior; then require step-by-step evidence-based answering.
+- **Citation layer**: the answer conclusion is correct but the citation does not support it. Check `source_refs`, snippets, and answer sentences; then forbid unsupported citations.
+- **Product layer**: offline evaluation looks good but users still ask many follow-up questions. Check real question distribution and evaluation-set coverage; then add online questions to the evaluation set.
 
 If you only look at “final answer accuracy,” these issues will be mixed together. Layered attribution makes optimization actions clearer: if retrieval is wrong, do not start by tuning the prompt; if citations are wrong, do not only check whether the answer is fluent.
 
@@ -468,12 +466,10 @@ The key point of this template is not the number of fields, but that each sample
 
 If the project goal is to generate SOP documents or internal operating docs, evaluation should not stop at the Q&A level. The rubric below can be used as an acceptance checklist for a portfolio project.
 
-| Level | Retrieval requirement | Generation requirement | Citation requirement |
-|---|---|---|---|
-| Practice level | Can hit topic-related materials | Can generate basic answers or snippets | Can display the source filename |
-| Project level | Can retrieve policies, cases, and checklists by topic and content type | Can organize output into fixed SOP sections | Each key section has a source |
-| Portfolio level | Has a fixed evaluation set and failure samples | Can explain which failures came from retrieval, generation, or templates | Key conclusions can be traced line by line to the source text |
-| Interview level | Can compare baseline, hybrid retrieval, reranking, and other strategies | Can explain the trade-offs among quality, cost, and latency | Can perform citation authenticity spot checks and record improvements |
+- **Practice level**: retrieve topic-related materials, generate basic answers or snippets, and display source filenames.
+- **Project level**: retrieve policies, cases, and checklists by topic and content type; organize output into fixed SOP sections; attach sources to key sections.
+- **Portfolio level**: keep a fixed evaluation set and failure samples; explain whether failures came from retrieval, generation, or templates; trace key conclusions back to source text.
+- **Interview level**: compare baseline, hybrid retrieval, and reranking; explain quality, cost, and latency trade-offs; spot-check citation authenticity and record improvements.
 
 You can put this table directly into your project README. It shows that you did not just build a “can answer questions” demo, but are evaluating a knowledge-base-driven system with an engineering mindset.
 

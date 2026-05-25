@@ -421,25 +421,13 @@ The key point of this table is to upgrade the project from a “technical demo�
 
 You can organize the final project like this:
 
-```text
-rag-domain-assistant/
-├── README.md
-├── data/
-│   ├── raw_docs/
-│   ├── chunks.jsonl
-│   └── eval_questions.csv
-├── src/
-│   ├── ingest.py
-│   ├── retrieve.py
-│   ├── answer.py
-│   └── evaluate.py
-├── logs/
-│   ├── retrieval_logs.jsonl
-│   └── failure_cases.md
-└── reports/
-    ├── baseline_result.md
-    └── improvement_record.md
-```
+| Area | Files to include |
+|---|---|
+| Root | `README.md` |
+| `data/` | `raw_docs/`, `chunks.jsonl`, `eval_questions.csv` |
+| `src/` | `ingest.py`, `retrieve.py`, `answer.py`, `evaluate.py` |
+| `logs/` | `retrieval_logs.jsonl`, `failure_cases.md` |
+| `reports/` | `baseline_result.md`, `improvement_record.md` |
 
 When you build it for the first time, you do not need to fill every file immediately. But at minimum, you should let others see three lines clearly: how the materials enter the system, how questions match documents, and how answers are evaluated.
 
@@ -471,12 +459,10 @@ Evaluation: retrieval_hit=true, answer_ok=true, citation_ok=true
 
 In a RAG + fine-tuning project, the part that best shows engineering ability is often not the success cases, but the failure cases. It is recommended to record at least 3 types of failures:
 
-| Failure type | Symptom | Possible cause | Next step |
-|---|---|---|---|
-| Retrieval failure | The correct policy does not appear in the top-k results | Poor chunking, keyword mismatch, unsuitable embeddings | Adjust chunking, use hybrid retrieval, query rewrite |
-| Answer failure | The right material was retrieved, but the answer missed key conditions | Weak prompt constraints, unstable answer template | Strengthen output format, add must_contain checks |
-| Citation failure | The answer conclusion does not match the cited passage | Citation concatenation error, model improvisation | Add citation checks, require sentence-level grounding |
-| Style failure | The facts are correct, but the answer does not fit the business style | Fine-tuning data or examples are insufficient | Add more format examples or supervised data |
+- **Retrieval failure**: the correct policy does not appear in top-k. Check chunking, keyword match, and embeddings; then adjust chunking, add hybrid retrieval, or rewrite the query.
+- **Answer failure**: the right material is retrieved, but the answer misses key conditions. Check prompt constraints and answer template stability; then strengthen the output format and add `must_contain` checks.
+- **Citation failure**: the answer conclusion does not match the cited passage. Check citation stitching and model improvisation; then require citation checks and sentence-level grounding.
+- **Style failure**: the facts are correct, but the answer does not fit the business style. Check fine-tuning data and examples; then add more format examples or supervised data.
 
 Writing down failure samples clearly is more persuasive than only showing one successful screenshot.
 

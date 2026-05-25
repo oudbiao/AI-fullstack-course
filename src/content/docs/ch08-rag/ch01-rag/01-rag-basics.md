@@ -618,12 +618,10 @@ This function is not final product code; it is a debugging tool. In a real proje
 
 ## Typical Failure Sample Analysis
 
-| Failure symptom | Possible cause | Next step |
-|---|---|---|
-| The knowledge base clearly has the answer, but it is not retrieved | Chunk too large, keyword mismatch, embedding not suitable | Print top-k and inspect the query and chunk text |
-| The correct document is retrieved, but the answer misses a key condition | Chunk incomplete, context order unreasonable, weak prompt constraints | Increase overlap, adjust context packing, require condition citations |
-| The answer cites a source, but the source does not support the conclusion | Hallucination during generation, incorrect citation stitching | Do citation checks and verify evidence sentence by sentence |
-| Multiple documents conflict with each other, and the answer becomes confusing | Missing version, date, or source priority | Add metadata filters and source priority rules |
+- **No retrieval hit**: the knowledge base has the answer, but top-k misses it. Check chunk size, keyword mismatch, and embedding fit; then print top-k and inspect both query and chunk text.
+- **Condition missing**: the correct document is retrieved, but the answer drops an important constraint. Check chunk completeness, context order, and prompt constraints; then increase overlap, adjust packing, or require condition citations.
+- **Unsupported citation**: the answer cites a source that does not support the conclusion. Check generation hallucination and citation stitching; then verify evidence sentence by sentence.
+- **Conflicting sources**: multiple documents disagree and the answer becomes confusing. Check version, date, and source priority; then add metadata filters and priority rules.
 
 These failure samples should be included in the project README or experiment notes. The value of a RAG project is not only in "answering correctly," but also in your ability to explain "why it answered incorrectly."
 

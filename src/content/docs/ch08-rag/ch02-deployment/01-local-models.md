@@ -150,7 +150,7 @@ The question is not “Do I want to run it?” but “Can my machine handle it?�
 
 ### A decision table that is very useful for beginners
 
-| What you care about most | Which path is more likely to come first |
+| Priority | First path |
 |---|---|
 | Fast prototyping | Cloud API |
 | Privacy and intranet use | Local model |
