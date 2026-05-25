@@ -295,9 +295,9 @@ import math
 from collections import Counter
 
 docs = [
-    "i love python",
-    "i love coding",
-    "weather is sunny",
+    "rag search returns documents",
+    "rag retrieval finds documents",
+    "gpu service reports latency",
 ]
 
 tokenized_docs = [doc.split() for doc in docs]
@@ -333,16 +333,16 @@ print("文 1 vs 文 3:", round(cosine_similarity(vec1, vec3), 4))
 実行結果の例：
 
 ```text
-文 1 vs 文 2: 0.6667
+文 1 vs 文 2: 0.5
 文 1 vs 文 3: 0.0
 ```
 
-最初の2文は `i` と `love` を共有しているため、ベクトルの向きが近くなります。天気の文は最初の文と共通語彙がないため、類似度は `0.0` です。
+最初の 2 文は `rag` と `documents` を共有しているため、ベクトルの向きが近くなります。サービス遅延の文は最初の文と共通語彙がないため、類似度は `0.0` です。
 
 この例では、たいてい次のようになります。
 
-- `i love python` と `i love coding` は近い
-- `weather is sunny` とは遠い
+- `rag search returns documents` と `rag retrieval finds documents` は近い
+- `gpu service reports latency` とは遠い
 
 ---
 

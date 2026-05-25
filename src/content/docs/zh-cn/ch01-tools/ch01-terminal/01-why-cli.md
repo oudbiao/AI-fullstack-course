@@ -94,6 +94,15 @@ py hello_terminal.py
 
 当你能说清 `pwd`、`cd`、`ls` 和 `python hello_terminal.py` 在自己的文件夹里做了什么，就可以进入下一节。下一节会更慢地练文件操作。
 
+<details>
+<summary>检查思路与讲解</summary>
+
+合格标准不是“我复制了一遍命令”，而是：你能说出当前目录、`hello_terminal.py` 创建在哪里、如何再次运行脚本，并能把命令和输出作为证据留下来。
+
+如果失败，不要马上重装工具。先对比 `pwd`、`ls` 和 `python --version`；新手终端问题大多来自路径不对或环境不一致。
+
+</details>
+
 ## 留下的证据
 
 学完这一页，至少保留这张证据卡：

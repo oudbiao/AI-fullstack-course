@@ -264,7 +264,7 @@ data5 = load("file5.csv")
 
 - 入力中にコードを自動補完する
 - `Tab` を押すと提案を受け入れる
-- 学生は無料で使える（GitHub Student Pack 経由）
+- 条件を満たす教育アカウントは GitHub Education 経由で無料特典を受けられる場合があります
 - 拡張機能の検索キーワード：`GitHub.copilot`
 
 ### Codeium
@@ -333,14 +333,20 @@ mkdir vscode-practice && cd vscode-practice && code .
 
 ```python
 # VS Code のショートカットを練習する
-fruits = ["apple", "banana", "cherry", "date", "elderberry"]
+tasks = [
+    "load config",
+    "validate dataset",
+    "run smoke test",
+    "write metrics",
+    "commit changes",
+]
 
-for i, fruit in enumerate(fruits):
-    print(f"{i + 1}. {fruit}")
+for i, task in enumerate(tasks):
+    print(f"{i + 1}. {task}")
 
-# 果物名の平均文字数を計算する
-avg_len = sum(len(f) for f in fruits) / len(fruits)
-print(f"\n平均の名前の長さ: {avg_len:.1f} 文字")
+# タスクラベルの平均文字数を計算する
+avg_len = sum(len(task) for task in tasks) / len(tasks)
+print(f"\n平均タスクラベル長: {avg_len:.1f} 文字")
 ```
 
 4. **コードを実行** する（右上の ▶ ボタンをクリック）
@@ -348,7 +354,7 @@ print(f"\n平均の名前の長さ: {avg_len:.1f} 文字")
 - `Ctrl/Cmd + /` で最後の 2 行をコメントアウトする
 - `Alt + ↑/↓` で 1 行を移動する
 - `Ctrl/Cmd + D` で単語を複数選択する
-- `Ctrl/Cmd + Shift + F` で "fruit" を全体検索する
+- `Ctrl/Cmd + Shift + F` で "task" を全体検索する
 
 <details>
 <summary>プロジェクト参考とレビュー観点</summary>

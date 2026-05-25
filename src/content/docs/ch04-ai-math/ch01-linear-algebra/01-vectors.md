@@ -75,16 +75,16 @@ If this is your first time learning vectors, and “direction + magnitude” sti
 
 - An information card for an object
 
-For example, a student:
+For example, a model evaluation run:
 
-- Math 90
-- English 85
-- Physics 92
+- Accuracy 0.86
+- Latency 120 ms
+- Memory 3.8 GB
 
 Arrange these items in a fixed order,
 and you get an information card that a computer can process:
 
-- `[90, 85, 92]`
+- `[0.86, 120, 3.8]`
 
 So the most basic meaning of a vector is not a “geometric shape,” but:
 
@@ -94,7 +94,7 @@ That is all. In AI, vectors are everywhere:
 
 | AI scenario | Vector representation | Dimension |
 |---------|---------|------|
-| A student's grades | [Math, English, Physics] = [90, 85, 92] | 3D |
+| One model run | [accuracy, latency_ms, memory_gb] = [0.86, 120, 3.8] | 3D |
 | The color of a pixel | [R, G, B] = [255, 128, 0] | 3D |
 | The meaning of a word (word vector) | [0.2, -0.5, 0.8, ...] | Usually 100–300D |
 | An image (flattened) | [pixel1, pixel2, ..., pixeln] | Tens of thousands to millions of dimensions |
@@ -159,20 +159,20 @@ A point where beginners often get stuck is this: they know “a vector is a sequ
 ```python
 import numpy as np
 
-student = {
-    "math": 90,
-    "english": 85,
-    "physics": 92,
+model_run = {
+    "accuracy": 0.86,
+    "latency_ms": 120,
+    "memory_gb": 3.8,
 }
 
-student_vector = np.array([
-    student["math"],
-    student["english"],
-    student["physics"],
+model_vector = np.array([
+    model_run["accuracy"],
+    model_run["latency_ms"],
+    model_run["memory_gb"],
 ])
 
-print("Student vector:", student_vector)
-print("Vector shape:", student_vector.shape)  # (3,)
+print("Model run vector:", model_vector)
+print("Vector shape:", model_vector.shape)  # (3,)
 ```
 
 The essence here is:
@@ -183,9 +183,9 @@ The essence here is:
 Once you write an object as a vector, you can start doing mathematical operations.
 
 ```python
-weights = np.array([0.4, 0.2, 0.4])
-score = student_vector @ weights
-print("Overall score:", score)  # 89.8
+weights = np.array([0.7, -0.002, -0.03])
+score = model_vector @ weights
+print("Deployment score:", round(score, 3))  # 0.248
 ```
 
 This already connects to a main thread in machine learning:
@@ -477,30 +477,30 @@ The range of cosine similarity is:
 | 0 | Completely unrelated (perpendicular) |
 | -1 | Exactly opposite directions |
 
-### Example: User Preference Similarity
+### Example: Runtime Profile Similarity
 
-Suppose three users rate five movie genres:
+Suppose three model-serving profiles record five normalized signals:
 
 ```python
-# Users' preference scores for [action, comedy, romance, sci-fi, horror] (1-5)
-alice   = np.array([5, 3, 4, 5, 1])
-bob     = np.array([4, 2, 5, 4, 1])
-charlie = np.array([1, 5, 2, 1, 5])
+# Profiles for [accuracy, throughput, low_latency, low_memory, stability] (1-5)
+baseline = np.array([4, 3, 2, 2, 4])
+quantized = np.array([4, 3, 3, 3, 4])
+oversized = np.array([5, 1, 1, 1, 3])
 
 # Compute pairwise similarity
-print(f"Alice vs Bob:     {cosine_similarity(alice, bob):.4f}")
-print(f"Alice vs Charlie: {cosine_similarity(alice, charlie):.4f}")
-print(f"Bob vs Charlie:   {cosine_similarity(bob, charlie):.4f}")
+print(f"Baseline vs quantized: {cosine_similarity(baseline, quantized):.4f}")
+print(f"Baseline vs oversized: {cosine_similarity(baseline, oversized):.4f}")
+print(f"Quantized vs oversized:{cosine_similarity(quantized, oversized):.4f}")
 ```
 
 Output:
 ```
-Alice vs Bob:     0.9761
-Alice vs Charlie: 0.5825
-Bob vs Charlie:   0.5600
+Baseline vs quantized: 0.9857
+Baseline vs oversized: 0.9159
+Quantized vs oversized:0.8775
 ```
 
-**Interpretation**: Alice and Bob have very similar preferences (0.98 is close to 1). Charlie is less aligned with both of them, but not completely opposite. This is the basic idea behind recommendation systems — compare preference directions first, then recommend items liked by nearby users or nearby items.
+**Interpretation**: the quantized model is closer to the baseline than the oversized model is to the quantized model. This is the same idea behind vector search and recommendations: compare directions first, then inspect the closest candidates with domain judgment.
 
 ### Applications of Cosine Similarity in AI
 
@@ -698,21 +698,19 @@ Given vectors a = [2, 3, -1] and b = [1, -2, 4], use NumPy to compute:
 4. The dot product of a and b
 5. The cosine similarity of a and b
 
-### Exercise 2: Find the Most Similar Movie
+### Exercise 2: Find the Most Similar Runtime Profile
 
-Given the feature vectors of five movies (scored by style):
+Given three model-serving profiles:
 
 ```python
-movies = {
-    "Interstellar": np.array([5, 1, 3, 5, 2]),   # [action, comedy, emotion, sci-fi, horror]
-    "Lost in Thailand":     np.array([2, 5, 3, 1, 1]),
-    "Wolf Warrior 2":    np.array([5, 1, 2, 2, 1]),
-    "Ex-Files 3":    np.array([1, 3, 5, 1, 1]),
-    "Alien":     np.array([4, 1, 1, 4, 5]),
+profiles = {
+    "baseline": np.array([4, 3, 2, 2, 4]),
+    "quantized": np.array([4, 3, 3, 3, 4]),
+    "oversized": np.array([5, 1, 1, 1, 3]),
 }
 ```
 
-Task: compute the cosine similarity between every pair of movies, and find the most similar pair and the least similar pair.
+Task: compute the cosine similarity between every pair of profiles, and find the closest pair and the most different pair.
 
 ### Exercise 3: Visualize Vector Addition
 
@@ -726,7 +724,7 @@ Hint: refer to the code in Section 2.1.
 <summary>Reference implementation and walkthrough</summary>
 
 - For `a=[2,3,-1]` and `b=[1,-2,4]`, `a+b=[3,1,3]`, `3a-2b=[4,13,-11]`, `||a||=sqrt(14)≈3.742`, `a·b=-8`, and cosine similarity is about `-0.8018`.
-- For the movie vectors, the most similar pair is usually Interstellar and Wolf Warrior 2, with cosine similarity about `0.9297`; the least similar pair is Ex-Files 3 and Alien, about `0.4495`.
+- For the runtime profile vectors, the closest pair should be baseline and quantized. If you change the latency or memory dimensions, the nearest profile can change; that is the point of turning a product trade-off into numbers.
 - The vector-addition plot should place `a`, then `b` from the tip of `a`, and show `a+b=[1,5]` as the final arrow from the origin. The geometry should match the numbers.
 
 </details>

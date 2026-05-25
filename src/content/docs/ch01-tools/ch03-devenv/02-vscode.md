@@ -252,7 +252,7 @@ There are now many AI tools that can help you write code in VS Code. As a learne
 
 - Automatically completes code as you type
 - Press `Tab` to accept suggestions
-- Students can use it for free through GitHub Student Pack
+- Eligible education accounts may receive free access through GitHub Education
 - Extension search: `GitHub.copilot`
 
 ### Codeium
@@ -321,14 +321,20 @@ mkdir vscode-practice && cd vscode-practice && code .
 
 ```python
 # Practice VS Code shortcuts
-fruits = ["apple", "banana", "cherry", "date", "elderberry"]
+tasks = [
+    "load config",
+    "validate dataset",
+    "run smoke test",
+    "write metrics",
+    "commit changes",
+]
 
-for i, fruit in enumerate(fruits):
-    print(f"{i + 1}. {fruit}")
+for i, task in enumerate(tasks):
+    print(f"{i + 1}. {task}")
 
-# Calculate the average length of the fruit names
-avg_len = sum(len(f) for f in fruits) / len(fruits)
-print(f"\nAverage name length: {avg_len:.1f} characters")
+# Calculate the average task label length
+avg_len = sum(len(task) for task in tasks) / len(tasks)
+print(f"\nAverage task label length: {avg_len:.1f} characters")
 ```
 
 4. **Run the code** (click the ▶ button in the upper-right corner)
@@ -336,14 +342,14 @@ print(f"\nAverage name length: {avg_len:.1f} characters")
    - Use `Ctrl/Cmd + /` to comment out the last two lines
    - Use `Alt + ↑/↓` to move one line of code
    - Use `Ctrl/Cmd + D` to multi-select one word
-   - Use `Ctrl/Cmd + Shift + F` to search globally for "fruit"
+   - Use `Ctrl/Cmd + Shift + F` to search globally for "task"
 
 <details>
 <summary>Project reference and review notes</summary>
 
 1. `code .` should open the current project folder, not a single detached file.
 2. The selected Python interpreter should match your course environment. Check the VS Code status bar or the command palette.
-3. Running `practice.py` should print five fruit lines and an average name length.
+3. Running `practice.py` should print five AI project task lines and an average task label length.
 4. If the Run button uses the wrong Python, run the file from the integrated terminal and then fix the selected interpreter.
 5. The shortcut practice passes when you can undo your edits and still run the script successfully.
 

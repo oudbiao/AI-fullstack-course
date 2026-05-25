@@ -506,37 +506,37 @@ print(f"{book.progress():.1f}%")  # 16.7%
 print(book)
 ```
 
-### 练习 2：简单的购物车
+### 练习 2：简单的推理任务队列
 
 ```python
-class Product:
-    def __init__(self, name, price):
+class InferenceJob:
+    def __init__(self, name, tokens):
         self.name = name
-        self.price = price
+        self.tokens = tokens
 
-class ShoppingCart:
+class JobQueue:
     def __init__(self):
-        self.items = {}
+        self.jobs = {}
 
-    def add(self, product, quantity=1):
-        self.items[product.name] = self.items.get(product.name, [product, 0])
-        self.items[product.name][1] += quantity
+    def add(self, job, replicas=1):
+        self.jobs[job.name] = self.jobs.get(job.name, [job, 0])
+        self.jobs[job.name][1] += replicas
 
-    def remove(self, product_name):
-        self.items.pop(product_name, None)
+    def remove(self, job_name):
+        self.jobs.pop(job_name, None)
 
-    def total(self):
-        return sum(product.price * quantity for product, quantity in self.items.values())
+    def estimated_tokens(self):
+        return sum(job.tokens * replicas for job, replicas in self.jobs.values())
 
     def __str__(self):
-        lines = [f"{product.name} x {quantity}" for product, quantity in self.items.values()]
-        return "\n".join(lines) or "购物车为空"
+        lines = [f"{job.name} x {replicas}" for job, replicas in self.jobs.values()]
+        return "\n".join(lines) or "任务队列为空"
 
-cart = ShoppingCart()
-cart.add(Product("键盘", 199), 2)
-cart.add(Product("鼠标", 99), 1)
-print(cart)
-print(f"总价：{cart.total()}")
+queue = JobQueue()
+queue.add(InferenceJob("embed-docs", 800), 2)
+queue.add(InferenceJob("answer-query", 1200), 1)
+print(queue)
+print(f"预估 token 数：{queue.estimated_tokens()}")
 ```
 
 ### 练习 3：动物园

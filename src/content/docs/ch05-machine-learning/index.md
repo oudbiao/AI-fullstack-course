@@ -69,7 +69,7 @@ Use this checklist as both the chapter guide and the task sheet. Establish the b
 |---|---|---|
 | Required core | Task type, train/test split, baseline, metric, error samples, leakage check, Pipeline | These become the evaluation habits for LLM prompts, RAG retrieval, and Agent behavior later |
 | Optional extension | Extra classic algorithms, ML history, Kaggle-style iteration | Return here when a project needs broader algorithm comparison or competition workflow |
-| Depth challenge | Keep the data and metric fixed, change one feature or model choice, then explain the before/after errors | This prevents model shopping without evidence |
+| Depth challenge | Keep the data and metric fixed, change one feature or model choice, then explain the before/after errors | This prevents model hopping without evidence |
 
 Key terms for this chapter:
 

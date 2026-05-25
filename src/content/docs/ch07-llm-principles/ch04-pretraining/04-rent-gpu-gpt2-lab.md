@@ -37,7 +37,7 @@ Do not start by chasing the largest card. Course labs should first make sure eve
 | Colab Free | Fast trial runs | Validate code and logs | GPU model and session length vary |
 | Lightning AI free tier | Cloud development workflow | Save projects and repeat experiments | Free credits can run out |
 | AutoDL / RunPod | Stable 1-3 hour labs | Rent RTX 4090, L4, A10, or A5000 | Stop and delete instances when done |
-| A100 / H100 | Understanding large-scale costs | Demo or advanced challenge only | Too expensive for required student work |
+| A100 / H100 | Understanding large-scale costs | Demo or advanced challenge only | Too expensive for required course work |
 
 ### Recommended Config for This Lesson
 

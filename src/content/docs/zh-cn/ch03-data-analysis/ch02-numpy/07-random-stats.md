@@ -439,20 +439,20 @@ n_days = 250
 # 4. 计算年化收益率
 ```
 
-### 练习 3：成绩分析
+### 练习 3：批次指标分析
 
 ```python
 rng = np.random.default_rng(seed=42)
 
-# 生成 200 个学生的成绩
-math_scores = rng.normal(75, 12, 200).clip(0, 100)    # 数学
-english_scores = rng.normal(78, 10, 200).clip(0, 100)  # 英语
+# 生成 200 个推理批次的指标
+accuracy = rng.normal(0.78, 0.08, 200).clip(0, 1)
+latency_ms = rng.normal(180, 35, 200).clip(40, None)
 
-# 1. 分别计算两科的均值、标准差、中位数
-# 2. 计算两科的相关系数
-# 3. 统计数学不及格但英语及格的人数
-# 4. 用 histogram 统计两科的分数段分布
-# 5. 计算两科总分的 Top 10 学生的平均分
+# 1. 分别计算两个指标的均值、标准差、中位数
+# 2. 计算 accuracy 和 latency 的相关系数
+# 3. 统计 accuracy < 0.7 且 latency < 160 ms 的批次数
+# 4. 用 histogram 统计两个指标的分布
+# 5. 计算 accuracy Top 10 批次的平均 latency
 ```
 
 ---
@@ -463,7 +463,7 @@ english_scores = rng.normal(78, 10, 200).clip(0, 100)  # 英语
 
 - 骰子模拟可创建 `(10000, 2)` 数组，沿 `axis=1` 求和，再用 `np.bincount` 统计点数和。最常见的和通常应是 `7`，因为组合数量最多。
 - 股票模拟先生成每日收益率，再用 `100 * np.cumprod(1 + returns)` 得到价格路径。报告最终收益，如有要求再报告最大回撤，并配一张图让路径可见。
-- 学生成绩练习用 `mean`、`std`、`corrcoef`、布尔筛选、直方图和 top-k 排序完成。务必说明 random seed，方便别人复现实验样本。
+- 批次指标练习用 `mean`、`std`、`corrcoef`、布尔筛选、直方图和 top-k 排序完成。务必说明 random seed，方便别人复现实验样本。
 
 </details>
 

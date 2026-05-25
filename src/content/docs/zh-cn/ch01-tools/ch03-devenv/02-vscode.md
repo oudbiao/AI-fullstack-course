@@ -252,7 +252,7 @@ data5 = load("file5.csv")
 
 - 在你打字的时候自动补全代码
 - 按 `Tab` 接受建议
-- 学生可以免费使用（通过 GitHub Student Pack）
+- 符合条件的教育账号可通过 GitHub Education 获得免费权益
 - 扩展搜索：`GitHub.copilot`
 
 ### Codeium
@@ -321,14 +321,20 @@ mkdir vscode-practice && cd vscode-practice && code .
 
 ```python
 # 练习 VS Code 快捷键
-fruits = ["apple", "banana", "cherry", "date", "elderberry"]
+tasks = [
+    "load config",
+    "validate dataset",
+    "run smoke test",
+    "write metrics",
+    "commit changes",
+]
 
-for i, fruit in enumerate(fruits):
-    print(f"{i + 1}. {fruit}")
+for i, task in enumerate(tasks):
+    print(f"{i + 1}. {task}")
 
-# 计算水果名字的平均长度
-avg_len = sum(len(f) for f in fruits) / len(fruits)
-print(f"\n平均名字长度: {avg_len:.1f} 个字符")
+# 计算任务标签的平均长度
+avg_len = sum(len(task) for task in tasks) / len(tasks)
+print(f"\n平均任务标签长度: {avg_len:.1f} 个字符")
 ```
 
 4. **运行代码**（点右上角的 ▶ 按钮）
@@ -336,14 +342,14 @@ print(f"\n平均名字长度: {avg_len:.1f} 个字符")
    - 用 `Ctrl/Cmd + /` 注释掉最后两行
    - 用 `Alt + ↑/↓` 移动一行代码
    - 用 `Ctrl/Cmd + D` 多选一个单词
-   - 用 `Ctrl/Cmd + Shift + F` 全局搜索 "fruit"
+   - 用 `Ctrl/Cmd + Shift + F` 全局搜索 "task"
 
 <details>
 <summary>项目交付参考与讲解</summary>
 
 1. `code .` 应该打开当前项目文件夹，而不是只打开单个文件。
 2. 右下角或命令面板里选中的 Python 解释器应该是本课程环境，不是系统默认 Python。
-3. `practice.py` 正常运行时会打印 5 个水果序号，并输出平均名字长度。
+3. `practice.py` 正常运行时会打印 5 个 AI 项目任务序号，并输出平均任务标签长度。
 4. 如果点击运行按钮失败，先比较 VS Code 终端里的 `python --version` 和外部终端是否一致。
 5. 快捷键练习不是为了背按键，而是确认你能快速编辑、搜索和整理代码。
 

@@ -293,9 +293,9 @@ import math
 from collections import Counter
 
 docs = [
-    "i love python",
-    "i love coding",
-    "weather is sunny",
+    "rag search returns documents",
+    "rag retrieval finds documents",
+    "gpu service reports latency",
 ]
 
 tokenized_docs = [doc.split() for doc in docs]
@@ -331,16 +331,16 @@ print("Sentence 1 vs Sentence 3:", round(cosine_similarity(vec1, vec3), 4))
 Expected output:
 
 ```text
-Sentence 1 vs Sentence 2: 0.6667
+Sentence 1 vs Sentence 2: 0.5
 Sentence 1 vs Sentence 3: 0.0
 ```
 
-The first two sentences share `i` and `love`, so their vectors point in a more similar direction. The weather sentence shares no vocabulary with the first sentence, so its similarity is `0.0`.
+The first two sentences share `rag` and `documents`, so their vectors point in a more similar direction. The service-latency sentence shares no vocabulary with the first sentence, so its similarity is `0.0`.
 
 This example will usually show:
 
-- `i love python` and `i love coding` are closer
-- both are farther from `weather is sunny`
+- `rag search returns documents` and `rag retrieval finds documents` are closer
+- both are farther from `gpu service reports latency`
 
 ---
 

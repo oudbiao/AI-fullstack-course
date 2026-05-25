@@ -439,20 +439,20 @@ n_days = 250
 # 4. Compute the annualized return
 ```
 
-### Exercise 3: Score Analysis
+### Exercise 3: Batch Metrics Analysis
 
 ```python
 rng = np.random.default_rng(seed=42)
 
-# Generate scores for 200 students
-math_scores = rng.normal(75, 12, 200).clip(0, 100)    # Math
-english_scores = rng.normal(78, 10, 200).clip(0, 100)  # English
+# Generate metrics for 200 inference batches
+accuracy = rng.normal(0.78, 0.08, 200).clip(0, 1)
+latency_ms = rng.normal(180, 35, 200).clip(40, None)
 
-# 1. Compute the mean, standard deviation, and median for each subject
-# 2. Compute the correlation coefficient between the two subjects
-# 3. Count how many students failed math but passed English
-# 4. Use histogram to analyze the score distribution for both subjects
-# 5. Compute the average score of the Top 10 students by total score
+# 1. Compute the mean, standard deviation, and median for each metric
+# 2. Compute the correlation coefficient between accuracy and latency
+# 3. Count how many batches have accuracy < 0.7 but latency < 160 ms
+# 4. Use histograms to analyze both distributions
+# 5. Compute the average latency of the top 10 batches by accuracy
 ```
 
 ---
@@ -463,7 +463,7 @@ english_scores = rng.normal(78, 10, 200).clip(0, 100)  # English
 
 - For dice simulation, create a `(10000, 2)` array, sum along `axis=1`, and count sums with `np.bincount`. The most frequent sum should usually be `7` because it has the most combinations.
 - For stock simulation, generate daily returns, then compute prices with `100 * np.cumprod(1 + returns)`. Report the final return, maximum drawdown if asked, and a chart so the path is visible.
-- For student scores, use `mean`, `std`, `corrcoef`, boolean filters, histograms, and top-k sorting. Always describe the random seed so someone else can reproduce the same sample.
+- For batch metrics, use `mean`, `std`, `corrcoef`, boolean filters, histograms, and top-k sorting. Always describe the random seed so someone else can reproduce the same sample.
 
 </details>
 

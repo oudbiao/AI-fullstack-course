@@ -41,7 +41,7 @@ This is the smallest optimization habit: compress, measure the error, and decide
 |---|---|---|
 | Quantization | Latency and memory are too high | Accuracy drop on real validation cases |
 | Pruning | Many weights or channels are not useful | Whether the runtime actually speeds up |
-| Distillation | A smaller model can imitate a larger one | Whether the student fails on edge cases |
+| Distillation | A smaller model can imitate a larger one | Whether the compact model fails on edge cases |
 | Operator fusion | Runtime overhead is high | Whether your engine supports the fused graph |
 | Batching / scheduling | Many requests arrive together | Latency tail and queue delay |
 

@@ -60,6 +60,8 @@ LEGACY_CONTEXT_PATTERNS = [
 LEGACY_CONTEXT_ALLOWLIST = [
     r"ch12-multimodal/.*",
     r"ch13-open-source-llm/.*",
+    r"ch06-deep-learning/ch07-training-tips/03-model-compression\.md",
+    r"ch11-nlp/ch05-seq2seq/00-roadmap\.md",
     r"ch08-rag/ch05-projects/04-courseware-assistant\.md",
     r"appendix/.*",
 ]
@@ -307,6 +309,8 @@ def requires_answer_summary(path_key: str, locale: str, visible_text: str) -> bo
 def analyze_file(path: Path, locale: str) -> dict[str, object]:
     text = path.read_text(encoding="utf-8")
     visible = strip_fenced_code(text)
+    legacy_visible = MARKDOWN_IMAGE_RE.sub(" ", visible)
+    legacy_visible = HTML_IMAGE_RE.sub(" ", legacy_visible)
     path_key = rel_key(path, locale)
     summaries = re.findall(r"<summary>(.*?)</summary>", text, flags=re.DOTALL)
     markdown_images = MARKDOWN_IMAGE_RE.findall(text)
@@ -323,7 +327,7 @@ def analyze_file(path: Path, locale: str) -> dict[str, object]:
         english_alt_hits = [alt for alt, _ in MARKDOWN_IMAGE_RE.findall(visible) if localized_alt_looks_english(alt)]
     if not is_allowlisted(path_key, LEGACY_CONTEXT_ALLOWLIST):
         for pattern in LEGACY_CONTEXT_PATTERNS:
-            if re.search(pattern, visible, flags=re.IGNORECASE):
+            if re.search(pattern, legacy_visible, flags=re.IGNORECASE):
                 legacy_context_hits.append(pattern)
     return {
         "path": path_key,

@@ -47,19 +47,19 @@ AMR stands for Abstract Meaning Representation. You can first think of it as a k
 
 It does not just mark entities; it also tries to represent events and role relationships.
 
-For example, “The student reads the paper” can be imagined as:
+For example, “The analyst reads the incident report” can be imagined as:
 
 ```text
 read-01
-  ARG0: student
-  ARG1: paper
+  ARG0: analyst
+  ARG1: incident report
 ```
 
 This structure expresses:
 
 - The core event is reading
-- Who is reading: the student
-- What is being read: the paper
+- Who is reading: the analyst
+- What is being read: the incident report
 
 This is much closer to “what the sentence is really trying to say” than simple word segmentation.
 
@@ -67,8 +67,8 @@ For beginners, the easiest way to read this structure is:
 
 ```mermaid
 flowchart LR
-    E["read-01<br/>event"] --> A0["ARG0<br/>who reads?<br/>student"]
-    E --> A1["ARG1<br/>what is read?<br/>paper"]
+    E["read-01<br/>event"] --> A0["ARG0<br/>who reads?<br/>analyst"]
+    E --> A1["ARG1<br/>what is read?<br/>incident report"]
 ```
 
 `ARG0` and `ARG1` do not mean “first word” and “second word.” They mean semantic roles. In many simple event sentences, you can first read them as:

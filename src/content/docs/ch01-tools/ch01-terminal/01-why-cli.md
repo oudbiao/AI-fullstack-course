@@ -94,6 +94,15 @@ You do not need all of these today. Just recognize that many later AI workflows 
 
 Pass this page when you can explain what `pwd`, `cd`, `ls`, and `python hello_terminal.py` did in your own folder. The next page teaches the basic file operations more slowly.
 
+<details>
+<summary>Check reasoning and explanation</summary>
+
+The pass condition is not “I copied the commands.” It is: you can name the current folder, explain where `hello_terminal.py` was created, rerun the script, and keep the exact command/output pair as evidence.
+
+If something failed, do not jump to reinstalling tools. First compare `pwd`, `ls`, and `python --version`; most beginner terminal failures are path or environment mismatches.
+
+</details>
+
 ## Evidence to Keep
 
 Keep this page's proof of learning as a small evidence card:

@@ -293,9 +293,9 @@ import math
 from collections import Counter
 
 docs = [
-    "i love python",
-    "i love coding",
-    "weather is sunny",
+    "rag search returns documents",
+    "rag retrieval finds documents",
+    "gpu service reports latency",
 ]
 
 tokenized_docs = [doc.split() for doc in docs]
@@ -331,16 +331,16 @@ print("句子1 vs 句子3:", round(cosine_similarity(vec1, vec3), 4))
 预期输出：
 
 ```text
-句子1 vs 句子2: 0.6667
+句子1 vs 句子2: 0.5
 句子1 vs 句子3: 0.0
 ```
 
-前两个句子共享 `i` 和 `love`，所以向量方向更接近。天气句子和第一句没有共享词，因此相似度是 `0.0`。
+前两个句子共享 `rag` 和 `documents`，所以向量方向更接近。服务延迟句子和第一句没有共享词，因此相似度是 `0.0`。
 
 这个例子通常会得到：
 
-- `i love python` 和 `i love coding` 更近
-- 与 `weather is sunny` 更远
+- `rag search returns documents` 和 `rag retrieval finds documents` 更近
+- 与 `gpu service reports latency` 更远
 
 ---
 
