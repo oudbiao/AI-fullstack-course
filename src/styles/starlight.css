@@ -161,6 +161,7 @@ body {
   min-width: 0;
   max-width: none;
   vertical-align: top;
+  white-space: normal;
   overflow-wrap: anywhere;
   word-break: normal;
   hyphens: auto;
@@ -176,22 +177,16 @@ body {
   width: 13%;
 }
 
-.sl-markdown-content table:has(tr > :nth-child(6)) {
-  display: block;
-  width: max-content;
-  overflow-x: auto;
-  table-layout: auto;
-}
-
 .sl-markdown-content table:has(tr > :nth-child(6)) th,
 .sl-markdown-content table:has(tr > :nth-child(6)) td {
-  min-width: clamp(7.5rem, 14vw, 12rem);
-  max-width: min(24rem, 78vw);
+  padding-inline: 0.62rem;
+  font-size: 0.9rem;
+  line-height: 1.48;
 }
 
 .sl-markdown-content table:has(tr > :nth-child(6)) th:first-child,
 .sl-markdown-content table:has(tr > :nth-child(6)) td:first-child {
-  min-width: clamp(6.5rem, 10vw, 9rem);
+  width: 8%;
 }
 
 .sl-markdown-content th {
@@ -206,24 +201,16 @@ body {
 }
 
 @media (max-width: 50rem) {
-  .sl-markdown-content table:has(tr > :nth-child(4)) {
-    display: block;
-    width: max-content;
-    max-width: 100%;
-    overflow-x: auto;
-    table-layout: auto;
-  }
-
   .sl-markdown-content table:has(tr > :nth-child(4)) th,
   .sl-markdown-content table:has(tr > :nth-child(4)) td {
-    width: auto;
-    min-width: min(10.5rem, 72vw);
-    max-width: min(22rem, 82vw);
+    padding: 0.58rem 0.54rem;
+    font-size: 0.88rem;
+    line-height: 1.46;
   }
 
   .sl-markdown-content table:has(tr > :nth-child(4)) th:first-child,
   .sl-markdown-content table:has(tr > :nth-child(4)) td:first-child {
-    min-width: min(8.5rem, 62vw);
+    width: 18%;
   }
 }
 
