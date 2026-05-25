@@ -279,7 +279,7 @@ if __name__ == "__main__":
 Run it:
 
 ```bash
-python mini_gpt2_train.py | tee mini_gpt2_train_log.txt
+python mini_gpt2_train.py | tee gpu_train_log.txt
 ```
 
 Expected output:
@@ -463,7 +463,7 @@ cost_record: if rented, record runtime and cost, then confirm shutdown
 
 ## Pass Check
 
-You pass when `mini_gpt2_train.py` completes one GPU run with `device: cuda`, `gpu_train_log.txt` and `mini_gpt2_checkpoint.pt` are saved, and you can explain how input tokens pass through embedding, attention, MLP, lm head, checkpointing, and cross entropy to learn next-token prediction. A CPU run counts only as a smoke test.
+You pass when `mini_gpt2_train.py` completes one GPU run with `device: cuda`, `gpu_train_log.txt` and `mini_gpt2_checkpoint.pt` are saved, and you can explain how input tokens pass through embedding, attention, MLP, lm head, checkpointing, and cross entropy to learn next-token prediction. A CPU run counts only as a smoke test, even if it completes.
 
 <details>
 <summary>Check reasoning and explanation</summary>

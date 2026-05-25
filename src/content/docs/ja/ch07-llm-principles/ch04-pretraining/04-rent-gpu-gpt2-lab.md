@@ -279,7 +279,7 @@ if __name__ == "__main__":
 実行：
 
 ```bash
-python mini_gpt2_train.py | tee mini_gpt2_train_log.txt
+python mini_gpt2_train.py | tee gpu_train_log.txt
 ```
 
 期待される出力：
@@ -463,7 +463,7 @@ checkpoint：mini_gpt2_checkpoint.pt を保存または持ち帰る
 
 ## 合格ライン
 
-GPU 上で `device: cuda` の `mini_gpt2_train.py` run を完了し、`gpu_train_log.txt` と `mini_gpt2_checkpoint.pt` を保存し、入力 token が embedding、attention、MLP、lm head、checkpoint、cross entropy を通って次 token 予測を学ぶ流れを説明できれば合格です。CPU run は smoke test としてだけ扱います。
+GPU 上で `device: cuda` の `mini_gpt2_train.py` run を完了し、`gpu_train_log.txt` と `mini_gpt2_checkpoint.pt` を保存し、入力 token が embedding、attention、MLP、lm head、checkpoint、cross entropy を通って次 token 予測を学ぶ流れを説明できれば合格です。CPU run は完走しても smoke test としてだけ扱います。
 
 <details>
 <summary>確認の考え方と解説</summary>

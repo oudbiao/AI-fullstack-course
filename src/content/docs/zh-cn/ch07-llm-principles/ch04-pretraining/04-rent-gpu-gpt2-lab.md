@@ -279,7 +279,7 @@ if __name__ == "__main__":
 运行：
 
 ```bash
-python mini_gpt2_train.py | tee mini_gpt2_train_log.txt
+python mini_gpt2_train.py | tee gpu_train_log.txt
 ```
 
 你应该看到类似：
@@ -514,7 +514,7 @@ checkpoint：mini_gpt2_checkpoint.pt 已保存或带回
 
 ## 通过标准
 
-能在 GPU 上完成一次 `device: cuda` 的 `mini_gpt2_train.py` 训练，保存 `gpu_train_log.txt` 和 `mini_gpt2_checkpoint.pt`，并用自己的话解释“输入 token 如何经过 embedding、attention、MLP、lm head、checkpoint，最后用 cross entropy 学会预测下一个 token”，就算通过。CPU 运行只算冒烟测试。
+能在 GPU 上完成一次 `device: cuda` 的 `mini_gpt2_train.py` 训练，保存 `gpu_train_log.txt` 和 `mini_gpt2_checkpoint.pt`，并用自己的话解释“输入 token 如何经过 embedding、attention、MLP、lm head、checkpoint，最后用 cross entropy 学会预测下一个 token”，就算通过。CPU 运行即使完成，也只算冒烟测试。
 
 <details>
 <summary>检查思路与讲解</summary>

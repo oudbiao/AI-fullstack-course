@@ -31,7 +31,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `prompt_eval_cases.csv` | At least five fixed inputs and a simple score column |
 | `structured_output_schema.json` | Required fields and allowed value types |
 | `failure_cases.md` | At least three failed outputs and the likely cause |
-| `mini_gpt2_train_log.txt` | Training log from [7.4.5 Rent a GPU and Run a Hand-Built GPT-2](/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) |
+| `gpu_train_log.txt` | `device: cuda` training log from [7.4.5 Rent a GPU and Train a Hand-Built GPT-2](/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) |
 | `llm_stage_workshop_output.txt` | Output from [7.8.4 Hands-on: Full Chapter 7 Workshop](/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) |
 | `README.md` | How to run, what passed, what failed, what to try next |
 
@@ -44,7 +44,7 @@ prompt_versions: at least three versions for one task
 eval_cases: fixed inputs with scores and failure notes
 schema_check: structured output is parsed and validated
 method_choice: Prompt/RAG/fine-tuning/tools decision is written down
-gpt2_record: mini GPT-2 training log, environment info, and sample output
+gpt2_record: mini GPT-2 GPU training log, environment info, and sample output
 exit_proof: workshop output plus README notes
 ```
 
@@ -56,9 +56,9 @@ exit_proof: workshop output plus README notes
 | Structured output | Parser rejects missing fields or wrong types. |
 | Failure analysis | Each failure has a likely cause: instruction, input, schema, missing knowledge, or safety. |
 | Method choice | Decision table explains why Prompt, RAG, fine-tuning, tools, or Agent comes first. |
-| Hand-built GPT-2 | Run mini GPT-2 and identify embedding, attention, loss, and generate in the code. |
+| Hand-built GPT-2 | Run mini GPT-2 on a CUDA GPU and identify embedding, attention, loss, and generate in the code. |
 
-Expected result: your Chapter 7 folder contains prompt versions, fixed eval cases, parser/schema checks, failure notes, a mini GPT-2 training log, workshop output, and a README that explains the method choice.
+Expected result: your Chapter 7 folder contains prompt versions, fixed eval cases, parser/schema checks, failure notes, a `device: cuda` mini GPT-2 training log, workshop output, and a README that explains the method choice.
 
 ## Exit Questions
 
@@ -67,7 +67,7 @@ Expected result: your Chapter 7 folder contains prompt versions, fixed eval case
 - Can you validate JSON output instead of trusting text that only looks like JSON?
 - Can you explain when missing information calls for RAG instead of a longer Prompt?
 - Can you explain when repeated behavior adaptation might justify fine-tuning?
-- Can you open or rent a GPU notebook, run mini GPT-2, and save loss plus generated text?
+- Can you open or rent a GPU notebook, run mini GPT-2 with `device: cuda`, and save loss plus generated text?
 
 <details>
 <summary>Check reasoning and explanation</summary>
@@ -91,6 +91,6 @@ prompt_versions: at least three versions for one task
 eval_cases: fixed inputs with scores and failure notes
 schema_check: structured output is parsed and validated
 method_choice: Prompt/RAG/fine-tuning/tools decision is written down
-gpt2_record: mini GPT-2 training log, environment info, and sample output
+gpt2_record: mini GPT-2 GPU training log, environment info, and sample output
 exit_proof: workshop output plus README notes
 ```

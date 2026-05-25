@@ -53,7 +53,7 @@ from -> text
 | 1 | [7.4.2 预训练数据](/zh-cn/ch07-llm-principles/ch04-pretraining/01-pretraining-data/) | 来源、过滤、去重、污染 |
 | 2 | [7.4.3 预训练方法](/zh-cn/ch07-llm-principles/ch04-pretraining/02-pretraining-methods/) | next-token prediction、loss、scaling |
 | 3 | [7.4.4 预训练工程](/zh-cn/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering/) | 分布式训练、checkpoint、监控 |
-| 4 | [7.4.5 租 GPU 跑通手搓 GPT-2](/zh-cn/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) | 选平台、开环境、逐行跑通 mini GPT-2 |
+| 4 | [7.4.5 租 GPU 训练手搓 GPT-2](/zh-cn/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) | 选平台、开环境、用 `device: cuda` 逐行跑通 mini GPT-2 |
 
 ## 留下的证据
 
@@ -70,7 +70,7 @@ from -> text
 
 ## 通过标准
 
-能解释数据、目标和工程分别如何影响最终模型，并知道数据污染为什么会让评估误导人，就算通过。
+能解释数据、目标和工程分别如何影响最终模型，知道数据污染为什么会让评估误导人，并说清为什么 mini GPT-2 实验里 CPU 只是冒烟测试、`device: cuda` 才是正式训练证据，就算通过。
 
 <details>
 <summary>检查思路与讲解</summary>

@@ -47,7 +47,7 @@ The workshop belongs at the end. First build the mental model, then run the full
 | 7.2 | LLM overview and history | Mark where scale, data, instruction tuning, and alignment changed model behavior | One timeline or capability map |
 | 7.5 | Prompt engineering | Compare prompt versions with fixed inputs | Prompt versions, outputs, scores, failures |
 | 7.8 | Stage project | Run [7.8.4 Hands-on: Full Chapter 7 Workshop](/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) | Terminal output, pass rate, README notes |
-| 7.3-7.4 | Transformer and pretraining | Read for intuition, not memorization | A diagram that explains attention, context, and training objective |
+| 7.3-7.4 | Transformer and pretraining | Read for intuition, then run mini GPT-2 | A diagram that explains attention, context, and training objective, plus a `device: cuda` GPU training log |
 | 7.6 | Fine-tuning | Decide whether a task needs Prompt, RAG, or fine-tuning | A short decision table |
 | 7.7 | Alignment | Check failure modes and safety boundaries | A safety/evaluation checklist |
 
@@ -57,7 +57,7 @@ The workshop belongs at the end. First build the mental model, then run the full
 |---|---|---|
 | Required core | Tokenization, embeddings, context window, LLM API call, prompt testing, structured output, basic safety checks | These are the minimum skills before RAG and Agent applications |
 | Optional extension | Transformer internals, pretraining details, fine-tuning, alignment history | Return here when model behavior, cost, or adaptation choices need deeper explanation |
-| Depth challenge | Keep a fixed eval set, change one prompt/schema/model setting, and save failures | This turns LLM usage from a demo into an engineering loop |
+| Depth challenge | Hand-build mini GPT-2, keep a fixed eval set, change one prompt/schema/model setting, and save failures | This turns LLM usage from a demo into an engineering loop |
 
 ## First Runnable Loop: Prompt Testing Without an API
 

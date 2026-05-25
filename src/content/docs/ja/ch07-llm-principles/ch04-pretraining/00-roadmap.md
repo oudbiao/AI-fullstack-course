@@ -53,7 +53,7 @@ from -> text
 | 1 | [7.4.2 事前学習データ](/ja/ch07-llm-principles/ch04-pretraining/01-pretraining-data/) | ソース、フィルタリング、重複除去、汚染 |
 | 2 | [7.4.3 事前学習手法](/ja/ch07-llm-principles/ch04-pretraining/02-pretraining-methods/) | next-token prediction、loss、scaling |
 | 3 | [7.4.4 事前学習エンジニアリング](/ja/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering/) | 分散学習、checkpoint、監視 |
-| 4 | [7.4.5 GPU を借りて手作り GPT-2 を動かす](/ja/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) | プラットフォーム選択、環境構築、mini GPT-2 の逐次解説 |
+| 4 | [7.4.5 GPU を借りて手作り GPT-2 を学習する](/ja/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab/) | プラットフォーム選択、環境構築、`device: cuda` で mini GPT-2 を逐次確認 |
 
 ## 残す証拠
 
@@ -65,12 +65,12 @@ from -> text
 データのリスク: 汚染、重複、または低品質な混在
 目的メモ：目的が振る舞いとアーキテクチャの適合性を形作る
 エンジニアリングメモ：シャーディング、再開、スループット、監視
-実践ブリッジ：無料または低価格の計算環境で mini GPT-2 学習スクリプトを動かす
+実践ブリッジ：無料または低価格の GPU 計算環境で mini GPT-2 学習スクリプトを動かす
 ```
 
 ## 合格ライン
 
-データ、目的、エンジニアリングが最終モデルへどう影響するか、そして contamination が評価を誤解させる理由を説明できれば合格です。
+データ、目的、エンジニアリングが最終モデルへどう影響するか、contamination が評価を誤解させる理由、そして mini GPT-2 実験で CPU が smoke test、`device: cuda` が正式な学習証拠になる理由を説明できれば合格です。
 
 <details>
 <summary>確認の考え方と解説</summary>

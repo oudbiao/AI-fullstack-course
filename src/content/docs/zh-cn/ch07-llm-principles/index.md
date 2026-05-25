@@ -47,7 +47,7 @@ head:
 | 7.2 | LLM 概览与发展史 | 标出规模、数据、指令微调、对齐如何改变模型行为 | 一张时间线或能力来源图 |
 | 7.5 | Prompt 工程 | 用固定输入比较多个 Prompt 版本 | Prompt 版本、输出、分数和失败样本 |
 | 7.8 | 阶段项目 | 运行 [7.8.4 实操：第 7 章完整工作坊](/zh-cn/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop/) | 终端输出、通过率、README 记录 |
-| 7.3-7.4 | Transformer 与预训练 | 读懂直觉，再跑通 mini GPT-2 | 一张解释 attention、上下文和训练目标的图，以及一次 GPU/CPU 训练日志 |
+| 7.3-7.4 | Transformer 与预训练 | 读懂直觉，再跑通 mini GPT-2 | 一张解释 attention、上下文和训练目标的图，以及一次 `device: cuda` GPU 训练日志 |
 | 7.6 | 微调 | 判断任务该用 Prompt、RAG 还是微调 | 一张简短方案判断表 |
 | 7.7 | 对齐 | 检查失败模式和安全边界 | 一份安全/评估清单 |
 
