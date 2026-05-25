@@ -415,6 +415,18 @@ def generate_sop_document(topic):
 
 これにより、モデルが文章を生成できるだけでなく、信頼できる文書生成ワークフローを作れることを示せます。
 
+## 残す証拠
+
+このページの学習結果を、小さな証拠カードとして保存します。
+
+```text
+プロジェクト範囲: インシデントテーマ -> ポリシー検索 -> SOP schema -> Word 出力
+中間成果物: parsed chunks、retrieval hits、structured schema、template payload
+出典追跡: policies、cases、checklist items、external notes に source_refs を残す
+評価ゲート: retrieval、structure、citation、template、failure handling の確認
+期待される成果: SOP draft と、各層を検査できる証拠
+```
+
 ## よくある落とし穴
 
 | 落とし穴 | なぜ問題か | よりよい方法 |

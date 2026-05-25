@@ -121,6 +121,10 @@ Please keep an eye on airoads.org as the course continues to improve. If enough 
 
 Read briefly, run something, keep evidence. At the end of each stage, you should have something another person can inspect: a README command, a saved output, a metric table, a trace, a failure note, or a small demo. This is also how you turn learning into a portfolio story.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a first course evidence card:
+
 ```text
 target_role: AI application engineer, AI full-stack builder, or AI-enabled product engineer
 project_thread: one assistant, automation, analysis, or multimodal idea to improve across chapters

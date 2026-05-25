@@ -415,6 +415,18 @@ If you want this project to feel professional, show:
 
 This proves not only that the model can generate text, but also that you can build a reliable document-generation workflow.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a small evidence card:
+
+```text
+project_scope: incident topic -> policy retrieval -> SOP schema -> Word export
+intermediate_outputs: parsed chunks, retrieval hits, structured schema, template payload
+source_trace: source_refs for policies, cases, checklist items, and external notes
+evaluation_gate: retrieval, structure, citation, template, and failure handling checks
+expected_output: SOP draft plus evidence that each layer can be inspected
+```
+
 ## Common Pitfalls
 
 | Pitfall | Why it hurts | Better approach |

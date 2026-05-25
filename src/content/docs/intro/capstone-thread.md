@@ -98,6 +98,18 @@ At the end of each chapter, answer four questions:
 
 If you cannot answer, add evidence before adding features.
 
+## Evidence to Keep
+
+Keep this page's proof of learning as a project-thread evidence card:
+
+```text
+project_name: course knowledge assistant or your own replacement project
+chapter_growth_rule: add one capability per chapter, not a pile of demos
+rerun_path: README command, script, notebook cell, or service endpoint
+review_bundle: data note, eval cases, trace, failure note, and release note
+expected_output: one project thread that grows from setup to RAG, Agent, and runtime evidence
+```
+
 ## Minimum Pass Standard
 
 After the main route, this project should include:
