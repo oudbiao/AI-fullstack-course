@@ -30,14 +30,21 @@ So far, the variables you have learned can only store one value at a time. But i
 
 Data structures are containers used to **organize and store multiple pieces of data**.
 
-Python has 4 built-in data structures:
+Python has 4 built-in data structures. A quick way to choose is:
 
-| Data Structure | Symbol | Ordered | Mutable | Allows Duplicates | Typical Use |
-|---------|------|------|------|---------|---------|
-| **List** list | `[]` | ✅ | ✅ | ✅ | Ordered collection of data |
-| **Tuple** tuple | `()` | ✅ | ❌ | ✅ | Immutable data |
-| **Dictionary** dict | `{}` | ✅ | ✅ | Keys cannot be duplicated | Key-value mapping |
-| **Set** set | `{}` | ❌ | ✅ | ❌ | Deduplication, set operations |
+| If you need... | Use this |
+|---|---|
+| Ordered data that changes often | **List** `[]` |
+| Ordered data that should not change | **Tuple** `()` |
+| Look up values by name or ID | **Dictionary** `{key: value}` |
+| Remove duplicates or compare groups | **Set** `{item}` |
+
+Remember the main properties:
+
+- **List**: ordered, mutable, allows duplicates.
+- **Tuple**: ordered, immutable, allows duplicates.
+- **Dictionary**: ordered by insertion, mutable, keys cannot be duplicated.
+- **Set**: unordered, mutable, duplicates are removed automatically.
 
 ---
 

@@ -281,11 +281,15 @@ print(content)  # Hello!
 
 **Serialization** means converting Python objects (lists, dictionaries, class instances, and so on) into a format that can be saved to a file. **Deserialization** means doing the reverse: restoring Python objects from a file.
 
-| Format | Module | Readability | Speed | Safety | Use case |
-|------|------|--------|------|--------|---------|
-| JSON | `json` | ✅ Good | Medium | ✅ Safe | Configuration files, API data |
-| CSV | `csv` | ✅ Good | Fast | ✅ Safe | Tabular data |
-| pickle | `pickle` | ❌ Binary | Fast | ❌ Unsafe | Python objects |
+Choose the format by what you want to save:
+
+| Need | Recommended format |
+|---|---|
+| Configuration, API response, small structured data | JSON with the `json` module |
+| Rows and columns that can open in a spreadsheet | CSV with the `csv` module |
+| A Python-only object that you fully trust | pickle with the `pickle` module |
+
+The important trade-off is safety. JSON and CSV are readable and safe for normal learning projects. pickle is fast and convenient, but it is binary and unsafe when the file comes from someone else.
 
 ### `pickle`: save any Python object
 
