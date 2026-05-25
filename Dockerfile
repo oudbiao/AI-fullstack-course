@@ -32,6 +32,7 @@ COPY astro.config.mjs ./
 COPY scripts ./scripts
 COPY src ./src
 COPY public ./public
+COPY docker ./docker
 
 ARG CLOUDFLARE_WEB_ANALYTICS_TOKEN=""
 ENV CLOUDFLARE_WEB_ANALYTICS_TOKEN="${CLOUDFLARE_WEB_ANALYTICS_TOKEN}"
