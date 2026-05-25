@@ -336,11 +336,9 @@ RAG optimization should feel like experimentation, not like tuning mysterious pa
 
 An optimization record can look like this:
 
-| Experiment | Change | Improvement | Cost | Conclusion |
-|---|---|---|---|---|
-| baseline | Keyword search, top-k=3 | Stable on exact terminology | Weak on paraphrased questions | Keep as the control group |
-| exp-1 | Add query rewrite | Better hit rate on paraphrased questions | A few incorrect rewrites | Keep it, but log the rewrites |
-| exp-2 | Add rerank | Correct materials are ranked higher | Increased latency | If latency is acceptable, make it the standard version |
+- `baseline`: keyword search, `top-k=3`. It is stable on exact terminology but weak on paraphrased questions. Keep it as the control group.
+- `exp-1`: add query rewrite. It improves paraphrased questions, but may create a few incorrect rewrites. Keep it only if rewrites are logged.
+- `exp-2`: add rerank. Correct materials move higher, but latency increases. Make it the standard version only if latency is acceptable.
 
 ## Checking the trade-off between cost, latency, and quality
 

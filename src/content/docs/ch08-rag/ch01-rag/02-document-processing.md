@@ -478,12 +478,10 @@ This script will not judge semantic quality for you, but it can quickly reveal b
 
 It is a good idea to record the results in a fixed format every time you try a chunking strategy.
 
-| Strategy | Parameters | Advantages | Problems revealed | Keep or not |
-|---|---|---|---|---|
-| Sentence-based chunking | 1 sentence per chunk | Simple, precise retrieval | Many pieces of evidence are incomplete | Only suitable for short FAQ |
-| Sliding window | 2–4 sentences, overlap 1 | Less likely to cut context apart | More chunks overall | Good as a baseline |
-| Heading-based chunking | Group content under H2/H3 headings | Preserves structure | Long sections may become too large | Suitable for tutorials and documents |
-| Content-type-based chunking | Separate policies / cases / checklists | Good for SOP document generation | Requires parsing or labeling | Suitable for structured projects |
+- **Sentence-based chunking**: 1 sentence per chunk. It is simple and precise, but evidence is often incomplete. Keep it only for short FAQ pages.
+- **Sliding window**: 2-4 sentences with 1 sentence of overlap. It is less likely to cut context apart, but creates more chunks. Use it as a baseline.
+- **Heading-based chunking**: group content under H2/H3 headings. It preserves document structure, but long sections can become too large. Use it for tutorials and documents.
+- **Content-type-based chunking**: separate policies, cases, and checklists. It works well for SOP generation, but requires parsing or labeling. Use it for structured projects.
 
 If you do not know where to start, it is recommended to use “heading hierarchy + sliding window” as your baseline, and then adjust based on an evaluation set.
 

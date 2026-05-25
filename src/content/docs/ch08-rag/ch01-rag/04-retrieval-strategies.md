@@ -390,11 +390,9 @@ This table is best used together with an evaluation set. Change only one strateg
 
 ## A Retrieval Experiment Log Template
 
-| Experiment | Strategy | top-k | Rerank? | Result | Conclusion |
-|---|---|---:|---|---|---|
-| baseline | Keyword | 3 | No | Exact terms can be found, but synonymous questions are missed | Suitable for error codes and terminology |
-| exp-1 | Vector | 3 | No | Synonymous questions work better, but proper nouns are sometimes inaccurate | Need to keep the keyword channel |
-| exp-2 | Hybrid | 5 | Yes | Best overall, but latency increases | Can be used as the standard version |
+- `baseline`: keyword search, `top-k=3`, no rerank. Exact terms can be found, but synonymous questions are missed. This is suitable for error codes and terminology.
+- `exp-1`: vector search, `top-k=3`, no rerank. Synonymous questions work better, but proper nouns are sometimes inaccurate. Keep the keyword channel.
+- `exp-2`: hybrid retrieval, `top-k=5`, with rerank. Overall quality is best, but latency increases. Use it as the standard version if latency is acceptable.
 
 The key to retrieval optimization is not finding the perfect strategy at once, but making sure every change has records, metrics, and failure cases.
 
