@@ -126,13 +126,13 @@ The text in quotes after `-m` is the **commit message**, which explains what thi
 
 A project’s commit history might look like this:
 
-```
-Commit #5: "Add data augmentation"               ← latest
-Commit #4: "Fix the bug where the learning rate was too high during model training"
-Commit #3: "Add CNN model definition"
-Commit #2: "Complete data loading module"
-Commit #1: "Project initialization, add README"  ← earliest
-```
+| Order | Message | Position |
+|---|---|---|
+| Commit #5 | Add data augmentation | Latest |
+| Commit #4 | Fix the learning rate bug |  |
+| Commit #3 | Add CNN model definition |  |
+| Commit #2 | Complete data loading module |  |
+| Commit #1 | Project initialization, add README | Earliest |
 
 You can return to any commit point at any time, just like loading a game save.
 

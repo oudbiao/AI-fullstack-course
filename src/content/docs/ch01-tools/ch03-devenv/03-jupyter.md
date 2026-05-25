@@ -151,40 +151,14 @@ After running, it will be rendered as nicely formatted text.
 
 ### Example: A Typical Data Analysis Notebook Structure
 
-```
-[Markdown]  # Exploratory Analysis of the Iris Dataset
-[Markdown]  ## 1. Import Libraries
-[Code]      import numpy as np
-            import pandas as pd
-            import matplotlib.pyplot as plt
-
-[Markdown]  ## 2. Load Data
-[Code]      from sklearn.datasets import load_iris
-            iris = load_iris()
-            df = pd.DataFrame(iris.data, columns=iris.feature_names)
-            df['species'] = iris.target
-            df.head()
-
-[Output]    (a table is displayed)
-
-[Markdown]  ## 3. Data Overview
-[Code]      df.describe()
-
-[Output]    (a statistical summary table is displayed)
-
-[Markdown]  ## 4. Visualization
-[Code]      plt.figure(figsize=(10, 6))
-            plt.scatter(df.iloc[:, 0], df.iloc[:, 1], c=df['species'])
-            plt.xlabel('sepal length')
-            plt.ylabel('sepal width')
-            plt.title('Iris Dataset')
-            plt.show()
-
-[Output]    (a scatter plot is displayed directly)
-
-[Markdown]  ## 5. Conclusion
-            Petal length and petal width are the most effective features for distinguishing the three species.
-```
+| Part | Cell type | What it contains |
+|---|---|---|
+| Title and goal | Markdown | Exploratory analysis of the Iris dataset |
+| Import libraries | Code | `numpy`, `pandas`, `matplotlib` |
+| Load data | Code | `load_iris()`, build `df`, preview with `df.head()` |
+| Data overview | Code + output | `df.describe()` and a statistics table |
+| Visualization | Code + output | Scatter plot with labels and title |
+| Conclusion | Markdown | Which features separate the species best |
 
 Code, charts, and text explanations are all in one file. That is the charm of Jupyter.
 
@@ -366,22 +340,12 @@ scores = [90, 85, 92]
 
 ### A Typical AI Project Uses Both Together
 
-```
-my-ai-project/
-├── notebooks/
-│   ├── 01_eda.ipynb          # Explore data (Notebook)
-│   ├── 02_experiment.ipynb   # Try different models (Notebook)
-│   └── 03_analysis.ipynb     # Analyze results (Notebook)
-├── src/
-│   ├── model.py              # Model definition (.py)
-│   ├── train.py              # Training script (.py)
-│   ├── evaluate.py           # Evaluation script (.py)
-│   └── utils.py              # Utility functions (.py)
-├── data/
-├── models/
-├── requirements.txt
-└── README.md
-```
+| Area | Typical files | Purpose |
+|---|---|---|
+| Exploration | `notebooks/01_eda.ipynb`, `02_experiment.ipynb` | Try ideas and inspect data |
+| Source code | `src/model.py`, `train.py`, `evaluate.py`, `utils.py` | Keep reusable project code |
+| Data and models | `data/`, `models/` | Store inputs and generated artifacts |
+| Reproduction | `requirements.txt`, `README.md` | Explain how to install and rerun |
 
 First do experiments in a Notebook, then organize the code into `.py` files after the plan is finalized — this is the standard workflow of an AI engineer.
 

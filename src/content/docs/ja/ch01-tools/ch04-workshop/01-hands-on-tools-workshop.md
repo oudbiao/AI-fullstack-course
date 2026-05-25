@@ -127,16 +127,15 @@ EOF
 
 期待される構成：
 
-```text
-ai-learning-lab/
-  README.md
-  requirements.txt
-  src/
-  notes/
-  reports/
-  notebooks/
-  screenshots/
-```
+| パス | 目的 |
+|---|---|
+| `README.md` | 再実行手順 |
+| `requirements.txt` | Python 依存関係 |
+| `src/` | 再利用する Python script |
+| `notes/` | 学習ログと判断メモ |
+| `reports/` | 見直す価値のある出力 |
+| `notebooks/` | 探索用 Notebook |
+| `screenshots/` | 環境構築の視覚的な証拠 |
 
 `tree` を入れている場合は `tree -a -L 2` で確認できます。入れていない場合は `find . -maxdepth 2 -type f` で十分です。
 

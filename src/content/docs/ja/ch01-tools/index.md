@@ -27,17 +27,14 @@ head:
 
 ## 学習順序とタスクリスト
 
-この表を、学習ガイド兼タスクリストとして使います。
+この順序を、学習ガイド兼タスクリストとして使います。
 
-| ページ | 手を動かすこと | 残す証拠 |
-|---|---|---|
-| [1.1.1 ターミナルとコマンドライン](/ja/ch01-tools/ch01-terminal/01-why-cli/) | ターミナルを開き、`pwd`、`ls`、`cd` を実行する | 短いコマンドログ |
-| [1.1.2 基本的なターミナル操作](/ja/ch01-tools/ch01-terminal/02-basic-operations/) | 練習フォルダでファイルを作成・移動・確認・削除する | フォルダのスクリーンショットまたは端末出力 |
-| [1.1.3 パッケージマネージャ](/ja/ch01-tools/ch01-terminal/03-package-managers/) | 自分の環境でツールを入れる方法を確認する | ツールのバージョンメモ |
-| [1.2.1 Git の基礎](/ja/ch01-tools/ch02-git/01-git-basics/) と [1.2.2 Git の基本操作](/ja/ch01-tools/ch02-git/02-core-operations/) | 最初のローカルプロジェクト記録を保存する | clean な Git commit 1 回 |
-| [1.3.1 Python 環境](/ja/ch01-tools/ch03-devenv/01-python-env/) | 仮想環境を作り、その中で Python を実行する | Python バージョンと環境コマンド |
-| [1.3.2 VS Code](/ja/ch01-tools/ch03-devenv/02-vscode/) と [1.3.3 Jupyter](/ja/ch01-tools/ch03-devenv/03-jupyter/) | エディタでコードを書き、Notebook で探索する | エディタ/Notebook の動作メモ |
-| [1.4.1 ハンズオンワークショップ](/ja/ch01-tools/ch04-workshop/01-hands-on-tools-workshop/) | ターミナル、Python、エディタ、Notebook、Git をつなげる | 再現可能な `ai-learning-lab` README |
+1. [1.1.1 ターミナルとコマンドライン](/ja/ch01-tools/ch01-terminal/01-why-cli/): `pwd`、`ls`、`cd` を実行し、短いコマンドログを残す。
+2. [1.1.2 基本的なターミナル操作](/ja/ch01-tools/ch01-terminal/02-basic-operations/): ファイルを作成・移動・確認・削除し、画面か端末出力を残す。
+3. [1.1.3 パッケージマネージャ](/ja/ch01-tools/ch01-terminal/03-package-managers/): 自分の環境でツールを入れる方法を確認し、バージョンメモを残す。
+4. [1.2.1 Git の基礎](/ja/ch01-tools/ch02-git/01-git-basics/) と [1.2.2 Git の基本操作](/ja/ch01-tools/ch02-git/02-core-operations/): 最初のローカルプロジェクト記録を保存し、clean な Git commit を 1 回残す。
+5. [1.3.1 Python 環境](/ja/ch01-tools/ch03-devenv/01-python-env/)、[1.3.2 VS Code](/ja/ch01-tools/ch03-devenv/02-vscode/)、[1.3.3 Jupyter](/ja/ch01-tools/ch03-devenv/03-jupyter/): 正しい環境で Python を動かし、コードを編集し、Notebook を restart-and-run する。
+6. [1.4.1 ハンズオンワークショップ](/ja/ch01-tools/ch04-workshop/01-hands-on-tools-workshop/): ターミナル、Python、エディタ、Notebook、Git を再現可能な `ai-learning-lab` README にまとめる。
 
 ワークショップは最後に置きます。統合のための実践なので、先に部品を学び、そのあと組み合わせます。
 

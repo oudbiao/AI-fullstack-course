@@ -27,17 +27,14 @@ head:
 
 ## 学习顺序与任务表
 
-下面这一张表同时作为学习指南和任务清单。
+下面这个顺序同时作为学习指南和任务清单。
 
-| 页面 | 跟着做 | 留下的证据 |
-|---|---|---|
-| [1.1.1 终端与命令行](/zh-cn/ch01-tools/ch01-terminal/01-why-cli/) | 打开终端，运行 `pwd`、`ls`、`cd` | 一小段命令记录 |
-| [1.1.2 基础终端操作](/zh-cn/ch01-tools/ch01-terminal/02-basic-operations/) | 在练习文件夹里创建、移动、查看、删除文件 | 文件夹截图或终端输出 |
-| [1.1.3 包管理器](/zh-cn/ch01-tools/ch01-terminal/03-package-managers/) | 检查你的系统怎样安装工具 | 工具版本记录 |
-| [1.2.1 Git 基础](/zh-cn/ch01-tools/ch02-git/01-git-basics/) 和 [1.2.2 Git 核心操作](/zh-cn/ch01-tools/ch02-git/02-core-operations/) | 保存第一次本地项目快照 | 一次干净的 Git 提交 |
-| [1.3.1 Python 环境](/zh-cn/ch01-tools/ch03-devenv/01-python-env/) | 创建虚拟环境，并在其中运行 Python | Python 版本和环境命令 |
-| [1.3.2 VS Code](/zh-cn/ch01-tools/ch03-devenv/02-vscode/) 和 [1.3.3 Jupyter](/zh-cn/ch01-tools/ch03-devenv/03-jupyter/) | 用编辑器写代码，用 Notebook 做探索 | 编辑器/Notebook 可用记录 |
-| [1.4.1 跟做工作坊](/zh-cn/ch01-tools/ch04-workshop/01-hands-on-tools-workshop/) | 串起终端、Python、编辑器、Notebook 和 Git | 可复现的 `ai-learning-lab` README |
+1. [1.1.1 终端与命令行](/zh-cn/ch01-tools/ch01-terminal/01-why-cli/)：运行 `pwd`、`ls`、`cd`，保留一小段命令记录。
+2. [1.1.2 基础终端操作](/zh-cn/ch01-tools/ch01-terminal/02-basic-operations/)：创建、移动、查看、删除文件，保留文件夹截图或终端输出。
+3. [1.1.3 包管理器](/zh-cn/ch01-tools/ch01-terminal/03-package-managers/)：检查系统怎样安装工具，保留工具版本记录。
+4. [1.2.1 Git 基础](/zh-cn/ch01-tools/ch02-git/01-git-basics/) 和 [1.2.2 Git 核心操作](/zh-cn/ch01-tools/ch02-git/02-core-operations/)：保存第一次本地项目快照，保留一次干净的 Git 提交。
+5. [1.3.1 Python 环境](/zh-cn/ch01-tools/ch03-devenv/01-python-env/)、[1.3.2 VS Code](/zh-cn/ch01-tools/ch03-devenv/02-vscode/) 和 [1.3.3 Jupyter](/zh-cn/ch01-tools/ch03-devenv/03-jupyter/)：在正确环境里运行 Python，编辑代码，并让 Notebook 重启后完整运行。
+6. [1.4.1 跟做工作坊](/zh-cn/ch01-tools/ch04-workshop/01-hands-on-tools-workshop/)：把终端、Python、编辑器、Notebook 和 Git 串成可复现的 `ai-learning-lab` README。
 
 工作坊放在最后，因为它是综合实操：先学零件，再把零件装起来。
 

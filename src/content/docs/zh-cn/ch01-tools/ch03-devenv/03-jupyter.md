@@ -151,40 +151,14 @@ Markdown Cell 里可以写：
 
 ### 案例：一个典型的数据分析 Notebook 结构
 
-```
-[Markdown]  # Iris 数据集探索性分析
-[Markdown]  ## 1. 导入库
-[Code]      import numpy as np
-            import pandas as pd
-            import matplotlib.pyplot as plt
-
-[Markdown]  ## 2. 加载数据
-[Code]      from sklearn.datasets import load_iris
-            iris = load_iris()
-            df = pd.DataFrame(iris.data, columns=iris.feature_names)
-            df['species'] = iris.target
-            df.head()
-
-[Output]    （显示一个表格）
-
-[Markdown]  ## 3. 数据概览
-[Code]      df.describe()
-
-[Output]    （显示统计摘要表格）
-
-[Markdown]  ## 4. 可视化
-[Code]      plt.figure(figsize=(10, 6))
-            plt.scatter(df.iloc[:, 0], df.iloc[:, 1], c=df['species'])
-            plt.xlabel('sepal length')
-            plt.ylabel('sepal width')
-            plt.title('Iris Dataset')
-            plt.show()
-
-[Output]    （直接显示散点图）
-
-[Markdown]  ## 5. 结论
-            花瓣长度和花瓣宽度是区分三个品种最有效的特征。
-```
+| 部分 | Cell 类型 | 内容 |
+|---|---|---|
+| 标题和目标 | Markdown | Iris 数据集探索性分析 |
+| 导入库 | Code | `numpy`、`pandas`、`matplotlib` |
+| 加载数据 | Code | `load_iris()`、构造 `df`、用 `df.head()` 预览 |
+| 数据概览 | Code + 输出 | `df.describe()` 和统计摘要表 |
+| 可视化 | Code + 输出 | 带标签和标题的散点图 |
+| 结论 | Markdown | 哪些特征最能区分品种 |
 
 代码、图表、文字解释，全在一个文件里。这就是 Jupyter 的魅力。
 
@@ -366,22 +340,12 @@ scores = [90, 85, 92]
 
 ### 一个典型的 AI 项目，两者配合使用
 
-```
-my-ai-project/
-├── notebooks/
-│   ├── 01_eda.ipynb          # 探索数据（Notebook）
-│   ├── 02_experiment.ipynb   # 实验不同模型（Notebook）
-│   └── 03_analysis.ipynb     # 分析结果（Notebook）
-├── src/
-│   ├── model.py              # 模型定义（.py）
-│   ├── train.py              # 训练脚本（.py）
-│   ├── evaluate.py           # 评估脚本（.py）
-│   └── utils.py              # 工具函数（.py）
-├── data/
-├── models/
-├── requirements.txt
-└── README.md
-```
+| 区域 | 典型文件 | 用途 |
+|---|---|---|
+| 探索 | `notebooks/01_eda.ipynb`、`02_experiment.ipynb` | 尝试想法、查看数据 |
+| 源代码 | `src/model.py`、`train.py`、`evaluate.py`、`utils.py` | 保存可复用项目代码 |
+| 数据和模型 | `data/`、`models/` | 存放输入和生成产物 |
+| 复现说明 | `requirements.txt`、`README.md` | 说明怎样安装和重跑 |
 
 先在 Notebook 里做实验，确定方案后把代码整理到 `.py` 文件中——这是 AI 工程师的标准工作流。
 

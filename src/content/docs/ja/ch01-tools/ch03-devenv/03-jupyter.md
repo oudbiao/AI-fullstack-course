@@ -163,40 +163,14 @@ Markdown Cell には次のように書けます。
 
 ### 例: 典型的なデータ分析 Notebook の構成
 
-```
-[Markdown]  # Iris データセットの探索的分析
-[Markdown]  ## 1. ライブラリをインポート
-[Code]      import numpy as np
-            import pandas as pd
-            import matplotlib.pyplot as plt
-
-[Markdown]  ## 2. データを読み込む
-[Code]      from sklearn.datasets import load_iris
-            iris = load_iris()
-            df = pd.DataFrame(iris.data, columns=iris.feature_names)
-            df['species'] = iris.target
-            df.head()
-
-[Output]    （表を表示）
-
-[Markdown]  ## 3. データの概要を見る
-[Code]      df.describe()
-
-[Output]    （統計要約の表を表示）
-
-[Markdown]  ## 4. 可視化
-[Code]      plt.figure(figsize=(10, 6))
-            plt.scatter(df.iloc[:, 0], df.iloc[:, 1], c=df['species'])
-            plt.xlabel('sepal length')
-            plt.ylabel('sepal width')
-            plt.title('Iris Dataset')
-            plt.show()
-
-[Output]    （散布図を直接表示）
-
-[Markdown]  ## 5. 結論
-            花びらの長さと花びらの幅は、3 つの品種を見分けるのに最も有効な特徴です。
-```
+| 部分 | Cell type | 内容 |
+|---|---|---|
+| タイトルと目的 | Markdown | Iris データセットの探索的分析 |
+| ライブラリ | Code | `numpy`、`pandas`、`matplotlib` |
+| データ読み込み | Code | `load_iris()`、`df` の作成、`df.head()` で確認 |
+| データ概要 | Code + 出力 | `df.describe()` と統計要約表 |
+| 可視化 | Code + 出力 | ラベルとタイトル付きの散布図 |
+| 結論 | Markdown | 種類を分けるのに効く特徴 |
 
 コード、図、文章の説明を 1 つのファイルにまとめられます。これが Jupyter の魅力です。
 
@@ -378,22 +352,12 @@ scores = [90, 85, 92]
 
 ### 典型的な AI プロジェクトでは、両方を組み合わせる
 
-```
-my-ai-project/
-├── notebooks/
-│   ├── 01_eda.ipynb          # データを探索する（Notebook）
-│   ├── 02_experiment.ipynb   # いろいろなモデルを試す（Notebook）
-│   └── 03_analysis.ipynb     # 結果を分析する（Notebook）
-├── src/
-│   ├── model.py              # モデル定義（.py）
-│   ├── train.py              # 学習スクリプト（.py）
-│   ├── evaluate.py           # 評価スクリプト（.py）
-│   └── utils.py              # ユーティリティ関数（.py）
-├── data/
-├── models/
-├── requirements.txt
-└── README.md
-```
+| 領域 | 代表的なファイル | 目的 |
+|---|---|---|
+| 探索 | `notebooks/01_eda.ipynb`、`02_experiment.ipynb` | アイデアを試し、データを見る |
+| ソースコード | `src/model.py`、`train.py`、`evaluate.py`、`utils.py` | 再利用するプロジェクトコードを置く |
+| データとモデル | `data/`、`models/` | 入力と生成物を保存する |
+| 再現手順 | `requirements.txt`、`README.md` | インストールと再実行方法を書く |
 
 まず Notebook で実験し、方針が決まったらコードを `.py` ファイルに整理する。これが AI エンジニアの標準的なワークフローです。
 

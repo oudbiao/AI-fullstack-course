@@ -34,24 +34,17 @@ A branch is option 2. You can make changes freely on a new branch. If it works, 
 
 ### Real-World Scenarios in Code
 
-```
-You are working on an AI image classification project, and the code on the main branch is running normally.
+You are working on an AI image classification project, and the code on the `main` branch is running normally.
 
-Now you want to try:
-  - Replacing the model from CNN to Vision Transformer
-  - You’re not sure whether the result will be better
-  - The changes are large and may take several days
+What you want to try:
 
-If you change main directly:
-  ❌ If you’re halfway done, the code may stop running
-  ❌ A teammate suddenly asks you to fix a bug, but main is already messed up by your changes
-  ❌ In the end, you realize ViT is not good, but you have already changed 50 files
+- Replace the model from CNN to Vision Transformer.
+- Check whether the result is actually better.
+- Spend several days on changes that may touch many files.
 
-If you use a branch:
-  ✅ Work slowly on the feature/vit branch
-  ✅ A bug fix comes in? Switch back to main, fix it, push it, then switch back and continue
-  ✅ Find out ViT is not working? Delete the branch, and main remains untouched
-```
+If you change `main` directly, half-finished code may stop running, an urgent bug fix becomes hard to ship, and reverting a failed ViT attempt may involve dozens of files.
+
+If you use a branch, you can work slowly on `feature/vit`, switch back to `main` for urgent fixes, and delete the experiment if it does not work.
 
 ---
 
@@ -298,22 +291,17 @@ git merge bob/update-model
 
 Open `src/model.py`, and you will see Git marking the conflict like this:
 
-```text
-import torch
-import torch.nn as nn
-
-class SimpleCNN(nn.Module):
-    def __init__(self):
-        super().__init__()
-CONFLICT_MARKER_START HEAD
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Engineer A: change to 32 filters
-        self.pool = nn.MaxPool2d(2, 2)
-        self.fc1 = nn.Linear(32 * 16 * 16, 10)
-CONFLICT_MARKER_SEPARATOR
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Engineer B: change to 64 filters, 5x5 kernel
-        self.pool = nn.MaxPool2d(2, 2)
-        self.fc1 = nn.Linear(64 * 16 * 16, 10)
-CONFLICT_MARKER_END bob/update-model
+```diff
+ class SimpleCNN(nn.Module):
+     def __init__(self):
+         super().__init__()
++        # Engineer A keeps a 3x3 kernel and raises filters to 32.
++        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)
++        self.fc1 = nn.Linear(32 * 16 * 16, 10)
+-
+-        # Engineer B changes both filter count and kernel size.
+-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)
+-        self.fc1 = nn.Linear(64 * 16 * 16, 10)
 ```
 
 - In a real conflict, Git shows `<<<<<<< HEAD`, then the current branch version, then `=======`, then the incoming branch version, and finally `>>>>>>> branch-name`.

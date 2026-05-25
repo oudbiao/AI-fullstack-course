@@ -127,16 +127,15 @@ EOF
 
 Expected structure:
 
-```text
-ai-learning-lab/
-  README.md
-  requirements.txt
-  src/
-  notes/
-  reports/
-  notebooks/
-  screenshots/
-```
+| Path | Purpose |
+|---|---|
+| `README.md` | Rerun instructions |
+| `requirements.txt` | Python dependencies |
+| `src/` | Reusable Python scripts |
+| `notes/` | Learning log and decisions |
+| `reports/` | Outputs worth reviewing |
+| `notebooks/` | Exploratory notebooks |
+| `screenshots/` | Visual proof of setup |
 
 If you installed `tree`, you can check it with `tree -a -L 2`. If not, `find . -maxdepth 2 -type f` is enough.
 

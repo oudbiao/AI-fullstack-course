@@ -127,16 +127,15 @@ EOF
 
 预期目录结构：
 
-```text
-ai-learning-lab/
-  README.md
-  requirements.txt
-  src/
-  notes/
-  reports/
-  notebooks/
-  screenshots/
-```
+| 路径 | 用途 |
+|---|---|
+| `README.md` | 重跑说明 |
+| `requirements.txt` | Python 依赖 |
+| `src/` | 可复用 Python 脚本 |
+| `notes/` | 学习日志和决策记录 |
+| `reports/` | 值得复查的输出 |
+| `notebooks/` | 探索性 Notebook |
+| `screenshots/` | 环境搭建的视觉证据 |
 
 如果你装了 `tree`，可以用 `tree -a -L 2` 检查；没有安装也没关系，用 `find . -maxdepth 2 -type f` 也能看文件。
 

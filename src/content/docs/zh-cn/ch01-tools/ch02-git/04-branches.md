@@ -34,24 +34,17 @@ sidebar:
 
 ### 在代码中的实际场景
 
-```
-你正在做一个 AI 图像分类项目，main 分支上是能正常运行的代码。
+你正在做一个 AI 图像分类项目，`main` 分支上是能正常运行的代码。
 
 现在你想尝试：
-  - 把模型从 CNN 换成 Vision Transformer
-  - 不确定效果会不会更好
-  - 改动很大，可能需要好几天
 
-如果直接在 main 上改：
-  ❌ 改到一半代码跑不了了
-  ❌ 同伴突然让你修个 bug，但 main 已经被你改乱了
-  ❌ 最后发现 ViT 效果不好，想回去——已经改了 50 个文件
+- 把模型从 CNN 换成 Vision Transformer。
+- 验证效果是不是真的更好。
+- 花几天时间修改可能涉及很多文件的内容。
 
-如果用分支：
-  ✅ 在 feature/vit 分支上慢慢改
-  ✅ 突然要修 bug？切回 main，修完推上去，再切回来继续
-  ✅ 发现 ViT 不行？删掉分支，main 毫发无损
-```
+如果直接在 `main` 上改，半成品代码可能跑不起来，紧急 bug 修复也很难发布，最后发现 ViT 不合适时还可能要回退几十个文件。
+
+如果用分支，你可以在 `feature/vit` 上慢慢试；突然要修 bug，就切回 `main` 处理；实验失败时，直接删掉这个分支即可。
 
 ---
 
@@ -298,22 +291,17 @@ git merge bob/update-model
 
 打开 `src/model.py`，你会看到 Git 标记出了冲突的位置：
 
-```text
-import torch
-import torch.nn as nn
-
-class SimpleCNN(nn.Module):
-    def __init__(self):
-        super().__init__()
-CONFLICT_MARKER_START HEAD
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # 工程师 A: 改成 32 个滤波器
-        self.pool = nn.MaxPool2d(2, 2)
-        self.fc1 = nn.Linear(32 * 16 * 16, 10)
-CONFLICT_MARKER_SEPARATOR
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # 工程师 B: 改成 64 个滤波器，5x5 卷积核
-        self.pool = nn.MaxPool2d(2, 2)
-        self.fc1 = nn.Linear(64 * 16 * 16, 10)
-CONFLICT_MARKER_END bob/update-model
+```diff
+ class SimpleCNN(nn.Module):
+     def __init__(self):
+         super().__init__()
++        # 工程师 A 保留 3x3 卷积核，把滤波器改成 32 个。
++        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)
++        self.fc1 = nn.Linear(32 * 16 * 16, 10)
+-
+-        # 工程师 B 同时修改滤波器数量和卷积核大小。
+-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)
+-        self.fc1 = nn.Linear(64 * 16 * 16, 10)
 ```
 
 - 真实冲突里，Git 会先显示 `<<<<<<< HEAD`，然后是当前分支版本，再显示 `=======`，然后是要合并进来的版本，最后用 `>>>>>>> branch-name` 收尾。

@@ -46,24 +46,17 @@ sidebar:
 
 ### コードでの実際の場面
 
-```
-あなたは AI 画像分類プロジェクトを進めています。main ブランチには、正常に動くコードがあります。
+あなたは AI 画像分類プロジェクトを進めています。`main` ブランチには、正常に動くコードがあります。
 
-今やりたいこと:
-  - モデルを CNN から Vision Transformer に変えたい
-  - 効果が良くなるかはまだ分からない
-  - 変更が大きく、数日かかるかもしれない
+今試したいこと:
 
-もし main で直接作業すると:
-  ❌ 途中でコードが動かなくなるかもしれない
-  ❌ チームメイトから突然 bug 修正を頼まれても、main がぐちゃぐちゃ
-  ❌ 最後に ViT が微妙だと分かっても、50 ファイルも変えてしまった後では戻しにくい
+- モデルを CNN から Vision Transformer に変える。
+- 本当に性能が良くなるか確かめる。
+- 数日かけて、多くのファイルにまたがる変更を進める。
 
-ブランチを使えば:
-  ✅ feature/vit ブランチで少しずつ変更できる
-  ✅ 急な bug 修正が来たら main に切り替えて対応し、また戻って続けられる
-  ✅ ViT が合わなければ、ブランチを消すだけで main は無傷
-```
+`main` で直接作業すると、途中のコードが動かなくなったり、急な bug 修正を出しにくくなったり、ViT が合わなかったときに何十ファイルも戻すことになります。
+
+ブランチを使えば、`feature/vit` で少しずつ試し、急ぎの修正は `main` に戻って対応し、失敗した実験はブランチごと消せます。
 
 ---
 
@@ -310,22 +303,17 @@ git merge bob/update-model
 
 `src/model.py` を開くと、Git がコンフリクト箇所を示しています。
 
-```text
-import torch
-import torch.nn as nn
-
-class SimpleCNN(nn.Module):
-    def __init__(self):
-        super().__init__()
-CONFLICT_MARKER_START HEAD
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # エンジニアA: フィルター数を 32 に変更
-        self.pool = nn.MaxPool2d(2, 2)
-        self.fc1 = nn.Linear(32 * 16 * 16, 10)
-CONFLICT_MARKER_SEPARATOR
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # エンジニアB: フィルター数を 64 にし、5x5 カーネル
-        self.pool = nn.MaxPool2d(2, 2)
-        self.fc1 = nn.Linear(64 * 16 * 16, 10)
-CONFLICT_MARKER_END bob/update-model
+```diff
+ class SimpleCNN(nn.Module):
+     def __init__(self):
+         super().__init__()
++        # エンジニアA: 3x3 kernel のまま、filter 数を 32 にする。
++        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)
++        self.fc1 = nn.Linear(32 * 16 * 16, 10)
+-
+-        # エンジニアB: filter 数と kernel size の両方を変える。
+-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)
+-        self.fc1 = nn.Linear(64 * 16 * 16, 10)
 ```
 
 - 実際のコンフリクトでは、Git は `<<<<<<< HEAD`、現在のブランチの内容、`=======`、取り込む側の内容、最後に `>>>>>>> branch-name` という順で表示します。
