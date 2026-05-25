@@ -496,3 +496,13 @@ ls ch07_workshop_evidence
 失敗ログ: 失敗ケースと原因の可能性
 README 記録：何が成功し、何が失敗し、次に何を試すか
 ```
+
+<details>
+<summary>ワークショップレビュー観点と通過基準</summary>
+
+- 合格の目安は、保存された evidence folder だけで実行内容を説明できることです。terminal history に頼らない状態にします。
+- Prompt を直す前に `prompt_eval.csv` を確認します。次の編集は好みではなく、fixed case の失敗から決めます。
+- `failure_cases.md` は、後の RAG や fine-tuning 判断への橋です。失敗が知識不足なら先に retrieval、format drift なら structured output を先に締めます。
+- script を再実行し、evidence files を確認し、次の行動が Prompt、RAG、fine-tuning、または変更なしのどれかを説明できれば、このページは完了です。
+
+</details>

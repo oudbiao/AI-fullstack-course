@@ -161,6 +161,16 @@ failure_notes: known weak cases and next actions
 review_ready: another person can inspect evidence without asking you
 ```
 
+<details>
+<summary>Project review notes and pass criteria</summary>
+
+- A strong package can be reviewed without a live demo: README, fixed eval table, failure note, and rerun command should tell the story.
+- The evaluation table should compare against a baseline, not only show the final version. Otherwise the reviewer cannot see what changed.
+- Keep one failure case even when the result looks good. It proves you know the boundary and gives the next contributor a starting point.
+- The page is complete when another person can reproduce the run and name the next improvement in under ten minutes.
+
+</details>
+
 ## Summary
 
 A good LLM project is not just a working script.

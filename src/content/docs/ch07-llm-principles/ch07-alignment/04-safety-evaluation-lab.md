@@ -234,6 +234,16 @@ failure_note: one unsafe or over-refusing case
 next_action: policy edit, prompt guardrail, eval expansion, or model change
 ```
 
+<details>
+<summary>Review notes and pass criteria</summary>
+
+- A passing run is not just `v3_balanced` reaching 100%; every failure in `v1` and `v2` should point to a clear policy or prompt boundary.
+- Keep the same test cases while changing one thing at a time. If the cases, scoring rule, and model change together, the result cannot explain what improved.
+- Add new cases only after the baseline report is saved, and label whether each new case tests helpfulness, honesty, harmlessness, or over-refusal.
+- The page is complete when the failure note tells you the next edit without rereading the whole script.
+
+</details>
+
 ## Summary
 
 Alignment is not only about writing policies.

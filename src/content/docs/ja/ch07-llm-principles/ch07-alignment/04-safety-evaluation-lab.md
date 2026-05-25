@@ -234,6 +234,16 @@ failures : []
 次の行動：policy の修正、prompt ガードレール、eval 拡張、またはモデル変更
 ```
 
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+- 合格は `v3_balanced` が 100% になることだけではありません。`v1` と `v2` の失敗から、policy boundary または Prompt boundary が読める必要があります。
+- 変更するときは一度に 1 つだけ変え、test cases と scoring rule は固定します。case、rule、model を同時に変えると、何が改善したのか説明できません。
+- baseline report を保存してから新しい case を追加し、その case が helpfulness、honesty、harmlessness、over-refusal のどれを測るかを記録します。
+- failure note を読めば次に何を直すか分かる状態なら、このページは完了です。
+
+</details>
+
 ## まとめ
 
 アライメントは、方針を書くことだけではありません。

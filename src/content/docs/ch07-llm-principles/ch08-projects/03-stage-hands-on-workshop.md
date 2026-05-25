@@ -496,3 +496,13 @@ structured_output: schema validation result
 failure_log: failed case and likely cause
 readme: what passed, what failed, and what to try next
 ```
+
+<details>
+<summary>Workshop review notes and pass criteria</summary>
+
+- The workshop passes when the saved evidence folder can explain the run without the terminal history.
+- Check `prompt_eval.csv` before editing prompts. The best next edit should come from a failed fixed case, not from taste.
+- Treat `failure_cases.md` as the bridge to later RAG or fine-tuning decisions. If the failure is missing knowledge, try retrieval before training; if it is format drift, tighten structured output first.
+- The page is complete when you can rerun the script, inspect the evidence files, and defend why the next action is prompt, RAG, fine-tuning, or no change.
+
+</details>
