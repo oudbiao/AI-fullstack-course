@@ -119,12 +119,16 @@ npm run serve
 
 ```bash
 npm run build
+npm run qa:all
 npm run qa:diagrams
 npm run qa:dist
 npm run qa:course
 npm run qa:code
+npm run qa:images
 npm run seo:indexnow:dry-run
 ```
+
+`npm run qa:all` はコース変更前後の preflight です。図表、コース品質シグナル、コードブロック、コース画像参照を確認してからフルビルドへ進みます。
 
 `npm run qa:course` は、対応しやすいコース本文の不足を報告します。appendix、navigation page、study guide は folded-answer advisory から除外し、残るサンプルが walkthrough を補うべき lesson page を指すようにしています。
 

@@ -137,12 +137,16 @@ Useful commands:
 
 ```bash
 npm run build
+npm run qa:all
 npm run qa:diagrams
 npm run qa:dist
 npm run qa:course
 npm run qa:code
+npm run qa:images
 npm run seo:indexnow:dry-run
 ```
+
+`npm run qa:all` is the preflight for course edits: it checks diagrams, course quality signals, fenced code blocks, and course image references before a full site build.
 
 `npm run qa:course` reports actionable content gaps. Appendix, navigation, and study-guide pages are exempt from the folded-answer advisory so the remaining samples point to lesson pages that may need clearer walkthroughs.
 

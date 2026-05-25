@@ -6,7 +6,7 @@
     "start": "npm run build && npm run serve",
     "dev": "astro dev --host 0.0.0.0",
     "preview": "astro preview --host 0.0.0.0",
-    "build": "rm -rf node_modules/.astro && npm run qa:diagrams && astro build && node scripts/filter_sitemap_redirects.mjs dist && node scripts/create_sitemap_alias.mjs dist && node scripts/strip_build_null_bytes.js dist && node scripts/qa_generated_site.mjs dist",
+    "build": "rm -rf node_modules/.astro && npm run qa:all && astro build && node scripts/filter_sitemap_redirects.mjs dist && node scripts/create_sitemap_alias.mjs dist && node scripts/strip_build_null_bytes.js dist && node scripts/qa_generated_site.mjs dist",
     "build:docker": "node scripts/build_docker_low_memory.js",
     "links:starlight": "node scripts/normalize_starlight_links.mjs",
     "serve": "astro preview --host 0.0.0.0",
@@ -23,6 +23,8 @@
     "qa:dist": "node scripts/qa_generated_site.mjs dist",
     "qa:course": "python3 scripts/course_quality_dashboard.py",
     "qa:code": "python3 scripts/audit_code_blocks.py",
+    "qa:images": "python3 scripts/validate_course_image_refs.py",
+    "qa:all": "npm run qa:diagrams && npm run qa:course && npm run qa:code && npm run qa:images",
     "seo:indexnow": "node scripts/submit_indexnow.mjs dist",
     "seo:indexnow:dry-run": "node scripts/submit_indexnow.mjs dist --dry-run"
   },
