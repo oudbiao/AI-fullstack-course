@@ -21,8 +21,9 @@ ENV HTTP_PROXY="" \
 # 先安装依赖，避免每次只改文档或图片都重新安装 node_modules
 COPY package.json package-lock.json ./
 RUN unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy ALL_PROXY all_proxy npm_config_proxy npm_config_https_proxy \
-    && npm config delete proxy || true \
-    && npm config delete https-proxy || true \
+    && apk add --no-cache bash python3 \
+    && (npm config delete proxy || true) \
+    && (npm config delete https-proxy || true) \
     && npm install -g npm@11.6.2 --no-audit --no-fund \
     && npm ci --no-audit --no-fund \
     && test -x node_modules/.bin/astro
