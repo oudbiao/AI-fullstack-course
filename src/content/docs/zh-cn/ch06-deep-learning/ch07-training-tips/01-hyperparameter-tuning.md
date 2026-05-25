@@ -150,21 +150,11 @@ best_lr: 1.0
 
 小项目也要记录日志。
 
-```text
-experiment_id:
-code_version:
-data_version:
-seed:
-lr:
-batch_size:
-optimizer:
-weight_decay:
-dropout:
-epochs:
-best_val_metric:
-train_time:
-decision:
-```
+| 分组 | 需要记录的字段 |
+|---|---|
+| 身份信息 | `experiment_id`、`code_version`、`data_version`、`seed` |
+| 超参数 | `lr`、`batch_size`、`optimizer`、`weight_decay`、`dropout`、`epochs` |
+| 结果 | `best_val_metric`、`train_time`、`decision` |
 
 示例结论：
 

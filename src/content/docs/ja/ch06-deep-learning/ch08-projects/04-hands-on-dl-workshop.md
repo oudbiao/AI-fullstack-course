@@ -83,19 +83,16 @@ print("done")
 
 下のスクリプトは、この証拠パックを生成します。
 
-```text
-deep_learning_workshop_run/
-  outputs/training_log.csv
-  outputs/model_comparison.csv
-  outputs/confusion_matrix.csv
-  outputs/error_samples.csv
-  outputs/metrics_summary.json
-  curves/loss_curve.png
-  checkpoints/best_model.pt
-  reports/shape_trace.md
-  reports/debug_checklist.md
-  README.md
-```
+- `outputs/training_log.csv`: 各 epoch の training / validation 指標。
+- `outputs/model_comparison.csv`: baseline と CNN の比較。
+- `outputs/confusion_matrix.csv`: クラスごとの誤り分布。
+- `outputs/error_samples.csv`: 失敗例や低信頼度サンプルの確認リスト。
+- `outputs/metrics_summary.json`: 最終モデルと test 指標の要約。
+- `curves/loss_curve.png`: training / validation loss 曲線。
+- `checkpoints/best_model.pt`: 読み込める最良モデルの状態。
+- `reports/shape_trace.md`: batch、label、logits の shape 記録。
+- `reports/debug_checklist.md`: デバッグ checklist。
+- `README.md`: 再実行コマンド、結果要約、次の一手。
 
 ## 残す証拠
 

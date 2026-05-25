@@ -150,21 +150,11 @@ global search first, local refinement later
 
 Use a log even for small projects.
 
-```text
-experiment_id:
-code_version:
-data_version:
-seed:
-lr:
-batch_size:
-optimizer:
-weight_decay:
-dropout:
-epochs:
-best_val_metric:
-train_time:
-decision:
-```
+| Group | Fields to record |
+|---|---|
+| Identity | `experiment_id`, `code_version`, `data_version`, `seed` |
+| Hyperparameters | `lr`, `batch_size`, `optimizer`, `weight_decay`, `dropout`, `epochs` |
+| Result | `best_val_metric`, `train_time`, `decision` |
 
 Example decision text:
 

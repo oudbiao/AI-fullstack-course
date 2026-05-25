@@ -150,21 +150,11 @@ best_lr: 1.0
 
 小さな project でも log を残します。
 
-```text
-experiment_id:
-code_version:
-data_version:
-seed:
-lr:
-batch_size:
-optimizer:
-weight_decay:
-dropout:
-epochs:
-best_val_metric:
-train_time:
-decision:
-```
+| グループ | 記録する項目 |
+|---|---|
+| 識別情報 | `experiment_id`、`code_version`、`data_version`、`seed` |
+| ハイパーパラメータ | `lr`、`batch_size`、`optimizer`、`weight_decay`、`dropout`、`epochs` |
+| 結果 | `best_val_metric`、`train_time`、`decision` |
 
 decision の例：
 

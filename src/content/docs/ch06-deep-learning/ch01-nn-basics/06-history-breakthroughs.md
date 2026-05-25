@@ -20,9 +20,12 @@ This page is a short map, not a history exam. Use it to answer one question for 
 
 Read the timeline as a chain:
 
-```text
-simple neuron -> linear limits -> trainable multi-layer network -> stable deep training -> scalable vision -> attention-based sequence modeling
-```
+- Simple neuron
+- Linear model limits
+- Trainable multi-layer network
+- Stable deep training
+- Scalable vision model
+- Attention-based sequence modeling
 
 If you remember that chain, the architectures in Chapter 6 will feel less like isolated names.
 

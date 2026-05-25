@@ -83,19 +83,16 @@ That does not prove the training process is healthy. A usable deep learning proj
 
 The script below creates this evidence pack:
 
-```text
-deep_learning_workshop_run/
-  outputs/training_log.csv
-  outputs/model_comparison.csv
-  outputs/confusion_matrix.csv
-  outputs/error_samples.csv
-  outputs/metrics_summary.json
-  curves/loss_curve.png
-  checkpoints/best_model.pt
-  reports/shape_trace.md
-  reports/debug_checklist.md
-  README.md
-```
+- `outputs/training_log.csv`: training and validation metrics for each epoch.
+- `outputs/model_comparison.csv`: baseline versus CNN comparison.
+- `outputs/confusion_matrix.csv`: class-level error distribution.
+- `outputs/error_samples.csv`: failed or low-confidence samples to review.
+- `outputs/metrics_summary.json`: final model and test metric summary.
+- `curves/loss_curve.png`: training/validation loss curve.
+- `checkpoints/best_model.pt`: loadable best model state.
+- `reports/shape_trace.md`: batch, label, and logits shape records.
+- `reports/debug_checklist.md`: debugging checklist.
+- `README.md`: rerun command, result summary, and next step.
 
 ## Evidence to Keep
 
