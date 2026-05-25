@@ -72,19 +72,15 @@ Suppose you run an online store and need to manage **users** and **orders**:
 
 **Users table (users):**
 
-| id | name | email | age | city |
-|----|------|-------|-----|------|
-| 1 | Zhang San | zhang@mail.com | 28 | Beijing |
-| 2 | Li Si | li@mail.com | 35 | Shanghai |
-| 3 | Wang Wu | wang@mail.com | 22 | Guangzhou |
+- `id=1`: Zhang San, 28, Beijing, `zhang@mail.com`
+- `id=2`: Li Si, 35, Shanghai, `li@mail.com`
+- `id=3`: Wang Wu, 22, Guangzhou, `wang@mail.com`
 
 **Orders table (orders):**
 
-| order_id | user_id | product | amount | order_date |
-|----------|---------|---------|--------|------------|
-| 101 | 1 | iPhone 16 | 7999 | 2024-11-01 |
-| 102 | 1 | AirPods | 999 | 2024-11-05 |
-| 103 | 2 | MacBook | 14999 | 2024-11-10 |
+- `order_id=101`: `user_id=1`, iPhone 16, 7999, 2024-11-01
+- `order_id=102`: `user_id=1`, AirPods, 999, 2024-11-05
+- `order_id=103`: `user_id=2`, MacBook, 14999, 2024-11-10
 
 These two tables are connected through `user_id`—this is where the name **relational** database comes from: tables have **relationships** with each other.
 

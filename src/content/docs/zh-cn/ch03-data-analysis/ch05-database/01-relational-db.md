@@ -72,19 +72,15 @@ flowchart LR
 
 **用户表（users）：**
 
-| id | name | email | age | city |
-|----|------|-------|-----|------|
-| 1 | 张三 | zhang@mail.com | 28 | 北京 |
-| 2 | 李四 | li@mail.com | 35 | 上海 |
-| 3 | 王五 | wang@mail.com | 22 | 广州 |
+- `id=1`：张三，28 岁，北京，`zhang@mail.com`
+- `id=2`：李四，35 岁，上海，`li@mail.com`
+- `id=3`：王五，22 岁，广州，`wang@mail.com`
 
 **订单表（orders）：**
 
-| order_id | user_id | product | amount | order_date |
-|----------|---------|---------|--------|------------|
-| 101 | 1 | iPhone 16 | 7999 | 2024-11-01 |
-| 102 | 1 | AirPods | 999 | 2024-11-05 |
-| 103 | 2 | MacBook | 14999 | 2024-11-10 |
+- `order_id=101`：`user_id=1`，iPhone 16，7999，2024-11-01
+- `order_id=102`：`user_id=1`，AirPods，999，2024-11-05
+- `order_id=103`：`user_id=2`，MacBook，14999，2024-11-10
 
 这两张表通过 `user_id` 关联——这就是**关系型**数据库名字的由来：表与表之间存在**关系**。
 

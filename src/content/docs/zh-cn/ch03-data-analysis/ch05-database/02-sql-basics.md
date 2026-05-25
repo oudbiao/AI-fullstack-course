@@ -387,16 +387,15 @@ FROM users
 INNER JOIN orders ON users.id = orders.user_id;
 ```
 
-```
-name | product | amount
-张三 | iPhone | 7999.0
-张三 | AirPods | 999.0
-李四 | MacBook | 14999.0
-王五 | iPad | 3999.0
-李四 | 键盘 | 599.0
-赵六 | 显示器 | 2999.0
-钱七 | 鼠标 | 299.0
-```
+| name | product | amount |
+|---|---|---:|
+| 张三 | iPhone | 7999.0 |
+| 张三 | AirPods | 999.0 |
+| 李四 | MacBook | 14999.0 |
+| 王五 | iPad | 3999.0 |
+| 李四 | 键盘 | 599.0 |
+| 赵六 | 显示器 | 2999.0 |
+| 钱七 | 鼠标 | 299.0 |
 
 注意：孙八没有订单，所以不出现在结果中。
 

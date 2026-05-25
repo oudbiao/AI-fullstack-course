@@ -385,16 +385,15 @@ FROM users
 INNER JOIN orders ON users.id = orders.user_id;
 ```
 
-```
-name | product | amount
-Zhang San | iPhone | 7999.0
-Zhang San | AirPods | 999.0
-Li Si | MacBook | 14999.0
-Wang Wu | iPad | 3999.0
-Li Si | Keyboard | 599.0
-Zhao Liu | Monitor | 2999.0
-Qian Qi | Mouse | 299.0
-```
+| name | product | amount |
+|---|---|---:|
+| Zhang San | iPhone | 7999.0 |
+| Zhang San | AirPods | 999.0 |
+| Li Si | MacBook | 14999.0 |
+| Wang Wu | iPad | 3999.0 |
+| Li Si | Keyboard | 599.0 |
+| Zhao Liu | Monitor | 2999.0 |
+| Qian Qi | Mouse | 299.0 |
 
 Note: Sun Ba has no orders, so he does not appear in the result.
 
