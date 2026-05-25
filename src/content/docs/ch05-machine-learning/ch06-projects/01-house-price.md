@@ -256,7 +256,7 @@ When you do your first regression project, what is most worth valuing is not the
 
 ### Step 3.2 A Model Comparison Table Beginners Can Copy Directly
 
-| Model | Advantages | What you should focus on in your first project |
+| Model | Advantages | First focus |
 |---|---|---|
 | Linear Regression | Easiest to explain | Is the baseline stable? |
 | Ridge | Slightly more stable | Does regularization help? |
@@ -372,11 +372,13 @@ In this tiny example, the high-price bucket has the largest average error. That 
 
 You can make a table like this directly:
 
-| Version | What changed | RMSE | R² | My judgment |
-|---|---|---|---|---|
-| baseline | Linear regression | - | - | Establish a lower bound first |
-| v2 | Added 2–3 features | - | - | See whether feature engineering really helps |
-| v3 | Switched to tree model / GBDT | - | - | See whether a nonlinear model fits better |
+| Version | What changed | My judgment |
+|---|---|---|
+| baseline | Linear regression | Establish a lower bound first |
+| v2 | Added 2-3 features | See whether feature engineering really helps |
+| v3 | Switched to tree model / GBDT | See whether a nonlinear model fits better |
+
+Keep RMSE and R² in your notebook or experiment log. In the written project report, only show the metric columns after you have real values to compare.
 
 This table turns your project from “code that ran” into “a project with a clear iteration process.”
 

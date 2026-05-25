@@ -17,13 +17,11 @@ head:
 
 ![集成学习家族漫画](/img/course/ch05-ensemble-family-comic.webp)
 
-不要一上来背模型名，先分清两种主思路：
+不要一上来背模型名，先分清三条主线：
 
-| 路线 | 画面感 | 代表模型 | 主要收益 | 主要风险 |
-|---|---|---|---|---|
-| Bagging | 多个模型并行训练后投票 | Random Forest | 稳定、降低方差 | 模型变大、解释性下降 |
-| Boosting | 后一个模型专门补前一个模型的错 | GBDT、XGBoost、LightGBM、CatBoost | 精度强 | 不控制容易过拟合 |
-| Stacking | 基模型预测再喂给元模型 | `StackingClassifier` | 组合不同模型家族 | 如果不用交叉验证会泄漏 |
+- **Bagging**，例如 Random Forest：多个模型并行训练后投票。适合追求稳定、降低方差。要注意模型可能变大，解释性会下降。
+- **Boosting**，例如 GBDT、XGBoost、LightGBM、CatBoost：后一个模型专门补前一个模型的错。适合追求表格数据精度。要用深度、学习率和 early stopping 控制过拟合。
+- **Stacking**，例如 `StackingClassifier`：把基模型预测再喂给元模型。适合组合不同模型家族。构造时要用交叉验证，避免验证信息泄漏。
 
 ## 跑模型对比实验
 

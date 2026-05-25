@@ -17,13 +17,11 @@ Ensemble learning combines several models so one model's weakness is less likely
 
 ![Ensemble Learning Family Comic](/img/course/ch05-ensemble-family-comic-en.webp)
 
-Do not memorize every model name first. Separate the two main ideas:
+Do not memorize every model name first. Separate the three main paths:
 
-| Path | Visual idea | Typical model | Main benefit | Main risk |
-|---|---|---|---|---|
-| Bagging | many models train in parallel and vote | Random Forest | stable, less variance | can become large and less interpretable |
-| Boosting | each new model focuses on previous errors | GBDT, XGBoost, LightGBM, CatBoost | strong accuracy | easier to overfit without controls |
-| Stacking | base model predictions feed a meta-model | `StackingClassifier` | combines different model families | leakage if built without cross-validation |
+- **Bagging**, such as Random Forest: many models train in parallel and vote. Use it when you want stability and lower variance. Watch out for larger, harder-to-explain models.
+- **Boosting**, such as GBDT, XGBoost, LightGBM, and CatBoost: each new model focuses on previous errors. Use it when tabular accuracy matters. Control depth, learning rate, and early stopping to avoid overfitting.
+- **Stacking**, such as `StackingClassifier`: base model predictions feed a meta-model. Use it when different model families have complementary strengths. Build it with cross-validation to avoid leakage.
 
 ## Run the Comparison Lab
 
