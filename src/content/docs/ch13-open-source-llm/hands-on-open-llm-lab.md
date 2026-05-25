@@ -662,4 +662,21 @@ uvicorn serve_openai_like:app --host 127.0.0.1 --port 8000
 Use Ctrl+C to stop the local API. Stop rented GPU instances immediately after copying evidence back.
 ````
 
+<details>
+<summary>Check reasoning and explanation</summary>
+
+A passing lab can stay on `sshleifer/tiny-gpt2` as long as the evidence is complete. The tiny model proves the engineering path, not answer quality.
+
+Review the bundle in this order:
+
+1. `compute_route.md` explains local CPU, free Colab, or rented GPU and names what the route does not prove.
+2. `environment_report.txt` and `requirements-freeze.txt` make the run reproducible.
+3. `first_run.md` records model, prompt, device, latency, and output.
+4. `eval_cases.csv`, `eval_results.csv`, and `eval_summary.json` separate "the model ran" from "the model solved the task."
+5. The API evidence shows `/health`, one `/v1/chat/completions` request, one response, and the stop path.
+6. `gpu_plan.md` and `lora_decision.md` avoid premature upgrades: larger serving and fine-tuning need repeated eval evidence.
+
+The common mistake is to replace the smoke test with a large model before the loop works. Upgrade only after the same fixed cases can run again.
+</details>
+
 After this page, you have not merely read that open-source models can be deployed. You have run one reproducible path: environment -> model -> output -> evaluation -> API -> shutdown.

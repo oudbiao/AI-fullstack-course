@@ -263,6 +263,20 @@ GQA/MQA 要点：更少的 KV 头会降低缓存压力
 SwiGLU 要点：门控 FFN 提升大规模容量
 ```
 
+<details>
+<summary>检查思路与讲解</summary>
+
+这页的输出要从“数值差异”和“结构配置”两边读：
+
+1. `LayerNorm` 会减均值再缩放，所以输出围绕 0；`RMSNorm` 主要按向量幅度缩放，不会强制居中。
+2. `position: RoPE` 说明位置不是只在输入 embedding 上加一次，而是在 attention 的 Q/K 附近进入。
+3. `query_heads: 32`、`kv_heads: 8` 推出每 4 个 query heads 共享一组 K/V，这就是 GQA 的可观察证据。
+4. `ffn style: SwiGLU` 说明 FFN 有门控路径，不只是普通 `Linear -> activation -> Linear`。
+5. 读真实模型代码时，优先找 `rms_norm`、`rotary_emb`、`num_key_value_heads`、`gate_proj` 等名字。
+
+所以本页不是让你背“现代模型都一样”，而是让你遇到 decoder 源码时能把组件和约束对应起来。
+</details>
+
 ## 总结
 
 现代 LLM decoder block 不是在否定原始 Transformer。

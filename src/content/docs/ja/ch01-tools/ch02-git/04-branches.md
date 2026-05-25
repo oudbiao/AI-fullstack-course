@@ -255,7 +255,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: フィルター数を 32 に変更
+        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # エンジニアA: フィルター数を 32 に変更
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 16 * 16, 10)
 
@@ -276,7 +276,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: フィルター数を 64 にし、5x5 カーネルに変更
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # エンジニアB: フィルター数を 64 にし、5x5 カーネルに変更
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 
@@ -288,14 +288,14 @@ EOF
 git add . && git commit -m "bob: 64 フィルターと 5x5 カーネルを採用"
 ```
 
-まず Alice の変更をマージします。
+まず エンジニアA の変更をマージします。
 
 ```bash
 git checkout main
 git merge alice/update-model    # ✅ 成功、コンフリクトなし
 ```
 
-次に Bob の変更をマージします。
+次に エンジニアB の変更をマージします。
 
 ```bash
 git merge bob/update-model
@@ -304,7 +304,7 @@ git merge bob/update-model
 # Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-**コンフリクトが発生しました。** Alice と Bob が `model.py` の同じ行を変更していたからです。
+**コンフリクトが発生しました。** エンジニアA と エンジニアB が `model.py` の同じ行を変更していたからです。
 
 ### コンフリクトを解決する
 
@@ -318,11 +318,11 @@ class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
 CONFLICT_MARKER_START HEAD
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: フィルター数を 32 に変更
+        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # エンジニアA: フィルター数を 32 に変更
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 16 * 16, 10)
 CONFLICT_MARKER_SEPARATOR
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: フィルター数を 64 にし、5x5 カーネル
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # エンジニアB: フィルター数を 64 にし、5x5 カーネル
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 CONFLICT_MARKER_END bob/update-model
@@ -331,7 +331,7 @@ CONFLICT_MARKER_END bob/update-model
 - 実際のコンフリクトでは、Git は `<<<<<<< HEAD`、現在のブランチの内容、`=======`、取り込む側の内容、最後に `>>>>>>> branch-name` という順で表示します。
 - 上の例では、リポジトリのチェックが教材サンプルを未解決コンフリクトと誤判定しないように `CONFLICT_MARKER_*` というプレースホルダーを使っています。
 
-**最終的に何を残すかを手動で決める必要があります。** たとえば、ここでは Bob の案を採用するとします。
+**最終的に何を残すかを手動で決める必要があります。** たとえば、ここでは エンジニアB の案を採用するとします。
 
 ```python
 import torch
@@ -340,7 +340,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob の案を採用
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # エンジニアB の案を採用
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 
@@ -354,7 +354,7 @@ class SimpleCNN(nn.Module):
 
 ```bash
 git add src/model.py
-git commit -m "merge: Alice と Bob の変更を統合し、Bob の 64 フィルター案を採用"
+git commit -m "merge: エンジニアA と エンジニアB の変更を統合し、エンジニアB の 64 フィルター案を採用"
 ```
 
 これでコンフリクトは解決です。

@@ -270,3 +270,19 @@ inspect: elective_workshop_run/README.md
 失败检查：当这门选修课对当前学习者来说不必要或太早时
 期望产出：一个与主路线关联的小型作品集成果
 ```
+
+<details>
+<summary>检查思路与讲解</summary>
+
+这个工作坊通过的标准是“六个选修方向都留下可复查证据”，不是每个模块都做到生产级。
+
+检查顺序可以这样走：
+
+1. 先看终端输出，确认 `modules: 6`、`readiness_score` 和 `inspect` 都出现。
+2. 打开 `reports/readiness_score.json`，确认汇总不是手写的，而是脚本生成的。
+3. 打开 `outputs/module_d_red_team_report.md`，确认故意失败的安全案例被记录下来。
+4. 打开 `outputs/module_e_dashboard.html`，确认证据能被非代码读者浏览。
+5. 改一个真实模块时，只替换一个证据源，再重跑脚本，避免一次改乱六条线。
+
+如果你还不确定选哪个选修模块，先保留这版证据包；等主线项目遇到部署、前端、安全或产品判断问题时，再把对应模块换成真实数据。
+</details>

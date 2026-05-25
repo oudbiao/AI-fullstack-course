@@ -243,7 +243,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: change to 32 filters
+        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Engineer A: change to 32 filters
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 16 * 16, 10)
 
@@ -254,7 +254,7 @@ class SimpleCNN(nn.Module):
 EOF
 git add . && git commit -m "alice: increase filter count to 32"
 
-# Switch back to main and create Bob's branch
+# Switch back to main and create Engineer B's branch
 git checkout main
 git checkout -b bob/update-model
 cat > src/model.py << 'EOF'
@@ -264,7 +264,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: change to 64 filters, 5x5 kernel
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Engineer B: change to 64 filters, 5x5 kernel
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 
@@ -276,14 +276,14 @@ EOF
 git add . && git commit -m "bob: switch to 64 filters and a 5x5 kernel"
 ```
 
-Now merge Alice’s changes:
+Now merge Engineer A’s changes:
 
 ```bash
 git checkout main
 git merge alice/update-model    # ✅ Success, no conflict
 ```
 
-Then merge Bob’s changes:
+Then merge Engineer B’s changes:
 
 ```bash
 git merge bob/update-model
@@ -292,7 +292,7 @@ git merge bob/update-model
 # Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-**A conflict occurred!** Because Alice and Bob both modified the same line in `model.py`.
+**A conflict occurred!** Because Engineer A and Engineer B both modified the same line in `model.py`.
 
 ### Resolving the Conflict
 
@@ -306,11 +306,11 @@ class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
 CONFLICT_MARKER_START HEAD
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: change to 32 filters
+        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Engineer A: change to 32 filters
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 16 * 16, 10)
 CONFLICT_MARKER_SEPARATOR
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: change to 64 filters, 5x5 kernel
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Engineer B: change to 64 filters, 5x5 kernel
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 CONFLICT_MARKER_END bob/update-model
@@ -319,7 +319,7 @@ CONFLICT_MARKER_END bob/update-model
 - In a real conflict, Git shows `<<<<<<< HEAD`, then the current branch version, then `=======`, then the incoming branch version, and finally `>>>>>>> branch-name`.
 - The example above uses `CONFLICT_MARKER_*` placeholders so repository checks do not mistake this teaching sample for an unresolved merge conflict.
 
-**You need to manually decide what to keep.** For example, let’s choose Bob’s version:
+**You need to manually decide what to keep.** For example, let’s choose Engineer B’s version:
 
 ```python
 import torch
@@ -328,7 +328,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Use Bob's version
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Use Engineer B's version
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 
@@ -342,7 +342,7 @@ Delete all the `<<<<<<<`, `=======`, and `>>>>>>>` markers, and keep only the co
 
 ```bash
 git add src/model.py
-git commit -m "merge: merge Alice and Bob's changes, using Bob's 64-filter design"
+git commit -m "merge: merge Engineer A and Engineer B's changes, using Engineer B's 64-filter design"
 ```
 
 The conflict is resolved.

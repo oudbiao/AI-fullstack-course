@@ -373,6 +373,22 @@ git push
 期望产出：一份可供其他学习者安全复现的干净 Git 记录
 ```
 
+<details>
+<summary>检查思路与讲解</summary>
+
+这一页通过的关键不是“命令都敲过”，而是本地仓库和远程仓库之间的关系能被别人复查。
+
+最小证据应该包括：
+
+1. `git remote -v` 显示 `origin` 指向正确仓库。
+2. `git status` 在推送后是 clean。
+3. `git log --oneline -3` 能看到刚刚提交的 README 或代码变更。
+4. GitHub 页面能看到同一个提交和 README。
+5. 如果遇到 rejected，先 `git pull` 理解远程差异，再处理冲突或重新 push。
+
+`git push -u origin main` 只需要第一次关联时使用。之后普通项目节奏就是 `pull -> 改代码 -> add -> commit -> push`。
+</details>
+
 ## 常见问题
 
 ### push 被拒绝（rejected）

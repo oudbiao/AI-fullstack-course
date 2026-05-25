@@ -64,6 +64,55 @@ LEGACY_CONTEXT_ALLOWLIST = [
     r"appendix/.*",
 ]
 
+# Folded answers are valuable for exercises, labs, and project review prompts.
+# They are noisy on pure navigation, appendix, and study-guide pages, so the
+# dashboard separates actionable missing answers from advisory "no folded block"
+# counts.
+ANSWER_SUMMARY_REQUIRED_PATTERNS = {
+    "en": [
+        r"^## .*Exercise\b",
+        r"^## .*Practice\b",
+        r"^## .*Project\b",
+        r"^## .*Workshop\b",
+        r"^## Pass Check\b",
+        r"^## Check\b",
+        r"^## Your Turn\b",
+        r"^## Mini Exercise\b",
+        r"\bexpected_output:",
+    ],
+    "zh-cn": [
+        r"^## .*练习\b",
+        r"^## .*实操\b",
+        r"^## .*实践\b",
+        r"^## .*项目\b",
+        r"^## .*工作坊\b",
+        r"^## .*通过检查\b",
+        r"^## .*检查\b",
+        r"^## 小练习\b",
+        r"\bexpected_output:",
+    ],
+    "ja": [
+        r"^## .*練習\b",
+        r"^## .*実践\b",
+        r"^## .*Project\b",
+        r"^## .*プロジェクト\b",
+        r"^## .*Workshop\b",
+        r"^## .*ワークショップ\b",
+        r"^## .*通過条件\b",
+        r"^## .*確認\b",
+        r"\bexpected_output:",
+    ],
+}
+
+ANSWER_SUMMARY_ADVISORY_ALLOWLIST = [
+    r"appendix/.*",
+    r"index\.md",
+    r"intro/.*",
+    r".*/index\.md",
+    r".*/study-guide\.md",
+    r".*/00-roadmap\.md",
+]
+
 MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 HTML_IMAGE_RE = re.compile(r"<img\b[^>]*\bsrc=[\"']([^\"']+)[\"'][^>]*>", re.I)
 CJK_RE = re.compile(r"[\u3400-\u9fff\u3040-\u30ff\uac00-\ud7af]")
@@ -246,6 +295,15 @@ def localized_alt_looks_english(alt: str) -> bool:
     return False
 
 
+def requires_answer_summary(path_key: str, locale: str, visible_text: str) -> bool:
+    if is_allowlisted(path_key, ANSWER_SUMMARY_ADVISORY_ALLOWLIST):
+        return False
+    return any(
+        re.search(pattern, visible_text, flags=re.MULTILINE)
+        for pattern in ANSWER_SUMMARY_REQUIRED_PATTERNS[locale]
+    )
+
+
 def analyze_file(path: Path, locale: str) -> dict[str, object]:
     text = path.read_text(encoding="utf-8")
     visible = strip_fenced_code(text)
@@ -271,6 +329,7 @@ def analyze_file(path: Path, locale: str) -> dict[str, object]:
         "path": path_key,
         "has_evidence": EVIDENCE_HEADINGS[locale] in text,
         "has_summary": bool(summaries),
+        "requires_answer_summary": requires_answer_summary(path_key, locale, visible),
         "duplicate_summaries": [item for item, n in Counter(summaries).items() if n > 1],
         "details_delta": count(r"<details>", text) - count(r"</details>", text),
         "summary_delta": count(r"<summary>", text) - count(r"</summary>", text),
@@ -297,7 +356,16 @@ def main() -> int:
     for locale, locale_files in files.items():
         analyses = [analyze_file(path, locale) for path in locale_files]
         missing_evidence = [a["path"] for a in analyses if not a["has_evidence"]]
-        missing_answers = [a["path"] for a in analyses if not a["has_summary"]]
+        missing_answers = [
+            a["path"]
+            for a in analyses
+            if a["requires_answer_summary"] and not a["has_summary"]
+        ]
+        no_folded_block_advisory = [
+            a["path"]
+            for a in analyses
+            if not a["requires_answer_summary"] and not a["has_summary"]
+        ]
         missing_images = [a["path"] for a in analyses if a["image_count"] == 0]
         unbalanced = [a["path"] for a in analyses if a["details_delta"] or a["summary_delta"]]
         duplicate_summaries = [a["path"] for a in analyses if a["duplicate_summaries"]]
@@ -310,6 +378,7 @@ def main() -> int:
             "pages": len(locale_files),
             "missing_evidence": len(missing_evidence),
             "missing_answer_summary": len(missing_answers),
+            "no_folded_block_advisory": len(no_folded_block_advisory),
             "missing_image": len(missing_images),
             "unbalanced_details_or_summary": len(unbalanced),
             "duplicate_summary_pages": len(duplicate_summaries),
@@ -320,6 +389,7 @@ def main() -> int:
             "samples": {
                 "missing_evidence": missing_evidence[:10],
                 "missing_answer_summary": missing_answers[:10],
+                "no_folded_block_advisory": no_folded_block_advisory[:10],
                 "missing_image": missing_images[:10],
                 "unbalanced": unbalanced[:10],
                 "direct_png_jpg": [a["path"] for a in direct_raster[:10]],

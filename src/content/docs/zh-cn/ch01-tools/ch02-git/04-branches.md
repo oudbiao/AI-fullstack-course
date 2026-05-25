@@ -243,7 +243,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: 改成 32 个滤波器
+        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # 工程师 A: 改成 32 个滤波器
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 16 * 16, 10)
 
@@ -264,7 +264,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: 改成 64 个滤波器，5x5 卷积核
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # 工程师 B: 改成 64 个滤波器，5x5 卷积核
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 
@@ -276,14 +276,14 @@ EOF
 git add . && git commit -m "bob: 改用 64 个滤波器和 5x5 卷积核"
 ```
 
-现在合并 Alice 的修改：
+现在合并 工程师 A 的修改：
 
 ```bash
 git checkout main
 git merge alice/update-model    # ✅ 成功，无冲突
 ```
 
-再合并 Bob 的修改：
+再合并 工程师 B 的修改：
 
 ```bash
 git merge bob/update-model
@@ -292,7 +292,7 @@ git merge bob/update-model
 # Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-**冲突了！** 因为 Alice 和 Bob 都修改了 `model.py` 的同一行。
+**冲突了！** 因为 工程师 A 和 工程师 B 都修改了 `model.py` 的同一行。
 
 ### 解决冲突
 
@@ -306,11 +306,11 @@ class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
 CONFLICT_MARKER_START HEAD
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: 改成 32 个滤波器
+        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # 工程师 A: 改成 32 个滤波器
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 16 * 16, 10)
 CONFLICT_MARKER_SEPARATOR
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: 改成 64 个滤波器，5x5 卷积核
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # 工程师 B: 改成 64 个滤波器，5x5 卷积核
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 CONFLICT_MARKER_END bob/update-model
@@ -319,7 +319,7 @@ CONFLICT_MARKER_END bob/update-model
 - 真实冲突里，Git 会先显示 `<<<<<<< HEAD`，然后是当前分支版本，再显示 `=======`，然后是要合并进来的版本，最后用 `>>>>>>> branch-name` 收尾。
 - 上面的示例改用 `CONFLICT_MARKER_*` 占位符，是为了避免仓库检查把教学示例误判成未解决的真实冲突。
 
-**你需要手动决定最终要保留什么。** 比如我们决定采用 Bob 的方案：
+**你需要手动决定最终要保留什么。** 比如我们决定采用 工程师 B 的方案：
 
 ```python
 import torch
@@ -328,7 +328,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # 采用 Bob 的方案
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # 采用 工程师 B 的方案
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 
@@ -342,7 +342,7 @@ class SimpleCNN(nn.Module):
 
 ```bash
 git add src/model.py
-git commit -m "merge: 合并 Alice 和 Bob 的修改，采用 Bob 的 64 滤波器方案"
+git commit -m "merge: 合并 工程师 A 和 工程师 B 的修改，采用 工程师 B 的 64 滤波器方案"
 ```
 
 冲突解决了。
