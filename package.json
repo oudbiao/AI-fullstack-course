@@ -24,7 +24,8 @@
     "qa:course": "python3 scripts/course_quality_dashboard.py",
     "qa:code": "python3 scripts/audit_code_blocks.py",
     "qa:images": "python3 scripts/validate_course_image_refs.py",
-    "qa:all": "npm run qa:diagrams && npm run qa:course && npm run qa:code && npm run qa:images",
+    "qa:readability": "python3 scripts/audit_readability.py",
+    "qa:all": "npm run qa:diagrams && npm run qa:course && npm run qa:code && npm run qa:images && npm run qa:readability",
     "seo:indexnow": "node scripts/submit_indexnow.mjs dist",
     "seo:indexnow:dry-run": "node scripts/submit_indexnow.mjs dist --dry-run"
   },

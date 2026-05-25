@@ -167,6 +167,14 @@ body {
   hyphens: auto;
 }
 
+.sl-markdown-content th {
+  text-wrap: balance;
+}
+
+.sl-markdown-content td {
+  text-wrap: pretty;
+}
+
 .sl-markdown-content .sl-heading-wrapper:has(:is([id="stage-exit-checks"], [id="阶段验收"], [id="各段階の終了チェック"])) + p + table th:first-child,
 .sl-markdown-content .sl-heading-wrapper:has(:is([id="stage-exit-checks"], [id="阶段验收"], [id="各段階の終了チェック"])) + p + table td:first-child {
   width: 18%;
@@ -198,6 +206,18 @@ body {
   white-space: normal;
   overflow-wrap: anywhere;
   word-break: break-word;
+}
+
+.sl-markdown-content pre.wrap,
+html[data-code-wrap="true"] .sl-markdown-content pre[data-language]:not([data-language="mermaid"]):not([data-language="course-map"]) {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.sl-markdown-content pre.wrap code,
+html[data-code-wrap="true"] .sl-markdown-content pre[data-language]:not([data-language="mermaid"]):not([data-language="course-map"]) code {
+  white-space: inherit;
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 50rem) {

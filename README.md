@@ -143,14 +143,17 @@ npm run qa:dist
 npm run qa:course
 npm run qa:code
 npm run qa:images
+npm run qa:readability
 npm run seo:indexnow:dry-run
 ```
 
-`npm run qa:all` is the preflight for course edits: it checks diagrams, course quality signals, fenced code blocks, and course image references before a full site build.
+`npm run qa:all` is the preflight for course edits: it checks diagrams, course quality signals, fenced code blocks, course image references, and readability signals before a full site build.
 
 `npm run qa:course` reports actionable content gaps. Appendix, navigation, and study-guide pages are exempt from the folded-answer advisory so the remaining samples point to lesson pages that may need clearer walkthroughs.
 
 `npm run qa:code` audits fenced code blocks across the course for malformed fences, syntax errors, and unfinished placeholder snippets before examples reach learners.
+
+`npm run qa:readability` writes `reports/readability-audit.json` and highlights dense tables, long table headers, and plain-text blocks that may deserve cards, narrower tables, or terminal-output framing.
 
 For direct script checks:
 
@@ -161,6 +164,7 @@ python3 validate_sidebars.py
 python3 validate_course_structure.py
 python3 scripts/validate_course_image_refs.py
 python3 scripts/audit_code_blocks.py
+python3 scripts/audit_readability.py
 ```
 
 ## Visual Assets

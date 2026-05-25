@@ -125,14 +125,17 @@ npm run qa:dist
 npm run qa:course
 npm run qa:code
 npm run qa:images
+npm run qa:readability
 npm run seo:indexnow:dry-run
 ```
 
-`npm run qa:all` 是课程改动前后的预检命令：它会检查图表、课程质量信号、代码块和课程图片引用，再进入完整构建。
+`npm run qa:all` 是课程改动前后的预检命令：它会检查图表、课程质量信号、代码块、课程图片引用和可读性信号，再进入完整构建。
 
 `npm run qa:course` 会报告可操作的课程内容缺口。附录、导航页和 study guide 不计入折叠讲解提示，这样剩余样例会更集中地指向可能需要补 walkthrough 的正文页面。
 
 `npm run qa:code` 会审计全课程的 fenced code blocks，提前发现围栏格式错误、语法错误和未完成的占位代码，避免示例到了学习者手里才坏掉。
+
+`npm run qa:readability` 会写入 `reports/readability-audit.json`，提示密集表格、过长表头和可能应该改成卡片/窄表/终端输出样式的纯文本块。
 
 直接验证脚本：
 
@@ -143,6 +146,7 @@ python3 validate_sidebars.py
 python3 validate_course_structure.py
 python3 scripts/validate_course_image_refs.py
 python3 scripts/audit_code_blocks.py
+python3 scripts/audit_readability.py
 ```
 
 ## 目录结构
