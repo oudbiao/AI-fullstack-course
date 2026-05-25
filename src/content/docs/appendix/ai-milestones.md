@@ -76,14 +76,14 @@ Do not memorize every year first. Remember the shape: hope, setback, repair, sca
 
 ![AI Paper Problem-Solution-Impact Chain](/img/course/appendix-ai-paper-problem-solution-impact-chain-en.webp)
 
-For any paper or algorithm, ask only four questions first:
+For any paper or algorithm, ask only four questions first. Keep the example short enough to fit in a note card:
 
-| Question | Example: `Attention Is All You Need` |
+| Question | Beginner answer pattern |
 |---|---|
-| What old bottleneck existed? | RNNs were hard to parallelize and struggled with long paths |
-| What new method appeared? | Self-attention, multi-head attention, positional encoding |
-| What new capability opened? | Scalable sequence modeling and later large language models |
-| Which projects changed? | LLMs, RAG, Agent systems, multimodal models |
+| Old bottleneck | Name the old limitation. For Transformer, RNNs were hard to parallelize and long paths were costly. |
+| New method | Name the mechanism. For Transformer, self-attention became the key move. |
+| New capability | Name what became easier. Large-scale sequence modeling became practical. |
+| Projects changed | Name downstream systems. LLM, RAG, Agent, and multimodal projects all inherit this shift. |
 
 This is enough for beginner-level historical understanding. Formula details can wait until the relevant chapter.
 
@@ -104,19 +104,31 @@ Some entries are landmark papers. Some are algorithm families or historical turn
 
 ## Optional visual branches
 
-Use these only when you are studying the related chapter.
+Use these only when you are studying the related chapter. Read each branch as a small answer to two questions: what bottleneck changed, and which course chapter should I revisit?
 
 ![Timeline of Three Neural Network Waves and Two Valleys](/img/course/appendix-neural-network-waves-timeline-en.webp)
 
+Start with the neural-network waves when Chapters 6 and 7 mention perceptron, backpropagation, CNN, or Transformer. Notice where enthusiasm rises, falls, and returns with data and compute.
+
 ![Classic Machine Learning Branch Map](/img/course/appendix-classic-ml-branch-map-en.webp)
+
+Use the classic ML branch when Chapter 5 names SVM, trees, forests, boosting, or XGBoost. Compare which branch is about decision boundaries, which is about ensembles, and which is about strong tabular baselines.
 
 ![NLP to LLM Lineage Map](/img/course/appendix-nlp-llm-lineage-map-en.webp)
 
+Use the NLP branch when Chapter 11 introduces tokenization, embeddings, Seq2Seq, BERT, or GPT. Read it as the path from word meaning to instruction-following assistants.
+
 ![Alignment, Agent, and Systems Main Line Map](/img/course/appendix-agent-system-lineage-map-en.webp)
+
+Use this systems branch when Chapters 7-9 discuss instruction tuning, RLHF, tool use, traces, or deployment. The important pattern is that model quality and system control improve together.
 
 ![LLM to Agent Engineering Evolution Timeline](/img/course/appendix-llm-to-agent-evolution-timeline-en.webp)
 
+Use the engineering timeline when you are deciding whether a project needs only prompting, retrieval, tools, or a full Agent loop. Do not skip the trace and evaluation checkpoints.
+
 ![Multimodal and AIGC Lineage Map](/img/course/appendix-multimodal-aigc-lineage-map-en.webp)
+
+Use the multimodal branch with Chapter 12. Follow how text, image, speech, and segmentation models become reusable parts of a generation pipeline.
 
 ## Fast chapter lookup
 
@@ -136,13 +148,13 @@ Use these only when you are studying the related chapter.
 
 Pick any 3 nodes and rewrite them in project language:
 
-```text
-Node: Attention Is All You Need
-Old bottleneck: RNNs were not ideal for long sequences or parallel training.
-New method: self-attention became the main line of sequence modeling.
-Projects affected: LLMs, RAG, Agent systems, multimodal models.
-Course chapter to revisit: Chapters 6, 7, 8, and 9.
-```
+Example project card:
+
+- Node: `Attention Is All You Need`
+- Old bottleneck: RNNs were not ideal for long sequences or parallel training.
+- New method: self-attention became the main line of sequence modeling.
+- Projects affected: LLMs, RAG, Agent systems, multimodal models.
+- Course chapter to revisit: Chapters 6, 7, 8, and 9.
 
 The goal is not to recite history. The goal is to connect a historical node to a real capability you may build later.
 
@@ -151,25 +163,26 @@ The goal is not to recite history. The goal is to connect a historical node to a
 
 One acceptable answer could use these three nodes:
 
-```text
-Node: Backpropagation
-Old bottleneck: multilayer neural networks were hard to train effectively.
-New method: gradients could be propagated layer by layer.
-Projects affected: image classifiers, language models, and nearly all deep learning systems.
-Course chapter to revisit: Chapter 6.
+**Backpropagation**
 
-Node: RAG
-Old bottleneck: language models could answer fluently without grounded external evidence.
-New method: retrieval adds relevant documents before generation.
-Projects affected: knowledge assistants, policy Q&A, citation-aware research tools.
-Course chapter to revisit: Chapter 8.
+- Old bottleneck: multilayer neural networks were hard to train effectively.
+- New method: gradients could be propagated layer by layer.
+- Projects affected: image classifiers, language models, and nearly all deep learning systems.
+- Course chapter to revisit: Chapter 6.
 
-Node: CLIP
-Old bottleneck: image and text models were often trained in separate spaces.
-New method: contrastive training aligned images and text.
-Projects affected: image search, multimodal retrieval, image generation guidance.
-Course chapter to revisit: Chapter 12.
-```
+**RAG**
+
+- Old bottleneck: language models could answer fluently without grounded external evidence.
+- New method: retrieval adds relevant documents before generation.
+- Projects affected: knowledge assistants, policy Q&A, citation-aware research tools.
+- Course chapter to revisit: Chapter 8.
+
+**CLIP**
+
+- Old bottleneck: image and text models were often trained in separate spaces.
+- New method: contrastive training aligned images and text.
+- Projects affected: image search, multimodal retrieval, image generation guidance.
+- Course chapter to revisit: Chapter 12.
 
 The answer is strong when each node names a real bottleneck, a method shift, an affected project type, and a chapter to revisit. It is weak if it only lists famous names without explaining what became easier.
 
