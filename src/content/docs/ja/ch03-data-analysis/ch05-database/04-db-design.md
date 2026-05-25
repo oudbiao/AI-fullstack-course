@@ -77,56 +77,58 @@ flowchart LR
 
 **ルール：** 各フィールドには1つの値だけを入れます。リストやカンマ区切りの複数値は入れません。
 
-```
-❌ 1NF違反：
-| name | phones                    |
-|------|---------------------------|
-| 三郎 | 138xxxx, 139xxxx, 186xxxx |   ← 1つのフィールドに複数の値が入っている
+**1NF違反**
 
-✅ 1NFに適合：
-| name | phone    |
-|------|----------|
-| 三郎 | 138xxxx  |
-| 三郎 | 139xxxx  |
-| 三郎 | 186xxxx  |
-```
+| name | phones |
+|---|---|
+| 三郎 | `138xxxx, 139xxxx, 186xxxx` |
+
+問題：1つのフィールドに複数の電話番号が入っています。
+
+**1NFに適合**
+
+| name | phone |
+|---|---|
+| 三郎 | `138xxxx` |
+| 三郎 | `139xxxx` |
+| 三郎 | `186xxxx` |
 
 ### 第2正規形（2NF）：部分関数従属をなくす
 
 **ルール：** 1NFを満たしたうえで、非主キー項目は主キー全体に完全に依存しなければなりません。主キーの一部だけに依存してはいけません。
 
-```
-❌ 2NF違反（複合主キー = order_id + product_id）：
-| order_id | product_id | customer_name | product_name   | quantity |
-|----------|------------|---------------|----------------|----------|
-| O1001    | P01        | Alex Chen     | Wireless Mouse | 2        |
+**2NF違反**
 
-customer_name は order_id だけに依存し、product_name は product_id だけに依存している
-→ 部分依存
+- 複合主キー：`order_id + product_id`。
+- 例の行：`O1001`、`P01`、`Alex Chen`、`Wireless Mouse`、`2`。
+- 問題：`customer_name` は `order_id` だけに依存し、`product_name` は `product_id` だけに依存しています。
 
-✅ 2NFに適合（責務ごとに分割）：
-customers:   customer_id, customer_name
-orders:      order_id, customer_id
-products:    product_id, product_name
-order_items: order_id, product_id, quantity
-```
+**2NFに適合**
+
+| テーブル | 保存するもの |
+|---|---|
+| `customers` | `customer_id`, `customer_name` |
+| `orders` | `order_id`, `customer_id` |
+| `products` | `product_id`, `product_name` |
+| `order_items` | `order_id`, `product_id`, `quantity` |
 
 ### 第3正規形（3NF）：推移的従属をなくす
 
 **ルール：** 2NFを満たしたうえで、非主キー項目が別の非主キー項目に依存してはいけません。
 
-```
-❌ 3NF違反：
-| employee_id | name | dept_id | dept_name | dept_manager |
-|-------------|------|---------|-----------|--------------|
+**3NF違反**
 
-dept_name と dept_manager は employee_id ではなく dept_id に依存している
-→ 推移的従属: employee_id → dept_id → dept_name
+- 従業員行：`employee_id=E01`、`name=Lee`、`dept_id=D01`。
+- 従業員行に入ってしまった部署情報：`dept_name=Sales`、`dept_manager=Wang`。
 
-✅ 3NFに適合（テーブル分割）：
-employees:   employee_id, name, dept_id
-departments: dept_id, dept_name, dept_manager
-```
+問題：`dept_name` と `dept_manager` は `employee_id` ではなく `dept_id` に依存しています。
+
+**3NFに適合**
+
+| テーブル | 保存するもの |
+|---|---|
+| `employees` | `employee_id`, `name`, `dept_id` |
+| `departments` | `dept_id`, `dept_name`, `dept_manager` |
 
 ### 正規化のまとめ
 
@@ -221,21 +223,23 @@ erDiagram
 
 **なぜ注文は orders + order_items の2つのテーブルに分けるのか？**
 
-```
-❌ 1つのテーブル：
-| order_id | user_id | product1 | qty1 | product2 | qty2 | ...
-この形だと列数が固定できず、1NFに違反する
+**悪い設計1：大きな横長テーブル**
 
-❌ 注文情報の重複：
-| order_id | user_id | total | product  | quantity |
-| 1        | 佐藤太郎 | 8998  | iPhone   | 1        |
-| 1        | 佐藤太郎 | 8998  | AirPods  | 1        |
-order_id、user_id、total が重複していて、2NFに違反する
+- 形：`order_id`、`user_id`、`product1`、`qty1`、`product2`、`qty2`、...
+- 問題：カートの商品数が増えるたびに列数が変わるため、1NFに違反します。
 
-✅ 2つのテーブルに分ける：
-orders:      order_id, user_id, total_amount, status
-order_items: item_id, order_id, product_id, quantity, unit_price
-```
+**悪い設計2：注文情報の重複**
+
+- 1行目：注文 `1`、ユーザー `佐藤太郎`、合計 `8998`、商品 `iPhone`、数量 `1`。
+- 2行目：注文 `1`、ユーザー `佐藤太郎`、合計 `8998`、商品 `AirPods`、数量 `1`。
+- 問題：`order_id`、`user`、`total` が各明細行で繰り返され、2NFに近い更新ミスを生みます。
+
+**よりよい設計：責務を分ける**
+
+| テーブル | 主なフィールド |
+|---|---|
+| `orders` | `order_id`, `user_id`, `total_amount`, `status` |
+| `order_items` | `item_id`, `order_id`, `product_id`, `quantity`, `unit_price` |
 
 ### SQLiteで実装する
 
@@ -411,18 +415,16 @@ CREATE INDEX idx_items_order_product ON order_items(order_id, product_id);
 
 データベースを設計するたびに、このチェックリストで確認しましょう。
 
-```
-☐ すべてのテーブルに主キーがあるか？
-☐ フィールド名はわかりやすく、命名ルールが統一されているか？（snake_case 推奨）
-☐ データ型は適切か？（整数は INTEGER、金額は REAL）
-☐ 必須フィールドに NOT NULL を付けたか？
-☐ 一意であるべき項目に UNIQUE を付けたか？（例：email）
-☐ テーブル間の関係を外部キーで作っているか？
-☐ 第3正規形を満たしているか？（または意図的に非正規化しているか）
-☐ よく検索する列にインデックスを付けたか？
-☐ 適切なデフォルト値があるか？（例：status DEFAULT 'active'）
-☐ 作成時刻を記録する created_at があるか？
-```
+- [ ] すべてのテーブルに主キーがあります。
+- [ ] フィールド名がわかりやすく、命名ルールも統一されています。基本は `snake_case` が扱いやすいです。
+- [ ] データ型がデータに合っています。たとえば件数は `INTEGER`、単純な金額例は `REAL`。
+- [ ] 必須フィールドに `NOT NULL` を付けています。
+- [ ] 一意にしたい項目に `UNIQUE` を付けています。例：`email`。
+- [ ] テーブル間の関係を外部キーで表しています。
+- [ ] 3NFを満たしているか、非正規化の理由を説明できます。
+- [ ] よく検索する列にインデックスを付けています。
+- [ ] `status DEFAULT 'active'` など、適切なデフォルト値があります。
+- [ ] 必要な場所に `created_at` で作成時刻を残しています。
 
 ## 残す証拠
 
@@ -483,31 +485,28 @@ CREATE INDEX idx_items_order_product ON order_items(order_id, product_id);
 
 ### 練習1：正規化の問題を見つける
 
-```
 次のテーブル設計にはどんな問題がありますか？どの正規形に違反していますか？どう直しますか？
 
-テーブル：order_line_snapshot
-| order_id | customer_name | customer_phone       | product_id | product_name   | supplier | quantity |
-|----------|---------------|----------------------|------------|----------------|----------|----------|
-| O1001    | Alex Chen     | 555-0101, 555-0199   | P01        | Wireless Mouse | GearCo   | 2        |
-| O1001    | Alex Chen     | 555-0101, 555-0199   | P02        | Keyboard       | KeyLabs  | 1        |
-| O1002    | Mia Wong      | 555-0188             | P01        | Wireless Mouse | GearCo   | 1        |
-```
+テーブル：`order_line_snapshot`
+
+- 1行目：注文 `O1001`、顧客 `Alex Chen`、電話 `555-0101, 555-0199`、商品 `P01 Wireless Mouse`、仕入先 `GearCo`、数量 `2`。
+- 2行目：注文 `O1001`、顧客 `Alex Chen`、電話 `555-0101, 555-0199`、商品 `P02 Keyboard`、仕入先 `KeyLabs`、数量 `1`。
+- 3行目：注文 `O1002`、顧客 `Mia Wong`、電話 `555-0188`、商品 `P01 Wireless Mouse`、仕入先 `GearCo`、数量 `1`。
 
 ### 練習2：カスタマーサポートのチケットシステムを設計する
 
-```
 次の要件を満たす、シンプルなカスタマーサポートシステムのデータベースを設計してください。
+
 - 顧客アカウントとサポート担当者アカウント
 - サポートチケットの作成（タイトル、説明、状態、優先度）
 - 顧客と担当者によるチケット内メッセージ
 - チケットのカテゴリとタグ（1つのチケットに複数のタグを付けられる）
 
 要件：
+
 1. ER図を描く（紙とペンでも Mermaid でもよい）
 2. CREATE TABLE 文を書く
 3. どの列にインデックスを付けるべきか考える
-```
 
 ### 練習3：実装して検索してみる
 

@@ -77,55 +77,58 @@ Normalization is a set of database design rules that helps you avoid the problem
 
 **Rule:** Each field should store only one value, not a list or multiple comma-separated values.
 
-```
-❌ Violates 1NF:
-| name | phones                    |
-|------|---------------------------|
-| Zhang San | 138xxxx, 139xxxx, 186xxxx |   ← One field stores multiple values
+**Violates 1NF**
 
-✅ Follows 1NF:
-| name | phone    |
-|------|----------|
-| Zhang San | 138xxxx  |
-| Zhang San | 139xxxx  |
-| Zhang San | 186xxxx  |
-```
+| name | phones |
+|---|---|
+| Zhang San | `138xxxx, 139xxxx, 186xxxx` |
+
+Problem: one field stores several phone numbers.
+
+**Follows 1NF**
+
+| name | phone |
+|---|---|
+| Zhang San | `138xxxx` |
+| Zhang San | `139xxxx` |
+| Zhang San | `186xxxx` |
 
 ### Second Normal Form (2NF): Remove Partial Dependency
 
 **Rule:** On the basis of 1NF, non-key fields must depend on the whole primary key, not just part of it.
 
-```
-❌ Violates 2NF (composite primary key = order_id + product_id):
-| order_id | product_id | customer_name | product_name   | quantity |
-|----------|------------|---------------|----------------|----------|
-| O1001    | P01        | Alex Chen     | Wireless Mouse | 2        |
+**Violates 2NF**
 
-customer_name depends only on order_id, and product_name depends only on product_id → partial dependency
+- Composite primary key: `order_id + product_id`.
+- Example row: `O1001`, `P01`, `Alex Chen`, `Wireless Mouse`, `2`.
+- Problem: `customer_name` depends only on `order_id`, while `product_name` depends only on `product_id`.
 
-✅ Follows 2NF (split into focused tables):
-customers:   customer_id, customer_name
-orders:      order_id, customer_id
-products:    product_id, product_name
-order_items: order_id, product_id, quantity
-```
+**Follows 2NF**
+
+| Table | Stores |
+|---|---|
+| `customers` | `customer_id`, `customer_name` |
+| `orders` | `order_id`, `customer_id` |
+| `products` | `product_id`, `product_name` |
+| `order_items` | `order_id`, `product_id`, `quantity` |
 
 ### Third Normal Form (3NF): Remove Transitive Dependency
 
 **Rule:** On the basis of 2NF, non-key fields must not depend on another non-key field.
 
-```
-❌ Violates 3NF:
-| employee_id | name | dept_id | dept_name | dept_manager |
-|-------------|------|---------|-----------|--------------|
+**Violates 3NF**
 
-dept_name and dept_manager depend on dept_id, not directly on employee_id
-→ transitive dependency: employee_id → dept_id → dept_name
+- Employee row: `employee_id=E01`, `name=Lee`, `dept_id=D01`.
+- Department facts stored on the employee row: `dept_name=Sales`, `dept_manager=Wang`.
 
-✅ Follows 3NF (split tables):
-employees:   employee_id, name, dept_id
-departments: dept_id, dept_name, dept_manager
-```
+Problem: `dept_name` and `dept_manager` depend on `dept_id`, not directly on `employee_id`.
+
+**Follows 3NF**
+
+| Table | Stores |
+|---|---|
+| `employees` | `employee_id`, `name`, `dept_id` |
+| `departments` | `dept_id`, `dept_name`, `dept_manager` |
 
 ### Normalization Summary
 
@@ -148,7 +151,7 @@ Normalization is a theoretical guide. In real-world design, we sometimes **inten
 :::
 ### A Quick Normalization Cheat Sheet for Beginners
 
-| Normal Form | The most useful intuition to remember first |
+| Normal Form | First intuition |
 |---|---|
 | 1NF | Do not put multiple values in one cell |
 | 2NF | Non-key fields should not depend on only part of a composite primary key |
@@ -220,21 +223,23 @@ erDiagram
 
 **Why split an order into two tables: `orders` + `order_items`?**
 
-```
-❌ One table:
-| order_id | user_id | product1 | qty1 | product2 | qty2 | ...
-This makes the number of columns unstable and violates 1NF
+**Bad design 1: one wide table**
 
-❌ Repeated order information:
-| order_id | user_id | total | product  | quantity |
-| 1        | Zhang San | 8998  | iPhone   | 1        |
-| 1        | Zhang San | 8998  | AirPods  | 1        |
-order_id, user_id, and total are repeated, violating 2NF
+- Shape: `order_id`, `user_id`, `product1`, `qty1`, `product2`, `qty2`, ...
+- Problem: the number of columns changes as the cart grows, so it violates 1NF.
 
-✅ Split into two tables:
-orders:      order_id, user_id, total_amount, status
-order_items: item_id, order_id, product_id, quantity, unit_price
-```
+**Bad design 2: repeated order information**
+
+- Row 1: order `1`, user `Zhang San`, total `8998`, product `iPhone`, quantity `1`.
+- Row 2: order `1`, user `Zhang San`, total `8998`, product `AirPods`, quantity `1`.
+- Problem: `order_id`, `user`, and `total` repeat on every item row, which creates 2NF-style update problems.
+
+**Better design: split the responsibility**
+
+| Table | Main fields |
+|---|---|
+| `orders` | `order_id`, `user_id`, `total_amount`, `status` |
+| `order_items` | `item_id`, `order_id`, `product_id`, `quantity`, `unit_price` |
 
 ### Implementing with SQLite
 
@@ -410,18 +415,16 @@ This table is helpful for beginners because it turns “when should I create an 
 
 Use this checklist every time you design a database:
 
-```
-☐ Does every table have a primary key?
-☐ Are field names clear and consistently styled? (snake_case is recommended)
-☐ Are data types chosen reasonably? (use INTEGER for integers, REAL for money)
-☐ Are required fields marked NOT NULL?
-☐ Are unique fields marked UNIQUE? (such as email)
-☐ Are relationships between tables established with foreign keys?
-☐ Does the design satisfy Third Normal Form? (or is denormalization intentional?)
-☐ Are frequently queried columns indexed?
-☐ Are there reasonable default values? (such as status DEFAULT 'active')
-☐ Is there a created_at timestamp to record creation time?
-```
+- [ ] Every table has a primary key.
+- [ ] Field names are clear and consistently styled; `snake_case` is a good default.
+- [ ] Data types match the data, such as `INTEGER` for counts and `REAL` for simple money examples.
+- [ ] Required fields are marked `NOT NULL`.
+- [ ] Unique fields are marked `UNIQUE`, such as `email`.
+- [ ] Relationships between tables are represented with foreign keys.
+- [ ] The design satisfies 3NF, or denormalization is intentional and documented.
+- [ ] Frequently queried columns have indexes.
+- [ ] Reasonable defaults are set, such as `status DEFAULT 'active'`.
+- [ ] A `created_at` timestamp records creation time where useful.
 
 ## Evidence to Keep
 
@@ -482,31 +485,28 @@ Expected_output: query plus result table and one data-quality note
 
 ### Exercise 1: Identify Normalization Problems
 
-```
 What is wrong with the following table design? Which normal form is violated? How would you fix it?
 
-Table: order_line_snapshot
-| order_id | customer_name | customer_phone       | product_id | product_name   | supplier | quantity |
-|----------|---------------|----------------------|------------|----------------|----------|----------|
-| O1001    | Alex Chen     | 555-0101, 555-0199   | P01        | Wireless Mouse | GearCo   | 2        |
-| O1001    | Alex Chen     | 555-0101, 555-0199   | P02        | Keyboard       | KeyLabs  | 1        |
-| O1002    | Mia Wong      | 555-0188             | P01        | Wireless Mouse | GearCo   | 1        |
-```
+Table: `order_line_snapshot`
+
+- Row 1: order `O1001`, customer `Alex Chen`, phones `555-0101, 555-0199`, product `P01 Wireless Mouse`, supplier `GearCo`, quantity `2`.
+- Row 2: order `O1001`, customer `Alex Chen`, phones `555-0101, 555-0199`, product `P02 Keyboard`, supplier `KeyLabs`, quantity `1`.
+- Row 3: order `O1002`, customer `Mia Wong`, phone `555-0188`, product `P01 Wireless Mouse`, supplier `GearCo`, quantity `1`.
 
 ### Exercise 2: Design a Customer Support Ticket System
 
-```
 Design a database for a simple customer support system that needs to support:
+
 - customer and support agent accounts
 - creating support tickets (title, description, status, priority)
 - ticket messages from customers and agents
 - ticket categories and tags (one ticket can have multiple tags)
 
 Requirements:
+
 1. Draw an ER diagram (you can use paper or Mermaid)
 2. Write the CREATE TABLE statements
 3. Consider which indexes should be added
-```
 
 ### Exercise 3: Implement and Query
 

@@ -77,55 +77,58 @@ flowchart LR
 
 **规则：** 每个字段只存一个值，不能是列表或逗号分隔的多值。
 
-```
-❌ 违反 1NF：
-| name | phones                    |
-|------|---------------------------|
-| 张三 | 138xxxx, 139xxxx, 186xxxx |   ← 一个字段存了多个值
+**违反 1NF**
 
-✅ 符合 1NF：
-| name | phone    |
-|------|----------|
-| 张三 | 138xxxx  |
-| 张三 | 139xxxx  |
-| 张三 | 186xxxx  |
-```
+| name | phones |
+|---|---|
+| 张三 | `138xxxx, 139xxxx, 186xxxx` |
+
+问题：一个字段里存了多个电话号码。
+
+**符合 1NF**
+
+| name | phone |
+|---|---|
+| 张三 | `138xxxx` |
+| 张三 | `139xxxx` |
+| 张三 | `186xxxx` |
 
 ### 第二范式（2NF）：消除部分依赖
 
 **规则：** 在满足 1NF 的基础上，非主键字段必须完全依赖于整个主键，不能只依赖主键的一部分。
 
-```
-❌ 违反 2NF（复合主键 = order_id + product_id）：
-| order_id | product_id | customer_name | product_name   | quantity |
-|----------|------------|---------------|----------------|----------|
-| O1001    | P01        | Alex Chen     | Wireless Mouse | 2        |
+**违反 2NF**
 
-customer_name 只依赖 order_id，product_name 只依赖 product_id → 部分依赖
+- 复合主键：`order_id + product_id`。
+- 示例行：`O1001`、`P01`、`Alex Chen`、`Wireless Mouse`、`2`。
+- 问题：`customer_name` 只依赖 `order_id`，`product_name` 只依赖 `product_id`。
 
-✅ 符合 2NF（拆成职责清晰的表）：
-customers:   customer_id, customer_name
-orders:      order_id, customer_id
-products:    product_id, product_name
-order_items: order_id, product_id, quantity
-```
+**符合 2NF**
+
+| 表 | 存什么 |
+|---|---|
+| `customers` | `customer_id`, `customer_name` |
+| `orders` | `order_id`, `customer_id` |
+| `products` | `product_id`, `product_name` |
+| `order_items` | `order_id`, `product_id`, `quantity` |
 
 ### 第三范式（3NF）：消除传递依赖
 
 **规则：** 在满足 2NF 的基础上，非主键字段不能依赖于另一个非主键字段。
 
-```
-❌ 违反 3NF：
-| employee_id | name | dept_id | dept_name | dept_manager |
-|-------------|------|---------|-----------|--------------|
+**违反 3NF**
 
-dept_name 和 dept_manager 依赖于 dept_id，而不是直接依赖 employee_id
-→ 传递依赖：employee_id → dept_id → dept_name
+- 员工行：`employee_id=E01`、`name=Lee`、`dept_id=D01`。
+- 被塞进员工行的部门事实：`dept_name=Sales`、`dept_manager=Wang`。
 
-✅ 符合 3NF（拆表）：
-employees:   employee_id, name, dept_id
-departments: dept_id, dept_name, dept_manager
-```
+问题：`dept_name` 和 `dept_manager` 依赖 `dept_id`，不是直接依赖 `employee_id`。
+
+**符合 3NF**
+
+| 表 | 存什么 |
+|---|---|
+| `employees` | `employee_id`, `name`, `dept_id` |
+| `departments` | `dept_id`, `dept_name`, `dept_manager` |
 
 ### 范式总结
 
@@ -220,21 +223,23 @@ erDiagram
 
 **为什么订单要拆成 orders + order_items 两张表？**
 
-```
-❌ 一张表：
-| order_id | user_id | product1 | qty1 | product2 | qty2 | ...
-这样列数不固定，违反 1NF
+**坏设计 1：一张大宽表**
 
-❌ 重复订单信息：
-| order_id | user_id | total | product  | quantity |
-| 1        | 张三    | 8998  | iPhone   | 1        |
-| 1        | 张三    | 8998  | AirPods  | 1        |
-order_id 和 user_id、total 重复了，违反 2NF
+- 形状：`order_id`、`user_id`、`product1`、`qty1`、`product2`、`qty2`、...
+- 问题：购物车商品数量一变，列数就跟着变，违反 1NF。
 
-✅ 拆成两张表：
-orders:      order_id, user_id, total_amount, status
-order_items: item_id, order_id, product_id, quantity, unit_price
-```
+**坏设计 2：重复订单信息**
+
+- 第 1 行：订单 `1`，用户 `张三`，总价 `8998`，商品 `iPhone`，数量 `1`。
+- 第 2 行：订单 `1`，用户 `张三`，总价 `8998`，商品 `AirPods`，数量 `1`。
+- 问题：`order_id`、`user` 和 `total` 在每一行都重复，会带来类似 2NF 的更新问题。
+
+**更好的设计：拆分职责**
+
+| 表 | 主要字段 |
+|---|---|
+| `orders` | `order_id`, `user_id`, `total_amount`, `status` |
+| `order_items` | `item_id`, `order_id`, `product_id`, `quantity`, `unit_price` |
 
 ### 用 SQLite 实现
 
@@ -410,18 +415,16 @@ CREATE INDEX idx_items_order_product ON order_items(order_id, product_id);
 
 每次设计数据库时，用这个清单检查：
 
-```
-☐ 每张表都有主键？
-☐ 字段名清晰、统一命名风格？（推荐 snake_case）
-☐ 数据类型选择合理？（整数用 INTEGER，金额用 REAL）
-☐ 必填字段加了 NOT NULL？
-☐ 唯一字段加了 UNIQUE？（如 email）
-☐ 表之间的关系通过外键建立？
-☐ 满足第三范式？（或有意识地反范式化）
-☐ 常查询的列加了索引？
-☐ 有合理的默认值？（如 status DEFAULT 'active'）
-☐ 有 created_at 时间戳记录创建时间？
-```
+- [ ] 每张表都有主键。
+- [ ] 字段名清晰，并且命名风格统一；默认推荐 `snake_case`。
+- [ ] 数据类型和数据匹配，例如计数用 `INTEGER`，简单金额示例用 `REAL`。
+- [ ] 必填字段加了 `NOT NULL`。
+- [ ] 唯一字段加了 `UNIQUE`，例如 `email`。
+- [ ] 表之间的关系用外键表达。
+- [ ] 满足 3NF，或者反范式化是有意识并且已说明的。
+- [ ] 常查询的列加了索引。
+- [ ] 设置了合理默认值，例如 `status DEFAULT 'active'`。
+- [ ] 必要时用 `created_at` 记录创建时间。
 
 ## 留下的证据
 
@@ -482,31 +485,28 @@ CREATE INDEX idx_items_order_product ON order_items(order_id, product_id);
 
 ### 练习 1：识别范式问题
 
-```
 以下表设计有什么问题？属于违反哪个范式？如何修正？
 
-表：order_line_snapshot
-| order_id | customer_name | customer_phone       | product_id | product_name   | supplier | quantity |
-|----------|---------------|----------------------|------------|----------------|----------|----------|
-| O1001    | Alex Chen     | 555-0101, 555-0199   | P01        | Wireless Mouse | GearCo   | 2        |
-| O1001    | Alex Chen     | 555-0101, 555-0199   | P02        | Keyboard       | KeyLabs  | 1        |
-| O1002    | Mia Wong      | 555-0188             | P01        | Wireless Mouse | GearCo   | 1        |
-```
+表：`order_line_snapshot`
+
+- 第 1 行：订单 `O1001`，客户 `Alex Chen`，电话 `555-0101, 555-0199`，商品 `P01 Wireless Mouse`，供应商 `GearCo`，数量 `2`。
+- 第 2 行：订单 `O1001`，客户 `Alex Chen`，电话 `555-0101, 555-0199`，商品 `P02 Keyboard`，供应商 `KeyLabs`，数量 `1`。
+- 第 3 行：订单 `O1002`，客户 `Mia Wong`，电话 `555-0188`，商品 `P01 Wireless Mouse`，供应商 `GearCo`，数量 `1`。
 
 ### 练习 2：设计客户支持工单系统
 
-```
 设计一个简单客户支持系统的数据库，需要支持：
+
 - 客户和客服账号
 - 创建支持工单（标题、描述、状态、优先级）
 - 客户和客服在工单下发送消息
 - 工单分类和标签（一个工单可以有多个标签）
 
 要求：
+
 1. 画出 ER 图（可以用纸笔或 Mermaid）
 2. 写出 CREATE TABLE 语句
 3. 考虑需要加哪些索引
-```
 
 ### 练习 3：实现并查询
 
