@@ -70,6 +70,8 @@ reports/course-images/**/generation-errors.json
 reports/course-images/**/localized-generation-progress.jsonl
 reports/course-images/**/manifest.md
 reports/course-images/image-teaching-audit.json
+reports/course-completion-report.json
+reports/course-completion-report.md
 reports/readability-audit.json
 
 # Yarn

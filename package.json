@@ -26,7 +26,8 @@
     "qa:images": "python3 scripts/validate_course_image_refs.py",
     "qa:image-teaching": "python3 scripts/audit_image_teaching.py",
     "qa:readability": "python3 scripts/audit_readability.py",
-    "qa:all": "npm run qa:diagrams && npm run qa:course && npm run qa:code && npm run qa:images && npm run qa:image-teaching && npm run qa:readability",
+    "qa:completion": "python3 scripts/course_completion_report.py",
+    "qa:all": "npm run qa:diagrams && npm run qa:course && npm run qa:code && npm run qa:images && npm run qa:image-teaching && npm run qa:readability && npm run qa:completion",
     "seo:indexnow": "node scripts/submit_indexnow.mjs dist",
     "seo:indexnow:dry-run": "node scripts/submit_indexnow.mjs dist --dry-run"
   },

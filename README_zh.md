@@ -127,10 +127,11 @@ npm run qa:code
 npm run qa:images
 npm run qa:image-teaching
 npm run qa:readability
+npm run qa:completion
 npm run seo:indexnow:dry-run
 ```
 
-`npm run qa:all` 是课程改动前后的预检命令：它会检查图表、课程质量信号、代码块、课程图片引用、图片教学信号和可读性信号，再进入完整构建。
+`npm run qa:all` 是课程改动前后的预检命令：它会检查图表、课程质量信号、代码块、课程图片引用、图片教学信号、可读性信号和完成度评分，再进入完整构建。
 
 `npm run qa:course` 会报告可操作的课程内容缺口。附录、导航页和 study guide 不计入折叠讲解提示，这样剩余样例会更集中地指向可能需要补 walkthrough 的正文页面。
 
@@ -139,6 +140,8 @@ npm run seo:indexnow:dry-run
 `npm run qa:image-teaching` 会写入 `reports/course-images/image-teaching-audit.json`，提示 alt 太弱、附近缺少讲解、单页重复用图或语言版本不匹配的图片引用。
 
 `npm run qa:readability` 会写入 `reports/readability-audit.json`，提示密集表格、过长表头和可能应该改成卡片/窄表/终端输出样式的纯文本块。
+
+`npm run qa:completion` 会写入 `reports/course-completion-report.json` 和 `reports/course-completion-report.md`，按语言和章节汇总最低分页面，让后续优化有稳定 backlog。
 
 直接验证脚本：
 
@@ -151,6 +154,7 @@ python3 scripts/validate_course_image_refs.py
 python3 scripts/audit_code_blocks.py
 python3 scripts/audit_image_teaching.py
 python3 scripts/audit_readability.py
+python3 scripts/course_completion_report.py
 ```
 
 ## 目录结构
