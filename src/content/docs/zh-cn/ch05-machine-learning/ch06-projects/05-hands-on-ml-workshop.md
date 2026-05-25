@@ -56,6 +56,8 @@ head:
 
 ![机器学习证据流水线](/img/course/ch05-hands-on-evidence-pipeline.webp)
 
+读这张图时，重点看“证据”不是最后才补的文档，而是从数据划分、模型比较、阈值复盘到错误样本一路生成的。
+
 新手常见错误是停在：
 
 ```text
@@ -74,19 +76,16 @@ print(score)
 
 下面脚本会生成这套证据包：
 
-```text
-ml_workshop_run/
-  data/learning_tasks.csv
-  data/schema.json
-  outputs/model_comparison.csv
-  outputs/best_model_metrics.json
-  outputs/threshold_review.csv
-  outputs/error_samples.csv
-  outputs/classification_report.txt
-  reports/leakage_check.md
-  reports/experiment_log.md
-  README.md
-```
+- `data/learning_tasks.csv`：本地合成数据。
+- `data/schema.json`：字段含义、类型和目标列说明。
+- `outputs/model_comparison.csv`：baseline 和真实模型的指标对比。
+- `outputs/best_model_metrics.json`：最终模型的关键指标。
+- `outputs/threshold_review.csv`：不同阈值下 precision / recall / F1 的取舍。
+- `outputs/error_samples.csv`：预测错误或需要人工复盘的样本。
+- `outputs/classification_report.txt`：类别级指标报告。
+- `reports/leakage_check.md`：数据泄漏检查。
+- `reports/experiment_log.md`：实验记录。
+- `README.md`：复跑命令、结果摘要和下一步。
 
 ### 运行前先解码几个术语
 
@@ -134,6 +133,8 @@ cd ch05-ml-workshop
 ### 创建 `ml_workshop.py`
 
 ![ColumnTransformer 与 Pipeline 训练流程](/img/course/ch05-hands-on-pipeline-training-flow.webp)
+
+先看这张图：`ColumnTransformer` 只处理特征列，`Pipeline` 把预处理和模型绑在一起，避免你在测试集上提前 fit 预处理器。
 
 把下面代码保存为 `ml_workshop.py`。
 
@@ -679,7 +680,11 @@ false_positive  app      2
 
 ![机器学习作品集证据包](/img/course/ch05-hands-on-portfolio-pack.webp)
 
+这张作品集图提醒你：最终交付不只是模型文件，还要有指标、错误样本、泄漏检查、复跑命令和下一步计划。
+
 ![机器学习工作坊实验复跑闭环](/img/course/ch05-hands-on-rerun-experiment-loop.webp)
+
+读复跑闭环图时，只抓一个规则：一次只改一个变量，复跑后用同一组证据判断是否保留。
 
 按小步升级：
 
