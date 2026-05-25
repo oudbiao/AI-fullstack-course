@@ -77,7 +77,6 @@ function validateOutput() {
     ["dist/index.html", 'value="/ja/"'],
     ["dist/zh-cn/index.html", 'lang="zh-CN"'],
     ["dist/ja/index.html", 'lang="ja-JP"'],
-    ["dist/zh-Hans/index.html", 'href="/zh-cn/"'],
     ["dist/sitemap-index.xml", "sitemap-0.xml"],
     ["dist/sitemap.xml", "sitemap-0.xml"],
   ];
@@ -87,6 +86,11 @@ function validateOutput() {
   }
 
   assertFileNotContains("dist/sitemap-0.xml", "/zh-Hans");
+  assertFileContains("docker/nginx.conf", "location /zh-Hans/");
+  assertFileContains("docker/nginx.conf", "learning.airoads.org www.airoads.org");
+  assertFileContains("docker/nginx.conf", "return 301 https://airoads.org$request_uri;");
+  assertFileContains("docker/nginx.conf", "error_page 404 /404.html;");
+  assertFileContains("docker/nginx.conf", "try_files $uri $uri/ =404;");
 
   console.log("[build:docker] Astro Starlight output validation passed");
 }

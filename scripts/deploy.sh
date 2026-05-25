@@ -80,6 +80,19 @@ check_preflight_html() {
   docker run --rm --network proxy-net curlimages/curl:latest -sf --connect-timeout 5 "http://ai-fullstack-course-preflight:3000${path}" | grep -Fq "$expected"
 }
 
+check_preflight_redirect() {
+  path="$1"
+  expected_location="$2"
+  docker run --rm --network proxy-net curlimages/curl:latest -sI --connect-timeout 5 "http://ai-fullstack-course-preflight:3000${path}" | grep -Fiq "location: ${expected_location}"
+}
+
+check_preflight_status() {
+  path="$1"
+  expected_status="$2"
+  status="$(docker run --rm --network proxy-net curlimages/curl:latest -s -o /dev/null -w '%{http_code}' --connect-timeout 5 "http://ai-fullstack-course-preflight:3000${path}")"
+  [ "$status" = "$expected_status" ]
+}
+
 echo "🌐 检查多语言构建产物..."
 if ! check_preflight_html "/" 'lang="en-US"'; then
   echo "❌ 根路径不是英文默认语言，停止替换线上容器"
@@ -87,7 +100,7 @@ if ! check_preflight_html "/" 'lang="en-US"'; then
   cleanup_preflight
   exit 1
 fi
-if ! check_preflight_html "/" 'value="/zh-cn"' || ! check_preflight_html "/" 'value="/ja"'; then
+if ! check_preflight_html "/" 'value="/zh-cn/"' || ! check_preflight_html "/" 'value="/ja/"'; then
   echo "❌ 根路径语言切换链接缺失，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
   cleanup_preflight
@@ -105,8 +118,14 @@ if ! check_preflight_html "/ja/" 'lang="ja-JP"'; then
   cleanup_preflight
   exit 1
 fi
-if ! check_preflight_html "/zh-Hans/" 'href="/zh-cn"'; then
+if ! check_preflight_redirect "/zh-Hans/" "/zh-cn/"; then
   echo "❌ 旧中文路径兼容跳转异常，停止替换线上容器"
+  docker logs --tail=50 ai-fullstack-course-preflight || true
+  cleanup_preflight
+  exit 1
+fi
+if ! check_preflight_status "/not-real-page-for-status-test" "404"; then
+  echo "❌ 缺失页面没有返回 404，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
   cleanup_preflight
   exit 1

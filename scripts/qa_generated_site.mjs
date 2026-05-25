@@ -477,6 +477,30 @@ function assertSeoAssets(issues, summary) {
   }
 }
 
+function assertNginxSeoGuards(issues) {
+  const dockerNginx = path.join(projectRoot, "docker/nginx.conf");
+  if (!fs.existsSync(dockerNginx)) {
+    issues.push("docker/nginx.conf: missing container nginx config");
+    return;
+  }
+
+  const config = fs.readFileSync(dockerNginx, "utf8");
+  const requiredSnippets = [
+    ["legacy /zh-Hans exact redirect", "location = /zh-Hans"],
+    ["legacy /zh-Hans slash redirect", "location /zh-Hans/"],
+    ["legacy zh-cn target", "/zh-cn"],
+    ["old domain server name", "learning.airoads.org www.airoads.org"],
+    ["canonical domain redirect", "return 301 https://airoads.org$request_uri;"],
+    ["404 error page", "error_page 404 /404.html;"],
+    ["real 404 fallback", "try_files $uri $uri/ =404;"],
+  ];
+  for (const [label, snippet] of requiredSnippets) {
+    if (!config.includes(snippet)) {
+      issues.push(`docker/nginx.conf: missing ${label} SEO guard`);
+    }
+  }
+}
+
 function assertCoreMetadata(issues) {
   const homepage = path.join(distRoot, "index.html");
   if (!fs.existsSync(homepage)) {
@@ -638,6 +662,7 @@ for (const file of htmlFiles) {
 }
 auditSitemaps(issues, summary);
 assertSeoAssets(issues, summary);
+assertNginxSeoGuards(issues);
 assertCoreMetadata(issues);
 assertCoursePresentationSemantics(issues);
 assertLocalizedHomepageNavigation(issues);
