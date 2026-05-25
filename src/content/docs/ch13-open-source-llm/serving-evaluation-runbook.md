@@ -56,6 +56,76 @@ regression failures: old working case breaks after runtime change
 
 A model that is slightly weaker but predictable may be better than a larger model that is hard to serve, expensive to stop, or inconsistent on format.
 
+## Add a Runnable API Smoke Test
+
+After the API starts, write one local test script. This keeps the runbook executable instead of only descriptive.
+
+Create `smoke_test_openllm_api.py`:
+
+```python
+import json
+import urllib.error
+import urllib.request
+
+
+BASE_URL = "http://127.0.0.1:8000"
+
+
+def request_json(path, payload=None):
+    data = None if payload is None else json.dumps(payload).encode("utf-8")
+    request = urllib.request.Request(
+        f"{BASE_URL}{path}",
+        data=data,
+        headers={"Content-Type": "application/json"},
+        method="GET" if payload is None else "POST",
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+try:
+    health = request_json("/health")
+    chat = request_json(
+        "/v1/chat/completions",
+        {
+            "messages": [
+                {"role": "user", "content": "Give one safe release rule for a local LLM service."}
+            ],
+            "max_tokens": 80,
+        },
+    )
+except urllib.error.URLError as exc:
+    raise SystemExit(f"API smoke test failed: {exc}") from exc
+
+report = {
+    "health": health,
+    "model": chat.get("model"),
+    "has_choices": bool(chat.get("choices")),
+    "first_message": chat.get("choices", [{}])[0].get("message", {}).get("content", ""),
+}
+print(json.dumps(report, indent=2, ensure_ascii=False))
+```
+
+Run it while the local service from 13.2 is still active:
+
+```bash
+python smoke_test_openllm_api.py | tee api_smoke_test.json
+```
+
+Passing means the service is reachable, the endpoint contract is close enough to the expected shape, and the result is saved for review.
+
+## Route-Specific Release Notes
+
+The same runbook has different release evidence depending on where the model ran.
+
+| Route | Release note must include | Do not claim yet |
+|---|---|---|
+| Local CPU | environment report, API smoke test, eval CSV, stop command | 7B quality, throughput, or production latency |
+| Free Colab | notebook copy, runtime type, copied-back outputs, reset risk | stable service, private data handling, guaranteed GPU |
+| Rented GPU | instance type, exposed ports, SSH tunnel or private network, eval result, shutdown proof | public service readiness unless auth, logging, and monitoring exist |
+
+This table protects the project from overclaiming. A CPU run can still be a valid pass when it proves the deployment loop. A rented GPU run can still fail if there is no shutdown proof.
+
 ## Release README Template
 
 Add this to the project README:

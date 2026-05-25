@@ -78,6 +78,85 @@ The exact model names can change. The decision shape should not change.
 
 **Use SGLang when structured generation or agentic serving patterns matter.** It is powerful, but it should still be justified by project requirements rather than novelty.
 
+## Route-Specific Runtime Card
+
+Use this card to keep the three compute routes honest. The route changes what the first proof can claim.
+
+| Route | First model | Runtime | What to prove first | Upgrade signal |
+|---|---|---|---|---|
+| Local CPU | `sshleifer/tiny-gpt2` or a small quantized model | Transformers, llama.cpp, Ollama | environment, download, one prompt, eval script, local API skeleton | the loop is reproducible but quality is too weak |
+| Free Colab | tiny model first, then a small instruct model if GPU appears | Transformers notebook | notebook can rerun, files can be copied back, GPU is optional | GPU is visible and eval cases justify a larger model |
+| Rented GPU | small instruct model before 7B-class | vLLM or SGLang behind localhost / SSH tunnel | known VRAM, endpoint, eval table, latency note, shutdown proof | fixed eval cases pass and service behavior matters |
+
+Do not compare routes as if they prove the same thing. Local CPU proves the workflow. Colab proves a portable notebook path. Rented GPU proves controlled serving and cost discipline.
+
+## Write a Runnable Decision Helper
+
+Create `choose_openllm_runtime.py`. It does not download a model. It forces the decision to depend on task, privacy, route, and available memory.
+
+```python
+import json
+import os
+from pathlib import Path
+
+
+profile = {
+    "task": os.environ.get("TASK", "course assistant"),
+    "route": os.environ.get("ROUTE", "local_cpu"),
+    "privacy": os.environ.get("PRIVACY", "private_docs"),
+    "available_vram_gb": float(os.environ.get("VRAM_GB", "0")),
+    "needs_service": os.environ.get("NEEDS_SERVICE", "no") == "yes",
+}
+
+
+def choose(profile):
+    route = profile["route"]
+    vram = profile["available_vram_gb"]
+
+    if route == "local_cpu":
+        return {
+            "model": "sshleifer/tiny-gpt2 or a small quantized model",
+            "runtime": "Transformers for code inspection; llama.cpp/Ollama for quantized local tests",
+            "claim": "proves the workflow, not model quality",
+        }
+
+    if route == "free_colab":
+        return {
+            "model": "tiny model first; small instruct model only if GPU is visible",
+            "runtime": "Transformers notebook",
+            "claim": "proves a portable notebook run, not stable serving",
+        }
+
+    if route == "rented_gpu" and vram >= 16:
+        runtime = "vLLM or SGLang" if profile["needs_service"] else "Transformers first, then vLLM"
+        return {
+            "model": "small instruct model before trying 7B-class",
+            "runtime": runtime,
+            "claim": "proves controlled serving, eval, latency, and shutdown",
+        }
+
+    return {
+        "model": "smaller model or cloud API fallback",
+        "runtime": "do not start GPU serving yet",
+        "claim": "current hardware route is not ready",
+    }
+
+
+decision = {"profile": profile, "decision": choose(profile)}
+Path("model_runtime_decision.json").write_text(json.dumps(decision, indent=2), encoding="utf-8")
+print(json.dumps(decision, indent=2))
+```
+
+Run one route at a time:
+
+```bash
+ROUTE=local_cpu python choose_openllm_runtime.py
+ROUTE=free_colab python choose_openllm_runtime.py
+ROUTE=rented_gpu VRAM_GB=24 NEEDS_SERVICE=yes python choose_openllm_runtime.py
+```
+
+The output is not a final architecture. It is a guardrail against choosing a model name before the route, memory, service need, and evidence claim are clear.
+
 ## Mini Exercise
 
 Take a project from Chapter 8 or 9 and write one decision paragraph:
@@ -102,7 +181,7 @@ model_decision: selected model, license note, size, context length, and rejected
 runtime_decision: chosen runtime, hardware reason, and fallback runtime
 hardware_note: local CPU/GPU or rented GPU estimate, disk, and expected stop time
 eval_gate: fixed cases that would justify changing model or runtime
-expected_output: model_runtime_decision.md and one first-run command
+expected_output: model_runtime_decision.md, model_runtime_decision.json, and one first-run command
 ```
 
 ## Pass Check

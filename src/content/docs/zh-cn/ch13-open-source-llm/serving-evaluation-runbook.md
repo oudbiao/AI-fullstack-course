@@ -56,6 +56,76 @@ grounding 失败：回答没有被检索到的政策支持
 
 一个稍弱但可预测的模型，可能比更大但难服务、难停机、格式不稳定的模型更适合当前项目。
 
+## 加一个可运行 API 烟测
+
+API 启动后，写一个本地测试脚本。这样 runbook 是可执行的，而不只是说明文档。
+
+创建 `smoke_test_openllm_api.py`：
+
+```python
+import json
+import urllib.error
+import urllib.request
+
+
+BASE_URL = "http://127.0.0.1:8000"
+
+
+def request_json(path, payload=None):
+    data = None if payload is None else json.dumps(payload).encode("utf-8")
+    request = urllib.request.Request(
+        f"{BASE_URL}{path}",
+        data=data,
+        headers={"Content-Type": "application/json"},
+        method="GET" if payload is None else "POST",
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+try:
+    health = request_json("/health")
+    chat = request_json(
+        "/v1/chat/completions",
+        {
+            "messages": [
+                {"role": "user", "content": "Give one safe release rule for a local LLM service."}
+            ],
+            "max_tokens": 80,
+        },
+    )
+except urllib.error.URLError as exc:
+    raise SystemExit(f"API smoke test failed: {exc}") from exc
+
+report = {
+    "health": health,
+    "model": chat.get("model"),
+    "has_choices": bool(chat.get("choices")),
+    "first_message": chat.get("choices", [{}])[0].get("message", {}).get("content", ""),
+}
+print(json.dumps(report, indent=2, ensure_ascii=False))
+```
+
+在 13.2 的本地服务仍在运行时执行：
+
+```bash
+python smoke_test_openllm_api.py | tee api_smoke_test.json
+```
+
+通过意味着服务可访问、endpoint 契约基本符合预期，并且结果已经保存，方便复查。
+
+## 分路线发布备注
+
+同一份 runbook，在不同计算路线下要留下不同发布证据。
+
+| 路线 | 发布备注必须包含 | 暂时不要声称 |
+|---|---|---|
+| 本地 CPU | 环境报告、API 烟测、评估 CSV、停止命令 | 7B 质量、吞吐或生产延迟 |
+| 免费 Colab | notebook 副本、runtime 类型、带回来的输出、重置风险 | 稳定服务、私密数据处理、保证有 GPU |
+| 租 GPU | 实例类型、暴露端口、SSH tunnel 或私有网络、评估结果、关机证明 | 除非有鉴权、日志和监控，否则不要声称可公开服务 |
+
+这张表能防止项目夸大。CPU 跑通也可以通过，因为它证明了部署闭环。租 GPU 也可能失败，如果没有关机证明。
+
 ## 发布 README 模板
 
 把下面内容加入项目 README：
@@ -135,7 +205,7 @@ api_contract: endpoint、request shape、response shape、limits、error path
 eval_cases: 覆盖格式、grounding、安全、延迟和回归的固定 CSV
 release_readme: 运行、测试、限制、停止和回滚说明
 failure_drill: 一次模拟失败、检查项、fallback 和恢复备注
-expected_output: README.md、eval_cases.csv、run_eval 结果、关机证明
+expected_output: README.md、eval_cases.csv、api_smoke_test.json、run_eval 结果、关机证明
 ```
 
 ## 通过标准

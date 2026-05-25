@@ -13,11 +13,11 @@ head:
 
 ## まず direction map を見る
 
-![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map-ja.webp)
+![Advanced vision の方向選択図](/img/course/ch10-advanced-vision-route-map-ja.webp)
 
-![OCR layout reading order map](/img/course/ch10-ocr-layout-reading-order-map-ja.webp)
+![OCR layout の reading order 対応図](/img/course/ch10-ocr-layout-reading-order-map-ja.webp)
 
-![Video frame tracking temporal window map](/img/course/ch10-video-frame-tracking-temporal-window-map-ja.webp)
+![Video frame tracking の temporal window 対応図](/img/course/ch10-video-frame-tracking-temporal-window-map-ja.webp)
 
 OCR は文書、顔認識は本人確認などの慎重な場面、動画は時間と動き、3D 視覚は空間構造に向いています。
 

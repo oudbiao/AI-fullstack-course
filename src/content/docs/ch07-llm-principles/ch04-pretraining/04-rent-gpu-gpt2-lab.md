@@ -9,6 +9,8 @@ head:
       name: keywords
       content: "rent GPU, hand-built GPT-2, mini GPT, PyTorch, Kaggle, Colab, AutoDL, RunPod"
 ---
+![Hand-built GPT-2 lab whiteboard: free notebook, rented GPU, environment check, mini GPT-2 training, qualitative loss trend, sample generation, and shutdown evidence.](/img/course/ch07-mini-gpt2-lab-whiteboard-en.webp)
+
 :::tip[Where This Lesson Fits]
 This lesson puts the Transformer and pretraining objective onto a real machine.
 

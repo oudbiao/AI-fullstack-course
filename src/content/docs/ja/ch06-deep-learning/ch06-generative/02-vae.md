@@ -24,7 +24,7 @@ VAE は生成型の autoencoder です。各入力を 1 つの固定点に圧縮
 
 ## まず流れを見る
 
-![VAE latent space generation flowchart](/img/course/vae-latent-space-flow-ja.webp)
+![VAE の latent space 生成フローチャート](/img/course/vae-latent-space-flow-ja.webp)
 
 | 手順 | 何が起こるか | 実践的な意味 |
 |---|---|---|

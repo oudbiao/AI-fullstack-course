@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "open-source LLM model selection, runtime decision, Ollama, llama.cpp, vLLM, SGLang, quantization"
 ---
-![OSS LLM runtime decision map](/img/course/ch13-open-source-llm-runtime-decision-ja.webp)
+![OSS LLM runtime decision の対応図](/img/course/ch13-open-source-llm-runtime-decision-ja.webp)
 
 よいオープンソース LLM プロジェクトは、最初の download より前に始まります。このレッスンでは、model selection を書面の decision に変え、hardware、license、latency target、product boundary に合わない model へ時間を使いすぎないようにします。
 
@@ -78,6 +78,85 @@ rejected_for_now: full fine-tuning, because eval failures are not proven yet
 
 **structured generation や agentic serving pattern が必要なら SGLang を使います。** 強力ですが、新しさではなく project requirements で正当化します。
 
+## ルート別 Runtime カード
+
+このカードで 3 つの compute route を混同しないようにします。route が変わると、最初に証明できる claim も変わります。
+
+| ルート | 最初のモデル | Runtime | 最初に証明すること | Upgrade signal |
+|---|---|---|---|---|
+| Local CPU | `sshleifer/tiny-gpt2` または小さな quantized model | Transformers、llama.cpp、Ollama | environment、download、1 prompt、eval script、local API skeleton | loop は再現できるが quality が弱い |
+| Free Colab | tiny model から始め、GPU が見えたら small instruct model | Transformers notebook | notebook が再実行でき、files を持ち帰れ、GPU は optional | GPU が見え、eval cases が大きな model を正当化する |
+| Rented GPU | small instruct model の後に 7B-class | vLLM または SGLang、最初は localhost / SSH tunnel | VRAM、endpoint、eval table、latency note、shutdown proof | fixed eval cases が通り、service behavior が必要 |
+
+3 つの route を同じ証明として比較しないでください。Local CPU は workflow、Colab は portable notebook path、rented GPU は controlled serving と cost discipline を証明します。
+
+## 実行できる Decision Helper を書く
+
+`choose_openllm_runtime.py` を作成します。model は download しません。task、privacy、route、available memory に基づいて決定する癖を作ります。
+
+```python
+import json
+import os
+from pathlib import Path
+
+
+profile = {
+    "task": os.environ.get("TASK", "course assistant"),
+    "route": os.environ.get("ROUTE", "local_cpu"),
+    "privacy": os.environ.get("PRIVACY", "private_docs"),
+    "available_vram_gb": float(os.environ.get("VRAM_GB", "0")),
+    "needs_service": os.environ.get("NEEDS_SERVICE", "no") == "yes",
+}
+
+
+def choose(profile):
+    route = profile["route"]
+    vram = profile["available_vram_gb"]
+
+    if route == "local_cpu":
+        return {
+            "model": "sshleifer/tiny-gpt2 or a small quantized model",
+            "runtime": "Transformers for code inspection; llama.cpp/Ollama for quantized local tests",
+            "claim": "proves the workflow, not model quality",
+        }
+
+    if route == "free_colab":
+        return {
+            "model": "tiny model first; small instruct model only if GPU is visible",
+            "runtime": "Transformers notebook",
+            "claim": "proves a portable notebook run, not stable serving",
+        }
+
+    if route == "rented_gpu" and vram >= 16:
+        runtime = "vLLM or SGLang" if profile["needs_service"] else "Transformers first, then vLLM"
+        return {
+            "model": "small instruct model before trying 7B-class",
+            "runtime": runtime,
+            "claim": "proves controlled serving, eval, latency, and shutdown",
+        }
+
+    return {
+        "model": "smaller model or cloud API fallback",
+        "runtime": "do not start GPU serving yet",
+        "claim": "current hardware route is not ready",
+    }
+
+
+decision = {"profile": profile, "decision": choose(profile)}
+Path("model_runtime_decision.json").write_text(json.dumps(decision, indent=2), encoding="utf-8")
+print(json.dumps(decision, indent=2))
+```
+
+route は 1 つずつ実行します。
+
+```bash
+ROUTE=local_cpu python choose_openllm_runtime.py
+ROUTE=free_colab python choose_openllm_runtime.py
+ROUTE=rented_gpu VRAM_GB=24 NEEDS_SERVICE=yes python choose_openllm_runtime.py
+```
+
+この出力は final architecture ではありません。route、memory、service need、evidence claim が曖昧なまま model name を選ぶのを防ぐ guardrail です。
+
 ## ミニ演習
 
 第 8 章または第 9 章の project を 1 つ選び、次の decision paragraph を書きます。
@@ -102,7 +181,7 @@ model_decision: 選んだ model、license note、size、context length、rejecte
 runtime_decision: 選んだ runtime、hardware reason、fallback runtime
 hardware_note: local CPU/GPU または rented GPU estimate、disk、expected stop time
 eval_gate: model または runtime を変える根拠になる fixed cases
-expected_output: model_runtime_decision.md と first-run command
+expected_output: model_runtime_decision.md、model_runtime_decision.json、first-run command
 ```
 
 ## 合格ライン

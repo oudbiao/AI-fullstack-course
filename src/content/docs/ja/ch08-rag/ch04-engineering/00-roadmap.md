@@ -17,7 +17,7 @@ head:
 
 ![LLMOps トレース レビュー閉ループ図](/img/course/ch08-llmops-trace-loop-ja.webp)
 
-![Observability logs メトリクス トレース map](/img/course/ch08-observability-logs-metrics-trace-map-ja.webp)
+![Observability の logs、メトリクス、トレース対応図](/img/course/ch08-observability-logs-metrics-trace-map-ja.webp)
 
 最初のエンジニアリング目標は単純です。回答が間違ったとき、どの層が原因か説明できることです。
 

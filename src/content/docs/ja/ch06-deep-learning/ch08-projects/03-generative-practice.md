@@ -24,7 +24,7 @@ head:
 
 ## まず評価の流れを見る
 
-![Generative model project evaluation loop](/img/course/ch06-project-generative-eval-loop-ja.webp)
+![生成モデル project の評価ループ](/img/course/ch06-project-generative-eval-loop-ja.webp)
 
 ```text
 学習 -> checkpoint からサンプル生成 -> quality と diversity を確認 -> 失敗例を残す -> 次の一手を選ぶ

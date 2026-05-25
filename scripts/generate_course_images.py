@@ -38429,6 +38429,78 @@ for job in IMAGE_JOBS:
         job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
 
 
+MINI_GPT2_LAB_WHITEBOARD_JOBS: list[dict[str, Any]] = [
+    {
+        "filename": "ch07-mini-gpt2-lab-whiteboard.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "手搓 GPT-2 实验白板图",
+        "suggested_page": "src/content/docs/zh-cn/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab.md",
+        "alt": "手搓 GPT-2 实验白板图：免费 Notebook、租 GPU、环境检查、mini GPT-2 训练、loss 下降、生成样例和停止计费证据。",
+        "prompt": """
+生成一张竖版 9:16 简体中文教学位图，用于“租 GPU 跑通手搓 GPT-2”课程页。
+风格必须是手绘白板教学/工程课堂笔记，不是 SVG 信息图，不是贴图模板，不是白色圆角卡片堆叠，不是终端截图，不要真实品牌 logo。
+使用一整块连续白板或笔记纸，用手绘分隔线分区，不要把每个步骤画成独立 UI 卡片。Python、PyTorch、CUDA、GPU 只写文字或画通用芯片/代码/火焰/仪表图标，不要画真实 Python、PyTorch、NVIDIA 或 CUDA 标志。
+画面从上到下分成 5 个大教学区，像老师在白板上带学生走完整个实验：
+1. 选路线：CPU / 免费 Notebook / 租 GPU 三条路，先免费跑小步，再决定是否租 GPU。
+2. 环境检查：Python、PyTorch、CUDA 可见性、device，画成检查清单和小仪表，不要写真实机器型号或真实金额。
+3. mini GPT-2 代码骨架：tokenizer -> embedding -> causal attention -> MLP -> lm head -> loss，用粗箭头连起来。
+4. 训练证据：loss 下降趋势线、training_log、sample output，强调“能下降、能生成、能解释”。loss 图只画趋势，不写坐标数字、step 数字或具体 loss 数值。
+5. 停止与归档：保存 log、hardware_info、sample、cost note，然后 stop instance。
+文字要少而大，只保留标题、5 个区名和短标签。可以保留技术词：CPU、Notebook、GPU、Python、PyTorch、CUDA、tokenizer、embedding、causal attention、MLP、loss、generate、training_log、stop instance。
+不要写密集代码、不要小字、不要乱码、不要具体价格、不要日期、不要 API key、不要真实 URL、不要虚构训练指标或 benchmark 数字。
+""".strip(),
+    },
+    {
+        "filename": "ch07-mini-gpt2-lab-whiteboard-en.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "Hand-built GPT-2 lab whiteboard",
+        "suggested_page": "src/content/docs/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab.md",
+        "alt": "Hand-built GPT-2 lab whiteboard: free notebook, rented GPU, environment check, mini GPT-2 training, falling loss, sample generation, and shutdown evidence.",
+        "prompt": """
+Create a vertical 9:16 English teaching bitmap for the lesson "Rent a GPU and Run a Hand-Built GPT-2".
+Style: hand-drawn whiteboard teaching / engineering classroom notes. Not an SVG infographic, not a pasted template, not a stack of white rounded cards, not a terminal screenshot, no real brand logos.
+Use one continuous whiteboard or notebook page with hand-drawn separator lines, not separate UI cards. Write Python, PyTorch, CUDA, and GPU as text or use generic code/chip/gauge/flame icons only; do not draw real Python, PyTorch, NVIDIA, or CUDA logos.
+Arrange the image as five large teaching zones from top to bottom, as if an instructor is guiding the full lab on a whiteboard:
+1. Choose route: CPU / free notebook / rented GPU, first run a small free pass, then decide whether to rent.
+2. Environment check: Python, PyTorch, CUDA visibility, device, shown as a checklist and simple gauges. Do not write real machine models or real costs.
+3. Mini GPT-2 code skeleton: tokenizer -> embedding -> causal attention -> MLP -> lm head -> loss, connected with thick arrows.
+4. Training evidence: qualitative falling loss trend, training_log, sample output, with the rule "runs, learns, generates, explains". The loss plot must show trend only: no axis numbers, step numbers, or concrete loss values.
+5. Stop and archive: save log, hardware_info, sample, cost note, then stop instance.
+Keep visible text sparse and large: title, five zone names, short labels only. Technical terms may stay exactly as: CPU, Notebook, GPU, Python, PyTorch, CUDA, tokenizer, embedding, causal attention, MLP, loss, generate, training_log, stop instance.
+Avoid dense code, tiny text, gibberish, exact prices, dates, API keys, real URLs, invented training metrics, and fake benchmark numbers.
+""".strip(),
+    },
+    {
+        "filename": "ch07-mini-gpt2-lab-whiteboard-ja.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "手作り GPT-2 実験ホワイトボード",
+        "suggested_page": "src/content/docs/ja/ch07-llm-principles/ch04-pretraining/04-rent-gpu-gpt2-lab.md",
+        "alt": "手作り GPT-2 実験ホワイトボード：無料 Notebook、GPU レンタル、環境確認、mini GPT-2 学習、loss 低下、生成サンプル、停止証拠。",
+        "prompt": """
+「GPU を借りて手作り GPT-2 を動かす」教材ページ用の、縦長 9:16 日本語教学ビットマップを生成してください。
+スタイルは手描きホワイトボード授業 / エンジニアリング講義ノート。SVG 風インフォグラフィック、貼り付けテンプレート、白い角丸カードの積み重ね、端末スクリーンショット、実在ブランドロゴは禁止。
+1枚の連続した白板またはノート紙に、手描きの区切り線で分ける。各ステップを独立した UI カードにしない。Python、PyTorch、CUDA、GPU は文字か汎用のコード/チップ/メーター/炎アイコンだけで表現し、Python、PyTorch、NVIDIA、CUDA の実在ロゴは描かない。
+画面は上から下へ 5 つの大きな教学ゾーンに分け、先生が白板で実験全体を案内する構成にする：
+1. ルート選択：CPU / 無料 Notebook / GPU レンタル。まず無料で小さく動かし、その後レンタル判断。
+2. 環境確認：Python、PyTorch、CUDA 可視性、device をチェックリストと簡単なメーターで表示。実在マシン名や実価格は書かない。
+3. mini GPT-2 コード骨格：tokenizer -> embedding -> causal attention -> MLP -> lm head -> loss を太い矢印でつなぐ。
+4. 学習証拠：定性的に下がる loss トレンド、training_log、sample output。「動く、学習する、生成する、説明できる」を示す。loss 図は傾向だけにし、軸の数字、step 数字、具体的な loss 値は書かない。
+5. 停止と保存：log、hardware_info、sample、cost note を保存し、stop instance。
+画像内文字は少なく大きく、タイトル、5 つの区名、短いラベルだけ。技術語は CPU、Notebook、GPU、Python、PyTorch、CUDA、tokenizer、embedding、causal attention、MLP、loss、generate、training_log、stop instance のままでよい。
+密集したコード、小さすぎる文字、文字化け、具体的な価格、日付、API key、実 URL、架空の学習指標、偽 benchmark 数値は禁止。
+""".strip(),
+    },
+]
+
+existing_filenames_for_mini_gpt2_lab = {str(job.get("filename")) for job in IMAGE_JOBS}
+for job in MINI_GPT2_LAB_WHITEBOARD_JOBS:
+    if str(job["filename"]) not in existing_filenames_for_mini_gpt2_lab:
+        IMAGE_JOBS.append(job)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate course images and save them under public/img/course.")
     parser.add_argument("--dry-run", action="store_true", help="Print planned image jobs without calling the API.")

@@ -40,7 +40,9 @@ head:
 - `environment_report.txt`：Python、torch、CUDA/device、platform、disk または instance note。
 - `compute_route.md`：local CPU、free Colab、rented GPU の選択、fallback、stop rule。
 - `model_decision.md`：model、size、license、source、reason、rejected alternatives。
+- `model_runtime_decision.json`：local CPU、free Colab、rented GPU の route 別 runtime recommendation。
 - `open_llm_runbook.json`：runtime choice、adaptation choice、required evidence。
+- `api_smoke_test.json`：local OpenAI-compatible API の health check と sample request/response proof。
 - `first_run.md`：exact command、prompt、output、latency または memory note。
 - `eval_cases.csv`：5つ以上の prompts、expected behavior、pass/fail、notes。
 - `README.md`：setup、run、evaluate、stop server、rollback または shutdown。

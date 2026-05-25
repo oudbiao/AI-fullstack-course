@@ -24,7 +24,7 @@ head:
 
 ## まずルートを見る
 
-![Deep learning tuning and diagnosis route](/img/course/ch06-training-tuning-diagnosis-route-ja.webp)
+![深層学習の tuning と診断ルート](/img/course/ch06-training-tuning-diagnosis-route-ja.webp)
 
 実践的な順序：
 
@@ -130,7 +130,7 @@ best_lr: 1.0
 
 ## 次に何を調整するか
 
-![Hyperparameter tuning search diagram](/img/course/hyperparameter-tuning-search-ja.webp)
+![Hyperparameter tuning の探索図](/img/course/hyperparameter-tuning-search-ja.webp)
 
 妥当な learning rate を見つけたら、次の順で進めます。
 

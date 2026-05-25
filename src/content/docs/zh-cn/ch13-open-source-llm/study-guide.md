@@ -40,7 +40,9 @@ head:
 - `environment_report.txt`：Python、torch、CUDA/device、platform、磁盘或实例说明。
 - `compute_route.md`：本地 CPU、免费 Colab 或租 GPU 选择，以及 fallback 和 stop rule。
 - `model_decision.md`：模型、尺寸、许可证、来源、理由、被拒方案。
+- `model_runtime_decision.json`：按本地 CPU、免费 Colab、租 GPU 路线输出的运行时建议。
 - `open_llm_runbook.json`：运行时选择、适配选择、需要保留的证据。
+- `api_smoke_test.json`：本地 OpenAI-compatible API 的健康检查和一次请求/响应证据。
 - `first_run.md`：精确命令、Prompt、输出、延迟或显存备注。
 - `eval_cases.csv`：至少五个 Prompt、期望行为、pass/fail、备注。
 - `README.md`：设置、运行、评估、停止服务、回滚或关机。

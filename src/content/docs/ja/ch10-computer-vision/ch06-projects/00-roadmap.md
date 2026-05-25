@@ -13,11 +13,11 @@ head:
 
 ## まずプロジェクトループを見る
 
-![Vision tasks の output granularity progression map](/img/course/ch10-visual-task-progression-map-ja.webp)
+![Vision tasks の output granularity 進行図](/img/course/ch10-visual-task-progression-map-ja.webp)
 
 ![Vision projects の closed-loop delivery diagram](/img/course/ch10-projects-delivery-loop-ja.webp)
 
-![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-ja.webp)
+![Computer vision の evidence pack 図](/img/course/ch10-vision-evidence-pack-ja.webp)
 
 最速で完結したループを作るなら分類から始めます。ボックスが必要なら検出、マスクが必要なら分割、OCR・動画・3D はより専門的な場面で使います。
 

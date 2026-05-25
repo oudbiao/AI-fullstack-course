@@ -56,6 +56,76 @@ regression failures: runtime change 後に以前の成功ケースが壊れる
 
 少し弱くても予測可能な model は、serve しにくく、止めにくく、format が不安定な大きな model より現在の project に向いていることがあります。
 
+## 実行できる API Smoke Test を追加する
+
+API を起動したら、local test script を 1 つ書きます。runbook を説明だけでなく実行可能にするためです。
+
+`smoke_test_openllm_api.py` を作成します。
+
+```python
+import json
+import urllib.error
+import urllib.request
+
+
+BASE_URL = "http://127.0.0.1:8000"
+
+
+def request_json(path, payload=None):
+    data = None if payload is None else json.dumps(payload).encode("utf-8")
+    request = urllib.request.Request(
+        f"{BASE_URL}{path}",
+        data=data,
+        headers={"Content-Type": "application/json"},
+        method="GET" if payload is None else "POST",
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+try:
+    health = request_json("/health")
+    chat = request_json(
+        "/v1/chat/completions",
+        {
+            "messages": [
+                {"role": "user", "content": "Give one safe release rule for a local LLM service."}
+            ],
+            "max_tokens": 80,
+        },
+    )
+except urllib.error.URLError as exc:
+    raise SystemExit(f"API smoke test failed: {exc}") from exc
+
+report = {
+    "health": health,
+    "model": chat.get("model"),
+    "has_choices": bool(chat.get("choices")),
+    "first_message": chat.get("choices", [{}])[0].get("message", {}).get("content", ""),
+}
+print(json.dumps(report, indent=2, ensure_ascii=False))
+```
+
+13.2 の local service が動いている状態で実行します。
+
+```bash
+python smoke_test_openllm_api.py | tee api_smoke_test.json
+```
+
+合格とは、service に到達でき、endpoint contract が期待形に近く、結果が review 用に保存された状態です。
+
+## ルート別 Release Notes
+
+同じ runbook でも、model をどこで動かしたかによって release evidence は変わります。
+
+| ルート | Release note に必ず含めるもの | まだ主張しないこと |
+|---|---|---|
+| Local CPU | environment report、API smoke test、eval CSV、stop command | 7B quality、throughput、production latency |
+| Free Colab | notebook copy、runtime type、copied-back outputs、reset risk | stable service、private data handling、guaranteed GPU |
+| Rented GPU | instance type、exposed ports、SSH tunnel または private network、eval result、shutdown proof | auth、logging、monitoring がない public service readiness |
+
+この表は overclaim を防ぎます。CPU run でも deployment loop を証明できれば合格です。rented GPU run でも shutdown proof がなければ失敗です。
+
 ## リリース README テンプレート
 
 project README に次を追加します。
@@ -135,7 +205,7 @@ api_contract: endpoint、request shape、response shape、limits、error path
 eval_cases: format、grounding、safety、latency、regression を含む fixed CSV
 release_readme: run、test、limits、stop、rollback instructions
 failure_drill: 1つの simulated failure、checks、fallback、recovery note
-expected_output: README.md、eval_cases.csv、run_eval result、shutdown proof
+expected_output: README.md、eval_cases.csv、api_smoke_test.json、run_eval result、shutdown proof
 ```
 
 ## 合格ライン

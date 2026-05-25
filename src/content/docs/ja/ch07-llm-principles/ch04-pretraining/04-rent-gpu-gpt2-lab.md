@@ -9,6 +9,8 @@ head:
       name: keywords
       content: "GPU レンタル, 手作り GPT-2, mini GPT, PyTorch, Kaggle, Colab, AutoDL, RunPod"
 ---
+![手作り GPT-2 実験ホワイトボード：無料 Notebook、GPU レンタル、環境確認、mini GPT-2 学習、定性的な loss トレンド、生成サンプル、停止証拠。](/img/course/ch07-mini-gpt2-lab-whiteboard-ja.webp)
+
 :::tip[この節の位置づけ]
 この節では、Transformer と事前学習目的を実際のマシン上で動かします。
 

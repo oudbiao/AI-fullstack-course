@@ -9,6 +9,8 @@ head:
       name: keywords
       content: "租 GPU, 手搓 GPT-2, mini GPT, PyTorch, Kaggle, Colab, AutoDL, RunPod"
 ---
+![手搓 GPT-2 实验白板图：免费 Notebook、租 GPU、环境检查、mini GPT-2 训练、定性 loss 趋势、生成样例和停止计费证据。](/img/course/ch07-mini-gpt2-lab-whiteboard.webp)
+
 :::tip[本节定位]
 这一节把前面的 Transformer 和预训练目标落到一台真实机器上。
 

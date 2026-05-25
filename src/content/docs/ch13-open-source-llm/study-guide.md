@@ -40,7 +40,9 @@ If you have not run the lab yet, first complete [13.1 Compute Routes: Local CPU,
 - `environment_report.txt`: Python, torch, CUDA/device, platform, disk or instance note.
 - `compute_route.md`: local CPU, free Colab, or rented GPU choice with fallback and stop rule.
 - `model_decision.md`: model, size, license, source, reason, rejected alternatives.
+- `model_runtime_decision.json`: route-specific local CPU, free Colab, or rented GPU runtime recommendation.
 - `open_llm_runbook.json`: runtime choice, adaptation choice, required evidence.
+- `api_smoke_test.json`: health check and sample request/response proof for the local OpenAI-compatible API.
 - `first_run.md`: exact command, prompt, output, latency or memory note.
 - `eval_cases.csv`: at least five prompts, expected behavior, pass/fail, notes.
 - `README.md`: setup, run, evaluate, stop server, rollback or shutdown.

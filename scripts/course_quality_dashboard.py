@@ -64,7 +64,139 @@ LEGACY_CONTEXT_ALLOWLIST = [
     r"appendix/.*",
 ]
 
-ENGLISH_ALT_PATTERN = re.compile(r"!\[([A-Za-z][^\]]{12,})\]\(([^)]+)\)")
+MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
+HTML_IMAGE_RE = re.compile(r"<img\b[^>]*\bsrc=[\"']([^\"']+)[\"'][^>]*>", re.I)
+CJK_RE = re.compile(r"[\u3400-\u9fff\u3040-\u30ff\uac00-\ud7af]")
+
+TECHNICAL_ALT_TERMS = {
+    "ai",
+    "api",
+    "aigc",
+    "agent",
+    "ann",
+    "autodl",
+    "axes",
+    "axis",
+    "batch",
+    "bert",
+    "cache",
+    "checkpoint",
+    "cli",
+    "colab",
+    "cpu",
+    "csv",
+    "ctc",
+    "cuda",
+    "dataloader",
+    "dataset",
+    "decision",
+    "diffusion",
+    "docker",
+    "embedding",
+    "encoder",
+    "estimator",
+    "fastapi",
+    "feature",
+    "flowchart",
+    "gan",
+    "gpt",
+    "gpu",
+    "head",
+    "html",
+    "http",
+    "https",
+    "hybrid",
+    "input_ids",
+    "iou",
+    "jupyter",
+    "json",
+    "kaggle",
+    "kernel",
+    "latent",
+    "learned",
+    "loss",
+    "llm",
+    "lora",
+    "mask",
+    "matplotlib",
+    "mel_spectrogram",
+    "mini",
+    "mha",
+    "model",
+    "mode",
+    "mcp",
+    "mqa",
+    "mlx",
+    "moe",
+    "nlp",
+    "notebook",
+    "numpy",
+    "ocr",
+    "output",
+    "pandas",
+    "pdf",
+    "pipeline",
+    "ppt",
+    "pred",
+    "pytorch",
+    "qlora",
+    "rag",
+    "readme",
+    "rerank",
+    "rlhf",
+    "runpod",
+    "scikit",
+    "search",
+    "seq2seq",
+    "shape",
+    "sglang",
+    "sklearn",
+    "sop",
+    "sql",
+    "stable",
+    "standardscaler",
+    "svm",
+    "t5",
+    "terminal",
+    "textual",
+    "token",
+    "tokenizer",
+    "training_log",
+    "transformer",
+    "transformers",
+    "ui",
+    "url",
+    "uvicorn",
+    "vllm",
+    "vrag",
+    "vs",
+    "vscode",
+    "web",
+    "word",
+}
+
+ENGLISH_PROSE_HINTS = {
+    "a",
+    "an",
+    "and",
+    "are",
+    "as",
+    "before",
+    "between",
+    "by",
+    "for",
+    "from",
+    "how",
+    "in",
+    "into",
+    "is",
+    "of",
+    "on",
+    "or",
+    "the",
+    "to",
+    "with",
+}
 
 
 def iter_markdown(locale: str) -> list[Path]:
@@ -94,12 +226,34 @@ def is_allowlisted(path_key: str, patterns: list[str]) -> bool:
     return any(re.fullmatch(pattern, path_key) for pattern in patterns)
 
 
+def localized_alt_looks_english(alt: str) -> bool:
+    words = re.findall(r"[A-Za-z][A-Za-z0-9_+\-.]*", alt)
+    if not words:
+        return False
+    has_local_script = bool(CJK_RE.search(alt))
+    if not has_local_script:
+        return True
+
+    lower_words = [word.lower().strip("._-") for word in words]
+    prose_words = [
+        word
+        for word in lower_words
+        if word not in TECHNICAL_ALT_TERMS and not re.fullmatch(r"[a-z]\d*|v\d+|x\d+", word)
+    ]
+    if any(word in ENGLISH_PROSE_HINTS for word in prose_words):
+        return True
+
+    return False
+
+
 def analyze_file(path: Path, locale: str) -> dict[str, object]:
     text = path.read_text(encoding="utf-8")
     visible = strip_fenced_code(text)
     path_key = rel_key(path, locale)
     summaries = re.findall(r"<summary>(.*?)</summary>", text, flags=re.DOTALL)
-    image_refs = re.findall(r"!\[[^\]]*\]\(([^)]+)\)", text)
+    markdown_images = MARKDOWN_IMAGE_RE.findall(text)
+    html_images = [(None, match.group(1)) for match in HTML_IMAGE_RE.finditer(text)]
+    image_refs = [ref for _, ref in markdown_images] + [ref for _, ref in html_images]
     direct_raster_refs = [ref for ref in image_refs if re.search(r"\.(png|jpe?g)(?:$|[?#])", ref, re.I)]
     residue_hits: list[str] = []
     english_alt_hits: list[str] = []
@@ -108,7 +262,7 @@ def analyze_file(path: Path, locale: str) -> dict[str, object]:
         for pattern in VISIBLE_RESIDUE_PATTERNS:
             if re.search(pattern, visible):
                 residue_hits.append(pattern)
-        english_alt_hits = [match.group(1) for match in ENGLISH_ALT_PATTERN.finditer(visible)]
+        english_alt_hits = [alt for alt, _ in MARKDOWN_IMAGE_RE.findall(visible) if localized_alt_looks_english(alt)]
     if not is_allowlisted(path_key, LEGACY_CONTEXT_ALLOWLIST):
         for pattern in LEGACY_CONTEXT_PATTERNS:
             if re.search(pattern, visible, flags=re.IGNORECASE):
