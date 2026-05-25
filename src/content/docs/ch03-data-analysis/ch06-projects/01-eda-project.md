@@ -132,13 +132,14 @@ tips.head(10)
 
 Example output:
 
-| | total_bill | tip | sex | smoker | day | time | size |
-|---|-----------|-----|-----|--------|-----|------|------|
-| 0 | 16.99 | 1.01 | Female | No | Sun | Dinner | 2 |
-| 1 | 10.34 | 1.66 | Male | No | Sun | Dinner | 3 |
-| 2 | 21.01 | 3.50 | Male | No | Sun | Dinner | 3 |
-| 3 | 23.68 | 3.31 | Male | No | Sun | Dinner | 2 |
-| 4 | 24.59 | 3.61 | Female | No | Sun | Dinner | 4 |
+The dataset has these columns: `total_bill`, `tip`, `sex`, `smoker`, `day`, `time`, and `size`.
+
+Two sample rows are enough for a first read:
+
+| Row | What it says |
+|---|---|
+| 0 | A Sunday dinner table of 2, total bill 16.99, tip 1.01, non-smoker |
+| 1 | A Sunday dinner table of 3, total bill 10.34, tip 1.66, non-smoker |
 
 ---
 
@@ -217,16 +218,14 @@ tips['tip_pct'] = (tips['tip'] / tips['total_bill'] * 100).round(2)
 # Per-person spending
 tips['per_person'] = (tips['total_bill'] / tips['size']).round(2)
 
-tips[['total_bill', 'tip', 'tip_pct', 'per_person']].head()
+tips[['total_bill', 'tip_pct', 'per_person']].head()
 ```
 
-| | total_bill | tip | tip_pct | per_person |
-|---|-----------|-----|---------|-----------|
-| 0 | 16.99 | 1.01 | 5.94 | 8.50 |
-| 1 | 10.34 | 1.66 | 16.05 | 3.45 |
-| 2 | 21.01 | 3.50 | 16.66 | 7.00 |
-| 3 | 23.68 | 3.31 | 13.97 | 11.84 |
-| 4 | 24.59 | 3.61 | 14.68 | 6.15 |
+| Row | total_bill | tip_pct | per_person |
+|---|---:|---:|---:|
+| 0 | 16.99 | 5.94 | 8.50 |
+| 1 | 10.34 | 16.05 | 3.45 |
+| 2 | 21.01 | 16.66 | 7.00 |
 
 ---
 

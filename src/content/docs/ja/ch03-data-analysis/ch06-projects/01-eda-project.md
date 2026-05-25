@@ -134,13 +134,14 @@ tips.head(10)
 
 出力例：
 
-| | total_bill | tip | sex | smoker | day | time | size |
-|---|-----------|-----|-----|--------|-----|------|------|
-| 0 | 16.99 | 1.01 | Female | No | Sun | Dinner | 2 |
-| 1 | 10.34 | 1.66 | Male | No | Sun | Dinner | 3 |
-| 2 | 21.01 | 3.50 | Male | No | Sun | Dinner | 3 |
-| 3 | 23.68 | 3.31 | Male | No | Sun | Dinner | 2 |
-| 4 | 24.59 | 3.61 | Female | No | Sun | Dinner | 4 |
+このデータセットには、`total_bill`、`tip`、`sex`、`smoker`、`day`、`time`、`size` という列があります。
+
+最初は、2 行だけ読めれば十分です。
+
+| 行 | 何を表しているか |
+|---|---|
+| 0 | 日曜の夕食、2 人、合計 16.99、チップ 1.01、非喫煙者 |
+| 1 | 日曜の夕食、3 人、合計 10.34、チップ 1.66、非喫煙者 |
 
 ---
 
@@ -220,16 +221,14 @@ tips['tip_pct'] = (tips['tip'] / tips['total_bill'] * 100).round(2)
 # 1 人あたりの支払額
 tips['per_person'] = (tips['total_bill'] / tips['size']).round(2)
 
-tips[['total_bill', 'tip', 'tip_pct', 'per_person']].head()
+tips[['total_bill', 'tip_pct', 'per_person']].head()
 ```
 
-| | total_bill | tip | tip_pct | per_person |
-|---|-----------|-----|---------|-----------|
-| 0 | 16.99 | 1.01 | 5.94 | 8.50 |
-| 1 | 10.34 | 1.66 | 16.05 | 3.45 |
-| 2 | 21.01 | 3.50 | 16.66 | 7.00 |
-| 3 | 23.68 | 3.31 | 13.97 | 11.84 |
-| 4 | 24.59 | 3.61 | 14.68 | 6.15 |
+| 行 | total_bill | tip_pct | per_person |
+|---|---:|---:|---:|
+| 0 | 16.99 | 5.94 | 8.50 |
+| 1 | 10.34 | 16.05 | 3.45 |
+| 2 | 21.01 | 16.66 | 7.00 |
 
 ---
 
