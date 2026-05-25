@@ -166,3 +166,13 @@ output: probability, sample statistic, interval, entropy, or updated belief
 failure_check: base-rate confusion, p-value misuse, sample bias, or mixing probability with certainty
 Expected_output: numeric result plus interpretation in plain language
 ```
+
+<details>
+<summary>Review notes and pass criteria</summary>
+
+- A passing review should translate every number back into a judgment: what changed, what stayed uncertain, and what evidence would update the conclusion.
+- Check one Bayes update, one likelihood choice, and one entropy or cross-entropy value. If the result is only a formula with no plain-language interpretation, the work is not finished.
+- Keep one failure example where probability is treated as certainty or where a base rate is ignored. This is the most common practical mistake.
+- The page is complete when you can explain why probability is the shared language behind data analysis, ML training, loss functions, and model evaluation.
+
+</details>

@@ -281,3 +281,13 @@ I can describe why Chapter 6 prepares me for Transformer and LLMs.
 ```
 
 この4行をまだ説明できないなら、CNN、RNN、Transformer の名前へ進む前に、この橋渡しを読み直します。
+
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+- 合格する bridge note は、第5ステーションと同じ骨格を保ちます。data、model、loss または metric、improvement、error analysis です。
+- そのうえで、第6ステーションで明示的になるものを言います。forward pass、backward pass、optimizer step、device choice、checkpoint です。
+- 小さな neural network を 1 つ実行または読解し、representation learning がどの行で起きているかを指摘します。「model が deep になった」だけなら、まだ区別が曖昧です。
+- tool を選ぶ前に、その問題が sklearn の単純さを必要とするのか、PyTorch の制御力を必要とするのか判断できれば、このページは完了です。
+
+</details>

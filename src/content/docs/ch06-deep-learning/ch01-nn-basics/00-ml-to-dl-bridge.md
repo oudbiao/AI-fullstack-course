@@ -281,3 +281,13 @@ I can describe why Chapter 6 prepares me for Transformer and LLMs.
 ```
 
 If you cannot say those four lines yet, reread the bridge before jumping into CNN, RNN, or Transformer architecture names.
+
+<details>
+<summary>Review notes and pass criteria</summary>
+
+- A passing bridge note should keep the same skeleton from Station 5: data, model, loss or metric, improvement, and error analysis.
+- Then name what becomes explicit in Station 6: forward pass, backward pass, optimizer step, device choice, and checkpoint.
+- Run or inspect one tiny neural network and point to the line where representation learning happens. If the answer is only “the model is deeper,” the distinction is still too vague.
+- The page is complete when you can decide whether a problem needs sklearn simplicity or PyTorch control before choosing a tool.
+
+</details>

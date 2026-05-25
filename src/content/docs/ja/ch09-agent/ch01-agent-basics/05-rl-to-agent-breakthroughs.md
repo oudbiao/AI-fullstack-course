@@ -155,3 +155,13 @@ TD-Gammon、DQN、AlphaGo の物語が教えてくれるのは、次のことで
 失敗確認: 自律性が高すぎる、あいまいな目標、状態不足、または trace がない
 次の行動：追跡可能な最小の single-agent ループを構築する
 ```
+
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+- 合格の目安は、歴史上のシステムを 1 つの Agent design choice に対応づけられることです。self-play は feedback data、DQN は environment actions、AlphaGo は search and planning、RLHF は preference shaping です。
+- goal、state、action、observation、evaluator、safety constraint を含む loop を 1 つ書くか描きます。どれかが欠けると、Agent を信頼してレビューできません。
+- Agent が誤った action を取った trace を 1 つ残し、原因が goal、state、tool permission、planner、evaluator のどこにあるかを説明します。
+- traceable Agent は、instruction が多い chatbot ではなく controlled action system だと説明できれば、このページは完了です。
+
+</details>

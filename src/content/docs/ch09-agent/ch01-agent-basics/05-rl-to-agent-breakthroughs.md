@@ -153,3 +153,13 @@ architecture_parts: planner, tools, memory, guardrails, evaluator
 failure_check: over-autonomy, vague goal, missing state, or no trace
 next_action: build the smallest traceable single-agent loop
 ```
+
+<details>
+<summary>Review notes and pass criteria</summary>
+
+- A passing review should map one historical system to one Agent design choice: self-play to feedback data, DQN to environment actions, AlphaGo to search and planning, or RLHF to preference shaping.
+- Draw or write one loop with goal, state, action, observation, evaluator, and safety constraint. If any piece is missing, the Agent cannot be reviewed reliably.
+- Keep one trace where the Agent takes a wrong action and explain whether the fault is the goal, state, tool permission, planner, or evaluator.
+- The page is complete when you can explain why a traceable Agent is a controlled action system, not just a chatbot with more instructions.
+
+</details>

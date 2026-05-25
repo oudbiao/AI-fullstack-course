@@ -281,3 +281,13 @@ I can describe why Chapter 6 prepares me for Transformer and LLMs.
 ```
 
 如果这四句话还说不出来，先回看这座桥，再进入 CNN、RNN 或 Transformer 架构名词。
+
+<details>
+<summary>复盘要点与通过标准</summary>
+
+- 合格的桥接笔记应该保留第 5 站的同一套骨架：数据、模型、损失或指标、改进、错误分析。
+- 然后说清楚第 6 站哪些东西变得更显式：forward、backward、optimizer step、device 选择和 checkpoint。
+- 跑一次或阅读一个很小的神经网络，并指出“表征学习”发生在哪一行。如果只说“模型更深了”，区别还不够清楚。
+- 当你能在选工具前判断一个问题更需要 sklearn 的简单性，还是 PyTorch 的控制力时，本页就算通过。
+
+</details>

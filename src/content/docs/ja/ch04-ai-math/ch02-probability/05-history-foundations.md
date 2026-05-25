@@ -166,3 +166,13 @@ loss = cross_entropy(prediction, label)
 失敗確認：ベースレートの混同、p値の誤用、サンプルバイアス、または確率と確実性の混同
 期待される成果: 数値結果と平易な言葉での解釈
 ```
+
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+- 合格の目安は、すべての数値を判断に戻して説明できることです。何が変わり、何がまだ不確実で、どんな証拠が結論を更新するのかを言葉にします。
+- Bayes update、likelihood choice、entropy または cross-entropy value をそれぞれ 1 つ確認します。式だけで plain-language interpretation がなければ未完了です。
+- probability を certainty として扱う例、または base rate を無視する failure example を 1 つ残します。実務で最も起きやすい誤りです。
+- probability が data analysis、ML training、loss functions、model evaluation をつなぐ共通言語だと説明できれば、このページは完了です。
+
+</details>
