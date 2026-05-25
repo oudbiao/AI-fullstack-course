@@ -143,6 +143,8 @@ npm run qa:course
 npm run seo:indexnow:dry-run
 ```
 
+`npm run qa:course` reports actionable content gaps. Appendix, navigation, and study-guide pages are exempt from the folded-answer advisory so the remaining samples point to lesson pages that may need clearer walkthroughs.
+
 For direct script checks:
 
 ```bash

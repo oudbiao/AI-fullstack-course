@@ -125,6 +125,8 @@ npm run qa:course
 npm run seo:indexnow:dry-run
 ```
 
+`npm run qa:course` 会报告可操作的课程内容缺口。附录、导航页和 study guide 不计入折叠讲解提示，这样剩余样例会更集中地指向可能需要补 walkthrough 的正文页面。
+
 直接验证脚本：
 
 ```bash

@@ -125,6 +125,8 @@ npm run qa:course
 npm run seo:indexnow:dry-run
 ```
 
+`npm run qa:course` は、対応しやすいコース本文の不足を報告します。appendix、navigation page、study guide は folded-answer advisory から除外し、残るサンプルが walkthrough を補うべき lesson page を指すようにしています。
+
 直接検証する場合：
 
 ```bash

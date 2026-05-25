@@ -76,9 +76,8 @@ LEGACY_CONTEXT_ALLOWLIST = [
 ]
 
 # Folded answers are valuable for exercises, labs, and project review prompts.
-# They are noisy on pure navigation, appendix, and study-guide pages, so the
-# dashboard separates actionable missing answers from advisory "no folded block"
-# counts.
+# Pure navigation, appendix, and study-guide pages are intentionally exempt so
+# the advisory list stays useful as a backlog for content pages.
 ANSWER_SUMMARY_REQUIRED_PATTERNS = {
     "en": [
         r"^## .*Exercise\b",
@@ -343,6 +342,7 @@ def analyze_file(path: Path, locale: str) -> dict[str, object]:
         "has_evidence": EVIDENCE_HEADINGS[locale] in text,
         "has_summary": bool(summaries),
         "requires_answer_summary": requires_answer_summary(path_key, locale, visible),
+        "answer_summary_advisory_exempt": is_allowlisted(path_key, ANSWER_SUMMARY_ADVISORY_ALLOWLIST),
         "duplicate_summaries": [item for item, n in Counter(summaries).items() if n > 1],
         "details_delta": count(r"<details>", text) - count(r"</details>", text),
         "summary_delta": count(r"<summary>", text) - count(r"</summary>", text),
@@ -377,7 +377,7 @@ def main() -> int:
         no_folded_block_advisory = [
             a["path"]
             for a in analyses
-            if not a["requires_answer_summary"] and not a["has_summary"]
+            if not a["requires_answer_summary"] and not a["has_summary"] and not a["answer_summary_advisory_exempt"]
         ]
         missing_images = [a["path"] for a in analyses if a["image_count"] == 0]
         unbalanced = [a["path"] for a in analyses if a["details_delta"] or a["summary_delta"]]
