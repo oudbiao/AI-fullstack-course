@@ -275,21 +275,12 @@ git diff abc1234 def5678    # 2 つのコミット間の差分を比較
 git log
 ```
 
-出力：
+出力では、最新の commit から順に、ID、author、date、message が並びます。
 
-```
-commit def5678... (HEAD -> main)
-Author: Zhang San <zhangsan@example.com>
-Date:   Mon Feb 9 10:30:00 2026
-
-    2つ目の畳み込み層を追加してモデルの表現力を向上
-
-commit a1b2c3d...
-Author: Zhang San <zhangsan@example.com>
-Date:   Mon Feb 9 10:00:00 2026
-
-    プロジェクトを初期化：モデル定義とプロジェクト構成を追加
-```
+| commit | 位置 | message |
+|---|---|---|
+| `def5678...` | `HEAD -> main` | 2つ目の畳み込み層を追加してモデルの表現力を向上 |
+| `a1b2c3d...` | 過去の commit | プロジェクトを初期化：モデル定義とプロジェクト構成を追加 |
 
 ### もっと簡潔に履歴を見る
 
