@@ -6,6 +6,8 @@ sidebar:
 ---
 ![运算符与条件判断流程图](/img/course/ch02-operators-decision-flow.webp)
 
+先看这张图：每个判断都从一个表达式开始，表达式通过比较和逻辑运算符变成 `True` 或 `False`，再决定程序走哪条分支。
+
 ## 本节定位
 
 这一节学习如何对数据做计算和判断。运算符不仅用于数学计算，也会出现在模型指标计算、条件筛选、循环判断和数据清洗逻辑里，是把变量组合成程序逻辑的第一步。
@@ -209,6 +211,8 @@ print(f"是否实用: {is_practical}")  # True
 
 ![短路求值安全检查图解](/img/course/ch02-short-circuit-safety-check.webp)
 
+读这张图时，重点看判断顺序：左侧条件如果已经能决定结果，右侧表达式就不会再执行。
+
 Python 的 `and` 和 `or` 有一个聪明的特性——**短路求值**：
 
 ```python
@@ -230,6 +234,8 @@ data = []
 if len(data) > 0 and data[0] > 10:
     print("第一个元素大于 10")
 ```
+
+读短路表达式时，顺序非常重要：把最便宜、最安全的检查放在前面，把可能报错或更耗时的访问放在后面。后面学习文件、列表、字典、API 返回值时，这个习惯会反复用到。
 
 ---
 
@@ -349,6 +355,28 @@ result = (2 ** 3) ** 2   # 64
 :::tip[实用建议]
 **不确定优先级的时候，加括号！** 括号不仅能确保计算顺序正确，还能让代码更容易读懂。没人会因为你多写了括号而笑话你。
 :::
+
+## 表达式调试法
+
+当一个条件判断看不懂时，不要一次盯完整表达式。把它拆成中间变量：
+
+```python
+accuracy = 87.3
+loss = 0.35
+latency_ms = 185
+
+is_accurate_enough = accuracy >= 80
+is_loss_ok = loss < 0.5
+is_latency_ok = latency_ms < 250
+
+can_demo = is_accurate_enough and is_loss_ok and is_latency_ok
+print(is_accurate_enough, is_loss_ok, is_latency_ok, can_demo)
+```
+
+这样做有两个好处：第一，打印结果能告诉你到底是哪一个小条件失败；第二，变量名会把业务含义写进代码里，比一长串符号更容易复查。
+
+表达式拆开以后，还可以把每个中间变量打印出来，形成最小调试 trace。以后做数据清洗、模型评估或 API 监控时，很多 bug 都不是算法错，而是某个条件写反、阈值写错、或者 `and` / `or` 组合顺序不符合业务预期。
+
 ---
 
 ## 综合案例：API 延迟检查
