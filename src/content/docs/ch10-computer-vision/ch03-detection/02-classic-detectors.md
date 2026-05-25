@@ -43,11 +43,11 @@ So what this section really wants to answer is:
 
 ### A better overall analogy for beginners
 
-You can think of classic detection architectures as shopping in a huge mall for a target product:
+You can think of classic detection architectures as scanning a huge observability dashboard for the failing service:
 
-- R-CNN is like taking each suspicious area out separately and checking it carefully
-- Fast R-CNN is like scanning the whole mall quickly first, then zooming in on key areas
-- Faster R-CNN is like letting the system learn automatically which areas are worth looking at
+- R-CNN is like opening each suspicious panel separately and checking it carefully
+- Fast R-CNN is like scanning the whole dashboard once, then zooming in on key panels
+- Faster R-CNN is like letting the system learn automatically which panels are worth inspecting
 
 Once you understand it this way, the differences between these three generations of models are no longer just names.
 

@@ -267,49 +267,49 @@ print(f"喜欢编程的人中，也喜欢数学的比例: {p_math_given_code:.1%
 rng = np.random.default_rng(seed=42)
 n = 10000
 
-# 天气：晴(0.7) / 雨(0.3)
-weather = rng.choice(['晴', '雨'], n, p=[0.7, 0.3])
+# 服务状态：健康(0.85) / 降级(0.15)
+service_state = rng.choice(['健康', '降级'], n, p=[0.85, 0.15])
 
-# 带伞概率取决于天气
-umbrella = np.where(
-    weather == '雨',
-    rng.choice(['带', '不带'], n, p=[0.8, 0.2]),  # 下雨时 80% 会带伞
-    rng.choice(['带', '不带'], n, p=[0.1, 0.9])   # 晴天时 10% 会带伞
+# 告警概率取决于服务状态
+alert = np.where(
+    service_state == '降级',
+    rng.choice(['告警', '无告警'], n, p=[0.75, 0.25]),  # 降级时 75% 会告警
+    rng.choice(['告警', '无告警'], n, p=[0.05, 0.95])   # 健康时 5% 会误报
 )
 
 # 不额外依赖 pandas，用 NumPy 直接计算联合概率表
-weather_labels = ['晴', '雨']
-umbrella_labels = ['带', '不带']
+state_labels = ['健康', '降级']
+alert_labels = ['告警', '无告警']
 joint = np.array([
-    [((weather == w) & (umbrella == u)).mean() for u in umbrella_labels]
-    for w in weather_labels
+    [((service_state == s) & (alert == a)).mean() for a in alert_labels]
+    for s in state_labels
 ])
 
 print("联合概率表：")
-print("        带     不带")
-for label, row in zip(weather_labels, joint):
+print("        告警    无告警")
+for label, row in zip(state_labels, joint):
     print(f"{label:>4}   {row[0]:.3f}   {row[1]:.3f}")
-print(f"\n边缘概率 P(雨): {(weather == '雨').mean():.3f}")
-print(f"边缘概率 P(带伞): {(umbrella == '带').mean():.3f}")
+print(f"\n边缘概率 P(降级): {(service_state == '降级').mean():.3f}")
+print(f"边缘概率 P(告警): {(alert == '告警').mean():.3f}")
 ```
 
 使用 `seed=42` 时，预期输出：
 
 ```text
 联合概率表：
-        带     不带
-   晴   0.068   0.637
-   雨   0.235   0.059
+        告警    无告警
+  健康   0.043   0.809
+  降级   0.109   0.039
 
-边缘概率 P(雨): 0.294
-边缘概率 P(带伞): 0.304
+边缘概率 P(降级): 0.147
+边缘概率 P(告警): 0.152
 ```
 
-| | 带伞 | 不带 | 合计（边缘概率） |
+| | 告警 | 无告警 | 合计（边缘概率） |
 |---|------|------|---------|
-| 晴 | 0.07 | 0.63 | 0.70 |
-| 雨 | 0.24 | 0.06 | 0.30 |
-| 合计 | 0.31 | 0.69 | 1.00 |
+| 健康 | 0.04 | 0.81 | 0.85 |
+| 降级 | 0.11 | 0.04 | 0.15 |
+| 合计 | 0.15 | 0.85 | 1.00 |
 
 因为这是模拟结果，所以会和理论表有一点点差异。样本越多，结果会越接近理论值。
 
@@ -496,7 +496,7 @@ print(f"包含'免费'的邮件是垃圾邮件的概率: {p_spam_given_free:.1%}
 |------|------|------|------|
 | 垃圾邮件过滤 | 邮件是垃圾邮件的概率 | 垃圾邮件包含某词的概率 | 给定词后是垃圾邮件的概率 |
 | 医学诊断 | 疾病的发病率 | 有病时检测阳性的概率 | 阳性后真有病的概率 |
-| 推荐系统 | 用户喜欢某类型的概率 | 喜欢该类型的人看某电影的概率 | 用户会看这部电影的概率 |
+| 模型路由 | 请求需要强模型的概率 | 相似难例在小模型上失败的概率 | 这个请求应升级路由的概率 |
 | 语言模型 | 某个词出现的概率 | 前文给定后该词出现的概率 | 最可能的下一个词 |
 
 ---

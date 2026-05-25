@@ -270,15 +270,15 @@ def cosine_similarity(a, b):
     norm_b = np.linalg.norm(b)                  # b の長さ
     return dot_product / (norm_a * norm_b)
 
-# 例：ユーザーの興味を比較する
-# 各次元は [技術, スポーツ, 音楽, 映画, グルメ]
-user_a = np.array([5, 1, 3, 4, 2])   # 技術と映画が好き
-user_b = np.array([4, 2, 3, 5, 1])   # 技術と映画が好き
-user_c = np.array([1, 5, 2, 1, 4])   # スポーツとグルメが好き
+# 例：モデルサービングプロファイルを比較する
+# 各次元は [accuracy, throughput, low_latency, low_memory, stability]
+baseline = np.array([4, 3, 2, 2, 4])
+quantized = np.array([4, 3, 3, 3, 4])
+experimental = np.array([2, 5, 5, 4, 2])
 
-print(f"A と B の類似度: {cosine_similarity(user_a, user_b):.4f}")  # 0.9631 とても似ている
-print(f"A と C の類似度: {cosine_similarity(user_a, user_c):.4f}")  # 0.5528 あまり似ていない
-print(f"B と C の類似度: {cosine_similarity(user_b, user_c):.4f}")  # 0.5025 あまり似ていない
+print(f"Baseline vs quantized: {cosine_similarity(baseline, quantized):.4f}")      # 0.9857
+print(f"Baseline vs experimental: {cosine_similarity(baseline, experimental):.4f}")  # 0.8137
+print(f"Quantized vs experimental: {cosine_similarity(quantized, experimental):.4f}") # 0.8778
 ```
 
 ---
@@ -322,17 +322,17 @@ print(f"B と C の類似度: {cosine_similarity(user_b, user_c):.4f}")  # 0.502
 ### 練習 1：行列積
 
 ```python
-# ある店の 3 種類の商品価格
-prices = np.array([10, 25, 8])   # [りんご, ステーキ, パン]
+# 3 つのパイプライン段階ごとのリソースコスト
+cost_per_stage = np.array([4, 12, 6])   # [embed, rerank, generate]
 
-# 3 人の客の購入数
-quantities = np.array([
-    [3, 1, 2],    # 顧客 1: りんご3個 + ステーキ1つ + パン2個
-    [0, 2, 5],    # 顧客 2
-    [5, 0, 3]     # 顧客 3
+# 3 つのリクエストバッチにおける段階呼び出し回数
+stage_counts = np.array([
+    [3, 1, 2],    # バッチ 1
+    [0, 2, 5],    # バッチ 2
+    [5, 0, 3]     # バッチ 3
 ])
 
-# 行列積を使って、それぞれの合計金額を計算する
+# 行列積を使って、それぞれのバッチの総コストを計算する
 # totals = ?
 ```
 
@@ -350,26 +350,24 @@ quantities = np.array([
 ### 練習 3：コサイン類似度の応用
 
 ```python
-# 5本の映画の特徴ベクトルがあるとします
-# 各次元は [アクション, コメディ, 恋愛, SF, ホラー]
-movies = {
-    "アベンジャーズ": np.array([5, 2, 1, 4, 0]),
-    "タイム・イズ・マネー":       np.array([1, 5, 2, 0, 0]),
-    "タイタニック": np.array([1, 0, 5, 0, 1]),
-    "インターステラー":   np.array([3, 0, 2, 5, 0]),
-    "新感染 ファイナル・エクスプレス":     np.array([4, 0, 1, 1, 5]),
+# モデルサービングプロファイルの特徴ベクトルがあるとします
+# 各次元は [accuracy, throughput, low_latency, low_memory, stability]
+profiles = {
+    "baseline": np.array([4, 3, 2, 2, 4]),
+    "quantized": np.array([4, 3, 3, 3, 4]),
+    "experimental": np.array([2, 5, 5, 4, 2]),
 }
 
-# コサイン類似度を使って、「アベンジャーズ」といちばん似ている映画を見つける
-# ヒント：「アベンジャーズ」と他の各映画のコサイン類似度を計算する
+# コサイン類似度を使って、"baseline" と最も似ているプロファイルを見つける
+# ヒント："baseline" と他の各プロファイルのコサイン類似度を計算する
 ```
 
 
 <details>
 <summary>参考実装と解説</summary>
 
-- 買い物の例では、`quantities @ prices` が最もすっきりしたベクトル化答えです。価格が `[10, 25, 8]`、数量行が `[3,1,2]`、`[0,2,5]`、`[5,0,3]` なら、合計は `71`、`90`、`74` です。
+- リソースコストの例では、`stage_counts @ cost_per_stage` が最もすっきりしたベクトル化答えです。コストが `[4, 12, 6]`、呼び出し回数が `[3,1,2]`、`[0,2,5]`、`[5,0,3]` なら、合計は `36`、`54`、`38` です。
 - 連立方程式 `3x + 2y - z = 1`、`x - y + 2z = 5`、`2x + 3y - z = 0` は、`np.linalg.solve` で `x=1`、`y=0`、`z=2` になります。
-- 映画のコサイン類似度では、ベクトル長で正規化した値を比較します。最も似ている映画は、単なる内積ではなくコサイン値が最大の映画です。
+- プロファイルのコサイン類似度では、ベクトル長で正規化した値を比較します。最も似ているプロファイルは、単なる内積ではなくコサイン値が最大のプロファイルです。
 
 </details>

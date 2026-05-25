@@ -782,15 +782,15 @@ plt.show()
 
 **挑战 1：加入更多数据源**
 
-从网络 API 获取数据（如天气数据），分析天气对销售的影响：
+从网络 API 获取数据（如服务状态或活动流量），分析它们对转化的影响：
 
 ```python
-# 示例：模拟天气数据
+# 示例：模拟服务状态数据
 rng = np.random.default_rng(seed=42)
-weather = pd.DataFrame({
+service_status = pd.DataFrame({
     'date': pd.date_range('2024-01-01', '2024-12-31'),
-    'temp': rng.normal(20, 10, 366).clip(-5, 40),
-    'rain': rng.choice([0, 0, 0, 1], 366)  # 0=晴 1=雨
+    'latency_ms': rng.normal(180, 35, 366).clip(40, None),
+    'incident': rng.choice([0, 0, 0, 1], 366)  # 0=正常 1=事故
 })
 ```
 

@@ -782,15 +782,15 @@ plt.show()
 
 **課題 1：もっと多くのデータソースを追加する**
 
-ネットワーク API からデータ（例：天気データ）を取得し、天気が売上に与える影響を分析します。
+ネットワーク API からデータ（例：サービス状態やキャンペーン流入）を取得し、コンバージョンへの影響を分析します。
 
 ```python
-# 例：モックの天気データ
+# 例：モックのサービス状態データ
 rng = np.random.default_rng(seed=42)
-weather = pd.DataFrame({
+service_status = pd.DataFrame({
     'date': pd.date_range('2024-01-01', '2024-12-31'),
-    'temp': rng.normal(20, 10, 366).clip(-5, 40),
-    'rain': rng.choice([0, 0, 0, 1], 366)  # 0=晴れ 1=雨
+    'latency_ms': rng.normal(180, 35, 366).clip(40, None),
+    'incident': rng.choice([0, 0, 0, 1], 366)  # 0=正常 1=インシデント
 })
 ```
 

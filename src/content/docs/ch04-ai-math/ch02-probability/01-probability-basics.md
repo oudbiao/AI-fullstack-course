@@ -266,49 +266,49 @@ But they have different denominators, so they are fundamentally different questi
 rng = np.random.default_rng(seed=42)
 n = 10000
 
-# Weather: sunny (0.7) / rainy (0.3)
-weather = rng.choice(['Sunny', 'Rainy'], n, p=[0.7, 0.3])
+# Service state: healthy (0.85) / degraded (0.15)
+service_state = rng.choice(['Healthy', 'Degraded'], n, p=[0.85, 0.15])
 
-# Probability of carrying an umbrella depends on the weather
-umbrella = np.where(
-    weather == 'Rainy',
-    rng.choice(['Carry', 'No carry'], n, p=[0.8, 0.2]),  # 80% carry an umbrella when rainy
-    rng.choice(['Carry', 'No carry'], n, p=[0.1, 0.9])   # 10% carry an umbrella when sunny
+# Alert probability depends on service state
+alert = np.where(
+    service_state == 'Degraded',
+    rng.choice(['Alert', 'No alert'], n, p=[0.75, 0.25]),  # 75% alert when degraded
+    rng.choice(['Alert', 'No alert'], n, p=[0.05, 0.95])   # 5% alert when healthy
 )
 
 # Joint probability table without extra dependencies
-weather_labels = ['Sunny', 'Rainy']
-umbrella_labels = ['Carry', 'No carry']
+state_labels = ['Healthy', 'Degraded']
+alert_labels = ['Alert', 'No alert']
 joint = np.array([
-    [((weather == w) & (umbrella == u)).mean() for u in umbrella_labels]
-    for w in weather_labels
+    [((service_state == s) & (alert == a)).mean() for a in alert_labels]
+    for s in state_labels
 ])
 
 print("Joint probability table:")
-print("          Carry  No carry")
-for label, row in zip(weather_labels, joint):
-    print(f"{label:>6}   {row[0]:.3f}    {row[1]:.3f}")
-print(f"\nMarginal probability P(rainy): {(weather == 'Rainy').mean():.3f}")
-print(f"Marginal probability P(carry umbrella): {(umbrella == 'Carry').mean():.3f}")
+print("             Alert  No alert")
+for label, row in zip(state_labels, joint):
+    print(f"{label:>9}   {row[0]:.3f}    {row[1]:.3f}")
+print(f"\nMarginal probability P(degraded): {(service_state == 'Degraded').mean():.3f}")
+print(f"Marginal probability P(alert): {(alert == 'Alert').mean():.3f}")
 ```
 
 Expected output with `seed=42`:
 
 ```text
 Joint probability table:
-          Carry  No carry
- Sunny   0.068    0.637
- Rainy   0.235    0.059
+             Alert  No alert
+  Healthy   0.043    0.809
+ Degraded   0.109    0.039
 
-Marginal probability P(rainy): 0.294
-Marginal probability P(carry umbrella): 0.304
+Marginal probability P(degraded): 0.147
+Marginal probability P(alert): 0.152
 ```
 
-| | Carry | No carry | Total (marginal probability) |
+| | Alert | No alert | Total (marginal probability) |
 |---|------|------|---------|
-| Sunny | 0.07 | 0.63 | 0.70 |
-| Rainy | 0.24 | 0.06 | 0.30 |
-| Total | 0.31 | 0.69 | 1.00 |
+| Healthy | 0.04 | 0.81 | 0.85 |
+| Degraded | 0.11 | 0.04 | 0.15 |
+| Total | 0.15 | 0.85 | 1.00 |
 
 The table is slightly different from the ideal values because it is simulated. With more samples, it will get closer to the theoretical table.
 
@@ -495,7 +495,7 @@ Probability that an email containing 'free' is spam: 87.3%
 |------|------|------|------|
 | Spam filtering | Probability that an email is spam | Probability that spam contains a certain word | Probability that it is spam given the word |
 | Medical diagnosis | Incidence rate of a disease | Probability of a positive test when diseased | Probability of truly being sick after a positive result |
-| Recommendation systems | Probability that a user likes a category | Probability that users who like that category watch a certain movie | Probability that the user will watch this movie |
+| Model routing | Probability that a request needs a stronger model | Probability that similar hard requests failed on a small model | Probability that this request should be routed up |
 | Language models | Probability of a word appearing | Probability that the word appears given the context | Most likely next word |
 
 ---

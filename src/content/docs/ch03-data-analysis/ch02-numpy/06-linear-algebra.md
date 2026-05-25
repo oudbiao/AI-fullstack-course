@@ -269,15 +269,15 @@ def cosine_similarity(a, b):
     norm_b = np.linalg.norm(b)                  # Length of b
     return dot_product / (norm_a * norm_b)
 
-# Example: compare user interests
-# Dimensions represent: [technology, sports, music, movies, food]
-user_a = np.array([5, 1, 3, 4, 2])   # Likes technology and movies
-user_b = np.array([4, 2, 3, 5, 1])   # Also likes technology and movies
-user_c = np.array([1, 5, 2, 1, 4])   # Likes sports and food
+# Example: compare model-serving profiles
+# Dimensions represent: [accuracy, throughput, low_latency, low_memory, stability]
+baseline = np.array([4, 3, 2, 2, 4])
+quantized = np.array([4, 3, 3, 3, 4])
+experimental = np.array([2, 5, 5, 4, 2])
 
-print(f"Similarity between A and B: {cosine_similarity(user_a, user_b):.4f}")  # 0.9631 very similar
-print(f"Similarity between A and C: {cosine_similarity(user_a, user_c):.4f}")  # 0.5528 not very similar
-print(f"Similarity between B and C: {cosine_similarity(user_b, user_c):.4f}")  # 0.5025 not very similar
+print(f"Baseline vs quantized: {cosine_similarity(baseline, quantized):.4f}")      # 0.9857
+print(f"Baseline vs experimental: {cosine_similarity(baseline, experimental):.4f}")  # 0.8137
+print(f"Quantized vs experimental: {cosine_similarity(quantized, experimental):.4f}") # 0.8778
 ```
 
 ---
@@ -320,17 +320,17 @@ You will learn the deeper mathematical understanding systematically in Chapter 4
 ### Exercise 1: Matrix multiplication
 
 ```python
-# Unit prices for 3 products in a store
-prices = np.array([10, 25, 8])   # [apples, steak, bread]
+# Resource cost per request for 3 pipeline stages
+cost_per_stage = np.array([4, 12, 6])   # [embed, rerank, generate]
 
-# Purchase quantities for 3 customers
-quantities = np.array([
-    [3, 1, 2],    # Customer 1: 3 apples + 1 steak + 2 bread
-    [0, 2, 5],    # Customer 2
-    [5, 0, 3]     # Customer 3
+# Stage counts for 3 request batches
+stage_counts = np.array([
+    [3, 1, 2],    # Batch 1
+    [0, 2, 5],    # Batch 2
+    [5, 0, 3]     # Batch 3
 ])
 
-# Use matrix multiplication to calculate the total spending of each customer
+# Use matrix multiplication to calculate the total cost of each batch
 # totals = ?
 ```
 
@@ -348,26 +348,24 @@ quantities = np.array([
 ### Exercise 3: Cosine similarity application
 
 ```python
-# Suppose we have feature vectors for 5 movies
-# Dimensions represent: [action, comedy, romance, sci-fi, horror]
-movies = {
-    "Avengers": np.array([5, 2, 1, 4, 0]),
-    "Lost in Thailand": np.array([1, 5, 2, 0, 0]),
-    "Titanic": np.array([1, 0, 5, 0, 1]),
-    "Interstellar": np.array([3, 0, 2, 5, 0]),
-    "Train to Busan": np.array([4, 0, 1, 1, 5]),
+# Suppose we have feature vectors for model-serving profiles
+# Dimensions represent: [accuracy, throughput, low_latency, low_memory, stability]
+profiles = {
+    "baseline": np.array([4, 3, 2, 2, 4]),
+    "quantized": np.array([4, 3, 3, 3, 4]),
+    "experimental": np.array([2, 5, 5, 4, 2]),
 }
 
-# Use cosine similarity to find the movie most similar to "Avengers"
-# Hint: calculate the cosine similarity between "Avengers" and each of the other movies
+# Use cosine similarity to find the profile most similar to "baseline"
+# Hint: calculate the cosine similarity between "baseline" and each other profile
 ```
 
 
 <details>
 <summary>Reference implementation and walkthrough</summary>
 
-- For the shopping example, `quantities @ prices` is the clean vectorized answer. With prices `[10, 25, 8]` and rows `[3,1,2]`, `[0,2,5]`, `[5,0,3]`, the totals are `71`, `90`, and `74`.
+- For the resource-cost example, `stage_counts @ cost_per_stage` is the clean vectorized answer. With costs `[4, 12, 6]` and rows `[3,1,2]`, `[0,2,5]`, `[5,0,3]`, the totals are `36`, `54`, and `38`.
 - For the linear system `3x + 2y - z = 1`, `x - y + 2z = 5`, `2x + 3y - z = 0`, `np.linalg.solve` should return `x=1`, `y=0`, `z=2`.
-- In the movie cosine-similarity example, compare dot products after normalizing by vector length. The most similar movie should be the one with the largest cosine value, not simply the largest raw dot product.
+- In the profile cosine-similarity example, compare dot products after normalizing by vector length. The most similar profile should be the one with the largest cosine value, not simply the largest raw dot product.
 
 </details>

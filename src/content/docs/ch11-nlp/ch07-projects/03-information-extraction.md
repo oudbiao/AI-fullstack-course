@@ -36,9 +36,9 @@ For the basic version, you do not need to train a model first. Use rules and reg
 ```python
 import re
 
-text = "This Saturday at 19:30 on Tencent Meeting, Teacher Zhang will host an introductory RAG livestream for AI application beginners."
+text = "This Saturday at 19:30 on Tencent Meeting, Presenter Zhang will deliver an introductory RAG livestream for AI application beginners."
 
-speaker_match = re.search(r"Teacher [A-Z][a-z]+", text)
+speaker_match = re.search(r"Presenter [A-Z][a-z]+", text)
 
 result = {
     "time": re.findall(r"\d{1,2}:\d{2}", text)[0],
@@ -54,7 +54,7 @@ print(result)
 Expected output:
 
 ```text
-{'time': '19:30', 'platform': 'Tencent Meeting', 'topic': 'RAG Introduction', 'speaker': 'Teacher Zhang', 'audience': 'AI application beginners'}
+{'time': '19:30', 'platform': 'Tencent Meeting', 'topic': 'RAG Introduction', 'speaker': 'Presenter Zhang', 'audience': 'AI application beginners'}
 ```
 
 Although this version is simple, it helps you understand the core of information extraction: extracting usable fields from unstructured text.
@@ -68,19 +68,19 @@ import re
 
 examples = [
     {
-        "text": "This Saturday at 19:30 on Tencent Meeting, Teacher Zhang will host an introductory RAG livestream.",
-        "gold": {"time": "19:30", "platform": "Tencent Meeting", "topic": "RAG Introduction", "speaker": "Teacher Zhang"},
+        "text": "This Saturday at 19:30 on Tencent Meeting, Presenter Zhang will deliver an introductory RAG livestream.",
+        "gold": {"time": "19:30", "platform": "Tencent Meeting", "topic": "RAG Introduction", "speaker": "Presenter Zhang"},
     },
     {
-        "text": "Sunday 10:00 on Zoom, Teacher Li explains evaluation metrics.",
-        "gold": {"time": "10:00", "platform": "Zoom", "topic": "evaluation metrics", "speaker": "Teacher Li"},
+        "text": "Sunday 10:00 on Zoom, Presenter Li explains evaluation metrics.",
+        "gold": {"time": "10:00", "platform": "Zoom", "topic": "evaluation metrics", "speaker": "Presenter Li"},
     },
 ]
 
 
 def extract(text):
     time_match = re.search(r"\d{1,2}:\d{2}", text)
-    speaker_match = re.search(r"Teacher [A-Z][a-z]+", text)
+    speaker_match = re.search(r"Presenter [A-Z][a-z]+", text)
     platform = next((name for name in ["Tencent Meeting", "Zoom"] if name in text), "")
     topic = "RAG Introduction" if "RAG" in text else ("evaluation metrics" if "evaluation metrics" in text else "")
     return {
@@ -106,8 +106,8 @@ print("field_accuracy =", round(correct / total, 4))
 Expected output:
 
 ```text
-{'text': 'This Saturday at 19:30 on Tencent Meeting, Teacher Zhang will host an introductory RAG livestream.', 'predicted': {'time': '19:30', 'platform': 'Tencent Meeting', 'topic': 'RAG Introduction', 'speaker': 'Teacher Zhang'}}
-{'text': 'Sunday 10:00 on Zoom, Teacher Li explains evaluation metrics.', 'predicted': {'time': '10:00', 'platform': 'Zoom', 'topic': 'evaluation metrics', 'speaker': 'Teacher Li'}}
+{'text': 'This Saturday at 19:30 on Tencent Meeting, Presenter Zhang will deliver an introductory RAG livestream.', 'predicted': {'time': '19:30', 'platform': 'Tencent Meeting', 'topic': 'RAG Introduction', 'speaker': 'Presenter Zhang'}}
+{'text': 'Sunday 10:00 on Zoom, Presenter Li explains evaluation metrics.', 'predicted': {'time': '10:00', 'platform': 'Zoom', 'topic': 'evaluation metrics', 'speaker': 'Presenter Li'}}
 field_accuracy = 1.0
 ```
 
@@ -124,7 +124,7 @@ A recommended output format is:
   "event_name": "RAG Intro Livestream",
   "time": "Saturday 19:30",
   "location": "Tencent Meeting",
-  "speaker": "Teacher Zhang",
+  "speaker": "Presenter Zhang",
   "audience": "Beginners in AI applications",
   "confidence": "medium"
 }
@@ -163,7 +163,7 @@ Expected_output: reproducible text pipeline folder with metrics and examples
 
 ## Common Mistakes
 
-The first mistake is showing only successful examples without field-level evaluation. The second mistake is an unstable JSON schema, which makes downstream programs unusable. The third mistake is ignoring boundary issues—for example, in “Teacher Zhang will share at Peking University,” Peking University may be a location or an organization. The fourth mistake is sending LLM output directly into the database without validation.
+The first mistake is showing only successful examples without field-level evaluation. The second mistake is an unstable JSON schema, which makes downstream programs unusable. The third mistake is ignoring boundary issues—for example, in “Presenter Zhang will share at Peking University,” Peking University may be a location or an organization. The fourth mistake is sending LLM output directly into the database without validation.
 
 
 

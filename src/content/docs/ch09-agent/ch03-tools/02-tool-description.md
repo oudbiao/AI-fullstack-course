@@ -82,14 +82,14 @@ A good tool description should answer at least:
 The clearer this information is,
 the easier it is for the model to make a stable choice.
 
-### An analogy: a shopping mall guide is more important than shelf numbers
+### An analogy: an API catalog is more important than endpoint names
 
-A tool registry is a bit like a shopping mall guidebook.
+A tool registry is a bit like an API catalog.
 
-- Function names are like shelf numbers
-- Descriptions are like guide instructions
+- Function names are like endpoint names
+- Descriptions are like contract notes
 
-With only numbers and no explanations,
+With only names and no explanations,
 both users and models can easily find the wrong thing.
 
 ---

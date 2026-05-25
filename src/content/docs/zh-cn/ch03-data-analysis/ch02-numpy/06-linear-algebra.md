@@ -269,15 +269,15 @@ def cosine_similarity(a, b):
     norm_b = np.linalg.norm(b)                  # b 的长度
     return dot_product / (norm_a * norm_b)
 
-# 示例：比较用户兴趣
-# 维度代表：[科技, 体育, 音乐, 电影, 美食]
-user_a = np.array([5, 1, 3, 4, 2])   # 喜欢科技和电影
-user_b = np.array([4, 2, 3, 5, 1])   # 也喜欢科技和电影
-user_c = np.array([1, 5, 2, 1, 4])   # 喜欢体育和美食
+# 示例：比较模型服务画像
+# 维度代表：[准确率, 吞吐, 低延迟, 低内存, 稳定性]
+baseline = np.array([4, 3, 2, 2, 4])
+quantized = np.array([4, 3, 3, 3, 4])
+experimental = np.array([2, 5, 5, 4, 2])
 
-print(f"A 和 B 的相似度: {cosine_similarity(user_a, user_b):.4f}")  # 0.9631 很相似
-print(f"A 和 C 的相似度: {cosine_similarity(user_a, user_c):.4f}")  # 0.5528 不太像
-print(f"B 和 C 的相似度: {cosine_similarity(user_b, user_c):.4f}")  # 0.5025 不太像
+print(f"Baseline vs quantized: {cosine_similarity(baseline, quantized):.4f}")      # 0.9857
+print(f"Baseline vs experimental: {cosine_similarity(baseline, experimental):.4f}")  # 0.8137
+print(f"Quantized vs experimental: {cosine_similarity(quantized, experimental):.4f}") # 0.8778
 ```
 
 ---
@@ -320,17 +320,17 @@ print(f"B 和 C 的相似度: {cosine_similarity(user_b, user_c):.4f}")  # 0.502
 ### 练习 1：矩阵乘法
 
 ```python
-# 某商店 3 种商品的单价
-prices = np.array([10, 25, 8])   # [苹果, 牛排, 面包]
+# 3 个流水线阶段的单请求资源成本
+cost_per_stage = np.array([4, 12, 6])   # [embed, rerank, generate]
 
-# 3 位顾客的购买数量
-quantities = np.array([
-    [3, 1, 2],    # 顾客 1: 3苹果 + 1牛排 + 2面包
-    [0, 2, 5],    # 顾客 2
-    [5, 0, 3]     # 顾客 3
+# 3 个请求批次的阶段调用次数
+stage_counts = np.array([
+    [3, 1, 2],    # 批次 1
+    [0, 2, 5],    # 批次 2
+    [5, 0, 3]     # 批次 3
 ])
 
-# 用矩阵乘法计算每位顾客的消费总额
+# 用矩阵乘法计算每个批次的总成本
 # totals = ?
 ```
 
@@ -348,26 +348,24 @@ quantities = np.array([
 ### 练习 3：余弦相似度应用
 
 ```python
-# 假设有 5 部电影的特征向量
-# 维度代表：[动作, 喜剧, 爱情, 科幻, 恐怖]
-movies = {
-    "复仇者联盟": np.array([5, 2, 1, 4, 0]),
-    "泰囧":       np.array([1, 5, 2, 0, 0]),
-    "泰坦尼克号": np.array([1, 0, 5, 0, 1]),
-    "星际穿越":   np.array([3, 0, 2, 5, 0]),
-    "釜山行":     np.array([4, 0, 1, 1, 5]),
+# 假设有几个模型服务画像
+# 维度代表：[准确率, 吞吐, 低延迟, 低内存, 稳定性]
+profiles = {
+    "baseline": np.array([4, 3, 2, 2, 4]),
+    "quantized": np.array([4, 3, 3, 3, 4]),
+    "experimental": np.array([2, 5, 5, 4, 2]),
 }
 
-# 用余弦相似度找出和"复仇者联盟"最相似的电影
-# 提示：计算"复仇者联盟"和其他每部电影的余弦相似度
+# 用余弦相似度找出和 "baseline" 最相似的画像
+# 提示：计算 "baseline" 和其他每个画像的余弦相似度
 ```
 
 
 <details>
 <summary>参考实现与讲解</summary>
 
-- 购物示例里，`quantities @ prices` 是最清晰的向量化答案。若价格为 `[10, 25, 8]`，数量行是 `[3,1,2]`、`[0,2,5]`、`[5,0,3]`，总价分别是 `71`、`90`、`74`。
+- 资源成本示例里，`stage_counts @ cost_per_stage` 是最清晰的向量化答案。若成本为 `[4, 12, 6]`，调用次数行是 `[3,1,2]`、`[0,2,5]`、`[5,0,3]`，总成本分别是 `36`、`54`、`38`。
 - 线性方程组 `3x + 2y - z = 1`、`x - y + 2z = 5`、`2x + 3y - z = 0` 用 `np.linalg.solve` 应得到 `x=1`、`y=0`、`z=2`。
-- 电影余弦相似度练习中，要用向量长度归一化后的结果比较。最相似的是余弦值最大的电影，而不是原始点积最大的电影。
+- 画像余弦相似度练习中，要用向量长度归一化后的结果比较。最相似的是余弦值最大的画像，而不是原始点积最大的画像。
 
 </details>

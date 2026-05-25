@@ -37,7 +37,7 @@ So what this section really aims to solve is:
 
 ## Why Do We Need Time Series?
 
-Many datasets are time-related—stock prices, sales data, website traffic, weather records... Handling time data is an essential skill in data analysis.
+Many datasets are time-related—stock prices, sales data, website traffic, service logs, model metrics... Handling time data is an essential skill in data analysis.
 
 ### A More Beginner-Friendly Overall Analogy
 

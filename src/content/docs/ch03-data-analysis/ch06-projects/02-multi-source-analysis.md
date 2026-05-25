@@ -778,15 +778,15 @@ plt.show()
 
 **Challenge 1: Add More Data Sources**
 
-Fetch data from a web API (such as weather data) and analyze the impact of weather on sales:
+Fetch data from a web API, such as service status or campaign traffic, and analyze the impact on conversion:
 
 ```python
-# Example: simulate weather data
+# Example: simulate service status data
 rng = np.random.default_rng(seed=42)
-weather = pd.DataFrame({
+service_status = pd.DataFrame({
     'date': pd.date_range('2024-01-01', '2024-12-31'),
-    'temp': rng.normal(20, 10, 366).clip(-5, 40),
-    'rain': rng.choice([0, 0, 0, 1], 366)  # 0=sunny, 1=rainy
+    'latency_ms': rng.normal(180, 35, 366).clip(40, None),
+    'incident': rng.choice([0, 0, 0, 1], 366)  # 0=normal, 1=incident
 })
 ```
 
