@@ -437,14 +437,16 @@ Usually when n ≥ 30, the Central Limit Theorem works quite well. That is why m
 
 ## Distribution overview table
 
-| Distribution | Type | Parameters | Typical scenario | NumPy generation |
-|------|------|------|---------|-----------|
-| Bernoulli | Discrete | p (success probability) | Binary classification labels | `rng.binomial(1, p)` |
-| Binomial | Discrete | n, p | Number of successes in n trials | `rng.binomial(n, p)` |
-| Poisson | Discrete | λ (average rate) | Rare event counting | `rng.poisson(lam)` |
-| Uniform | Continuous | a, b (range) | Random initialization | `rng.uniform(a, b)` |
-| Normal | Continuous | μ, σ (mean, standard deviation) | Noise, weight initialization | `rng.normal(mu, sigma)` |
-| Exponential | Continuous | λ (rate) | Time between events | `rng.exponential(1/lam)` |
+Discrete distributions count events: Bernoulli (`p`), Binomial (`n, p`), and Poisson (`lambda`). Continuous distributions describe ranges or measurements: Uniform (`a, b`), Normal (`mu, sigma`), and Exponential (`lambda`).
+
+| When you need... | Use this distribution | NumPy call |
+|---|---|---|
+| A binary label or one yes/no trial | Bernoulli | `rng.binomial(1, p)` |
+| Number of successes in `n` trials | Binomial | `rng.binomial(n, p)` |
+| Rare event counts in a fixed interval | Poisson | `rng.poisson(lam)` |
+| Random values inside a range | Uniform | `rng.uniform(a, b)` |
+| Noise or weight initialization | Normal | `rng.normal(mu, sigma)` |
+| Time between events | Exponential | `rng.exponential(1/lam)` |
 
 ---
 

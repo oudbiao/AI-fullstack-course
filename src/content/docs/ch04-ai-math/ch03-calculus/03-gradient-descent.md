@@ -355,11 +355,11 @@ dw = (2/batch_size) * np.sum((w * X_batch + b - y_batch) * X_batch)
 
 ### Comparison
 
-| Method | Data used per step | Gradient estimate | Speed | Practical use |
-|------|------------|---------|------|---------|
-| BGD | All data | Exact | Slow (when data is large) | Small datasets |
-| SGD | 1 sample | Noisy | Fast but oscillatory | Theoretical analysis |
-| Mini-batch | 32~512 samples | Fairly accurate and fast | Best balance | **Most commonly used** |
+| Method | Each update uses | Best use |
+|---|---|---|
+| BGD | All data, exact gradient | Small datasets or teaching derivations |
+| SGD | 1 sample, noisy gradient | Understanding theory and stochastic behavior |
+| Mini-batch | 32-512 samples, stable enough | **Most practical training loops** |
 
 ```python
 # Compare convergence curves of the three methods
