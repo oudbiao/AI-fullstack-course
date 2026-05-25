@@ -69,6 +69,7 @@ __pycache__/
 reports/course-images/**/generation-errors.json
 reports/course-images/**/localized-generation-progress.jsonl
 reports/course-images/**/manifest.md
+reports/course-images/image-teaching-audit.json
 reports/readability-audit.json
 
 # Yarn

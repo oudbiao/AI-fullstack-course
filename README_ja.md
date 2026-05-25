@@ -125,15 +125,18 @@ npm run qa:dist
 npm run qa:course
 npm run qa:code
 npm run qa:images
+npm run qa:image-teaching
 npm run qa:readability
 npm run seo:indexnow:dry-run
 ```
 
-`npm run qa:all` はコース変更前後の preflight です。図表、コース品質シグナル、コードブロック、コース画像参照、読みやすさのシグナルを確認してからフルビルドへ進みます。
+`npm run qa:all` はコース変更前後の preflight です。図表、コース品質シグナル、コードブロック、コース画像参照、画像の教材利用シグナル、読みやすさのシグナルを確認してからフルビルドへ進みます。
 
 `npm run qa:course` は、対応しやすいコース本文の不足を報告します。appendix、navigation page、study guide は folded-answer advisory から除外し、残るサンプルが walkthrough を補うべき lesson page を指すようにしています。
 
 `npm run qa:code` は、コース全体の fenced code blocks を検査し、fence の崩れ、構文エラー、未完成の placeholder snippets を学習者に届く前に見つけます。
+
+`npm run qa:image-teaching` は `reports/course-images/image-teaching-audit.json` を出力し、alt が弱い画像、近くの説明が少ない画像、同一ページでの重複利用、言語版の不一致を示します。
 
 `npm run qa:readability` は `reports/readability-audit.json` を出力し、密な表、長い表ヘッダー、カード・狭い表・terminal output 表示にした方が読みやすい plain text block を示します。
 
@@ -146,6 +149,7 @@ python3 validate_sidebars.py
 python3 validate_course_structure.py
 python3 scripts/validate_course_image_refs.py
 python3 scripts/audit_code_blocks.py
+python3 scripts/audit_image_teaching.py
 python3 scripts/audit_readability.py
 ```
 

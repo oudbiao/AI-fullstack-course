@@ -370,7 +370,7 @@ def audit_file(path: Path) -> list[Finding]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("roots", nargs="*", type=Path, help="Markdown files or roots to audit.")
-    parser.add_argument("--max-findings", type=int, default=120)
+    parser.add_argument("--max-findings", type=int, default=60)
     parser.add_argument("--fail-on-warn", action="store_true")
     parser.add_argument("--json", action="store_true", help="Print JSON instead of a text summary.")
     args = parser.parse_args()

@@ -24,4 +24,4 @@ This index tracks course-image QA reports that are useful for future maintenance
 
 ## Maintenance checklist
 
-Before promoting a new image batch, confirm: dimensions fit the lesson, text is readable, locale language is correct, no fake metrics/secrets/brands are invented, the concept matches nearby code/output, Markdown references are WebP-only, and `python3 scripts/validate_course_image_refs.py` passes.
+Before promoting a new image batch, confirm: dimensions fit the lesson, text is readable, locale language is correct, no fake metrics/secrets/brands are invented, the concept matches nearby code/output, Markdown references are WebP-only, `python3 scripts/validate_course_image_refs.py` passes, and `python3 scripts/audit_image_teaching.py` does not reveal missing nearby explanation or locale mismatches.
