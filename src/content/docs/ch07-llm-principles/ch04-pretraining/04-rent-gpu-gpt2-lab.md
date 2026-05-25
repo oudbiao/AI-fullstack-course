@@ -1,6 +1,6 @@
 ---
-title: "7.4.5 Rent a GPU and Run a Hand-Built GPT-2"
-description: "Choose free or low-cost GPU compute, set up PyTorch, run a single-file mini GPT-2 trainer, and understand tokenizer, attention, loss, and generation line by line."
+title: "7.4.5 Rent a GPU and Train a Hand-Built GPT-2"
+description: "Choose free or low-cost GPU compute, set up PyTorch, complete one CUDA mini GPT-2 training run, and understand tokenizer, attention, loss, checkpointing, and generation line by line."
 sidebar:
   order: 15
 head:
@@ -14,16 +14,16 @@ head:
 :::tip[Where This Lesson Fits]
 This lesson puts the Transformer and pretraining objective onto a real machine.
 
-You do not need to train the full GPT-2 124M model. The goal is to run a mini GPT-2, see the loss decrease, generate a short sample, and explain what each part of the code does.
+You do not need to train the full GPT-2 124M model. The goal is to run a mini GPT-2 on a real CUDA GPU, see the loss decrease, save a checkpoint, generate a short sample, and explain what each part of the code does. CPU is useful only as a smoke test before you spend GPU time.
 :::
 
 ## Learning Goals
 
 - Decide when to use a free notebook and when to rent a low-cost GPU.
 - Create a Python, PyTorch, and CUDA-ready training environment.
-- Run a single-file mini GPT-2 training script.
-- Explain embedding, causal self-attention, MLP, loss, and generation.
-- Save training logs, hardware information, and sample output as evidence.
+- Run a single-file mini GPT-2 training script on GPU.
+- Explain embedding, causal self-attention, MLP, loss, checkpointing, and generation.
+- Save training logs, hardware information, checkpoint path, sample output, and shutdown proof as evidence.
 
 ---
 
@@ -43,11 +43,12 @@ Do not start by chasing the largest card. Course labs should first make sure eve
 
 | Goal | Minimum | More comfortable |
 |---|---|---|
-| Run the script | CPU or free T4 | T4, L4, A10 |
+| Smoke-test the script | CPU or free notebook | Any machine that can import PyTorch |
+| Pass this lesson | Any visible CUDA GPU, such as T4 | T4, L4, A10, 4090, or A5000 |
 | See clear loss decrease | Free T4 for 300-800 steps | 4090 or A5000 for 1000-3000 steps |
 | Try a larger model | 16GB VRAM | 24GB VRAM |
 
-The default script is tiny. It can run on CPU, just more slowly. Renting a GPU mainly shortens the wait and teaches the real training workflow.
+The default script is tiny and can fall back to CPU, but CPU completion is only a preflight. A full pass for this lesson requires at least one log where `device: cuda` appears. That requirement teaches the real training workflow: environment check, GPU memory discipline, logs, checkpoint, copied-back evidence, and shutdown.
 
 ---
 
@@ -68,7 +69,7 @@ China low-cost route: AutoDL -> choose PyTorch image -> open Jupyter or SSH -> r
 International low-cost route: RunPod -> choose PyTorch template -> open terminal -> run
 ```
 
-Cost rule: run 50 steps in a free notebook first, then rent a GPU for a longer run. Do not burn money while debugging the environment.
+Cost rule: run a short CPU or free-notebook smoke test first, then use GPU for the official run. Do not burn money while debugging imports, file paths, or missing CUDA images.
 
 ---
 
@@ -241,6 +242,7 @@ def main():
     steps = 500 if device == "cuda" else 120
     batch_size = 64 if device == "cuda" else 16
     print("device:", device)
+    print("cuda_name:", torch.cuda.get_device_name(0) if device == "cuda" else "not available")
     print("parameters:", sum(p.numel() for p in model.parameters()))
 
     start_time = time.time()
@@ -254,6 +256,15 @@ def main():
         if step == 1 or step % 50 == 0:
             elapsed = time.time() - start_time
             print(f"step {step:04d} | loss {loss.item():.4f} | elapsed {elapsed:.1f}s")
+
+    checkpoint = {
+        "model_state": model.state_dict(),
+        "config": config.__dict__,
+        "stoi": stoi,
+        "itos": itos,
+    }
+    torch.save(checkpoint, "mini_gpt2_checkpoint.pt")
+    print("checkpoint: mini_gpt2_checkpoint.pt")
 
     prompt = torch.tensor([[stoi["T"]]], dtype=torch.long, device=device)
     generated = model.generate(prompt, max_new_tokens=180)[0].cpu()
@@ -275,15 +286,17 @@ Expected output:
 
 ```text
 device: cuda
+cuda_name: Tesla T4
 parameters: about 100k
 step 0001 | loss 3.5832 | elapsed 0.2s
 step 0050 | loss 3.1120 | elapsed 1.6s
 ...
+checkpoint: mini_gpt2_checkpoint.pt
 --- sample ---
 To build a language model...
 ```
 
-The generated text does not need to be elegant. If loss decreases and the model emits characters, the training loop works.
+The generated text does not need to be elegant. If the GPU log shows decreasing loss, a saved checkpoint, and generated characters, the training loop works.
 
 ---
 
@@ -377,6 +390,14 @@ optimizer.step()
 
 This is the core loop: forward, clear gradients, backpropagate, update parameters.
 
+### Checkpoint
+
+```python
+torch.save(checkpoint, "mini_gpt2_checkpoint.pt")
+```
+
+A real training run must leave a recoverable artifact. This tiny checkpoint is not valuable as a model product, but it proves that the run produced weights, not just terminal text.
+
 ### Generate
 
 ```python
@@ -389,7 +410,7 @@ Generation reads the last position, samples the next token, appends it, and repe
 
 ---
 
-## 6. If You Really Rent a GPU
+## 6. GPU Training Runbook
 
 ### Kaggle or Colab
 
@@ -397,8 +418,9 @@ Generation reads the last position, samples the next token, appends it, and repe
 2. Enable GPU in settings.
 3. Run the PyTorch check and confirm `cuda available: True`.
 4. Create `mini_gpt2_train.py`.
-5. Run `python mini_gpt2_train.py | tee mini_gpt2_train_log.txt`.
-6. Save hardware info, loss lines, and the generated sample.
+5. Run `python mini_gpt2_train.py | tee gpu_train_log.txt`.
+6. Download or copy back `gpu_train_log.txt` and `mini_gpt2_checkpoint.pt`.
+7. Save hardware info, loss lines, checkpoint line, and the generated sample.
 
 ### AutoDL or RunPod
 
@@ -407,7 +429,12 @@ Generation reads the last position, samples the next token, appends it, and repe
 3. Open JupyterLab or SSH terminal.
 4. Run the PyTorch check.
 5. Save the script and train.
-6. Stop the instance immediately after the run and confirm billing has stopped.
+6. Copy back `gpu_train_log.txt` and `mini_gpt2_checkpoint.pt`.
+7. Stop the instance immediately after the run and confirm billing has stopped.
+
+### CPU Smoke Test Is Not the Final Pass
+
+CPU is useful for checking that the file exists, imports work, and the script can enter the training loop. It is not enough for this lab's final pass. If the only evidence says `device: cpu`, mark the lab as "smoke test complete, GPU run still pending."
 
 ---
 
@@ -428,21 +455,22 @@ Keep this page's proof of learning as a small evidence card:
 ```text
 platform_choice: Kaggle/Colab/Lightning/AutoDL/RunPod
 hardware_info: torch version, CUDA status, GPU model
-training_log: at least three lines with step, loss, elapsed
-code_location: identify embedding, attention, loss, and generate in the script
+training_log: device cuda plus at least three lines with step, loss, elapsed
+checkpoint: mini_gpt2_checkpoint.pt copied back or preserved
+code_location: identify embedding, attention, loss, checkpoint, and generate in the script
 cost_record: if rented, record runtime and cost, then confirm shutdown
 ```
 
 ## Pass Check
 
-You pass when `mini_gpt2_train.py` runs on CPU, free GPU, or rented GPU, `mini_gpt2_train_log.txt` is saved, and you can explain how input tokens pass through embedding, attention, MLP, lm head, and cross entropy to learn next-token prediction.
+You pass when `mini_gpt2_train.py` completes one GPU run with `device: cuda`, `gpu_train_log.txt` and `mini_gpt2_checkpoint.pt` are saved, and you can explain how input tokens pass through embedding, attention, MLP, lm head, checkpointing, and cross entropy to learn next-token prediction. A CPU run counts only as a smoke test.
 
 <details>
 <summary>Check reasoning and explanation</summary>
 
 1. The goal is not beautiful generated text. The goal is to run the full path.
-2. A passing log includes hardware info, parameter count, several loss lines, and one sample.
+2. A passing log includes `device: cuda`, hardware info, parameter count, several loss lines, checkpoint path, and one sample.
 3. If you rented a GPU, your evidence must state that the instance was stopped.
-4. CPU completion also counts. GPU is a speed and environment lesson, not a requirement.
+4. CPU completion is still useful, but it is not the final pass for this lesson.
 
 </details>

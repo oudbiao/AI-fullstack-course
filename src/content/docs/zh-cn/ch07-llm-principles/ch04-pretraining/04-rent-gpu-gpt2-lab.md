@@ -1,6 +1,6 @@
 ---
-title: "7.4.5 租 GPU 跑通手搓 GPT-2"
-description: "从免费 Notebook 到低价云 GPU，手把手创建环境、运行 mini GPT-2 训练脚本，并逐段理解 tokenizer、attention、loss 和生成。"
+title: "7.4.5 租 GPU 训练手搓 GPT-2"
+description: "从免费 Notebook 到低价云 GPU，手把手创建环境、完成一次 CUDA mini GPT-2 训练，并逐段理解 tokenizer、attention、loss、checkpoint 和生成。"
 sidebar:
   order: 15
 head:
@@ -14,16 +14,16 @@ head:
 :::tip[本节定位]
 这一节把前面的 Transformer 和预训练目标落到一台真实机器上。
 
-你不需要训练完整 GPT-2 124M。目标是用免费或低价 GPU 跑通一个 mini GPT-2，看到 loss 下降，生成一小段文本，并能说清每段代码在做什么。
+你不需要训练完整 GPT-2 124M。目标是用真实 CUDA GPU 跑通一个 mini GPT-2，看到 loss 下降，保存 checkpoint，生成一小段文本，并能说清每段代码在做什么。CPU 只用于付费前的冒烟测试，不作为最终通过。
 :::
 
 ## 学习目标
 
 - 知道什么时候用免费 Notebook，什么时候租一张低价 GPU。
 - 能创建 Python、PyTorch 和 CUDA 可用的训练环境。
-- 能运行一个单文件 mini GPT-2 训练脚本。
-- 能逐段解释 embedding、causal self-attention、MLP、loss 和 generate。
-- 能保存训练日志、硬件信息和生成样例，作为学习证据。
+- 能在 GPU 上运行一个单文件 mini GPT-2 训练脚本。
+- 能逐段解释 embedding、causal self-attention、MLP、loss、checkpoint 和 generate。
+- 能保存训练日志、硬件信息、checkpoint 路径、生成样例和关机证明，作为学习证据。
 
 ---
 
@@ -43,11 +43,12 @@ head:
 
 | 实验目标 | 最低配置 | 更舒服的配置 |
 |---|---|---|
-| 跑通脚本 | CPU 或免费 T4 | T4、L4、A10 |
+| 冒烟测试脚本 | CPU 或免费 Notebook | 任意能 import PyTorch 的机器 |
+| 通过本节 | 任意可见 CUDA GPU，例如 T4 | T4、L4、A10、4090、A5000 |
 | loss 明显下降 | 免费 T4 跑 300-800 步 | 4090、A5000 跑 1000-3000 步 |
 | 体验更大模型 | 16GB 显存 | 24GB 显存 |
 
-这节默认参数很小，即使用 CPU 也能跑，只是慢一些。租 GPU 的意义是让等待时间变短，并练会真实训练环境。
+这节默认参数很小，即使用 CPU 也能进入训练循环，但 CPU 完成只算预检。正式通过本节，至少要有一份出现 `device: cuda` 的训练日志。这个要求不是为了追求大模型，而是为了练会真实训练流程：环境检查、显存纪律、日志、checkpoint、证据带回和停止计费。
 
 ---
 
@@ -68,7 +69,7 @@ head:
 国际低价路线：RunPod -> 选 PyTorch template -> 开 terminal -> 运行
 ```
 
-成本控制原则：先用免费 Notebook 跑通 50 步，再租 GPU 跑长一点。不要在环境还没配好时开始烧钱。
+成本控制原则：先用 CPU 或免费 Notebook 做短冒烟测试，再用 GPU 做正式训练。不要在 import、路径或 CUDA 镜像没配好时开始烧钱。
 
 ---
 
@@ -241,6 +242,7 @@ def main():
     steps = 500 if device == "cuda" else 120
     batch_size = 64 if device == "cuda" else 16
     print("device:", device)
+    print("cuda_name:", torch.cuda.get_device_name(0) if device == "cuda" else "not available")
     print("parameters:", sum(p.numel() for p in model.parameters()))
 
     start_time = time.time()
@@ -254,6 +256,15 @@ def main():
         if step == 1 or step % 50 == 0:
             elapsed = time.time() - start_time
             print(f"step {step:04d} | loss {loss.item():.4f} | elapsed {elapsed:.1f}s")
+
+    checkpoint = {
+        "model_state": model.state_dict(),
+        "config": config.__dict__,
+        "stoi": stoi,
+        "itos": itos,
+    }
+    torch.save(checkpoint, "mini_gpt2_checkpoint.pt")
+    print("checkpoint: mini_gpt2_checkpoint.pt")
 
     prompt = torch.tensor([[stoi["T"]]], dtype=torch.long, device=device)
     generated = model.generate(prompt, max_new_tokens=180)[0].cpu()
@@ -275,15 +286,17 @@ python mini_gpt2_train.py | tee mini_gpt2_train_log.txt
 
 ```text
 device: cuda
+cuda_name: Tesla T4
 parameters: about 100k
 step 0001 | loss 3.5832 | elapsed 0.2s
 step 0050 | loss 3.1120 | elapsed 1.6s
 ...
+checkpoint: mini_gpt2_checkpoint.pt
 --- sample ---
 To build a language model...
 ```
 
-输出不需要像人类文章。只要 loss 往下降，并且能生成字符，就说明训练循环跑通了。
+输出不需要像人类文章。只要 GPU 日志里 loss 往下降，checkpoint 已保存，并且能生成字符，就说明训练循环跑通了。
 
 ---
 
@@ -410,7 +423,15 @@ optimizer.step()
 3. backward 计算新梯度。
 4. optimizer 更新参数。
 
-### 10. generate
+### 10. checkpoint
+
+```python
+torch.save(checkpoint, "mini_gpt2_checkpoint.pt")
+```
+
+真实训练要留下可恢复产物。这个小 checkpoint 不是产品级模型，但它证明你得到的是一份训练后的权重，而不只是终端输出。
+
+### 11. generate
 
 ```python
 logits = logits[:, -1, :]
@@ -424,7 +445,7 @@ next_id = torch.multinomial(probs, num_samples=1)
 
 ---
 
-## 六、如果你真的租了 GPU，按这个顺序操作
+## 六、GPU 训练 runbook
 
 ### Kaggle 或 Colab
 
@@ -432,8 +453,9 @@ next_id = torch.multinomial(probs, num_samples=1)
 2. 在设置里打开 GPU。
 3. 运行 PyTorch 检查代码，确认 `cuda available: True`。
 4. 新建一个 cell，写入 `mini_gpt2_train.py`。
-5. 运行 `python mini_gpt2_train.py | tee mini_gpt2_train_log.txt`。
-6. 下载或复制日志里的硬件、loss 和 sample。
+5. 运行 `python mini_gpt2_train.py | tee gpu_train_log.txt`。
+6. 下载或复制 `gpu_train_log.txt` 和 `mini_gpt2_checkpoint.pt`。
+7. 保存硬件信息、loss 行、checkpoint 行和 sample。
 
 ### AutoDL 或 RunPod
 
@@ -442,7 +464,12 @@ next_id = torch.multinomial(probs, num_samples=1)
 3. 启动后打开 JupyterLab 或 SSH terminal。
 4. 运行 PyTorch 检查代码。
 5. 保存脚本并运行训练。
-6. 训练结束后立刻关机，确认停止计费。
+6. 带回 `gpu_train_log.txt` 和 `mini_gpt2_checkpoint.pt`。
+7. 训练结束后立刻关机，确认停止计费。
+
+### CPU 冒烟测试不是最终通过
+
+CPU 适合检查文件存在、import 正常、训练循环能开始。它不是本节最终通过标准。如果证据里只有 `device: cpu`，请标记为“冒烟测试完成，GPU 正式训练待完成”。
 
 ---
 
@@ -479,21 +506,22 @@ next_id = torch.multinomial(probs, num_samples=1)
 ```text
 平台选择：Kaggle/Colab/Lightning/AutoDL/RunPod 中选择了哪一个
 硬件信息：torch 版本、cuda 是否可用、GPU 型号
-训练日志：step、loss、elapsed 至少三行
-代码定位：能指出 embedding、attention、loss、generate 在脚本里的位置
+训练日志：device cuda，以及 step、loss、elapsed 至少三行
+checkpoint：mini_gpt2_checkpoint.pt 已保存或带回
+代码定位：能指出 embedding、attention、loss、checkpoint、generate 在脚本里的位置
 成本记录：如果租 GPU，记录开机时长和花费，并确认已关机
 ```
 
 ## 通过标准
 
-能在 CPU、免费 GPU 或租用 GPU 上跑通 `mini_gpt2_train.py`，保存 `mini_gpt2_train_log.txt`，并用自己的话解释“输入 token 如何经过 embedding、attention、MLP、lm head，最后用 cross entropy 学会预测下一个 token”，就算通过。
+能在 GPU 上完成一次 `device: cuda` 的 `mini_gpt2_train.py` 训练，保存 `gpu_train_log.txt` 和 `mini_gpt2_checkpoint.pt`，并用自己的话解释“输入 token 如何经过 embedding、attention、MLP、lm head、checkpoint，最后用 cross entropy 学会预测下一个 token”，就算通过。CPU 运行只算冒烟测试。
 
 <details>
 <summary>检查思路与讲解</summary>
 
 1. 不要求生成优美文本。mini GPT-2 的目标是把路径跑通，而不是得到可用聊天模型。
-2. 合格日志至少要包含硬件信息、参数量、若干步 loss 和一段 sample。
+2. 合格日志至少要包含 `device: cuda`、硬件信息、参数量、若干步 loss、checkpoint 路径和一段 sample。
 3. 如果使用租用 GPU，学习证据里必须写明实例已停止，避免无意识计费。
-4. 如果 CPU 能跑通，也算通过；GPU 只是让等待时间更短，并帮助你理解真实训练环境。
+4. CPU 能跑通仍然有价值，但不是本节最终通过。
 
 </details>

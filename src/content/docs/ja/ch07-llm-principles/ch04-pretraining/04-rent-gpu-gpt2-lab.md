@@ -1,6 +1,6 @@
 ---
-title: "7.4.5 GPU を借りて手作り GPT-2 を動かす"
-description: "無料 Notebook から低価格 GPU までを選び、PyTorch 環境を作り、単一ファイルの mini GPT-2 学習スクリプトを動かし、tokenizer、attention、loss、生成を順に理解する。"
+title: "7.4.5 GPU を借りて手作り GPT-2 を学習する"
+description: "無料 Notebook から低価格 GPU までを選び、PyTorch 環境を作り、CUDA 上で mini GPT-2 を1回学習し、tokenizer、attention、loss、checkpoint、生成を順に理解する。"
 sidebar:
   order: 15
 head:
@@ -14,16 +14,16 @@ head:
 :::tip[この節の位置づけ]
 この節では、Transformer と事前学習目的を実際のマシン上で動かします。
 
-完全な GPT-2 124M を学習する必要はありません。mini GPT-2 を動かし、loss が下がることを確認し、短い文章を生成し、各コード部分の役割を説明できることが目標です。
+完全な GPT-2 124M を学習する必要はありません。実際の CUDA GPU 上で mini GPT-2 を動かし、loss が下がることを確認し、checkpoint を保存し、短い文章を生成し、各コード部分の役割を説明できることが目標です。CPU は課金前の smoke test として使い、最終合格にはしません。
 :::
 
 ## 学習目標
 
 - 無料 Notebook と低価格 GPU の使い分けを判断できる。
 - Python、PyTorch、CUDA が使える学習環境を作れる。
-- 単一ファイルの mini GPT-2 学習スクリプトを実行できる。
-- embedding、causal self-attention、MLP、loss、generate を説明できる。
-- 学習ログ、ハードウェア情報、生成サンプルを証拠として保存できる。
+- 単一ファイルの mini GPT-2 学習スクリプトを GPU で実行できる。
+- embedding、causal self-attention、MLP、loss、checkpoint、generate を説明できる。
+- 学習ログ、ハードウェア情報、checkpoint path、生成サンプル、停止証拠を保存できる。
 
 ---
 
@@ -43,11 +43,12 @@ head:
 
 | 目標 | 最低構成 | 余裕のある構成 |
 |---|---|---|
-| スクリプトを動かす | CPU または無料 T4 | T4、L4、A10 |
+| smoke test | CPU または無料 Notebook | PyTorch を import できる任意の環境 |
+| この節の合格 | visible CUDA GPU、例：T4 | T4、L4、A10、4090、A5000 |
 | loss の低下を見る | 無料 T4 で 300-800 step | 4090、A5000 で 1000-3000 step |
 | 少し大きいモデルを試す | 16GB VRAM | 24GB VRAM |
 
-デフォルトのスクリプトは小さいため CPU でも動きます。ただし遅くなります。GPU を借りる意味は、待ち時間を短くし、実際の学習環境に慣れることです。
+デフォルトのスクリプトは小さいため CPU でも training loop には入れます。ただし CPU 完走は preflight です。この節の正式合格には、`device: cuda` が出る log が少なくとも1つ必要です。この要件により、environment check、GPU memory discipline、logs、checkpoint、evidence copy-back、shutdown までを実際に経験できます。
 
 ---
 
@@ -68,7 +69,7 @@ head:
 国際低価格ルート：RunPod -> PyTorch template -> terminal -> 実行
 ```
 
-コスト管理：まず無料 Notebook で 50 step を動かし、その後 GPU を借りて長めに動かします。環境構築で課金を浪費しないようにします。
+コスト管理：まず CPU または無料 Notebook で短い smoke test を行い、その後 GPU で正式実行します。import、file path、CUDA image の問題で課金を浪費しないようにします。
 
 ---
 
@@ -241,6 +242,7 @@ def main():
     steps = 500 if device == "cuda" else 120
     batch_size = 64 if device == "cuda" else 16
     print("device:", device)
+    print("cuda_name:", torch.cuda.get_device_name(0) if device == "cuda" else "not available")
     print("parameters:", sum(p.numel() for p in model.parameters()))
 
     start_time = time.time()
@@ -254,6 +256,15 @@ def main():
         if step == 1 or step % 50 == 0:
             elapsed = time.time() - start_time
             print(f"step {step:04d} | loss {loss.item():.4f} | elapsed {elapsed:.1f}s")
+
+    checkpoint = {
+        "model_state": model.state_dict(),
+        "config": config.__dict__,
+        "stoi": stoi,
+        "itos": itos,
+    }
+    torch.save(checkpoint, "mini_gpt2_checkpoint.pt")
+    print("checkpoint: mini_gpt2_checkpoint.pt")
 
     prompt = torch.tensor([[stoi["T"]]], dtype=torch.long, device=device)
     generated = model.generate(prompt, max_new_tokens=180)[0].cpu()
@@ -275,15 +286,17 @@ python mini_gpt2_train.py | tee mini_gpt2_train_log.txt
 
 ```text
 device: cuda
+cuda_name: Tesla T4
 parameters: about 100k
 step 0001 | loss 3.5832 | elapsed 0.2s
 step 0050 | loss 3.1120 | elapsed 1.6s
 ...
+checkpoint: mini_gpt2_checkpoint.pt
 --- sample ---
 To build a language model...
 ```
 
-生成文は自然でなくてもかまいません。loss が下がり、文字が生成されれば、学習ループは動いています。
+生成文は自然でなくてもかまいません。GPU log で loss が下がり、checkpoint が保存され、文字が生成されれば、学習ループは動いています。
 
 ---
 
@@ -377,6 +390,14 @@ optimizer.step()
 
 この4行が基本です。forward、勾配のクリア、backpropagation、パラメータ更新です。
 
+### Checkpoint
+
+```python
+torch.save(checkpoint, "mini_gpt2_checkpoint.pt")
+```
+
+実際の training run では、復元できる成果物を残します。この小さな checkpoint は製品モデルとして重要ではありませんが、terminal text だけでなく学習済み weights ができたことを証明します。
+
 ### Generate
 
 ```python
@@ -389,7 +410,7 @@ next_id = torch.multinomial(probs, num_samples=1)
 
 ---
 
-## 6. 実際に GPU を借りるなら
+## 6. GPU training runbook
 
 ### Kaggle または Colab
 
@@ -397,8 +418,9 @@ next_id = torch.multinomial(probs, num_samples=1)
 2. 設定で GPU を有効にする。
 3. PyTorch 確認コードを実行し、`cuda available: True` を確認する。
 4. `mini_gpt2_train.py` を作る。
-5. `python mini_gpt2_train.py | tee mini_gpt2_train_log.txt` を実行する。
-6. ハードウェア情報、loss 行、生成サンプルを保存する。
+5. `python mini_gpt2_train.py | tee gpu_train_log.txt` を実行する。
+6. `gpu_train_log.txt` と `mini_gpt2_checkpoint.pt` を download または copy back する。
+7. ハードウェア情報、loss 行、checkpoint 行、生成サンプルを保存する。
 
 ### AutoDL または RunPod
 
@@ -407,7 +429,12 @@ next_id = torch.multinomial(probs, num_samples=1)
 3. JupyterLab または SSH terminal を開く。
 4. PyTorch 確認コードを実行する。
 5. script を保存して学習する。
-6. 終了後すぐに instance を停止し、課金停止を確認する。
+6. `gpu_train_log.txt` と `mini_gpt2_checkpoint.pt` を持ち帰る。
+7. 終了後すぐに instance を停止し、課金停止を確認する。
+
+### CPU smoke test は最終合格ではない
+
+CPU は file existence、imports、training loop の入口を確認するには有用です。しかし、この lab の最終合格ではありません。証拠が `device: cpu` だけなら、「smoke test complete, GPU run pending」と記録します。
 
 ---
 
@@ -428,21 +455,22 @@ next_id = torch.multinomial(probs, num_samples=1)
 ```text
 プラットフォーム選択：Kaggle/Colab/Lightning/AutoDL/RunPod
 ハードウェア情報：torch version、CUDA 状態、GPU 型番
-学習ログ：step、loss、elapsed を含む少なくとも3行
-コード位置：embedding、attention、loss、generate の位置を説明
+学習ログ：device cuda と、step、loss、elapsed を含む少なくとも3行
+checkpoint：mini_gpt2_checkpoint.pt を保存または持ち帰る
+コード位置：embedding、attention、loss、checkpoint、generate の位置を説明
 コスト記録：借りた場合は実行時間と費用を記録し、停止を確認
 ```
 
 ## 合格ライン
 
-CPU、無料 GPU、またはレンタル GPU で `mini_gpt2_train.py` を動かし、`mini_gpt2_train_log.txt` を保存し、入力 token が embedding、attention、MLP、lm head、cross entropy を通って次 token 予測を学ぶ流れを説明できれば合格です。
+GPU 上で `device: cuda` の `mini_gpt2_train.py` run を完了し、`gpu_train_log.txt` と `mini_gpt2_checkpoint.pt` を保存し、入力 token が embedding、attention、MLP、lm head、checkpoint、cross entropy を通って次 token 予測を学ぶ流れを説明できれば合格です。CPU run は smoke test としてだけ扱います。
 
 <details>
 <summary>確認の考え方と解説</summary>
 
 1. 美しい生成文は不要です。目的は全体経路を動かすことです。
-2. 合格ログには、ハードウェア情報、パラメータ数、複数の loss 行、生成サンプルが含まれます。
+2. 合格ログには、`device: cuda`、ハードウェア情報、パラメータ数、複数の loss 行、checkpoint path、生成サンプルが含まれます。
 3. GPU を借りた場合、証拠には instance を停止したことを必ず書きます。
-4. CPU で完走しても合格です。GPU は速度と環境理解のための選択肢です。
+4. CPU 完走は有用ですが、この節の最終合格ではありません。
 
 </details>
