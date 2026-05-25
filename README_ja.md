@@ -122,10 +122,13 @@ npm run build
 npm run qa:diagrams
 npm run qa:dist
 npm run qa:course
+npm run qa:code
 npm run seo:indexnow:dry-run
 ```
 
 `npm run qa:course` は、対応しやすいコース本文の不足を報告します。appendix、navigation page、study guide は folded-answer advisory から除外し、残るサンプルが walkthrough を補うべき lesson page を指すようにしています。
+
+`npm run qa:code` は、コース全体の fenced code blocks を検査し、fence の崩れ、構文エラー、未完成の placeholder snippets を学習者に届く前に見つけます。
 
 直接検証する場合：
 
@@ -135,6 +138,7 @@ python3 validate_internal_links.py
 python3 validate_sidebars.py
 python3 validate_course_structure.py
 python3 scripts/validate_course_image_refs.py
+python3 scripts/audit_code_blocks.py
 ```
 
 ## ディレクトリ構成

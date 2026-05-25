@@ -22,6 +22,7 @@
     "qa:rendered-diagrams": "node scripts/qa_rendered_diagrams.mjs",
     "qa:dist": "node scripts/qa_generated_site.mjs dist",
     "qa:course": "python3 scripts/course_quality_dashboard.py",
+    "qa:code": "python3 scripts/audit_code_blocks.py",
     "seo:indexnow": "node scripts/submit_indexnow.mjs dist",
     "seo:indexnow:dry-run": "node scripts/submit_indexnow.mjs dist --dry-run"
   },

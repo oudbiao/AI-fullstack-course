@@ -140,10 +140,13 @@ npm run build
 npm run qa:diagrams
 npm run qa:dist
 npm run qa:course
+npm run qa:code
 npm run seo:indexnow:dry-run
 ```
 
 `npm run qa:course` reports actionable content gaps. Appendix, navigation, and study-guide pages are exempt from the folded-answer advisory so the remaining samples point to lesson pages that may need clearer walkthroughs.
+
+`npm run qa:code` audits fenced code blocks across the course for malformed fences, syntax errors, and unfinished placeholder snippets before examples reach learners.
 
 For direct script checks:
 
@@ -153,6 +156,7 @@ python3 validate_internal_links.py
 python3 validate_sidebars.py
 python3 validate_course_structure.py
 python3 scripts/validate_course_image_refs.py
+python3 scripts/audit_code_blocks.py
 ```
 
 ## Visual Assets

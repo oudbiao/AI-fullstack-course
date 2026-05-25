@@ -122,10 +122,13 @@ npm run build
 npm run qa:diagrams
 npm run qa:dist
 npm run qa:course
+npm run qa:code
 npm run seo:indexnow:dry-run
 ```
 
 `npm run qa:course` 会报告可操作的课程内容缺口。附录、导航页和 study guide 不计入折叠讲解提示，这样剩余样例会更集中地指向可能需要补 walkthrough 的正文页面。
+
+`npm run qa:code` 会审计全课程的 fenced code blocks，提前发现围栏格式错误、语法错误和未完成的占位代码，避免示例到了学习者手里才坏掉。
 
 直接验证脚本：
 
@@ -135,6 +138,7 @@ python3 validate_internal_links.py
 python3 validate_sidebars.py
 python3 validate_course_structure.py
 python3 scripts/validate_course_image_refs.py
+python3 scripts/audit_code_blocks.py
 ```
 
 ## 目录结构
