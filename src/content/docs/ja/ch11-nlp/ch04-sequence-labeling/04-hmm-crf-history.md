@@ -173,3 +173,13 @@ HMM / Viterbi -> CRF -> BiLSTM-CRF -> BERT token classification
 失敗確認: span 境界、入れ子のエンティティ、未知語、または不一致なアノテーション
 期待される成果：少なくとも1つの miss がある、gold と predicted の span 表
 ```
+
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+- 合格の目安は、token labels が独立した判断ではない理由を説明できることです。local evidence と label-transition constraints の両方を含めます。
+- `O -> I-PER` のような invalid BIO path を少なくとも 1 つ試し、その誤りが representation、decoding、annotation rules のどこから来るかを説明します。
+- BERT token classification の出力と rule-checked span table を横に並べて確認します。高信頼でも illegal path なら、structured check が検出できる必要があります。
+- main model が modern pretrained encoder でも、CRF-style constraint が役に立つ場面を説明できれば、このページは完了です。
+
+</details>

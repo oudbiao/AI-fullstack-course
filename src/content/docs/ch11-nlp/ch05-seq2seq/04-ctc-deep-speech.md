@@ -231,3 +231,13 @@ alignment_note: attention, CTC path, coverage, or copied source evidence
 failure_check: omission, repetition, hallucination, wrong alignment, or weak evaluation
 Expected_output: generated text with factual or alignment review notes
 ```
+
+<details>
+<summary>Review notes and pass criteria</summary>
+
+- A passing review should explain why the `15` valid paths are evidence of many-to-one alignment, not a quality score.
+- Change the frame length or vocabulary once and rerun the toy script. If the valid-path count changes, explain which new blanks or repeats became possible.
+- Inspect one collapsed path by hand and mark where blanks, repeated tokens, and final transcript tokens appear.
+- The page is complete when you can explain why CTC can train from transcript labels without asking humans for a single frame-by-frame alignment.
+
+</details>

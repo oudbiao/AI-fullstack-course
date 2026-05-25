@@ -229,5 +229,15 @@ CTC のすばらしい点は、
 復号出力：生成要約、翻訳、書き起こし、または系列結果
 整合メモ: attention、CTC パス、coverage、またはコピー元の証拠
 失敗確認: 抜け、繰り返し、ハルシネーション、誤った整合、または評価の弱さ
-期待される成果：事実性または整合性のレビュー नोट付き生成テキスト
+期待される成果：事実性または整合性のレビューメモ付き生成テキスト
 ```
+
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+- 合格の目安は、`15` 個の valid paths が many-to-one alignment の証拠であり、quality score ではないと説明できることです。
+- frame length または vocabulary を 1 つだけ変えて toy script を再実行します。valid-path count が変わったら、どの blanks や repeats が新しく可能になったかを説明します。
+- collapsed path を 1 つ手で追い、blanks、repeated tokens、final transcript tokens がどこに出るかを印付けします。
+- CTC が frame-by-frame alignment を人間に要求せず、transcript labels だけで学習できる理由を説明できれば、このページは完了です。
+
+</details>

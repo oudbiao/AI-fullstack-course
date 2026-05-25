@@ -170,3 +170,13 @@ metric: entity precision/recall/F1 and boundary cases
 failure_check: span boundary, nested entity, unknown word, or inconsistent annotation
 Expected_output: gold-vs-predicted span table with at least one miss
 ```
+
+<details>
+<summary>Review notes and pass criteria</summary>
+
+- A passing review should explain why token labels are not independent decisions. The answer should mention both local evidence and label-transition constraints.
+- Test at least one invalid BIO path such as `O -> I-PER`, then explain whether the mistake comes from representation, decoding, or annotation rules.
+- Compare a BERT token-classification output with a rule-checked span table. If the model predicts a high-confidence but illegal path, the structured check should still catch it.
+- The page is complete when you can say when a CRF-style constraint is useful even if the main model is a modern pretrained encoder.
+
+</details>

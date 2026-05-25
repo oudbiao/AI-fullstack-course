@@ -171,3 +171,13 @@ HMM / Viterbi -> CRF -> BiLSTM-CRF -> BERT token classification
 失败检查：跨度边界、嵌套实体、未知词或标注不一致
 期望产出：金标与预测 span 对照表，至少包含一个漏判
 ```
+
+<details>
+<summary>复盘要点与通过标准</summary>
+
+- 复盘通过的关键，是能解释为什么 token 标签不是彼此独立的判断。回答里应该同时提到局部证据和标签转移约束。
+- 至少测试一条非法 BIO 路径，比如 `O -> I-PER`，再说明错误来自表示、解码，还是标注规则。
+- 把 BERT token classification 的输出和规则检查后的 span 表并排看。即使模型高置信预测了非法路径，结构化检查也应该能抓出来。
+- 当你能说清楚“即使主模型是现代预训练 encoder，什么时候仍然需要 CRF 式约束”时，本页就算通过。
+
+</details>
