@@ -101,7 +101,7 @@ Linear regression solves continuous-value prediction, while logistic regression 
 
 Suggested study mapping:
 
-| Corresponding section | Learning focus brought by this historical breakthrough |
+| Section | Focus |
 |---|---|
 | 2.2 Linear Regression | Understand for the first time “model, loss, parameter updates” |
 | 2.3 Logistic Regression | Move from continuous prediction to classification probabilities and decision boundaries |
@@ -119,7 +119,7 @@ But a single tree also has an obvious problem: it can easily grow too deep and m
 
 Suggested study mapping:
 
-| Corresponding section | Learning focus brought by this historical breakthrough |
+| Section | Focus |
 |---|---|
 | 2.4 Decision Trees | Rule splitting, purity, pruning, and interpretability |
 | 4.3 Bias-variance | Why deep trees overfit |
@@ -139,7 +139,7 @@ SVM may not be the first choice for every project today, but it is historically 
 
 Suggested study mapping:
 
-| Corresponding section | Learning focus brought by this historical breakthrough |
+| Section | Focus |
 |---|---|
 | Optional module: SVM | Maximum margin, support vectors, kernel methods |
 | Model evaluation in this chapter | A high training score does not necessarily mean a stable boundary |
@@ -157,7 +157,7 @@ This path has a huge impact on industrial machine learning, especially for tabul
 
 Suggested study mapping:
 
-| Corresponding section | Learning focus brought by this historical breakthrough |
+| Section | Focus |
 |---|---|
 | 2.5 Ensemble Learning | The difference between Bagging and Boosting |
 | 4.1 Metric selection | Even strong models must be compared under the right metric |
@@ -177,7 +177,7 @@ This allows beginners to first learn a unified workflow, and then gradually unde
 
 Suggested study mapping:
 
-| Corresponding section | Learning focus brought by this historical breakthrough |
+| Section | Focus |
 |---|---|
 | 1.4 Introduction to the Scikit-learn framework | The unified mental model of `fit / predict / score` |
 | 5.5 Pipeline | Prevent data leakage and messy workflows |
