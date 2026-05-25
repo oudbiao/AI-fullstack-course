@@ -77,6 +77,18 @@ session_done
 | `virtual ~Engine()` | 通过接口清理资源也安全 |
 | RAII | 资源生命周期跟随对象生命周期 |
 
+## 为什么 AI 系统里常见这种写法
+
+推理系统经常需要让同一条业务路径切换不同后端：CPU fallback、GPU runtime、量化 engine，或者远程服务封装。调用方不应该关心后端是谁，只应该要求一个 `Engine` 执行。
+
+所以这个例子把三件事拆开：
+
+- `Engine` 定义契约。
+- `CpuEngine` 提供一种实现。
+- `Session` 拥有一个 engine，并通过契约调用它。
+
+如果所有权不清楚，部署问题会很难排查：内存可能泄漏，buffer 可能活得比 runtime 更久，清理顺序也可能错。`std::unique_ptr` 和 RAII 把生命周期放进类型系统里，而不是藏在注释里。
+
 ## 动手改一下
 
 新增一个 engine：

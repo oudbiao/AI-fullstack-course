@@ -77,6 +77,18 @@ Expected browser behavior:
 - Normal prompt: status goes `loading` then `success`.
 - Prompt containing `fail`: status becomes `error`.
 
+## Test the UI States Deliberately
+
+Do not only click the happy path once. A useful AI UI test records the state transition and visible message for each path:
+
+| Test input | Expected state | Evidence to keep |
+|---|---|---|
+| empty text box | `empty` | screenshot or note that the UI asks for input |
+| `summarize this note` | `loading` then `success` | before/after screenshot or event trace |
+| `please fail` | `error` | screenshot showing the recovery message |
+
+This is the front-end version of model evaluation. The model may be fake in this page, but the user experience contract is real: every uncertain call needs progress, a result, and a recovery path.
+
 ## Replace the Fake Call Later
 
 When your backend exists, replace the simulated wait with `fetch`:

@@ -125,6 +125,48 @@ project/
 
 一条这样的笔记，往往比十张截图更有价值。
 
+## 运行一次交付包完整性检查
+
+在你说项目结束之前，把这个小脚本放到项目根目录，命名为 `check_package.py`：
+
+```python
+from pathlib import Path
+
+required = [
+    "README.md",
+    "examples/input-01.json",
+    "examples/output-01.json",
+    "reports/evaluation.md",
+    "reports/failure_cases.md",
+]
+
+missing = [item for item in required if not Path(item).exists()]
+
+if missing:
+    print("missing:")
+    for item in missing:
+        print("-", item)
+    raise SystemExit(1)
+
+print("package_ready=true")
+print("checked_files=", len(required))
+```
+
+运行：
+
+```bash
+python check_package.py
+```
+
+交付包完整后的预期输出：
+
+```text
+package_ready=true
+checked_files= 5
+```
+
+这个脚本不判断模型好不好，它只检查评审者是否拿到了复现和检查项目所需的最小材料。
+
 ## 好的交付长什么样
 
 交付时，别人应该能很快回答三个问题：

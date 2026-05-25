@@ -125,6 +125,48 @@ Write a note like this:
 
 That one note is often more valuable than ten screenshots.
 
+## Run a Package Completeness Check
+
+Before you call the project finished, put this small script in `check_package.py` at the project root:
+
+```python
+from pathlib import Path
+
+required = [
+    "README.md",
+    "examples/input-01.json",
+    "examples/output-01.json",
+    "reports/evaluation.md",
+    "reports/failure_cases.md",
+]
+
+missing = [item for item in required if not Path(item).exists()]
+
+if missing:
+    print("missing:")
+    for item in missing:
+        print("-", item)
+    raise SystemExit(1)
+
+print("package_ready=true")
+print("checked_files=", len(required))
+```
+
+Run it:
+
+```bash
+python check_package.py
+```
+
+Expected output after the package is complete:
+
+```text
+package_ready=true
+checked_files= 5
+```
+
+This script does not judge whether the model is good. It checks whether the reviewer has the minimum material needed to reproduce and inspect the work.
+
 ## What a strong project handoff looks like
 
 The handoff should let another person answer three questions quickly:

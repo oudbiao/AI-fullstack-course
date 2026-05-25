@@ -77,6 +77,18 @@ session_done
 | `virtual ~Engine()` | インターフェース経由でも安全に片付けられる |
 | RAII | リソース寿命がオブジェクト寿命に従う |
 
+## AI システムでこの形がよく出る理由
+
+推論システムでは、同じ業務経路を別の backend に差し替えることがあります。CPU fallback、GPU runtime、量子化 engine、remote service wrapper などです。呼び出し側は backend の詳細ではなく、`Engine` を実行できればよいはずです。
+
+この例では責務を 3 つに分けています。
+
+- `Engine` は契約を定義する。
+- `CpuEngine` は 1 つの実装を提供する。
+- `Session` は 1 つの engine を所有し、契約越しに呼び出す。
+
+所有権が曖昧だと、デプロイの不具合は追いにくくなります。メモリが漏れる、buffer が runtime より長く残る、片付け順序がずれる、といった問題です。`std::unique_ptr` と RAII は、寿命をコメントではなく型で見えるようにします。
+
 ## 少し変えてみる
 
 2 つ目の engine を追加します。

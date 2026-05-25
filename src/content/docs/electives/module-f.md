@@ -63,6 +63,21 @@ AI Medical Diagnosis score= 5.4 decision= do_not_launch
 
 The numbers are not final truth. They force you to say what you are optimizing for and where launch should be blocked.
 
+## Turn the Score into a Decision Note
+
+After the script prints a ranking, do not stop at the top score. Write one small decision note:
+
+```text
+feature: AI Tutor
+decision: pilot
+success_metric: exercise completion rate improves by 15%
+main_risk: gives confident but wrong explanations
+launch_blocker: no review path for high-risk advice
+next_test: run with 10 real learner questions and record failures
+```
+
+This note is the bridge between product thinking and engineering work. Engineers can build from it because it names a metric, a risk, a blocker, and the next experiment.
+
 ## Product Checklist
 
 | Question | Good Answer |

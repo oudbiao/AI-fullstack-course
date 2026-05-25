@@ -125,6 +125,48 @@ project/
 
 この 1 つのメモは、10 枚のスクリーンショットより価値があることもあります。
 
+## 納品パッケージの完全性を確認する
+
+プロジェクトを完了と言う前に、次の小さなスクリプトをプロジェクトルートの `check_package.py` として置きます。
+
+```python
+from pathlib import Path
+
+required = [
+    "README.md",
+    "examples/input-01.json",
+    "examples/output-01.json",
+    "reports/evaluation.md",
+    "reports/failure_cases.md",
+]
+
+missing = [item for item in required if not Path(item).exists()]
+
+if missing:
+    print("missing:")
+    for item in missing:
+        print("-", item)
+    raise SystemExit(1)
+
+print("package_ready=true")
+print("checked_files=", len(required))
+```
+
+実行します。
+
+```bash
+python check_package.py
+```
+
+パッケージがそろった後の期待出力:
+
+```text
+package_ready=true
+checked_files= 5
+```
+
+このスクリプトはモデルの良し悪しを判定しません。レビューする人が、再現と確認に必要な最低限の材料を持っているかを確認します。
+
 ## 良い引き継ぎとは何か
 
 引き継ぎでは、他の人がすぐに次の 3 つに答えられるべきです。

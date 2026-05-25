@@ -61,6 +61,16 @@ score=2.1
 | compile then run | Deployment usually produces a binary, not just a script |
 | printed result | Every deployment test needs reproducible evidence |
 
+## How to Read This Like Deployment Code
+
+When you see C++ inside an inference runtime, slow down around three things:
+
+- **Data container**: ask what shape and value type the code is carrying. Here it is a tiny `std::vector<float>`, but in real runtimes it may be a tensor buffer.
+- **Boundary between code and evidence**: compilation proves the code is valid; printed output proves the runtime path actually ran.
+- **Failure point**: if the result is wrong, check input values, index logic, type conversion, and the final print before changing the whole program.
+
+This small example is not trying to teach all of C++. It teaches a deployment habit: make the input visible, make the decision rule visible, and keep an output that another person can rerun.
+
 ## Practice change
 
 Change the logits to:

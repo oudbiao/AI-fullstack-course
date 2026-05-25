@@ -77,6 +77,18 @@ session_done
 | destructor through `virtual ~Engine()` | Cleanup is safe through the interface |
 | RAII | Resource lifetime follows object lifetime |
 
+## Why This Pattern Shows Up in AI Systems
+
+Inference systems often need the same business path to run on different backends: a CPU fallback, a GPU runtime, a quantized engine, or a remote service wrapper. The caller should not care which backend is used; it should only ask an `Engine` to run.
+
+That is why the example separates three responsibilities:
+
+- `Engine` defines the contract.
+- `CpuEngine` provides one implementation.
+- `Session` owns exactly one engine and calls it through the contract.
+
+If ownership is unclear, deployment bugs become hard to diagnose: memory can leak, buffers can outlive the runtime, or cleanup can happen in the wrong order. `std::unique_ptr` and RAII make the lifetime visible in the type system instead of hiding it in comments.
+
 ## Practice change
 
 Add a second engine:
