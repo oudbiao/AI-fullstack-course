@@ -258,3 +258,13 @@ flowchart LR
 失敗確認: 不明確なラベル、過度なクリーニング、境界エラー、ハルシネーション、または裏付けのない回答
 期待される成果: 指標と例を含む再現可能なテキストパイプラインフォルダ
 ```
+
+<details>
+<summary>レビュー観点と通過基準</summary>
+
+- 役に立つ semantic graph は、きれいな要約ではありません。下流テンプレートが再利用できる roles、relations、conditions、missing fields を表に出すものです。
+- raw paragraph、抽出された graph、生成された content block を横に並べて確認します。source text に戻れない field は unsupported として扱います。
+- relation を落とした、または作ってしまった failure case を 1 つ残します。それが次の Prompt または schema 改善の入口になります。
+- 同じ graph fields で structured SOP block、QA answer、knowledge-base record を動かせるなら、このページは完了です。
+
+</details>

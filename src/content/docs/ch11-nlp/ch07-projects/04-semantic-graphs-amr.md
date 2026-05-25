@@ -256,3 +256,13 @@ metric: accuracy/F1, precision/recall, retrieval hit rate, faithfulness, or sche
 failure_check: unclear labels, over-cleaning, boundary errors, hallucination, or unsupported answer
 Expected_output: reproducible text pipeline folder with metrics and examples
 ```
+
+<details>
+<summary>Review notes and pass criteria</summary>
+
+- A useful semantic graph is not a prettier summary. It should expose roles, relations, conditions, and missing fields that a downstream template can reuse.
+- Check one raw paragraph, one extracted graph, and one generated block side by side. If a field cannot be traced back to the source text, mark it as unsupported.
+- Keep at least one failure case where the graph loses a relation or invents one. That case is the best prompt or schema improvement target.
+- The page is complete when the same graph fields can drive a structured SOP block, a QA answer, or a knowledge-base record without rewriting the whole pipeline.
+
+</details>
