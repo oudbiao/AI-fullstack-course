@@ -249,7 +249,7 @@ df.groupby("Department")["Salary"].transform("mean")
 :::
 ### A comparison table that is very useful for beginners to remember first
 
-| Method | The most important result to remember |
+| Method | Return shape |
 |---|---|
 | `agg` | One summary result per group |
 | `transform` | Same number of rows, just add a “group statistic” column |

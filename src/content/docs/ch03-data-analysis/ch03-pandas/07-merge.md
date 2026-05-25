@@ -153,14 +153,12 @@ print(result)
 
 ### Comparison of the Four Join Types
 
-```
-User table: {1,2,3,4}    Order table: {1,2,3,5}
-
-inner:  {1,2,3}       rows that exist on both sides
-left:   {1,2,3,4}     all rows from the left + matches from the right
-right:  {1,2,3,5}     all rows from the right + matches from the left
-outer:  {1,2,3,4,5}   keep everything
-```
+| Join | Kept IDs | Meaning |
+|---|---|---|
+| `inner` | `{1,2,3}` | rows that exist on both sides |
+| `left` | `{1,2,3,4}` | all left rows, plus right-side matches |
+| `right` | `{1,2,3,5}` | all right rows, plus left-side matches |
+| `outer` | `{1,2,3,4,5}` | keep everything |
 
 ### A Beginner-Friendly Selection Table
 

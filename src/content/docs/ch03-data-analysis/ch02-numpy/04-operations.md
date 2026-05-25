@@ -289,18 +289,12 @@ print(np.sum(matrix, axis=1))  # [ 6 15 24]
 
 A helpful way to understand `axis` — **axis=0 removes rows, axis=1 removes columns**:
 
-```
-Original (3, 3):
-[[1, 2, 3],
- [4, 5, 6],
- [7, 8, 9]]
+| Axis | Mental model | Result |
+|---|---|---|
+| `axis=0` | compress top to bottom, keep columns | `[12, 15, 18]` |
+| `axis=1` | compress left to right, keep rows | `[6, 15, 24]` |
 
-axis=0 (remove rows → result shape=(3,)):
-[1+4+7, 2+5+8, 3+6+9] = [12, 15, 18]
-
-axis=1 (remove columns → result shape=(3,)):
-[1+2+3, 4+5+6, 7+8+9] = [6, 15, 24]
-```
+If you are unsure, print `matrix.shape` first, then ask which dimension you want to remove.
 
 ### Practice: Grade Analysis
 

@@ -42,20 +42,11 @@ Python is a **high-level programming language** released by Guido van Rossum in 
 
 What does “high-level” mean? The farther a programming language is from hardware and the closer it is to human language, the more “high-level” it is. Compare these:
 
-```
-# Machine language (binary, directly executed by the computer)
-10110000 01100001
-
-# C language (requires manual management of many details)
-#include <stdio.h>
-int main() {
-    printf("Hello World\n");
-    return 0;
-}
-
-# Python (concise and clear)
-print("Hello World")
-```
+| Level | What the same idea looks like |
+|---|---|
+| Machine language | `10110000 01100001` |
+| C language | `#include <stdio.h>` plus a full `main()` function |
+| Python | `print("Hello World")` |
 
 To print the same sentence, Python needs only **1 line**, while C needs 5 lines. This is Python’s design philosophy: **simple and elegant, so you can focus on solving problems instead of syntax details.**
 

@@ -294,17 +294,11 @@ df = pd.DataFrame({
 
 ### Structure of a DataFrame
 
-```
-        Columns
-        ↓
-Index →  Name  Age  City    Salary
-(Index)
-  0     Zhang San  22   Beijing  15000
-  1     Li Si      25   Shanghai  22000
-  2     Wang Wu    23   Guangzhou 18000
-  3     Zhao Liu   28   Shenzhen  25000
-  4     Qian Qi    21   Hangzhou  16000
-```
+| Part | Example |
+|---|---|
+| Index | `0`, `1`, `2`, `3`, `4` |
+| Columns | `Name`, `Age`, `City`, `Salary` |
+| One row | `Zhang San`, `22`, `Beijing`, `15000` |
 
 DataFrame = **row index (Index)** + **column names (Columns)** + **data (Values)**
 

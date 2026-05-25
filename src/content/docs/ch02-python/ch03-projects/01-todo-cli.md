@@ -30,23 +30,12 @@ We are going to build a **command-line task manager** (similar to a simplified T
 
 Final result:
 
-```
-===== Task Manager =====
-1. View all tasks
-2. Add task
-3. Complete task
-4. Delete task
-5. Exit
-
-Choose an action (1-5): 1
-
-📋 Task List:
-  1. [ ] Learn Python fundamentals   (Created at: 2026-02-09)
-  2. [✓] Finish Chapter 1 tooling basics  (Created at: 2026-02-08)
-  3. [ ] Start a machine learning project (Created at: 2026-02-09)
-
-Total 3 tasks, 1 completed
-```
+| Area | What the CLI shows |
+|---|---|
+| Menu | View, add, complete, delete, or exit |
+| User action | Choose option `1` to view all tasks |
+| Task list | Three tasks, with one marked complete |
+| Summary | `Total 3 tasks, 1 completed` |
 
 ---
 

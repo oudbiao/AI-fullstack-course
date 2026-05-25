@@ -95,18 +95,11 @@ print(sub3)
 
 ### Visual Guide to 2D Indexing
 
-```
-matrix =
-     Col 0  Col 1  Col 2  Col 3
-Row 0 [  1    2    3    4 ]
-Row 1 [  5    6    7    8 ]
-Row 2 [  9   10   11   12 ]
-Row 3 [ 13   14   15   16 ]
-
-matrix[1, 2]      → 7        (row 1, column 2)
-matrix[:2, :3]    → [[1,2,3], [5,6,7]]  (first 2 rows, first 3 columns)
-matrix[:, 1]      → [2, 6, 10, 14]      (all rows, column 1)
-```
+| Expression | What it selects | Result |
+|---|---|---|
+| `matrix[1, 2]` | row 1, column 2 | `7` |
+| `matrix[:2, :3]` | first 2 rows and first 3 columns | `[[1,2,3], [5,6,7]]` |
+| `matrix[:, 1]` | all rows, column 1 | `[2, 6, 10, 14]` |
 
 ---
 

@@ -139,25 +139,14 @@ for key, value in passengers[0].items():
     print(f"  {key}: {value}")
 ```
 
-Output:
+Output summary:
 
-```
-Loaded 30 records in total
-
-Information for the first passenger:
-  PassengerId: 1
-  Survived: 0
-  Pclass: 3
-  Name: Braund, Mr. Owen Harris
-  Sex: male
-  Age: 22
-  SibSp: 1
-  Parch: 0
-  Ticket: A/5 21171
-  Fare: 7.25
-  Cabin:
-  Embarked: S
-```
+| Item | Value |
+|---|---|
+| Records loaded | `30` |
+| First passenger | `Braund, Mr. Owen Harris` |
+| Class / sex / age | `3`, `male`, `22` |
+| Ticket / fare / embarked | `A/5 21171`, `$7.25`, `S` |
 
 :::caution[First pain point: all data is stored as strings!]
 Notice that `Age` is `"22"` instead of `22`, and `Survived` is `"0"` instead of `0`. Everything read from CSV is a **string**! To do any math, you have to convert every field manually.
@@ -286,18 +275,15 @@ def top_fare_passengers(passengers, n=5):
 top_fare_passengers(passengers)
 ```
 
-Output:
+Output summary:
 
-```
-=== Top 5 Passengers by Fare ===
-Rank  Name                               Class  Fare
-------------------------------------------------------------
-1     Fortune, Mr. Charles Alexander     First  $263.00
-2     Cumings, Mrs. John Bradley         First  $71.28
-3     Futrelle, Mrs. Jacques Heath       First  $53.10
-4     McCarthy, Mr. Timothy J            First  $51.86
-5     Sloper, Mr. William Thompson       First  $35.50
-```
+| Rank | Passenger | Fare |
+|---|---|---|
+| 1 | Fortune, Mr. Charles Alexander | `$263.00` |
+| 2 | Cumings, Mrs. John Bradley | `$71.28` |
+| 3 | Futrelle, Mrs. Jacques Heath | `$53.10` |
+| 4 | McCarthy, Mr. Timothy J | `$51.86` |
+| 5 | Sloper, Mr. William Thompson | `$35.50` |
 
 ### Task 3: Group by class and calculate average age
 
@@ -515,19 +501,15 @@ find_children(passengers)
 
 ### Exercise 3: Summary statistics table
 
-Generate a summary statistics table in the following format:
+Generate a summary statistics table with these fields:
 
-```
-=== Titanic Summary Statistics ===
-Total passengers: 30
-Survived: 16 (53.3%)
-Average age: 26.8 years old
-Average fare: $31.23
-Male passengers: 14 (46.7%)
-Female passengers: 16 (53.3%)
-Missing age: 7 (23.3%)
-Missing cabin: 21 (70.0%)
-```
+| Metric | Example value |
+|---|---|
+| Total passengers | `30` |
+| Survived | `16 (53.3%)` |
+| Average age / fare | `26.8 years old`, `$31.23` |
+| Male / female passengers | `14 (46.7%)`, `16 (53.3%)` |
+| Missing age / cabin | `7 (23.3%)`, `21 (70.0%)` |
 
 ### Challenge exercise: Cross-analysis
 

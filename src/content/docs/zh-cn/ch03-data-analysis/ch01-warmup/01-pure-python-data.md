@@ -139,25 +139,14 @@ for key, value in passengers[0].items():
     print(f"  {key}: {value}")
 ```
 
-输出：
+输出摘要：
 
-```
-共读取 30 条记录
-
-第一位乘客的信息：
-  PassengerId: 1
-  Survived: 0
-  Pclass: 3
-  Name: Braund, Mr. Owen Harris
-  Sex: male
-  Age: 22
-  SibSp: 1
-  Parch: 0
-  Ticket: A/5 21171
-  Fare: 7.25
-  Cabin:
-  Embarked: S
-```
+| 项目 | 值 |
+|---|---|
+| 读取记录数 | `30` |
+| 第一位乘客 | `Braund, Mr. Owen Harris` |
+| 舱位 / 性别 / 年龄 | `3`、`male`、`22` |
+| 船票 / 票价 / 登船港 | `A/5 21171`、`$7.25`、`S` |
 
 :::caution[第一个痛点：所有数据都是字符串！]
 注意看——`Age` 是 `"22"` 不是 `22`，`Survived` 是 `"0"` 不是 `0`。CSV 读出来的**全部是字符串**！要做数学运算，每个字段都得手动转换类型。
@@ -286,18 +275,15 @@ def top_fare_passengers(passengers, n=5):
 top_fare_passengers(passengers)
 ```
 
-输出：
+输出摘要：
 
-```
-=== 票价最高的前 5 位乘客 ===
-排名    姓名                                 舱位    票价
-------------------------------------------------------------
-1     Fortune, Mr. Charles Alexander       头等    $263.00
-2     Cumings, Mrs. John Bradley           头等    $71.28
-3     Futrelle, Mrs. Jacques Heath         头等    $53.10
-4     McCarthy, Mr. Timothy J              头等    $51.86
-5     Sloper, Mr. William Thompson         头等    $35.50
-```
+| 排名 | 乘客 | 票价 |
+|---|---|---|
+| 1 | Fortune, Mr. Charles Alexander | `$263.00` |
+| 2 | Cumings, Mrs. John Bradley | `$71.28` |
+| 3 | Futrelle, Mrs. Jacques Heath | `$53.10` |
+| 4 | McCarthy, Mr. Timothy J | `$51.86` |
+| 5 | Sloper, Mr. William Thompson | `$35.50` |
 
 ### 任务 3：按船舱等级分组统计平均年龄
 
@@ -515,19 +501,15 @@ find_children(passengers)
 
 ### 练习 3：综合统计表
 
-生成一个综合统计表，格式如下：
+生成一个包含这些字段的综合统计表：
 
-```
-=== 泰坦尼克号数据综合统计 ===
-总乘客数: 30
-幸存人数: 16 (53.3%)
-平均年龄: 26.8 岁
-平均票价: $31.23
-男性人数: 14 (46.7%)
-女性人数: 16 (53.3%)
-缺失年龄: 7 人 (23.3%)
-缺失船舱: 21 人 (70.0%)
-```
+| 指标 | 示例值 |
+|---|---|
+| 总乘客数 | `30` |
+| 幸存人数 | `16 (53.3%)` |
+| 平均年龄 / 平均票价 | `26.8 岁`、`$31.23` |
+| 男性 / 女性人数 | `14 (46.7%)`、`16 (53.3%)` |
+| 缺失年龄 / 缺失船舱 | `7 (23.3%)`、`21 (70.0%)` |
 
 ### 挑战练习：交叉分析
 

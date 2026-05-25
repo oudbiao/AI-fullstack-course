@@ -112,7 +112,7 @@ rav[0] = 99
 print(matrix[0, 0])  # 99  ← original array also changes!
 ```
 
-| Method | Return type | Does modification affect the original array? | Speed |
+| Method | Return type | Affects original? | Speed |
 |------|---------|------------------|------|
 | `flatten()` | Copy | No | Slower (data must be copied) |
 | `ravel()` | View | Yes | Faster (no copy) |

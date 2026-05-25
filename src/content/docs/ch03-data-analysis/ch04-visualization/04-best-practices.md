@@ -477,18 +477,12 @@ sizes = [v * 2 for v in values]  # Area proportional
 
 After finishing a chart, check it with this list:
 
-```
-☐ Is the chart type appropriate? (line vs. bar vs. scatter...)
-☐ Does the title clearly express what the chart is saying?
-☐ Do the axes have labels and units?
-☐ Is the Y-axis start value reasonable? (bar charts should start at 0)
-☐ Is the legend necessary and clear?
-☐ Are the colors color-blind-friendly?
-☐ Have unnecessary decorations been removed? (3D effects, fancy backgrounds)
-☐ Do the data labels help understanding?
-☐ Is the font large enough? (Can others read it clearly?)
-☐ Is the data presentation honest? (No misleading tricks?)
-```
+- Chart type matches the question: line, bar, scatter, or another appropriate choice.
+- Title states the message, not just the variable name.
+- Axes have labels, units, and a reasonable start value.
+- Legend, colors, and labels help reading instead of adding clutter.
+- Font size is readable for another person.
+- The chart is honest: no hidden data, distorted scale, or misleading decoration.
 
 ### The safest default order for your first reporting chart
 

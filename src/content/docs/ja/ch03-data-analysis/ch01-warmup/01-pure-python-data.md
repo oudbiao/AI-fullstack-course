@@ -141,25 +141,14 @@ for key, value in passengers[0].items():
     print(f"  {key}: {value}")
 ```
 
-出力：
+出力の要約：
 
-```
-全部で 30 件読み込みました
-
-最初の乗客の情報：
-  PassengerId: 1
-  Survived: 0
-  Pclass: 3
-  Name: Braund, Mr. Owen Harris
-  Sex: male
-  Age: 22
-  SibSp: 1
-  Parch: 0
-  Ticket: A/5 21171
-  Fare: 7.25
-  Cabin:
-  Embarked: S
-```
+| 項目 | 値 |
+|---|---|
+| 読み込んだ件数 | `30` |
+| 最初の乗客 | `Braund, Mr. Owen Harris` |
+| 客室等級 / 性別 / 年齢 | `3`、`male`、`22` |
+| チケット / 料金 / 乗船港 | `A/5 21171`、`$7.25`、`S` |
 
 :::caution[最初のつまずきポイント：すべて文字列！]
 注目してください。`Age` は `22` ではなく `"22"`、`Survived` は `0` ではなく `"0"` です。CSV から読み込むと、**すべて文字列** になります。数値計算をするには、各フィールドを手動で型変換しなければいけません。
@@ -288,18 +277,15 @@ def top_fare_passengers(passengers, n=5):
 top_fare_passengers(passengers)
 ```
 
-出力：
+出力の要約：
 
-```
-=== 料金が高い上位 5 人 ===
-順位    名前                                 等級    料金
-------------------------------------------------------------
-1     Fortune, Mr. Charles Alexander       1等    $263.00
-2     Cumings, Mrs. John Bradley           1等    $71.28
-3     Futrelle, Mrs. Jacques Heath         1等    $53.10
-4     McCarthy, Mr. Timothy J              1等    $51.86
-5     Sloper, Mr. William Thompson         1等    $35.50
-```
+| 順位 | 乗客 | 料金 |
+|---|---|---|
+| 1 | Fortune, Mr. Charles Alexander | `$263.00` |
+| 2 | Cumings, Mrs. John Bradley | `$71.28` |
+| 3 | Futrelle, Mrs. Jacques Heath | `$53.10` |
+| 4 | McCarthy, Mr. Timothy J | `$51.86` |
+| 5 | Sloper, Mr. William Thompson | `$35.50` |
 
 ### タスク 3：客室等級ごとに平均年齢を集計する
 
@@ -515,19 +501,15 @@ find_children(passengers)
 
 ### 練習 3：総合統計表
 
-次のような総合統計表を作ってみましょう。
+次の項目を含む総合統計表を作ってみましょう。
 
-```
-=== Titanic データ総合統計 ===
-総乗客数: 30
-生存者数: 16 (53.3%)
-平均年齢: 26.8 歳
-平均料金: $31.23
-男性人数: 14 (46.7%)
-女性人数: 16 (53.3%)
-年齢欠損: 7 人 (23.3%)
-客室欠損: 21 人 (70.0%)
-```
+| 指標 | 例 |
+|---|---|
+| 総乗客数 | `30` |
+| 生存者数 | `16 (53.3%)` |
+| 平均年齢 / 平均料金 | `26.8 歳`、`$31.23` |
+| 男性 / 女性人数 | `14 (46.7%)`、`16 (53.3%)` |
+| 年齢欠損 / 客室欠損 | `7 (23.3%)`、`21 (70.0%)` |
 
 ### チャレンジ練習：クロス集計
 

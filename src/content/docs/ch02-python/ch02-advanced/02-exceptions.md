@@ -82,17 +82,10 @@ print("The program continues running...")  # This line runs whether or not there
 
 Output behavior:
 
-```
-# Valid input
-Please enter a number: 42
-You entered: 42
-The program continues running...
-
-# Non-numeric input
-Please enter a number: abc
-Invalid input! Please enter a number.
-The program continues running...
-```
+| Input | What happens |
+|---|---|
+| `42` | Prints `You entered: 42`, then continues. |
+| `abc` | Prints the invalid-input message, then continues. |
 
 Key point: **with `try/except`, the program will not crash because of an error.**
 

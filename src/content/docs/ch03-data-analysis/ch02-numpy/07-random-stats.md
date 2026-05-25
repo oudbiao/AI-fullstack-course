@@ -362,15 +362,15 @@ for n in [100, 1000, 10000, 100000, 1000000]:
     print(f"  {n:>10,} points → π ≈ {pi_est:.6f}  Error: {error:.6f}")
 ```
 
-Output:
+Output summary:
 
-```
-       100 points → π ≈ 3.120000  Error: 0.021593
-     1,000 points → π ≈ 3.156000  Error: 0.014407
-    10,000 points → π ≈ 3.153200  Error: 0.011607
-   100,000 points → π ≈ 3.140480  Error: 0.001113
- 1,000,000 points → π ≈ 3.142484  Error: 0.000891
-```
+| Points | Estimated π | Error |
+|---:|---:|---:|
+| 100 | 3.120000 | 0.021593 |
+| 1,000 | 3.156000 | 0.014407 |
+| 10,000 | 3.153200 | 0.011607 |
+| 100,000 | 3.140480 | 0.001113 |
+| 1,000,000 | 3.142484 | 0.000891 |
 
 The more points you use, the more accurate the estimate becomes! That is the charm of the Monte Carlo method.
 

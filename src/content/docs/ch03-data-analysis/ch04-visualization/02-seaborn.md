@@ -280,21 +280,14 @@ plt.show()
 
 :::tip[How to read a box plot]
 
-```
-          Maximum (upper whisker)
-            │
-    ┌───────┤
-    │  Upper quartile (Q3) ─── 75% of data is below this
-    │       │
-    │  Median (Q2) ──── 50th percentile
-    │       │
-    │  Lower quartile (Q1) ─── 25% of data is below this
-    └───────┤
-            │
-          Minimum (lower whisker)
-
-    ●       Outliers (points beyond the whiskers)
-```
+| Box plot part | What it means |
+|---|---|
+| Upper whisker | High end of the normal range |
+| Q3 | 75% of data is below this |
+| Median | 50th percentile |
+| Q1 | 25% of data is below this |
+| Lower whisker | Low end of the normal range |
+| Outliers | Points beyond the whiskers |
 
 The taller the box, the more spread out the data is; the higher the median line, the larger the overall values are.
 :::
