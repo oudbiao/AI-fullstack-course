@@ -300,6 +300,8 @@ print(f"Best parameters: {rs.best_params_}")
 
 ![House price residual review map](/img/course/ch05-house-price-residual-review-map-en.webp)
 
+Read this map as a result checklist: first compare prediction vs actual, then inspect residual patterns before changing the model.
+
 ```python
 # Prediction vs actual
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))

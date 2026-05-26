@@ -220,6 +220,8 @@ for case in eval_cases:
 
 ![研究アシスタントの引用と評価結果図](/img/course/ch09-research-assistant-citation-eval-result-map-ja.webp)
 
+この図で、検索結果、引用、最終評価が互いに一致しているかを確認します。
+
 ---
 
 ## いちばんハマりやすい落とし穴

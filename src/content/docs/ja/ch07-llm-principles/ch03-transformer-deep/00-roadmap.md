@@ -17,6 +17,8 @@ head:
 
 ![Transformer 情報フロー、計算コスト、タスク適合図](/img/course/ch07-transformer-cost-task-map-ja.webp)
 
+2枚目の図はデバッグ経路として読みます。情報の流れ、計算コスト、タスク適合を一緒に確認します。
+
 ## causal mask を作る
 
 ```python

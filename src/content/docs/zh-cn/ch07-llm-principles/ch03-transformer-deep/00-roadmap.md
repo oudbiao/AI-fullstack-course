@@ -17,6 +17,8 @@ head:
 
 ![Transformer 信息流、计算成本与任务适配图](/img/course/ch07-transformer-cost-task-map.webp)
 
+第二张图按调试路线来读：信息流、计算成本和任务适配要放在一起判断。
+
 ## 构造 causal mask
 
 ```python

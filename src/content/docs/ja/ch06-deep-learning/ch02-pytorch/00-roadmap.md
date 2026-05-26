@@ -17,6 +17,8 @@ PyTorch は深層学習ループを実行できるコードにします。まず
 
 ![NumPy から PyTorch への学習ループマップ](/img/course/ch06-numpy-to-pytorch-training-loop-map-ja.webp)
 
+2枚目の図は最小の PyTorch 学習ループです。tensor、model、loss、backward、step、repeat の順に確認します。
+
 ```text
 tensor -> model -> loss -> backward -> optimizer.step -> repeat
 ```

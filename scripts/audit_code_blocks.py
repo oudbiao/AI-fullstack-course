@@ -41,6 +41,7 @@ SKIP_LANGS = {
     "",
     "text",
     "txt",
+    "tree",
     "course-map",
     "mermaid",
     "sql",

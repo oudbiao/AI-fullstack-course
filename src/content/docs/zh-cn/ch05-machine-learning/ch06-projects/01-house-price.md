@@ -300,6 +300,8 @@ print(f"最佳参数: {rs.best_params_}")
 
 ![房价残差复盘图](/img/course/ch05-house-price-residual-review-map.webp)
 
+读这张图时先对照预测值和真实值，再检查残差模式，最后再决定是否换模型或加特征。
+
 ```python
 # 预测 vs 实际
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))

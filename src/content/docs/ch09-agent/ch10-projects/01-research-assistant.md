@@ -218,6 +218,8 @@ Expected output:
 
 ![Research assistant citation and evaluation result map](/img/course/ch09-research-assistant-citation-eval-result-map-en.webp)
 
+Use this map to check whether retrieval hits, citations, and final evaluation agree with each other.
+
 ---
 
 ## The easiest pitfalls to fall into

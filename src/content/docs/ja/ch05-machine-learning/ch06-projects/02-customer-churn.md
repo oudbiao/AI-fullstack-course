@@ -178,6 +178,8 @@ print(f"離脱顧客: {df['離脱'].sum()}, 継続顧客: {(1-df['離脱']).sum(
 
 ![顧客離脱の不均衡としきい値図](/img/course/ch05-churn-imbalance-threshold-map-ja.webp)
 
+この図では、クラス不均衡がどの指標と cutoff を信頼すべきかに影響する流れを確認します。
+
 ```python
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier

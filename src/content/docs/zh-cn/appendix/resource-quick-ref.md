@@ -8,6 +8,8 @@ sidebar:
 
 ![AI 项目速查排错索引](/img/course/appendix-quick-ref-debug-index-map.webp)
 
+先用第一张图定位项目阶段，再用第二张图按错误类型回到对应检查项。
+
 做项目时查这一页，不需要从头读到尾。
 
 ## 环境检查

@@ -17,6 +17,8 @@ PyTorch 把深度学习闭环变成可运行代码。先学执行顺序，再补
 
 ![NumPy 到 PyTorch 训练循环图](/img/course/ch06-numpy-to-pytorch-training-loop-map.webp)
 
+第二张图是最小 PyTorch 训练循环：tensor、model、loss、backward、step、repeat。
+
 ```text
 tensor -> model -> loss -> backward -> optimizer.step -> repeat
 ```

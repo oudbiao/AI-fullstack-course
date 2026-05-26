@@ -17,6 +17,8 @@ This chapter looks inside the Transformer enough to debug LLM behavior and under
 
 ![Transformer information flow, computation cost, and task fit diagram](/img/course/ch07-transformer-cost-task-map-en.webp)
 
+Read the second map as a debugging route: attention flow, compute cost, and task fit should be checked together.
+
 ## Build a Causal Mask
 
 ```python

@@ -164,6 +164,8 @@ print(f"流失客户: {df['流失'].sum()}, 留存客户: {(1-df['流失']).sum(
 
 ![客户流失不平衡与阈值图](/img/course/ch05-churn-imbalance-threshold-map.webp)
 
+先看图里的阈值决策路径：类别不平衡会改变你该信任的指标和 cutoff。
+
 ```python
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier

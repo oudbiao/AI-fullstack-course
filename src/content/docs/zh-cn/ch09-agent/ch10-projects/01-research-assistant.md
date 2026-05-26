@@ -218,6 +218,8 @@ for case in eval_cases:
 
 ![研究助手引用与评估结果图](/img/course/ch09-research-assistant-citation-eval-result-map.webp)
 
+用这张图检查检索命中、引用和最终评估是否互相对得上。
+
 ---
 
 ## 最容易踩的坑

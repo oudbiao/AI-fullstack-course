@@ -17,6 +17,8 @@ PyTorch is the framework that turns the deep learning loop into runnable code. F
 
 ![NumPy to PyTorch training loop map](/img/course/ch06-numpy-to-pytorch-training-loop-map-en.webp)
 
+Use the second map as the minimum PyTorch loop: tensor, model, loss, backward, step, repeat.
+
 ```text
 tensor -> model -> loss -> backward -> optimizer.step -> repeat
 ```

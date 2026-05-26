@@ -164,6 +164,8 @@ print(f"Churn customers: {df['Churn'].sum()}, Retained customers: {(1-df['Churn'
 
 ![Churn imbalance and threshold map](/img/course/ch05-churn-imbalance-threshold-map-en.webp)
 
+Read this map as the threshold decision path: class imbalance changes which metric and cutoff you should trust.
+
 ```python
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
