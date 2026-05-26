@@ -80,17 +80,39 @@ check_preflight_html() {
   docker run --rm --network proxy-net curlimages/curl:latest -sf --connect-timeout 5 "http://ai-fullstack-course-preflight:3000${path}" | grep -Fq "$expected"
 }
 
+extract_redirect_status() {
+  printf '%s\n' "$1" | tr -d '\r' | awk '/^HTTP\// {status=$2} END {print status}'
+}
+
+extract_redirect_location() {
+  printf '%s\n' "$1" | tr -d '\r' | awk 'tolower($0) ~ /^location:/ {sub(/^[^:]+:[[:space:]]*/, ""); print; exit}'
+}
+
+check_redirect_headers() {
+  headers="$1"
+  expected_location="$2"
+  status="$(extract_redirect_status "$headers")"
+  location="$(extract_redirect_location "$headers")"
+
+  if [ "$status" != "301" ] || [ "$location" != "$expected_location" ]; then
+    echo "redirect check failed: status=${status:-missing} location=${location:-missing} expected_location=${expected_location}" >&2
+    return 1
+  fi
+}
+
 check_preflight_redirect() {
   path="$1"
   expected_location="$2"
-  docker run --rm --network proxy-net curlimages/curl:latest -sI --connect-timeout 5 "http://ai-fullstack-course-preflight:3000${path}" | grep -Fiq "location: ${expected_location}"
+  headers="$(docker run --rm --network proxy-net curlimages/curl:latest -q -sS -D - -o /dev/null --connect-timeout 5 "http://ai-fullstack-course-preflight:3000${path}")" || return 1
+  check_redirect_headers "$headers" "$expected_location"
 }
 
 check_preflight_host_redirect() {
   host="$1"
   path="$2"
   expected_location="$3"
-  docker run --rm --network proxy-net curlimages/curl:latest -sI --connect-timeout 5 -H "Host: ${host}" "http://ai-fullstack-course-preflight:3000${path}" | grep -Fiq "location: ${expected_location}"
+  headers="$(docker run --rm --network proxy-net curlimages/curl:latest -q -sS -D - -o /dev/null --connect-timeout 5 -H "Host: ${host}" "http://ai-fullstack-course-preflight:3000${path}")" || return 1
+  check_redirect_headers "$headers" "$expected_location"
 }
 
 check_preflight_status() {
