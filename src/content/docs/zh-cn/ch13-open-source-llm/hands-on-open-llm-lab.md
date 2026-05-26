@@ -21,7 +21,7 @@ head:
 
 完成后，目录里应该有这些文件：
 
-```text
+```tree
 openllm_lab/
   environment_report.py
   environment_report.txt

@@ -26,7 +26,7 @@ head:
 
 実行後、フォルダは次のようになります。
 
-```text
+```tree
 cv_workshop_run/
   data/
     labels.csv
@@ -536,13 +536,20 @@ cv_workshop_run/reports/failure_cases.md
 
 ## ステップ 9：よくあるエラーと直し方
 
-| 問題 | よくある原因 | 修正 |
-|---|---|---|
-| `ModuleNotFoundError: No module named 'cv2'` | 現在の Python 環境に OpenCV が入っていない | 環境を有効化して `pip install opencv-python numpy` を実行する |
-| 出力フォルダが空 | 想定と違うフォルダで実行している | `pwd` を確認し、プロジェクトフォルダで再実行する |
-| すべての mask が空に見える | コントラストが低く、threshold が失敗している | 元画像を確認し、コントラスト調整や別の分割方法を試す |
-| accuracy は高いが failure report が空ではない | ラベルは正しいが、box、mask、confidence に問題がある | 正常な状況として、失敗例を確認する |
-| スクリプト編集後に指標が変わった | 乱数、しきい値、画像操作が変わった | seed を残し、README に変更内容を書く |
+- `ModuleNotFoundError: No module named 'cv2'`
+  現在の Python 環境に OpenCV が入っていません。環境を有効化して `pip install opencv-python numpy` を実行します。
+
+- 出力フォルダが空
+  想定と違うフォルダで実行している可能性があります。`pwd` を確認し、プロジェクトフォルダで再実行します。
+
+- すべての mask が空に見える
+  コントラストが低く、threshold が失敗している可能性があります。元画像を確認し、コントラスト調整や別の分割方法を試します。
+
+- accuracy は高いが failure report が空ではない
+  ラベルは正しくても、box、mask、confidence に問題が残ることがあります。正常な状況として、失敗例を確認します。
+
+- スクリプト編集後に指標が変わった
+  乱数、しきい値、画像操作が変わった可能性があります。seed を残し、README に変更内容を書きます。
 
 ## ステップ 10：練習タスク
 

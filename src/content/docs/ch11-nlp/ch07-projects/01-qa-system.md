@@ -316,10 +316,14 @@ Besides accuracy, it is also worth checking:
 
 ### A minimal evaluation table that works well for beginners
 
-You can start with just this table:
+You can start with six fields:
 
-| query | matched_question | answer | should_answer | actually_answered | correct |
-|---|---|---|---|---|---|
+- `query`: the user question.
+- `matched_question`: the knowledge-base question retrieved by the system.
+- `answer`: the answer returned by the system.
+- `should_answer`: whether this case should produce an answer.
+- `actually_answered`: whether the system actually answered.
+- `correct`: whether the final behavior is acceptable.
 
 This table is already enough to help you judge:
 

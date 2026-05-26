@@ -320,10 +320,14 @@ accuracy = 1.0
 
 ### 一个很适合新人的最小评估表
 
-你可以先只做这样一张表：
+你可以先只保留六个字段：
 
-| query | matched_question | answer | should_answer | actually_answered | correct |
-|---|---|---|---|---|---|
+- `query`：用户问题。
+- `matched_question`：系统检索命中的知识库问题。
+- `answer`：系统返回的答案。
+- `should_answer`：这个样本是否应该回答。
+- `actually_answered`：系统是否真的回答了。
+- `correct`：最终行为是否可接受。
 
 这张表已经足够帮你判断：
 

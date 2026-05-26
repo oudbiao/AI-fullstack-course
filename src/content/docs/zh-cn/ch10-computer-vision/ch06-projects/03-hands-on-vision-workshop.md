@@ -26,7 +26,7 @@ head:
 
 运行完成后，文件夹会长这样：
 
-```text
+```tree
 cv_workshop_run/
   data/
     labels.csv
@@ -536,13 +536,20 @@ cv_workshop_run/reports/failure_cases.md
 
 ## 步骤 9：常见错误与修复
 
-| 问题 | 可能原因 | 修复 |
-|---|---|---|
-| `ModuleNotFoundError: No module named 'cv2'` | 当前 Python 环境没装 OpenCV | 激活环境后运行 `pip install opencv-python numpy` |
-| 输出文件夹为空 | 脚本不是在你以为的目录运行 | 先运行 `pwd` 或进入项目文件夹再执行 |
-| 所有 mask 都很空 | 对比度太低，阈值分割失败 | 检查原图，调整对比度，或换分割方法 |
-| 准确率很高但失败报告不为空 | 类别对了，但框、mask 或置信度仍有问题 | 这是正常现象，要继续查看失败样本 |
-| 修改脚本后指标变了 | 随机生成、阈值或图像操作变了 | 保留随机种子，并在 README 记录修改 |
+- `ModuleNotFoundError: No module named 'cv2'`
+  当前 Python 环境没装 OpenCV。激活环境后运行 `pip install opencv-python numpy`。
+
+- 输出文件夹为空
+  脚本不是在你以为的目录运行。先运行 `pwd`，或进入项目文件夹后再执行。
+
+- 所有 mask 都很空
+  可能是对比度太低，阈值分割失败。检查原图，调整对比度，或换一种分割方法。
+
+- 准确率很高但失败报告不为空
+  类别可能对了，但框、mask 或置信度仍有问题。这是正常现象，要继续查看失败样本。
+
+- 修改脚本后指标变了
+  随机生成、阈值或图像操作变了。保留随机种子，并在 README 记录修改。
 
 ## 步骤 10：练习任务
 

@@ -19,7 +19,7 @@ This workshop uses only the Python standard library and generates SVG mock asset
 
 You will create this folder:
 
-```text
+```tree
 multimodal_workshop_run/
   inputs/
     creative_brief.json

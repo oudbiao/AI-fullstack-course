@@ -26,7 +26,7 @@ This example intentionally uses `opencv-python` and `numpy` instead of a deep le
 
 By the end, your folder will contain:
 
-```text
+```tree
 cv_workshop_run/
   data/
     labels.csv
@@ -536,13 +536,20 @@ When a beginner says "the model is bad," ask a more precise question:
 
 ## Step 9: Common Errors and Fixes
 
-| Problem | Likely Cause | Fix |
-|---|---|---|
-| `ModuleNotFoundError: No module named 'cv2'` | OpenCV is not installed in the current Python environment | Run `pip install opencv-python numpy` after activating the environment |
-| Output folder is empty | The script did not run from the folder you expected | Run `pwd` or `cd` into the project folder, then run again |
-| All masks look empty | Thresholding failed because contrast is too low | Inspect original images, adjust contrast, or use a different segmentation method |
-| Accuracy is high but failure report is not empty | Labels are correct, but boxes/masks/confidence still have issues | Treat this as normal; inspect the failure cases instead of ignoring them |
-| Metrics change after editing the script | Random generation, thresholds, or image operations changed | Keep the random seed and record script changes in the README |
+- `ModuleNotFoundError: No module named 'cv2'`
+  OpenCV is not installed in the current Python environment. Activate the environment, then run `pip install opencv-python numpy`.
+
+- Output folder is empty
+  The script did not run from the folder you expected. Run `pwd` or `cd` into the project folder, then run again.
+
+- All masks look empty
+  Thresholding may have failed because contrast is too low. Inspect original images, adjust contrast, or try a different segmentation method.
+
+- Accuracy is high but the failure report is not empty
+  Labels may be correct while boxes, masks, or confidence still have issues. Treat this as normal and inspect the failure cases.
+
+- Metrics change after editing the script
+  Random generation, thresholds, or image operations changed. Keep the random seed and record script changes in the README.
 
 ## Step 10: Practice Tasks
 

@@ -21,7 +21,7 @@ After the loop works, replace `MODEL_ID` with Qwen, Llama, InternLM, ChatGLM, or
 
 Your folder should end with:
 
-```text
+```tree
 openllm_lab/
   environment_report.py
   environment_report.txt

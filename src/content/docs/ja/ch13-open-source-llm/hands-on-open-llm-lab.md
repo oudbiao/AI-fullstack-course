@@ -21,7 +21,7 @@ head:
 
 作業フォルダは、最後に次の形になります。
 
-```text
+```tree
 openllm_lab/
   environment_report.py
   environment_report.txt

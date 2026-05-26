@@ -295,7 +295,7 @@ This table upgrades the project from “can summarize materials” to a “trust
 
 A research assistant project README can be written in the following order:
 
-```text
+```md
 # Research Assistant Agent
 
 ## 1. Project Goal
@@ -343,13 +343,20 @@ The value of this trace is: if the final result has a problem, you can replay ex
 
 The most common failure in a research assistant is not “completely unable to answer,” but “sounds reasonable yet is not trustworthy.” You should record at least the following failure types.
 
-| Failure Type | Symptom | Possible Cause | Improvement Direction |
-|---|---|---|---|
-| Retrieval miss | Key materials never enter the candidate set | query too narrow, keyword mismatch, top-k too small | query rewrite, hybrid retrieval, expand candidates then rerank |
-| Incomplete reading | The matched document is correct, but a key paragraph is missed | chunk too small or context packing is poor | parent-child retrieval, adjust context assembly |
-| Over-generalized summary | The summary sounds right but drops limiting conditions | the prompt does not require preserving conditions | require output as claim, condition, source triples |
-| Unsupported citation | The claim and source do not match | the model improvises or citation assembly is wrong | citation check, verify each claim one by one |
-| Looping calls | The Agent keeps retrieving and never stops | missing stopping condition | maximum steps, stop when no new information appears |
+- Retrieval miss
+  Key materials never enter the candidate set. Check whether the query is too narrow, keywords mismatch, or `top_k` is too small. Improve with query rewrite, hybrid retrieval, expanded candidates, and reranking.
+
+- Incomplete reading
+  The matched document is correct, but a key paragraph is missed. Check chunk size and context packing. Improve with parent-child retrieval or adjusted context assembly.
+
+- Over-generalized summary
+  The summary sounds right but drops limiting conditions. Improve the prompt so each answer preserves claim, condition, and source.
+
+- Unsupported citation
+  The claim and source do not match. Add citation checks and verify each claim one by one.
+
+- Looping calls
+  The Agent keeps retrieving and never stops. Add maximum steps and stop when no new information appears.
 
 Putting these failure cases into the project will show engineering ability much better than only showing success cases.
 

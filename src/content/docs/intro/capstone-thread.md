@@ -26,7 +26,7 @@ By the end, this project should be able to:
 
 ## Directory Template
 
-```text
+```tree
 capstone-course-assistant/
   README.md
   data/

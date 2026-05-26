@@ -33,13 +33,20 @@ head:
 
 動画や完全な創作プラットフォームの前に、小さな追跡可能ワークフローを作ります。
 
-| 手順 | 読む内容 | 手を動かすこと | 残す証拠 |
-|---|---|---|---|
-| 12.1 | マルチモーダル基礎 | 1枚の screenshot または image を構造化記録にする | source、visible text、objects、uncertainty |
-| 12.2 | 画像生成 | Prompt、reference、negative requirements、selected output を記録 | Prompt 版とレビュー記録 |
-| 12.3 | 動画、音声、デジタルヒューマン | storyboard、voice、shot、subtitle、timing を理解 | storyboard と asset list |
-| 12.4 | 倫理とコンプライアンス | copyright、portrait rights、sensitive content、factual risk を確認 | safety review checklist |
-| 12.5 | ステージプロジェクト | [12.5.3 実践：再現可能なマルチモーダル創作パッケージを作る](/ja/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/) を動かす | brief、Prompt、assets、storyboard、review、export preview |
+1. **12.1 マルチモーダル基礎**
+   1枚の screenshot または image を構造化記録にします。source、visible text、objects、uncertainty を残します。
+
+2. **12.2 画像生成**
+   Prompt、reference、negative requirements、selected output を記録します。Prompt 版とレビュー記録を残します。
+
+3. **12.3 動画、音声、デジタルヒューマン**
+   storyboard、voice、shot、subtitle、timing を理解します。storyboard と asset list を残します。
+
+4. **12.4 倫理とコンプライアンス**
+   copyright、portrait rights、sensitive content、factual risk を確認します。safety review checklist を残します。
+
+5. **12.5 ステージプロジェクト**
+   [12.5.3 実践：再現可能なマルチモーダル創作パッケージを作る](/ja/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/) を動かします。brief、Prompt、assets、storyboard、review、export preview を残します。
 
 ## 最初に動かすループ：視覚入力を構造化する
 

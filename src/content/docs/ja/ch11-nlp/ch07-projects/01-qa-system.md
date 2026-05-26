@@ -328,10 +328,14 @@ accuracy = 1.0
 
 ### 初心者にちょうどよい最小評価表
 
-まずは、次のような表を1つ作るだけで十分です。
+まずは、6 つの field だけで十分です。
 
-| query | matched_question | answer | should_answer | actually_answered | correct |
-|---|---|---|---|---|---|
+- `query`: ユーザーの質問。
+- `matched_question`: system が検索で当てた knowledge-base question。
+- `answer`: system が返した回答。
+- `should_answer`: この case で回答すべきか。
+- `actually_answered`: system が実際に回答したか。
+- `correct`: 最終的な挙動が許容できるか。
 
 この表があれば、次を判断できます。
 

@@ -55,19 +55,25 @@ Build a single traceable Agent before multi-agent systems. Follow the core singl
 
 ## Core Path, Extensions, And Depth
 
-| Layer | What to study now | How to use it |
-|---|---|---|
-| Required core | Single-Agent loop, tool schema, whitelist, max steps, state boundary, memory boundary, trace log, safety block, evaluation cases | These are the minimum skills for an Agent that can be reviewed instead of merely demoed |
-| Optional extension | MCP, framework comparison, multi-agent coordination, deployment operations, cost optimization | Return here after the single-Agent loop is stable and the product needs integration or scale |
-| Depth challenge | Compare the same task as a workflow, RAG flow, function call, and Agent trace, then justify the simplest safe design | This keeps Agent use intentional rather than fashionable |
+**Required core**
+
+Study the Single-Agent loop, tool schema, whitelist, max steps, state boundary, memory boundary, trace log, safety block, and evaluation cases. These are the minimum skills for an Agent that can be reviewed instead of merely demoed.
+
+**Optional extension**
+
+Return to MCP, framework comparison, multi-agent coordination, deployment operations, and cost optimization after the Single-Agent loop is stable and the product needs integration or scale.
+
+**Depth challenge**
+
+Compare the same task as a workflow, RAG flow, function call, and Agent trace. Then justify the simplest safe design so Agent use stays intentional rather than fashionable.
 
 ## Time Budget And Deliverable
 
-| Pace | What to finish | Portfolio deliverable |
-|---|---|---|
-| Fast pass | One traceable Agent loop with a blocked unsafe tool | `agent_traces.jsonl` plus a short trace explanation |
-| Standard pass | Core path 9.1 -> 9.2 -> 9.3 -> 9.4 -> 9.8 -> 9.10 | `tools_schema.md`, `safety_boundary.md`, eval cases, and failure trace |
-| Deep pass | Add MCP, framework comparison, deployment readiness, or multi-agent coordination only after the single-Agent loop works | design memo explaining why Agent is safer or more useful than workflow/RAG/function calling |
+**Fast pass:** finish one traceable Agent loop with a blocked unsafe tool. Keep `agent_traces.jsonl` plus a short trace explanation.
+
+**Standard pass:** complete the core path 9.1 -> 9.2 -> 9.3 -> 9.4 -> 9.8 -> 9.10. Keep `tools_schema.md`, `safety_boundary.md`, evaluation cases, and one failure trace.
+
+**Deep pass:** add MCP, framework comparison, deployment readiness, or multi-agent coordination only after the Single-Agent loop works. Keep a design memo explaining why Agent is safer or more useful than workflow, RAG, or function calling.
 
 A strong Chapter 9 output proves control. It should show what the Agent was allowed to do, what it was not allowed to do, how it stopped, and how a reviewer can replay the trace.
 

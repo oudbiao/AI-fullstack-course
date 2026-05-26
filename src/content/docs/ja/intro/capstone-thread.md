@@ -26,7 +26,7 @@ head:
 
 ## ディレクトリテンプレート
 
-```text
+```tree
 capstone-course-assistant/
   README.md
   data/

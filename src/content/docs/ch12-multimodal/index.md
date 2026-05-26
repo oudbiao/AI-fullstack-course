@@ -33,13 +33,20 @@ Use this workflow as the chapter map.
 
 Make one small workflow traceable before trying video or full creative platforms.
 
-| Step | Read | Do | Evidence to keep |
-|---|---|---|---|
-| 12.1 | Multimodal basics | turn one screenshot or image into a structured record | source, visible text, objects, uncertainty |
-| 12.2 | Image generation | record prompts, references, negative requirements, selected output | prompt versions and review notes |
-| 12.3 | Video, speech, digital humans | understand storyboard, voice, shot, subtitle, timing | storyboard and asset list |
-| 12.4 | Ethics and compliance | check copyright, portrait rights, sensitive content, factual risk | safety review checklist |
-| 12.5 | Stage project | run [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/) | brief, prompts, assets, storyboard, review, export preview |
+1. **12.1 Multimodal basics**
+   Turn one screenshot or image into a structured record. Keep the source, visible text, objects, and uncertainty notes.
+
+2. **12.2 Image generation**
+   Record prompts, references, negative requirements, and selected output. Keep prompt versions and review notes.
+
+3. **12.3 Video, speech, digital humans**
+   Understand storyboard, voice, shot, subtitle, and timing. Keep the storyboard and asset list.
+
+4. **12.4 Ethics and compliance**
+   Check copyright, portrait rights, sensitive content, and factual risk. Keep the safety review checklist.
+
+5. **12.5 Stage project**
+   Run [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop/). Keep the brief, prompts, assets, storyboard, review, and export preview.
 
 ## First Runnable Loop: Structure A Visual Input
 
