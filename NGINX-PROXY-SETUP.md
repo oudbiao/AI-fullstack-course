@@ -2,19 +2,27 @@
 
 ## 域名配置
 
-三个域名**都直接指向同一服务**（不互相跳转）：
+生产环境只保留一个 canonical 域名：`airoads.org`。
 
 | 域名 | 用途 |
 |------|------|
-| `learning.airoads.org` | 直接代理到课程站点 |
-| `www.airoads.org` | 直接代理到课程站点 |
 | `airoads.org` | 直接代理到课程站点 |
+| `learning.airoads.org` | 301 跳转到 `https://airoads.org$request_uri` |
+| `www.airoads.org` | 301 跳转到 `https://airoads.org$request_uri` |
+
+不要把 `learning.airoads.org`、`www.airoads.org` 和 `airoads.org` 写在同一个 `server_name` 里一起代理。这样三个域名都会返回 `200`，Google 会看到三份重复页面，Search Console 容易出现“备用网页”“重复网页”“Google 选择的规范网页与用户指定的不同”等提示。
 
 ## 配置文件
 
 | 文件 | 说明 |
 |------|------|
-| `nginx/airoads.conf` | airoads.org 域名及证书配置 |
+| `nginx/airoads.conf` | 外层生产 Nginx 代理配置 |
+| `docker/nginx.conf` | `ai-course` 应用容器内的静态站点 Nginx 配置 |
+
+当前部署有两层 Nginx：
+
+1. 外层 Nginx 容器：接收公网 HTTPS，负责 canonical 域名跳转和反向代理。
+2. `ai-course` 应用容器内的 Nginx：服务 Astro 生成的静态文件，并兜底处理旧路径和 404。
 
 ## 生产服务器部署步骤
 
@@ -30,29 +38,72 @@ sudo mkdir -p /etc/nginx/certs
 # /etc/nginx/certs/airoads-origin.key
 ```
 
-### 2. 复制 Nginx 配置到服务器
+### 2. 确认 Docker 网络
+
+外层 Nginx 容器和课程容器必须在同一个 `proxy-net` 网络里：
 
 ```bash
-sudo cp /opt/ai-course/nginx/airoads.conf /etc/nginx/conf.d/airoads.conf
+docker network inspect proxy-net >/dev/null 2>&1 || docker network create proxy-net
+docker network connect proxy-net <nginx-container-name> 2>/dev/null || true
 ```
 
-### 3. 验证并重载 Nginx
+`ai-course` 容器会通过项目里的 `docker-compose.yml` 自动加入 `proxy-net`。
+
+### 3. 更新外层 Docker Nginx 配置
+
+如果外层 Nginx 容器把配置目录挂载到了宿主机，直接覆盖挂载文件：
 
 ```bash
-# 检查配置语法
-sudo nginx -t
+cp /opt/ai-course/nginx/airoads.conf /path/to/mounted/conf.d/airoads.conf
+docker exec <nginx-container-name> nginx -t
+docker exec <nginx-container-name> nginx -s reload
+```
 
-# 重新加载 Nginx
-sudo systemctl reload nginx
+如果没有挂载配置目录，可以直接复制到容器里：
+
+```bash
+docker cp /opt/ai-course/nginx/airoads.conf <nginx-container-name>:/etc/nginx/conf.d/airoads.conf
+docker exec <nginx-container-name> nginx -t
+docker exec <nginx-container-name> nginx -s reload
+```
+
+如果外层 Nginx 也是 Compose 管理，推荐用只读挂载固定配置：
+
+```yaml
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    volumes:
+      - /opt/ai-course/nginx/airoads.conf:/etc/nginx/conf.d/airoads.conf:ro
+      - /etc/nginx/certs:/etc/nginx/certs:ro
+    networks:
+      - proxy-net
+
+networks:
+  proxy-net:
+    external: true
 ```
 
 ### 4. 验证
 
 ```bash
-# 三个域名均应直接返回 200（同一站点）
-curl -I https://learning.airoads.org
-curl -I https://www.airoads.org
-curl -I https://airoads.org
+curl -I https://airoads.org/zh-cn/
+# 期望：HTTP/2 200
+
+curl -I https://learning.airoads.org/zh-cn/
+# 期望：HTTP/2 301
+# Location: https://airoads.org/zh-cn/
+
+curl -I https://www.airoads.org/zh-cn/
+# 期望：HTTP/2 301
+# Location: https://airoads.org/zh-cn/
+
+curl -I https://airoads.org/zh-Hans/
+# 期望：HTTP/2 301
+# Location: /zh-cn/
+
+curl -I https://airoads.org/not-real-page-for-status-test
+# 期望：HTTP/2 404
 ```
 
 ## Docker 容器网络
@@ -69,6 +120,16 @@ networks:
 确保 Nginx 容器也在同一网络中，这样 `proxy_pass http://ai-fullstack-course:3000/` 才能工作。
 
 ## 常见问题
+
+### 问题：Search Console 报重复网页或备用网页
+
+检查外层 Nginx 是否把三个域名写在同一个 `server_name` 里并直接代理：
+
+```nginx
+server_name learning.airoads.org www.airoads.org airoads.org;
+```
+
+这种写法不适合当前站点 SEO。应该让 `learning.airoads.org` 和 `www.airoads.org` 单独 `301` 到 `airoads.org`，只让 `airoads.org` 代理到课程服务。
 
 ### 问题：502 Bad Gateway
 

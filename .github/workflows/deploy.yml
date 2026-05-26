@@ -203,3 +203,35 @@ jobs:
             echo "🌐 访问地址: https://your-domain.com"
             echo "📊 容器状态:"
             $COMPOSE ps
+
+      - name: Verify public SEO endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          check_location() {
+            url="$1"
+            expected="$2"
+            headers="$(curl -sSIL --max-time 20 "$url")"
+            echo "$headers"
+            if ! printf '%s\n' "$headers" | grep -Fiq "location: ${expected}"; then
+              echo "Expected ${url} to redirect to ${expected}"
+              exit 1
+            fi
+          }
+
+          check_status() {
+            url="$1"
+            expected="$2"
+            status="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "$url")"
+            echo "${url} -> ${status}"
+            if [ "$status" != "$expected" ]; then
+              echo "Expected ${url} to return ${expected}"
+              exit 1
+            fi
+          }
+
+          check_location "https://airoads.org/zh-Hans/" "/zh-cn/"
+          check_location "https://learning.airoads.org/zh-cn/" "https://airoads.org/zh-cn/"
+          check_location "https://www.airoads.org/zh-cn/" "https://airoads.org/zh-cn/"
+          check_status "https://airoads.org/not-real-page-for-status-test" "404"
