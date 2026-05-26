@@ -217,7 +217,7 @@ This is also an increasingly important direction.
 
 ### A comparison table that beginners can remember first
 
-| Approach | The most important first impression to remember |
+| Approach | First impression |
 |---|---|
 | Frame-by-frame generation | Easy to understand, but consistency can be poor |
 | Extending image models into time | A very natural engineering evolution path |

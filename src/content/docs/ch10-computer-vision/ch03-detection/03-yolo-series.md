@@ -91,7 +91,7 @@ YOLO is more like:
 
 ### A judgment table that beginners should remember first
 
-| What are you concerned about now? | Which layer is more worth looking at first? |
+| Current question | First layer to inspect |
 |---|---|
 | Why is it fast? | The one-stage route and short inference chain |
 | Why are there so many boxes? | Candidate box outputs |

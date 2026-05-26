@@ -143,7 +143,7 @@ This table is very important because it turns “compliance” from an abstract 
 
 ### A Beginner-Friendly Table to Remember First
 
-| Compliance requirement | What engineering should think of first |
+| Requirement | Engineering focus |
 |---|---|
 | Data protection | Masking, permissions, retention boundaries |
 | Traceability | Logs, traces, source references |

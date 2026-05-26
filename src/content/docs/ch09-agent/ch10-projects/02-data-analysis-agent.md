@@ -320,7 +320,7 @@ This will be much stronger than pasting only a result.
 
 ### A beginner-friendly evaluation table to remember first
 
-| Dimension | What is the most important first question |
+| Dimension | First question |
 |---|---|
 | Correctness | Are the numbers calculated correctly |
 | Reproducibility | Can the intermediate process be traced back |

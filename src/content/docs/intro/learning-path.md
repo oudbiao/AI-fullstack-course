@@ -61,7 +61,7 @@ There is also a runtime shortcut: if Chapter 7's mini GPT-2 lab is what excites 
 
 Do not judge progress by pages read. Judge it by evidence. Each stage should end with a small reviewable package, not just a memory that something worked.
 
-| Stage | Chapters | Minimum evidence | Deeper evidence for experienced learners |
+| Stage | Chapters | Minimum evidence | Deeper evidence |
 |---|---|---|---|
 | Foundations | 1-3 | A reproducible project folder, Python scripts, cleaned data, charts | README rerun test, edge cases, data quality notes |
 | Model understanding | 4-6 | One model experiment with a metric and failure samples | Bias/variance notes, ablation, training diagnosis, decision memo |

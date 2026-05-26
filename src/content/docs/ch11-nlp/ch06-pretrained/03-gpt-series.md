@@ -30,7 +30,7 @@ This path later grew into the main line of the large language models we know tod
 
 GPT is easier to understand as a sequence of milestones rather than focusing on just one model:
 
-| Year | Milestone | Representative paper | What did it solve most importantly? |
+| Year | Milestone | Representative paper | Main contribution |
 |---|---|---|---|
 | 2018 | GPT-1 | *Improving Language Understanding by Generative Pre-Training* | Brought the decoder-only pretraining path into the mainstream |
 | 2019 | GPT-2 | *Language Models are Unsupervised Multitask Learners* | Showed strong generation ability and zero-shot potential at larger scale |

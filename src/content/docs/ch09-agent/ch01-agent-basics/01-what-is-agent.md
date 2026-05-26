@@ -580,7 +580,7 @@ Without a trace, when an Agent goes wrong, it is hard to locate the problem: did
 
 The stronger an Agent becomes, the more boundaries it needs. Especially in the beginner stage, remember: not everything is suitable to be executed autonomously by an Agent.
 
-| Things an Agent should not do autonomously | More stable approach |
+| Risky action | Safer approach |
 |---|---|
 | Delete files, submit code, send messages, place orders or payments | Require human confirmation |
 | Execute arbitrary code without whitelist restrictions | Restrict tool permissions and runtime environment |

@@ -115,18 +115,15 @@ The core idea of this table is: an Agent can propose an action plan, but whether
 
 High-risk confirmation should not just ask “continue or not.” It must help the user understand what the system is about to do.
 
-```text
-About to execute a high-risk action
-
-Action: send email
-Target: team@example.com
-Content summary: notify the team that the RAG project evaluation is complete
-Trigger reason: user requested a project status update
-Potential risk: recipients will see the email, and it cannot be fully recalled after sending
-Rollback method: only a correction email can be sent; it cannot truly be recalled
-
-Please confirm whether to proceed: yes / no
-```
+| Field | Example |
+|---|---|
+| Action | send email |
+| Target | `team@example.com` |
+| Content summary | notify the team that the RAG project evaluation is complete |
+| Trigger reason | user requested a project status update |
+| Potential risk | recipients will see the email, and it cannot be fully recalled after sending |
+| Rollback method | only a correction email can be sent; it cannot truly be recalled |
+| Confirmation | yes / no |
 
 If the confirmation text does not include the target, parameters, risks, and rollback method, the user cannot really make an effective judgment.
 

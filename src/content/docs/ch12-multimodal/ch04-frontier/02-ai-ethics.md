@@ -111,7 +111,7 @@ This shows that:
 
 ### A Risk Table Worth Remembering First
 
-| Risk Type | Most Important Question to Ask First |
+| Risk type | First question |
 |---|---|
 | Bias | Will the system systematically be less fair to certain groups? |
 | Privacy | Does it expose content that should not be seen, remembered, or output? |

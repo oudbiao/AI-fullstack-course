@@ -265,7 +265,7 @@ This is one of the reasons modern speech synthesis is much more powerful than ea
 
 ### A beginner-friendly decision table
 
-| User need | What the TTS system should prioritize |
+| User need | Priority knob |
 |---|---|
 | Want a different voice timbre | speaker |
 | Want it faster or slower | speed |

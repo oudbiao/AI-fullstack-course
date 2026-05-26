@@ -108,7 +108,7 @@ Benefit:
 
 ### A comparison table that is easier for beginners
 
-| Architecture | Where candidate regions come from | How feature extraction is done | The most important improvement to remember |
+| Architecture | Region source | Feature extraction | Main improvement |
 |---|---|---|---|
 | R-CNN | External candidate boxes | Extract features for each box separately | The idea is clear, but computation is heavy |
 | Fast R-CNN | External candidate boxes | Shared features for the whole image | Removes a lot of repeated convolution |

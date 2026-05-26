@@ -129,7 +129,7 @@ The most important thing about this simple list is that it lets you see:
 
 ### A module breakdown table that beginners can remember first
 
-| Module | The most important thing to remember |
+| Module | Core role |
 |---|---|
 | Text / script | Decides what to say |
 | Speech generation | Decides how it sounds |

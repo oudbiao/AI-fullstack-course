@@ -293,7 +293,7 @@ This is easier to move forward with than just saying “the summary is not very 
 
 ### An error bucket table that beginners can copy directly
 
-| Error type | What should you probably improve next? |
+| Error type | Next improvement |
 |---|---|
 | Missing main-thread information | Sentence scoring rules |
 | Repeated sentences | Redundancy removal strategy |

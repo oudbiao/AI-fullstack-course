@@ -351,22 +351,13 @@ logits shape   : torch.Size([2, 5, 100])
 
 例如：
 
-```text
-输入: 苹果 很 好吃
-输出: positive
+| 输入 | 输出 |
+|---|---|
+| 苹果 很 好吃 | positive |
+| 这门课 太 乱 了 | negative |
+| 老师 讲得 很 清楚 | 让模型补全 |
 
-输入: 这门课 太 乱 了
-输出: negative
-
-输入: 老师 讲得 很 清楚
-输出:
-```
-
-模型就可能继续补出：
-
-```text
-positive
-```
+模型就可能继续补出 `positive`。
 
 这就是 in-context learning 的味道。
 

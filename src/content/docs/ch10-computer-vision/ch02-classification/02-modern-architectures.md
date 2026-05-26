@@ -157,7 +157,7 @@ This shows:
 
 ### A More Beginner-Friendly Architecture Comparison Table
 
-| Architecture | The most important thing to remember first | What intuition it helps you build |
+| Architecture | First idea | Intuition it builds |
 |---|---|---|
 | VGG | Deep, regular, easy to understand | Why deeper networks can be stronger |
 | ResNet | Residual connections | How deep networks train more stably |

@@ -261,7 +261,7 @@ It is more about “can continue execution” than just “has happened.”
 
 ### A beginner-friendly layer table to remember first
 
-| Layer | Most important responsibility to remember |
+| Layer | Main responsibility |
 |---|---|
 | Access layer | Receive requests, handle authentication and rate limiting |
 | Orchestration layer | Decide which path to follow |

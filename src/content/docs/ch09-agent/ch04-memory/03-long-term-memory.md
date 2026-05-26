@@ -189,7 +189,7 @@ So long-term memory should ideally have:
 
 ### A Simple Write Decision Table for Beginners
 
-| Information Type | More Suitable for Short-Term or Long-Term |
+| Information type | Memory target |
 |---|---|
 | Keep it concise for this one | More short-term |
 | User likes Chinese in the long run | More long-term |
