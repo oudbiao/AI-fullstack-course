@@ -124,6 +124,7 @@ npm run qa:diagrams
 npm run qa:dist
 npm run qa:course
 npm run qa:code
+npm run qa:examples
 npm run qa:images
 npm run qa:image-teaching
 npm run qa:readability
@@ -136,6 +137,8 @@ npm run seo:indexnow:dry-run
 `npm run qa:course` は、対応しやすいコース本文の不足を報告します。appendix、navigation page、study guide は folded-answer advisory から除外し、残るサンプルが walkthrough を補うべき lesson page を指すようにしています。
 
 `npm run qa:code` は、コース全体の fenced code blocks を検査し、fence の崩れ、構文エラー、未完成の placeholder snippets を学習者に届く前に見つけます。
+
+`npm run qa:examples` は、ネットワーク不要の完全なコーススクリプトを抽出し、一時ワークスペースで実際に実行します。標準出力の目印と生成ファイルを確認し、結果を `reports/code-example-smoke-tests.json` に書きます。任意依存の例は、該当パッケージがない場合だけスキップされます。
 
 `npm run qa:image-teaching` は `reports/course-images/image-teaching-audit.json` を出力し、alt が弱い画像、近くの説明が少ない画像、同一ページでの重複利用、言語版の不一致を示します。
 
@@ -152,6 +155,7 @@ python3 validate_sidebars.py
 python3 validate_course_structure.py
 python3 scripts/validate_course_image_refs.py
 python3 scripts/audit_code_blocks.py
+python3 scripts/run_example_smoke_tests.py
 python3 scripts/audit_image_teaching.py
 python3 scripts/audit_readability.py
 python3 scripts/course_completion_report.py

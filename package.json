@@ -23,6 +23,7 @@
     "qa:dist": "node scripts/qa_generated_site.mjs dist",
     "qa:course": "python3 scripts/course_quality_dashboard.py",
     "qa:code": "python3 scripts/audit_code_blocks.py",
+    "qa:examples": "python3 scripts/run_example_smoke_tests.py",
     "qa:images": "python3 scripts/validate_course_image_refs.py",
     "qa:image-teaching": "python3 scripts/audit_image_teaching.py",
     "qa:readability": "python3 scripts/audit_readability.py",

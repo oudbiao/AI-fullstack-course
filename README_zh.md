@@ -124,6 +124,7 @@ npm run qa:diagrams
 npm run qa:dist
 npm run qa:course
 npm run qa:code
+npm run qa:examples
 npm run qa:images
 npm run qa:image-teaching
 npm run qa:readability
@@ -136,6 +137,8 @@ npm run seo:indexnow:dry-run
 `npm run qa:course` 会报告可操作的课程内容缺口。附录、导航页和 study guide 不计入折叠讲解提示，这样剩余样例会更集中地指向可能需要补 walkthrough 的正文页面。
 
 `npm run qa:code` 会审计全课程的 fenced code blocks，提前发现围栏格式错误、语法错误和未完成的占位代码，避免示例到了学习者手里才坏掉。
+
+`npm run qa:examples` 会抽取一组完整、无需联网的课程脚本，在临时目录中真实运行，并检查关键输出和生成文件。结果写入 `reports/code-example-smoke-tests.json`；依赖可选包的样例只有在本机缺包时才会跳过。
 
 `npm run qa:image-teaching` 会写入 `reports/course-images/image-teaching-audit.json`，提示 alt 太弱、附近缺少讲解、单页重复用图或语言版本不匹配的图片引用。
 
@@ -152,6 +155,7 @@ python3 validate_sidebars.py
 python3 validate_course_structure.py
 python3 scripts/validate_course_image_refs.py
 python3 scripts/audit_code_blocks.py
+python3 scripts/run_example_smoke_tests.py
 python3 scripts/audit_image_teaching.py
 python3 scripts/audit_readability.py
 python3 scripts/course_completion_report.py

@@ -142,6 +142,7 @@ npm run qa:diagrams
 npm run qa:dist
 npm run qa:course
 npm run qa:code
+npm run qa:examples
 npm run qa:images
 npm run qa:image-teaching
 npm run qa:readability
@@ -154,6 +155,8 @@ npm run seo:indexnow:dry-run
 `npm run qa:course` reports actionable content gaps. Appendix, navigation, and study-guide pages are exempt from the folded-answer advisory so the remaining samples point to lesson pages that may need clearer walkthroughs.
 
 `npm run qa:code` audits fenced code blocks across the course for malformed fences, syntax errors, and unfinished placeholder snippets before examples reach learners. Informational transcript skips are summarized by default; rerun `python3 scripts/audit_code_blocks.py --show-info` when you need the full list.
+
+`npm run qa:examples` extracts a curated set of complete, no-network course scripts and runs them in temporary workspaces. It checks stdout markers and generated files, then writes `reports/code-example-smoke-tests.json`; optional dependency examples are skipped only when their packages are unavailable.
 
 `npm run qa:image-teaching` writes `reports/course-images/image-teaching-audit.json` and highlights image references with thin alt text, little nearby explanation, repeated use on one page, locale image mismatches, and cross-page reuse counts for manual image review.
 
@@ -170,6 +173,7 @@ python3 validate_sidebars.py
 python3 validate_course_structure.py
 python3 scripts/validate_course_image_refs.py
 python3 scripts/audit_code_blocks.py
+python3 scripts/run_example_smoke_tests.py
 python3 scripts/audit_image_teaching.py
 python3 scripts/audit_readability.py
 python3 scripts/course_completion_report.py
