@@ -17,13 +17,13 @@ head:
 
 共享本地模型服务前，先写一份契约，回答五个问题：
 
-```text
-endpoint: /v1/chat/completions 或项目自己的 route
-request_shape: 必填字段、可选字段、最大输入长度
-response_shape: 内容、引用或证据、错误格式
-limits: 并发、上下文长度、timeout、max tokens
-stop_path: 如何停止 server、关闭实例或回滚到云 API
-```
+| 契约项 | 必须说清什么 |
+|---|---|
+| `endpoint` | `/v1/chat/completions` 或项目自己的 route |
+| `request_shape` | 必填字段、可选字段和最大输入长度 |
+| `response_shape` | 内容、引用或证据，以及错误格式 |
+| `limits` | 并发、上下文长度、timeout 和 max tokens |
+| `stop_path` | 如何停止 server、关闭实例或回滚到云 API |
 
 如果任何一行说不清，这个服务仍然只是实验。
 

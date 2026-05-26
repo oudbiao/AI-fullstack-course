@@ -100,20 +100,20 @@ This avoids the common failure mode: the tutorial ran once, but you cannot expla
 
 Before switching models, write one selection card. Do not only write "this model is popular."
 
-```text
-candidate_model:
-model_source:
-license:
-parameter_count_and_quantization:
-context_length:
-language_or_domain_fit:
-estimated_vram_or_ram:
-estimated_disk:
-runtime:
-reason_for_choice:
-rejected_models:
-risks: license, privacy, download, VRAM, speed, output quality
-```
+| Field | What to record |
+|---|---|
+| `candidate_model` | Exact model name and revision if relevant |
+| `model_source` | Hub, mirror, local path, or internal registry |
+| `license` | License and any usage restriction you must respect |
+| `parameter_count_and_quantization` | Size plus quantization format, if used |
+| `context_length` | The context window you plan to rely on |
+| `language_or_domain_fit` | Why it fits this language, task, or domain |
+| `estimated_vram_or_ram` | Memory needed for the selected runtime |
+| `estimated_disk` | Download and cache size you must reserve |
+| `runtime` | Transformers, llama.cpp, Ollama, vLLM, SGLang, or another runtime |
+| `reason_for_choice` | The evidence-based reason this is enough for the first run |
+| `rejected_models` | Models you considered but did not choose |
+| `risks` | License, privacy, download, VRAM, speed, and output-quality risks |
 
 If this card is incomplete, do not rent a GPU and do not start fine-tuning yet.
 

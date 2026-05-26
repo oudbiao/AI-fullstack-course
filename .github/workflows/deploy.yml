@@ -212,7 +212,7 @@ jobs:
           check_location() {
             url="$1"
             expected="$2"
-            headers="$(curl -sSIL --max-time 20 "$url")"
+            headers="$(curl -sSI --max-time 20 "$url")"
             echo "$headers"
             if ! printf '%s\n' "$headers" | grep -Fiq "location: ${expected}"; then
               echo "Expected ${url} to redirect to ${expected}"
@@ -231,7 +231,7 @@ jobs:
             fi
           }
 
-          check_location "https://airoads.org/zh-Hans/" "/zh-cn/"
+          check_location "https://airoads.org/zh-Hans/" "https://airoads.org/zh-cn/"
           check_location "https://learning.airoads.org/zh-cn/" "https://airoads.org/zh-cn/"
           check_location "https://www.airoads.org/zh-cn/" "https://airoads.org/zh-cn/"
           check_status "https://airoads.org/not-real-page-for-status-test" "404"

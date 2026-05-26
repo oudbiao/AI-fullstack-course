@@ -17,13 +17,13 @@ Running a model once is not deployment. Deployment starts when the model has a s
 
 Before sharing a local model service, write a contract that answers five questions:
 
-```text
-endpoint: /v1/chat/completions or project-specific route
-request_shape: required fields, optional fields, max input size
-response_shape: content, citations or evidence, error format
-limits: concurrency, context length, timeout, max tokens
-stop_path: how to stop the server, disable the instance, or roll back to cloud API
-```
+| Contract item | What must be clear |
+|---|---|
+| `endpoint` | `/v1/chat/completions` or the project-specific route |
+| `request_shape` | Required fields, optional fields, and maximum input size |
+| `response_shape` | Content, citations or evidence, and error format |
+| `limits` | Concurrency, context length, timeout, and max tokens |
+| `stop_path` | How to stop the server, disable the instance, or roll back to cloud API |
 
 If any line is unknown, the service is still experimental.
 

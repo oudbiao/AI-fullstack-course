@@ -25,16 +25,16 @@ Do not prepare for every direction at once.
 
 Use this structure in resume, README, and interviews:
 
-```text
-Target role:
-User problem:
-Input and output:
-Baseline:
-Technical solution:
-Evaluation result:
-Failure case:
-What I improved:
-```
+| Field | What to write |
+|---|---|
+| Target role | The role this project is meant to support |
+| User problem | The concrete problem or workflow you improved |
+| Input and output | What goes in, what comes out, and who uses it |
+| Baseline | The simplest comparison point or previous workflow |
+| Technical solution | The main system design, model, data, or product choice |
+| Evaluation result | The metric, test set, user check, or reproducible evidence |
+| Failure case | One thing that did not work or remains risky |
+| What I improved | The specific change you made after seeing evidence |
 
 Weak:
 

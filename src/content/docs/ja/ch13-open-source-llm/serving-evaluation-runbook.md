@@ -17,13 +17,13 @@ head:
 
 local model service を共有する前に、5つの質問に答える contract を書きます。
 
-```text
-endpoint: /v1/chat/completions または project-specific route
-request_shape: required fields、optional fields、max input size
-response_shape: content、citations or evidence、error format
-limits: concurrency、context length、timeout、max tokens
-stop_path: server を止める方法、instance を無効化する方法、cloud API へ rollback する方法
-```
+| Contract item | 明確にすること |
+|---|---|
+| `endpoint` | `/v1/chat/completions` または project-specific route |
+| `request_shape` | required fields、optional fields、max input size |
+| `response_shape` | content、citations or evidence、error format |
+| `limits` | concurrency、context length、timeout、max tokens |
+| `stop_path` | server を止める方法、instance を無効化する方法、cloud API へ rollback する方法 |
 
 どれか 1 行でも不明なら、その service はまだ experimental です。
 
