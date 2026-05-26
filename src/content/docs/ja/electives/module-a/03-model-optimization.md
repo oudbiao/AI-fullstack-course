@@ -53,6 +53,12 @@ max_error=0.0018
 4. 失敗例を残す。
 5. トレードオフが見えるときだけ出す。
 
+## 最適化レビュー
+
+すべての最適化を小さな controlled experiment として扱います。control group は元の model と runtime です。treatment は 1 つの変更だけにします。量子化、枝刈り、batching、engine 変更を同時に行うと、結果が良くなっても理由が分からなくなります。
+
+レビューでは、before latency、after latency、memory、model size、quality check、失敗例を 1 つの小さな表に残します。quality が落ちた場合は、どのサンプルが悪化したのかを書き、product として許容できるかを判断します。
+
 ## 残す証拠
 
 このページを終えたら、この証拠カードを残します。

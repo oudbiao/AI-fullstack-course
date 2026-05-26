@@ -89,6 +89,14 @@ Do not only click the happy path once. A useful AI UI test records the state tra
 
 This is the front-end version of model evaluation. The model may be fake in this page, but the user experience contract is real: every uncertain call needs progress, a result, and a recovery path.
 
+## UI Review
+
+Review the page as a state machine, not as a pretty screenshot. For each user action, write down the starting state, the visible feedback, the final state, and the recovery path if something fails.
+
+This habit keeps AI interfaces honest. A model call can be slow, empty, partial, or wrong, so the UI should show progress, avoid silent failure, and give the user a next action. The smallest useful evidence is a screenshot or note for empty input, success, and error.
+
+Before connecting a real backend, finish the fake-state version first. That gives you a stable contract for copy, layout, loading behavior, error recovery, and retry. When the backend arrives, you are replacing the data source, not inventing the whole user experience at the same time.
+
 ## Replace the Fake Call Later
 
 When your backend exists, replace the simulated wait with `fetch`:

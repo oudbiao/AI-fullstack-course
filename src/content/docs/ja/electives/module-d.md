@@ -59,6 +59,16 @@ after failure_count: 0
 
 ツール呼び出しの失敗は隠すものではありません。今後のリリースを守る回帰テストになります。
 
+## レッドチームレビュー
+
+レッドチーム実行をレビューするときは、3 つを分けます。失敗した攻撃面、期待される安全な挙動、結果を変えた control です。たとえば tool surface が早すぎる実行で失敗し、安全な挙動が `ask_confirmation`、control が permission gate になる場合があります。
+
+「より安全になった」とだけ要約しないでください。元の入力、危険な出力、修正、再実行の出力を残します。その記録が、怖い prompt を有用な regression case に変えます。
+
+最初の portfolio artifact では、case file を退屈なくらい正確にします。`case_id`、`surface`、`input`、`expected_safe_behavior`、`actual_before`、`guardrail`、`actual_after` のような列を残します。読む人が 1 行だけを再実行しても意図が分かる状態にします。
+
+case が大きすぎる場合は分けます。prompt injection、tool misuse、data leak、unsafe output は別の failure mode です。再現できない攻撃リストより、小さく明確な regression set のほうが役に立ちます。
+
 ## 実用チェックリスト
 
 | ステップ | アクション | 証拠 |

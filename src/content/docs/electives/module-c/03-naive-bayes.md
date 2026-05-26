@@ -84,6 +84,12 @@ predictions: ['refund', 'invoice']
 
 This is a complete baseline: text to counts, counts to probabilities, probabilities to labels.
 
+## Baseline Review
+
+Review Naive Bayes by looking at the evidence words for each class. If a class only works because of one accidental token, add more examples or improve preprocessing before blaming the algorithm.
+
+This baseline is especially useful for routing tasks: support tickets, simple intent labels, document type classification, and quick spam-like filters. Its limitation is also clear: word order and deeper meaning are mostly ignored.
+
 ## Change Smoothing
 
 Change `alpha=1.0` to `0.1` and `2.0`. With tiny datasets, smoothing can noticeably change how strongly the model trusts rare words.
@@ -98,6 +104,12 @@ Try Naive Bayes when:
 4. Interpretability matters.
 
 Move to stronger models when semantics, context, or word order matter a lot.
+
+## Baseline Review
+
+Review Naive Bayes by keeping the evidence counts that pushed the prediction. The useful question is not only “what label won,” but which words, tokens, or features moved the probability toward that label.
+
+This model is strongest when the evidence is simple and explainable. It becomes weaker when features are heavily dependent or when rare tokens dominate. Keep one success case and one failure case so the baseline remains a comparison point, not a mysterious score.
 
 ## Evidence to Keep
 

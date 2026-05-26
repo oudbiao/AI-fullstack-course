@@ -33,7 +33,7 @@ In this section, you’ll learn how to calculate and make decisions with data. O
 You are developing an AI data processing script and need to:
 - Calculate model accuracy: `correct / total * 100`
 - Check whether it meets the target: `accuracy >= 60`
-- Check two conditions: `accuracy >= 60 and loss < 0.5`
+- Check two conditions: `accuracy >= 60 and loss &lt; 0.5`
 
 All of these operations depend on **operators**. Operators are the symbols that tell Python “what to do with the data.”
 
@@ -117,9 +117,9 @@ The result of comparison operators is always a Boolean value (`True` or `False`)
 | `==` | Equal to | `5 == 5` | `True` |
 | `!=` | Not equal to | `5 != 3` | `True` |
 | `>` | Greater than | `5 > 3` | `True` |
-| `<` | Less than | `5 < 3` | `False` |
+| `&lt;` | Less than | `5 &lt; 3` | `False` |
 | `>=` | Greater than or equal to | `5 >= 5` | `True` |
-| `<=` | Less than or equal to | `5 <= 3` | `False` |
+| `&lt;=` | Less than or equal to | `5 &lt;= 3` | `False` |
 
 ```python
 # Scenario: judge model performance
@@ -335,7 +335,7 @@ When an expression contains multiple operators, Python evaluates them according 
 | 2 | `+x`, `-x` positive/negative sign |
 | 3 | `*`, `/`, `//`, `%` |
 | 4 | `+`, `-` |
-| 5 | `==`, `!=`, `>`, `<`, `>=`, `<=` |
+| 5 | `==`, `!=`, `>`, `&lt;`, `>=`, `&lt;=` |
 | 6 | `not` |
 | 7 | `and` |
 | 8 (lowest) | `or` |
@@ -378,12 +378,26 @@ After you split the expression, you can print each intermediate variable as a mi
 Before trusting a condition, ask three quick questions:
 
 1. Did I compare values with `==`, not assign with `=`?
-2. Did I make the threshold direction clear, such as `latency_ms < 250` instead of a vague variable name?
+2. Did I make the threshold direction clear, such as `latency_ms &lt; 250` instead of a vague variable name?
 3. Did I test at least one passing case and one failing case?
 
 This small habit prevents many beginner bugs. Operators look simple, but most real program decisions are built from them.
 
 ---
+
+## When Operators Become Project Logic
+
+In real projects, operators usually hide inside business rules. A model result may look good only when `accuracy >= target`, `loss &lt; limit`, and `latency_ms &lt; budget` are all true. A data row may be kept only when the label is not empty and the file extension is in the allowed list.
+
+That is why this page is not only about symbols. Each operator should make a decision easier to read, test, and explain. When a condition matters to the product, give it a meaningful variable name and test both sides of the rule.
+
+Before merging code that contains an important condition, read it out loud as a sentence. If the sentence sounds vague, split the expression into smaller variables. If the sentence sounds correct, create one example that should pass and one example that should fail.
+
+This is also how you review beginner Python code. The syntax may be short, but the decision should still tell a clear story about the data and the intended rule.
+
+If a teammate cannot predict the result from your variable names, the expression is doing too much work in one line.
+
+The best operator code is not the shortest line. It is the line whose rule can be tested, reviewed, and changed without guessing.
 
 ## Comprehensive example: API latency check
 
@@ -499,7 +513,7 @@ Expected_output: code plus printed result that proves the concept works
 | Operator type | Common symbols | Purpose |
 |-----------|---------|------|
 | **Arithmetic** | `+`, `-`, `*`, `/`, `//`, `%`, `**` | Mathematical calculation |
-| **Comparison** | `==`, `!=`, `>`, `<`, `>=`, `<=` | Conditional checks, result is True/False |
+| **Comparison** | `==`, `!=`, `>`, `&lt;`, `>=`, `&lt;=` | Conditional checks, result is True/False |
 | **Logical** | `and`, `or`, `not` | Combine multiple conditions |
 | **Assignment** | `=`, `+=`, `-=`, `*=` etc. | Assign values to variables |
 | **Membership** | `in`, `not in` | Check whether an element is in a collection |

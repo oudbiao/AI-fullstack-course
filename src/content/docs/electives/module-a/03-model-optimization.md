@@ -53,6 +53,12 @@ This is the smallest optimization habit: compress, measure the error, and decide
 4. Keep failure examples.
 5. Only ship when the trade-off is visible.
 
+## Optimization Review
+
+Treat every optimization as an experiment with a control group. The baseline is the control. The optimized model is the candidate. If you change quantization, batching, and runtime at the same time, you will not know which change helped or hurt. Keep the comparison narrow enough that a teammate can rerun it.
+
+The minimum review note should include four fields: what changed, which metric improved, which metric got worse or stayed risky, and which validation examples were checked. For example: “INT8 reduced model memory by 45%, P95 latency improved from 120 ms to 76 ms, accuracy dropped 0.4 points, and the worst failures were still on low-light images.” That is a deployment decision, not just a compression result.
+
 ## Pass check
 
 You pass this lesson when you can explain one optimization’s benefit, its possible cost, and the metric you would inspect before using it in a real deployment.
@@ -65,6 +71,12 @@ A strong answer names a specific optimization and its trade-off. For example, qu
 Avoid saying only “smaller is better.” The correct deployment habit is to change one thing, measure the benefit, measure the cost, and decide whether the trade-off is acceptable.
 
 </details>
+
+## Optimization Review
+
+Review every optimization as a controlled experiment. The control group is the original model and runtime. The treatment is one change, such as quantization, pruning, batching, or a serving engine switch. If you change several things at once, the final result may look better but you will not know which decision caused the gain.
+
+Keep the review small and measurable: one table with before latency, after latency, memory, model size, and the accuracy or quality check. If quality drops, keep the failed examples. Those failures decide whether the optimization is acceptable for the product.
 
 ## Evidence to Keep
 

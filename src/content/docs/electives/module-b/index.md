@@ -41,6 +41,12 @@ Expected output:
 
 This is the smallest async habit: launch independent work, wait for all results, then keep a trace.
 
+## How To Use This Module In A Real Project
+
+Use these patterns only when they make a pipeline easier to inspect. A decorator should make repeated behavior visible, a generator should make data movement lighter, async should expose waiting and timeouts, and a registry should make available tools explicit. If the pattern hides the important work, it is not helping.
+
+For every advanced Python pattern, keep a tiny trace. The trace can be a log line, printed batch, timeout count, or registry listing. That trace is what turns a clever language feature into engineering evidence.
+
 ## Learn in This Order
 
 | Step | Lesson | Practice Output |
@@ -49,6 +55,12 @@ This is the smallest async habit: launch independent work, wait for all results,
 | 2 | [E.B.2 Iterators and Generators](/electives/module-b/02-iterators-advanced/) | Stream rows without loading everything at once |
 | 3 | [E.B.3 Concurrency](/electives/module-b/03-concurrency/) | Run async tasks with timeout and cancellation thinking |
 | 4 | [E.B.4 Metaprogramming](/electives/module-b/04-metaprogramming/) | Register tools or handlers explicitly |
+
+## How To Use This Module In A Real Project
+
+Use this module when code starts needing observability and control. Decorators add the same timing or logging behavior to many functions. Generators let data move through a pipeline without loading everything. Async code prevents slow I/O from blocking independent work. Registries make tools explicit.
+
+Do not use these patterns just to look advanced. A good use has a visible trace, a small runnable example, and a debugging benefit. If a beginner teammate cannot explain where the data enters, where it waits, and where it exits, simplify the pattern.
 
 ## Evidence to Keep
 

@@ -42,6 +42,12 @@ neighbor: [0.8, 0.9]
 
 This is the smallest baseline habit: define features, compare distance, predict, and keep the result for later comparison.
 
+## How To Use This Module In A Real Project
+
+Use classic ML as a baseline contract. Before reaching for a larger model, ask whether clear features and a simple decision rule already solve enough of the problem. If the baseline is strong, the heavier model must justify its extra cost.
+
+The best evidence is comparative: same split, same metric, and one limitation note. For example, “KNN is readable and fast to build, but prediction cost grows with stored examples,” or “Naive Bayes is cheap for ticket routing, but it misses wording that depends on context.”
+
 ## Learn in This Order
 
 | Step | Lesson | Practice Output |
@@ -50,6 +56,12 @@ This is the smallest baseline habit: define features, compare distance, predict,
 | 2 | [E.C.2 KNN](/electives/module-c/02-knn/) | Build a distance-voting baseline |
 | 3 | [E.C.3 Naive Bayes](/electives/module-c/03-naive-bayes/) | Convert evidence counts into class probabilities |
 | 4 | [E.C.4 LDA](/electives/module-c/04-lda/) | Project features to separate classes |
+
+## How To Use This Module In A Real Project
+
+Use classic ML as a baseline contract. Before trying a larger model, ask whether clean features plus SVM, KNN, Naive Bayes, or LDA already solve most of the task. If the baseline is strong, the larger model must justify its extra cost.
+
+Keep the comparison concrete: same train/test split, same metric, and at least one failure case. This turns classic ML from a theory detour into a practical guardrail against overbuilding.
 
 ## Evidence to Keep
 

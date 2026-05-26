@@ -78,3 +78,7 @@ signal: metric, portfolio artifact, interview feedback, or project failure that 
 risk_check: endless reading, no output, or switching topics too often
 Expected_output: a sustainable learning loop with the next review date
 ```
+
+## Pass Check
+
+You pass this appendix page when you can name your next review date, one project output to finish before then, and one topic you will deliberately postpone.

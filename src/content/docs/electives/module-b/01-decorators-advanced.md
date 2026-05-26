@@ -99,6 +99,12 @@ fetch_model_info
 
 This shows three useful details: the business function stays short, retry behavior is centralized, and `wraps` preserves the function name.
 
+## Debugging Review
+
+When a decorated function behaves strangely, do not start by rewriting the business function. First inspect the wrapper order, the exception types being caught, and whether `@wraps` preserved the function name. Many framework bugs look mysterious because decorators have changed metadata or swallowed the real error.
+
+In AI systems, decorators are most useful around unstable boundaries: API calls, tool calls, permission checks, and metrics. Keep the decorator small enough that a teammate can predict exactly what runs before and after the original function.
+
 ## Change The Order
 
 Swap the decorators:
@@ -122,6 +128,12 @@ Use decorators for:
 5. Framework registration
 
 Avoid decorators when the wrapper hides important business logic or when one function already has too many layers.
+
+## Debugging Review
+
+Before using a decorator in production, check whether the wrapped function still behaves like itself. The input should be unchanged, the return value should be unchanged, and the extra behavior should be visible in logs, timing output, or metrics.
+
+A useful decorator leaves evidence without hiding control flow. If debugging becomes harder, prefer a plain helper function. The goal is not clever syntax; the goal is a repeatable way to add tracing, validation, retry, or timing around many similar functions.
 
 ## Evidence to Keep
 

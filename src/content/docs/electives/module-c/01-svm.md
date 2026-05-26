@@ -80,6 +80,12 @@ support_per_class: [2, 1]
 
 This is the smallest useful SVM habit: scale features, fit the model, predict, then inspect support vectors.
 
+## Baseline Review
+
+Review SVM by checking feature scale, boundary shape, and support-vector count. If many samples become support vectors, the boundary may be sensitive to data noise or the classes may not be cleanly separated.
+
+For a project note, include the reason SVM is a fair baseline. Good reasons are small data, meaningful numeric features, and a need for a strong but still interpretable classifier. Weak reasons are “SVM is classic” or “I wanted to try another model.”
+
 ## Change The Boundary
 
 Run this standalone comparison:

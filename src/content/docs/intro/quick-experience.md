@@ -114,3 +114,7 @@ concept_link: which later chapter explains the hidden mechanism
 failure_check: API key, dependency, network, prompt, or output-format issue
 Expected_output: a tiny but inspectable AI behavior record
 ```
+
+## Pass Check
+
+You pass this quick experience when you can point to one input, one observed output, and one controlled change that affected the result.

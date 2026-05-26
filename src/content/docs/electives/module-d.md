@@ -59,6 +59,18 @@ after failure_count: 0
 
 The failed tool case is not embarrassing; it is now a regression test that protects future releases.
 
+## Red-Team Review
+
+Review a red-team run by separating three things: the surface that failed, the expected safe behavior, and the control that changed the result. For example, a tool surface might fail by executing too early, the safe behavior might be `ask_confirmation`, and the control might be a permission gate.
+
+Do not summarize the run as “safer now.” Keep the original input, the unsafe output, the fix, and the rerun output. That record is what turns a scary prompt into a useful regression case.
+
+For a first portfolio artifact, keep the case file boring and precise. Use columns such as `case_id`, `surface`, `input`, `expected_safe_behavior`, `actual_before`, `guardrail`, and `actual_after`. A reviewer should be able to rerun one row without guessing your intent.
+
+If a case is too broad, split it. Prompt injection, tool misuse, data leak, and unsafe output are different failure modes. A small regression set with clear surfaces is more useful than a dramatic list of attacks that no one can reproduce.
+
+When the case passes, do not delete it. Move it into the regression set and run it again before release.
+
 ## Practical Checklist
 
 | Step | Action | Evidence |

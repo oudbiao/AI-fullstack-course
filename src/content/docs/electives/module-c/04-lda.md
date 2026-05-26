@@ -73,6 +73,12 @@ projection_shape: (6, 1)
 
 The same model classified new points and projected the training data into one discriminative direction.
 
+## Baseline Review
+
+Review LDA by checking whether classes become easier to separate after projection. The projection is not just compression; it is label-aware compression, so the result should help class separation.
+
+Use LDA when you want a lightweight classifier or a supervised view of features. If the classes overlap heavily or form curved boundaries, record that limitation and compare with SVM, tree models, or a later neural baseline.
+
 ## Compare With PCA
 
 PCA finds directions with high overall variance and ignores labels. LDA uses labels and asks which direction separates classes best. That makes LDA useful when class separation matters more than general compression.
@@ -87,6 +93,12 @@ Try LDA when:
 4. You want a low-dimensional representation for visualization or downstream models.
 
 Avoid it as the first choice when class boundaries are highly nonlinear.
+
+## Baseline Review
+
+Review LDA by checking whether the projected space actually separates classes better than the raw features. A small plot, a class mean table, or a before/after score is enough evidence for this page.
+
+Do not treat projection as guaranteed improvement. If classes overlap after projection, write that down and compare with SVM, KNN, or a tree-based baseline. The value of LDA is the explanation of separation, not just another transformed matrix.
 
 ## Evidence to Keep
 

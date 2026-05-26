@@ -137,3 +137,7 @@ hypothesis: dependency, path, data, API, model, or browser/runtime issue
 next_probe: one command or log to check before changing many things
 Expected_output: a reproducible bug note and a tested fix or fallback
 ```
+
+## Pass Check
+
+You pass this appendix page when a failure is reduced to one reproducible command or code snippet, one hypothesis, and one next probe.

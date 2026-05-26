@@ -122,3 +122,7 @@ After the main route, this project should include:
 - a note explaining when to use a cloud API and when to use an open-source model runtime.
 
 The goal is not the largest system. The goal is a system that makes another person believe you understand the AI engineering loop.
+
+## Pass Check
+
+You pass this planning page when your project thread has one rerun command, one evaluation artifact, and one known failure case.

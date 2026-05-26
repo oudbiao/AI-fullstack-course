@@ -66,3 +66,7 @@ decision: local CPU/GPU, cloud GPU, API, or hosted service with reason
 risk_check: buying hardware before measuring workload or ignoring cloud/API alternatives
 Expected_output: hardware/cloud decision note tied to one actual course project
 ```
+
+## Pass Check
+
+You pass this appendix page when you can justify CPU, API, cloud GPU, or local GPU for one real course task without buying hardware just in case.

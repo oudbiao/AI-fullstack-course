@@ -89,6 +89,12 @@ That is why the example separates three responsibilities:
 
 If ownership is unclear, deployment bugs become hard to diagnose: memory can leak, buffers can outlive the runtime, or cleanup can happen in the wrong order. `std::unique_ptr` and RAII make the lifetime visible in the type system instead of hiding it in comments.
 
+## Deployment Review
+
+Read the example like a runtime adapter. `Session` is the stable business path, while `CpuEngine` is just one backend. In a real deployment, the second backend might wrap TensorRT, ONNX Runtime, OpenVINO, or a remote inference endpoint. The caller should not need to change when the backend changes; only construction should change.
+
+The risk to watch is hidden ownership. If two objects both believe they own the same runtime handle, cleanup becomes fragile. If nobody clearly owns it, memory and file handles can leak. A good deployment note should say who creates the resource, who owns it, who can borrow it, and when it is released.
+
 ## Practice change
 
 Add a second engine:

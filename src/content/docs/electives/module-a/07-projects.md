@@ -83,6 +83,12 @@ evidence_files: ['README.md', 'metrics.csv', 'failure_cases.md']
 
 This is the shape of a presentable deployment project: not just code, but evidence.
 
+## Project Review
+
+Review the project as a release candidate, not as a notebook. A release candidate has a target, a constraint, a reproducible command, a metric table, and a known limitation. If one of those pieces is missing, the project may still be a useful experiment, but it is not yet a deployment story.
+
+The strongest project write-up is usually narrow. Instead of claiming “I deployed an AI system,” say exactly what you proved: “I simulated an edge image classifier, reduced memory below 512 MB, kept accuracy drop under 1 point, and saved failure cases for review.” Specific evidence makes the project credible.
+
 ## How To Present The Project
 
 Use this order:

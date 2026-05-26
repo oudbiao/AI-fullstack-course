@@ -87,6 +87,12 @@ Expected output:
 
 The pipeline reads, filters, normalizes, and batches without creating a full list at every step.
 
+## Pipeline Review
+
+Review a generator pipeline by following one item from source to output. In this example, an event is read, filtered, normalized, batched, and printed. If you cannot explain one item’s path, the pipeline is probably too clever or missing names.
+
+Generators are especially useful for logs, RAG chunks, dataset rows, and streamed model output. The project evidence should show both the final output and the pipeline shape, because the main benefit is controlled data movement rather than a fancy syntax trick.
+
 ## Use `yield from`
 
 Run this small standalone demo:
@@ -125,6 +131,12 @@ Use generators when:
 4. You do not need random access to all items.
 
 Prefer a list when the data is small and repeated access makes the code simpler.
+
+## Pipeline Review
+
+Review an iterator pipeline by checking three moments: the first item, a middle item, and the final count. This catches empty streams, skipped rows, and generators that are consumed once and then silently produce nothing.
+
+In AI data work, iterators are valuable because they let you inspect a stream without loading everything into memory. Keep a short trace that shows which rows were read, which rows were filtered, and which rows reached the model or evaluator.
 
 ## Evidence to Keep
 

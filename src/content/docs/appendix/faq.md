@@ -71,3 +71,7 @@ course_link: which chapter or project this reference supports
 risk_check: treating appendix material as passive reading instead of a decision aid
 Expected_output: a note that changes a route, setup, project, or review decision
 ```
+
+## Pass Check
+
+You pass this appendix page when one vague worry has become one concrete next action tied to a chapter, project, or setup check.

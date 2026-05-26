@@ -78,6 +78,12 @@ Expected output:
 
 The important pattern is not just `gather`. It is `gather` plus a concurrency limit plus timeout handling.
 
+## Concurrency Review
+
+Review async code by asking what is allowed to wait, how many tasks may run at once, and what happens when one task is too slow. If those three answers are not visible, the code may work in a demo but fail under real traffic.
+
+For AI apps, this applies to retrieval, reranking, tool calls, file uploads, and remote model APIs. Keep a trace that names each task and result. A list like `['search:ok', 'slow_tool:timeout']` is small, but it proves timeout behavior better than a paragraph of explanation.
+
 ## Change The Limit
 
 Run this tiny check to see the two possible limits:

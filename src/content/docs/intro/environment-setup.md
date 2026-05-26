@@ -101,3 +101,7 @@ debug_note: install error, path issue, permission issue, or environment mismatch
 recovery_plan: exact command or doc page to retry before moving on
 Expected_output: reproducible project folder with successful command output and one known fallback
 ```
+
+## Pass Check
+
+You pass this setup page when the same folder can run Python, show Git status, and explain which interpreter owns the project.

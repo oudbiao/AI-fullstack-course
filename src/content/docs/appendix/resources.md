@@ -63,3 +63,7 @@ Ask three questions before opening another resource:
 3. Which course task will I return to after reading it?
 
 If you cannot answer those three, stay with the main course path.
+
+## Pass Check
+
+You pass this appendix page when you choose one resource, define one time box, and name the artifact you will produce before returning to the course project.

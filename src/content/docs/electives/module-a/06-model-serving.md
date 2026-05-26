@@ -78,6 +78,12 @@ answers:
 
 This small script shows the core loop: requests arrive, are grouped by version, processed in batches, and returned with traceable answers.
 
+## Serving Review
+
+Do not review serving by asking only whether the model answer is correct. Review the whole request path: queue, routing, batching, model version, answer, and metrics. A correct answer that cannot be traced to a request ID is hard to debug when users report a failure.
+
+For a small portfolio project, keep one table with `request_id`, `version`, `batch_size`, `latency_ms`, and `status`. This table proves that you understand serving as an operating system around the model, not as a single function call.
+
 ## Add A Safety Rule
 
 Add this before the batching loop:

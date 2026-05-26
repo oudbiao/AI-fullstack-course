@@ -71,6 +71,12 @@ When you see C++ inside an inference runtime, slow down around three things:
 
 This small example is not trying to teach all of C++. It teaches a deployment habit: make the input visible, make the decision rule visible, and keep an output that another person can rerun.
 
+## Deployment Review
+
+Before moving on, connect the toy program to a real inference review. Ask what the vector represents, where the class names would come from, and how another person would reproduce the same output. In a real project, `logits` might come from an ONNX model, a TensorRT engine, or a Python-exported test fixture. The C++ code is only trustworthy when the input, decision rule, and printed evidence are all visible.
+
+If the program compiles but the output is wrong, debug in this order: input values, loop bounds, comparison logic, and final label mapping. This order mirrors deployment debugging, where a runtime failure is often a data-shape or post-processing problem rather than a “C++ is broken” problem.
+
 ## Practice change
 
 Change the logits to:

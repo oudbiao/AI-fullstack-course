@@ -54,6 +54,12 @@ score=2.1
 
 This is the smallest deployment habit: input tensor-like values, compute a decision, print a reproducible result.
 
+## How To Use This Module In A Real Project
+
+Use the roadmap as a deployment review sequence. First prove that the same input produces the same output locally. Then ask which constraint is actually painful: build complexity, latency, memory, hardware support, service reliability, or project evidence. The right next lesson depends on that constraint.
+
+For a portfolio project, do not present every deployment topic at once. Pick one target such as “CPU batch inference” or “edge classifier,” then keep one small before/after table. A useful table has the command, the runtime target, latency or memory, and one limitation. That is much stronger than saying “I learned deployment.”
+
 ## Learn in This Order
 
 | Step | Lesson | Practice Output |

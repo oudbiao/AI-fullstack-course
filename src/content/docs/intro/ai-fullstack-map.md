@@ -80,6 +80,10 @@ Optional background: if you want the history behind these layers, skim the [15-s
 
 Next, plan how you will pace the main route.
 
+## Pass Check
+
+You pass this map when you can mark your current layer, the highest-risk next layer, and one portfolio artifact that will prove progress.
+
 ## Evidence to Keep
 
 Keep this page's proof of learning as a small evidence card:

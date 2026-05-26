@@ -75,6 +75,12 @@ edge-c FIT
 
 Read the result from left to right: `edge-c` is not automatically the fastest or cheapest device, but it is the only one that satisfies the deployment constraints.
 
+## Edge Review
+
+Read an edge deployment result as a constraint table, not as a model leaderboard. A device can pass accuracy and still fail because it overheats, loses network, runs out of memory, or cannot be updated safely. That is why the compatibility filter keeps separate reasons instead of returning only one score.
+
+When you write a project note, include the target environment: power source, network assumption, expected runtime length, input size, and how logs leave the device. These details make the difference between “the model ran once” and “the system is ready to be operated.”
+
 ## Make It More Real
 
 Change `model["memory_mb"]` from `700` to `350` and run again. `edge-a` still fails because power is too low. This shows why edge deployment is a multi-constraint problem.

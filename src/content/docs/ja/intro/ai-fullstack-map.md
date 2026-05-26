@@ -80,6 +80,10 @@ tools -> Python -> data -> models -> LLM -> RAG -> Agent -> specialization/runti
 
 次に、メインルートをどう進めるか計画します。
 
+## 確認
+
+この map は、現在の layer、次に一番 risk が高い layer、進捗を証明する portfolio artifact を 1 つ言えれば合格です。
+
 ## 残す証拠
 
 このページを終えたら、この証拠カードを残します。

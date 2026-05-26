@@ -73,6 +73,12 @@ predictions: [0, 1]
 
 The model did not learn a complex formula. It stored examples, scaled features, measured distance, and voted.
 
+## Baseline Review
+
+Review KNN by inspecting which neighbors voted, not just the final label. If the nearest examples do not make intuitive sense, the feature space is probably wrong or unscaled.
+
+KNN is useful in a portfolio when you want a transparent distance baseline. It is weaker as a production default when the dataset grows large, because prediction must compare against stored examples unless you add an index or approximate search.
+
 ## Change K
 
 Change `n_neighbors=3` to `1` and `5`. Small K reacts strongly to local points; large K smooths the decision.
@@ -87,6 +93,12 @@ Try KNN when:
 4. Prediction latency is not strict.
 
 Avoid it as a default for huge datasets or real-time high-QPS services.
+
+## Baseline Review
+
+Review KNN by looking beyond the final label. Keep the nearest neighbors, their labels, and the distance values for at least one prediction. This shows whether the result came from meaningful similarity or from a feature scale that accidentally dominated distance.
+
+KNN is a useful baseline because it is easy to explain. It is also easy to misuse. If scaling changes the prediction completely, or if prediction latency grows too much with the dataset, record that limit before moving to a heavier model.
 
 ## Evidence to Keep
 

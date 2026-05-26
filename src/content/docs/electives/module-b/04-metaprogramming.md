@@ -105,6 +105,12 @@ error: name cannot be empty
 
 The registry removes a manual mapping table. The descriptor keeps validation next to the field definition.
 
+## Review The Magic Boundary
+
+Metaprogramming is acceptable when the magic boundary is easy to inspect. In this example, `REGISTRY` is printed, and invalid config raises a visible error. That makes the dynamic behavior reviewable instead of mysterious.
+
+When using this pattern in an AI system, prefer explicit registry names such as `retriever`, `reranker`, `summarizer`, or `validator`. Avoid dynamic behavior that silently changes based on hidden imports. A teammate should be able to print the registry and understand which tools are available.
+
 ## When It Is Worth Using
 
 Metaprogramming is useful when:
@@ -115,6 +121,12 @@ Metaprogramming is useful when:
 4. Configuration should generate repeated structure.
 
 Avoid it when a normal class or dictionary is clearer.
+
+## Review The Magic Boundary
+
+Metaprogramming is helpful only when the generated behavior is still easy to discover. Before keeping a registry, dynamic import, or decorator-based loader, write down how a teammate would find the available tools and how they would disable one broken entry.
+
+If the answer requires reading hidden import side effects, the abstraction is too magical. Prefer explicit names, printed registry contents, and small tests that prove the right handler was selected for the right input.
 
 ## Evidence to Keep
 
