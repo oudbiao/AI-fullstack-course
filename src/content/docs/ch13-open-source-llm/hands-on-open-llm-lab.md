@@ -1,6 +1,6 @@
 ---
-title: "13.2 Hands-on: Run and Serve an Open-Source LLM"
-description: "Run a reproducible open-source LLM loop: environment check, first Transformers inference, five-case evaluation, and a local OpenAI-style API."
+title: "13.2 Hands-on: Run, Train, and Serve an Open-Source LLM"
+description: "Run a reproducible open-source LLM loop: environment check, Transformers inference, five-case evaluation, local API serving, and a mini GPT-2 GPU training evidence pack."
 sidebar:
   order: 3
 head:
@@ -11,7 +11,7 @@ head:
 ---
 ![Open-source LLM runtime deployment loop](/img/course/ch13-open-source-llm-runtime-loop-en.webp)
 
-This page is the runnable lab. You will start with a tiny model and prove the whole loop: environment, inference, evaluation, API serving, and shutdown. The default model is not chosen for answer quality. It is chosen so the code path can run on an ordinary machine before you spend time or money on a larger model.
+This page is the runnable lab. You will start with a tiny model and prove the whole loop: environment, inference, evaluation, API serving, and shutdown. You will also run a mini GPT-2 training rehearsal so you know what real GPU training evidence looks like. The default model is not chosen for answer quality. It is chosen so the code path can run on an ordinary machine before you spend time or money on a larger model.
 
 Before you begin, choose a route in [13.1 Compute Routes: Local CPU, Free Colab, Rented GPU](/ch13-open-source-llm/compute-routes/). This lab is written so the first pass works on local CPU. Colab and rented GPU are upgrades after the evidence loop is clear.
 
@@ -35,6 +35,13 @@ openllm_lab/
   eval_summary.json
   serve_openai_like.py
   gpu_plan.md
+  mini_gpt2_train.py
+  openllm_gpu_training_run/
+    environment_report.json
+    training_log.csv
+    mini_gpt2_checkpoint.pt
+    sample.txt
+    README.md
   lora_decision.md
   README.md
 ```
@@ -45,7 +52,10 @@ The pass bar is not "the model sounds smart." The pass bar is:
 - the local model loads and generates text;
 - five fixed cases can be evaluated again;
 - the API can be called with `curl`;
+- a mini GPT-2 training script produces a log, checkpoint, and sample text;
 - you know how to stop the service and archive evidence.
+
+CPU or MPS training is only a smoke test. The final training evidence should include one run where `environment_report.json` says `"device": "cuda"` and `training_log.csv` has at least three logged loss rows.
 
 ## 0. Confirm The Compute And Model Route
 
@@ -528,7 +538,72 @@ On a rented GPU, keep the security rule simple:
 - record the start and stop commands;
 - stop the instance immediately after copying evidence back.
 
-## 7. Decide Whether LoRA Is Needed
+## 7. Run a Mini GPT-2 GPU Training Rehearsal
+
+Serving an existing model and training a model are different skills. Before LoRA or full fine-tuning, run one tiny GPT-style training loop and save the evidence. This does not produce a useful assistant; it proves the real training path: data -> tokenizer -> embedding -> causal attention -> loss -> optimizer -> checkpoint -> generation.
+
+Download the course script:
+
+```bash
+curl -O https://airoads.org/examples/ch13-open-llm-lab/mini_gpt2_train.py
+```
+
+For a quick CPU or Apple Silicon smoke test:
+
+```bash
+python mini_gpt2_train.py --steps 20 --batch-size 8
+```
+
+For the course acceptance run on Colab, Kaggle, RunPod, AutoDL, or another rented GPU:
+
+```bash
+python mini_gpt2_train.py \
+  --output-dir openllm_gpu_training_run \
+  --device cuda \
+  --steps 500 \
+  --batch-size 64 | tee gpu_train_log.txt
+```
+
+If you are using a Notebook, use this cell order:
+
+| Cell | Run |
+|---|---|
+| 1 | `!nvidia-smi` |
+| 2 | `!python -V && python -c "import torch; print(torch.__version__, torch.cuda.is_available())"` |
+| 3 | Upload or `curl` `mini_gpt2_train.py` |
+| 4 | `!python mini_gpt2_train.py --device cuda --steps 500 --batch-size 64 \| tee gpu_train_log.txt` |
+| 5 | List `openllm_gpu_training_run` and download the evidence files |
+| 6 | Stop the GPU runtime or rented instance |
+
+Expected log shape:
+
+```text
+device: cuda
+cuda_name: Tesla T4
+parameters: 108836
+step 0001 | loss 3.7427 | elapsed 0.2s
+step 0050 | loss 3.21xx | elapsed 1.8s
+step 0500 | loss lower than the first logged loss
+checkpoint: openllm_gpu_training_run/mini_gpt2_checkpoint.pt
+training_log: openllm_gpu_training_run/training_log.csv
+--- sample ---
+Open-source language models...
+```
+
+Do not judge this run by the generated prose. Judge it by evidence:
+
+| Evidence | What It Proves |
+|---|---|
+| `environment_report.json` | Python, torch, CUDA, GPU name, parameter count, training settings |
+| `training_log.csv` | loss was logged repeatedly on the selected device |
+| `mini_gpt2_checkpoint.pt` | weights were saved after training |
+| `sample.txt` | the trained model can generate tokens |
+| `gpu_train_log.txt` | terminal trace includes device, loss, checkpoint, and sample |
+| shutdown screenshot or provider note | rented GPU cost stopped after the experiment |
+
+If `device` is `cpu` or `mps`, mark the run as a smoke test. If `device` is `cuda`, the run can count as the GPU training evidence for this chapter.
+
+## 8. Decide Whether LoRA Is Needed
 
 Do not fine-tune because one answer was bad. Bucket failures in `eval_results.csv` first:
 
@@ -586,9 +661,9 @@ Current choice: no_lora / prepare_lora / full_finetune_not_allowed
 Reason:
 ```
 
-Self-LLM's LoRA chapters fit after this point: you already have an environment report, base-model choice, fixed evaluation set, and first-run evidence.
+Self-LLM's LoRA chapters fit after this point: you already have an environment report, base-model choice, fixed evaluation set, first-run evidence, and a small training evidence pack.
 
-## 8. Debug by Symptom
+## 9. Debug by Symptom
 
 If `environment_report.py` fails, first check the Python version, whether the virtual environment is active, and whether `torch` was installed into that environment. Do not switch models yet.
 
@@ -599,6 +674,8 @@ If the output is empty, first simplify the prompt, check whether `pad_token_id` 
 If the API does not start, check whether port 8000 is already occupied, then confirm that `uvicorn serve_openai_like:app --host 127.0.0.1 --port 8000` is being run inside `openllm_lab`.
 
 If vLLM reports out-of-memory, try a smaller model or lower concurrency first. Do not jump straight to LoRA; memory pressure is usually not solved by training.
+
+If the mini GPT-2 training script fails on `--device cuda`, first check `nvidia-smi`, the CUDA-enabled PyTorch install, and whether the Notebook runtime actually has GPU enabled. Do not pay for a larger GPU until the smoke test runs.
 
 The final acceptance check is the evidence bundle: `environment_report.txt`, `first_run.md`, `eval_results.csv`, `eval_summary.json`, and the API health/request/response records.
 
@@ -617,13 +694,18 @@ eval_results.csv
 eval_summary.json
 serve_openai_like.py
 gpu_plan.md
+openllm_gpu_training_run/environment_report.json
+openllm_gpu_training_run/training_log.csv
+openllm_gpu_training_run/mini_gpt2_checkpoint.pt
+openllm_gpu_training_run/sample.txt
+gpu_train_log.txt
 lora_decision.md
 README.md
 ```
 
-This evidence set should answer four questions: where the run happened, which model was used, how the fixed cases behaved, and how the service can stop or roll back.
+This evidence set should answer five questions: where the run happened, which model was used, how the fixed cases behaved, whether a real training loop ran, and how the service or GPU instance can stop or roll back.
 
-## 9. Write the README
+## 10. Write the README
 
 Create `README.md`:
 
@@ -643,6 +725,7 @@ python environment_report.py
 python run_local_llm.py
 python eval_openllm.py
 uvicorn serve_openai_like:app --host 127.0.0.1 --port 8000
+python mini_gpt2_train.py --device cuda --steps 500 --batch-size 64
 ```
 
 ## Evidence
@@ -655,11 +738,16 @@ uvicorn serve_openai_like:app --host 127.0.0.1 --port 8000
 - eval_results.csv
 - eval_summary.json
 - gpu_plan.md
+- openllm_gpu_training_run/environment_report.json
+- openllm_gpu_training_run/training_log.csv
+- openllm_gpu_training_run/mini_gpt2_checkpoint.pt
+- openllm_gpu_training_run/sample.txt
+- gpu_train_log.txt
 - lora_decision.md
 
 ## Stop
 
-Use Ctrl+C to stop the local API. Stop rented GPU instances immediately after copying evidence back.
+Use Ctrl+C to stop the local API. Stop rented GPU instances immediately after copying evidence back. Keep a shutdown screenshot or provider stop note.
 ````
 
 <details>
@@ -674,9 +762,10 @@ Review the bundle in this order:
 3. `first_run.md` records model, prompt, device, latency, and output.
 4. `eval_cases.csv`, `eval_results.csv`, and `eval_summary.json` separate "the model ran" from "the model solved the task."
 5. The API evidence shows `/health`, one `/v1/chat/completions` request, one response, and the stop path.
-6. `gpu_plan.md` and `lora_decision.md` avoid premature upgrades: larger serving and fine-tuning need repeated eval evidence.
+6. `openllm_gpu_training_run/` proves you have seen a real training loop, not only inference.
+7. `gpu_plan.md` and `lora_decision.md` avoid premature upgrades: larger serving and fine-tuning need repeated eval evidence.
 
 The common mistake is to replace the smoke test with a large model before the loop works. Upgrade only after the same fixed cases can run again.
 </details>
 
-After this page, you have not merely read that open-source models can be deployed. You have run one reproducible path: environment -> model -> output -> evaluation -> API -> shutdown.
+After this page, you have not merely read that open-source models can be deployed. You have run one reproducible path: environment -> model -> output -> evaluation -> API -> GPU training evidence -> shutdown.
