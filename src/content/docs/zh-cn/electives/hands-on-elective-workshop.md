@@ -19,7 +19,7 @@ head:
 
 脚本会生成这个目录：
 
-```tree
+```text
 elective_workshop_run/
   outputs/module_a_deployment_score.csv
   outputs/module_b_python_trace.json

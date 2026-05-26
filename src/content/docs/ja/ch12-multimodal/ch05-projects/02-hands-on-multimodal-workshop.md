@@ -19,7 +19,7 @@ head:
 
 次のフォルダを作ります。
 
-```tree
+```text
 multimodal_workshop_run/
   inputs/
     creative_brief.json

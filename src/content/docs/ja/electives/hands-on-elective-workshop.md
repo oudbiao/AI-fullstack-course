@@ -19,7 +19,7 @@ head:
 
 スクリプトはこのフォルダを作ります。
 
-```tree
+```text
 elective_workshop_run/
   outputs/module_a_deployment_score.csv
   outputs/module_b_python_trace.json

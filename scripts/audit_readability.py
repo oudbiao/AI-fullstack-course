@@ -91,6 +91,20 @@ OUTPUT_LINE_RE = re.compile(
     r")\b",
     re.I,
 )
+DIRECTORY_TREE_LINE_RE = re.compile(
+    r"^(?:[\s│├└─-]*)(?:"
+    r"[A-Za-z0-9_.-]+/|"
+    r"[A-Za-z0-9_.-]+\.[A-Za-z0-9_.-]+|"
+    r"\.\.\."
+    r")$"
+)
+PATH_TOKEN_RE = re.compile(
+    r"^(?:"
+    r"(?:[A-Za-z0-9_.-]+/)+[A-Za-z0-9_.-]+(?:\.[A-Za-z0-9_.-]+)?|"
+    r"[A-Za-z0-9_.-]+/|"
+    r"[A-Za-z0-9_.-]+\.[A-Za-z0-9_.-]+"
+    r")$"
+)
 
 
 @dataclass(frozen=True)
@@ -294,6 +308,25 @@ def evidence_like_labels(lines: list[str]) -> bool:
     return any(any(hint in label for hint in EVIDENCE_LABEL_HINTS) for label in labels)
 
 
+def looks_like_directory_tree(lines: list[str]) -> bool:
+    if len(lines) < 4:
+        return False
+    meaningful = [line.strip() for line in lines if line.strip()]
+    if not meaningful:
+        return False
+    matches = 0
+    for line in meaningful:
+        stripped = re.sub(r"^[\s│├└─-]+", "", line)
+        path_tokens = [
+            token.strip(",;")
+            for token in stripped.split()
+            if PATH_TOKEN_RE.match(token.strip(",;"))
+        ]
+        if DIRECTORY_TREE_LINE_RE.match(line) or path_tokens:
+            matches += 1
+    return matches >= 4 and matches / len(meaningful) >= 0.65
+
+
 def audit_text_block(path: Path, lang: str, start_line: int, value: str, previous_context: str) -> list[Finding]:
     if lang not in TEXT_LANGS:
         return []
@@ -309,11 +342,12 @@ def audit_text_block(path: Path, lang: str, start_line: int, value: str, previou
     looks_like_output = has_marker(previous_context, TERMINAL_CONTEXT_MARKERS) or any(
         OUTPUT_LINE_RE.search(line.strip()) for line in lines
     )
+    looks_like_file_layout = looks_like_directory_tree(lines)
     looks_like_rendered_evidence = has_marker(previous_context, EVIDENCE_CONTEXT_MARKERS) or (
         has_many_labels and evidence_like_labels(structured_lines)
     )
 
-    if looks_like_rendered_evidence:
+    if looks_like_rendered_evidence or looks_like_file_layout:
         return []
 
     if has_many_labels and not looks_like_output:

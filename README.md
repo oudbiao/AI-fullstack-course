@@ -153,13 +153,13 @@ npm run seo:indexnow:dry-run
 
 `npm run qa:course` reports actionable content gaps. Appendix, navigation, and study-guide pages are exempt from the folded-answer advisory so the remaining samples point to lesson pages that may need clearer walkthroughs.
 
-`npm run qa:code` audits fenced code blocks across the course for malformed fences, syntax errors, and unfinished placeholder snippets before examples reach learners.
+`npm run qa:code` audits fenced code blocks across the course for malformed fences, syntax errors, and unfinished placeholder snippets before examples reach learners. Informational transcript skips are summarized by default; rerun `python3 scripts/audit_code_blocks.py --show-info` when you need the full list.
 
-`npm run qa:image-teaching` writes `reports/course-images/image-teaching-audit.json` and highlights image references with thin alt text, little nearby explanation, repeated use on one page, or locale image mismatches.
+`npm run qa:image-teaching` writes `reports/course-images/image-teaching-audit.json` and highlights image references with thin alt text, little nearby explanation, repeated use on one page, locale image mismatches, and cross-page reuse counts for manual image review.
 
 `npm run qa:readability` writes `reports/readability-audit.json` and highlights dense tables, long table headers, and plain-text blocks that may deserve cards, narrower tables, or terminal-output framing.
 
-`npm run qa:completion` writes `reports/course-completion-report.json` and `reports/course-completion-report.md`, then summarizes the lowest-scoring pages by locale and chapter so improvement work has a stable backlog.
+`npm run qa:completion` writes `reports/course-completion-report.json` and `reports/course-completion-report.md`, then summarizes pages that still have completion deductions so improvement work has a stable backlog.
 
 For direct script checks:
 

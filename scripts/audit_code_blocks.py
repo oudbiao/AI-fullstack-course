@@ -24,6 +24,7 @@ import re
 import subprocess
 import sys
 import tempfile
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -423,6 +424,11 @@ def main() -> int:
         help="Markdown roots to audit. Defaults to the Starlight content tree.",
     )
     parser.add_argument("--max-findings", type=int, default=200)
+    parser.add_argument(
+        "--show-info",
+        action="store_true",
+        help="Print informational findings individually instead of summarizing them.",
+    )
     args = parser.parse_args()
 
     roots = args.roots or ROOTS
@@ -448,13 +454,27 @@ def main() -> int:
         )
     )
 
-    for finding in findings[: args.max_findings]:
+    printable_findings = [
+        finding for finding in findings if args.show_info or finding.severity != "info"
+    ]
+    info_findings = [finding for finding in findings if finding.severity == "info"]
+    if info_findings and not args.show_info:
+        info_by_message = Counter(finding.message for finding in info_findings)
+        print(
+            "info_summary="
+            + ", ".join(
+                f"{message}:{count}" for message, count in sorted(info_by_message.items())
+            )
+        )
+        print("info_details=hidden; rerun with --show-info to list informational findings")
+
+    for finding in printable_findings[: args.max_findings]:
         print(
             f"{finding.severity.upper()} {finding.path}:{finding.line} "
             f"[{finding.lang or 'none'}] {finding.message}"
         )
 
-    remaining = len(findings) - args.max_findings
+    remaining = len(printable_findings) - args.max_findings
     if remaining > 0:
         print(f"... {remaining} more findings omitted")
 

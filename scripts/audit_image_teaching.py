@@ -379,6 +379,16 @@ def audit_file(path: Path) -> list[Finding]:
     return findings
 
 
+def collect_image_usage(files: list[Path]) -> dict[str, list[str]]:
+    usage: dict[str, list[str]] = {}
+    for path in files:
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        urls = {ref.url for ref in extract_image_refs(path, text)}
+        for url in urls:
+            usage.setdefault(url, []).append(rel(path))
+    return {url: paths for url, paths in sorted(usage.items()) if len(paths) > 1}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("roots", nargs="*", type=Path, help="Markdown files or roots to audit.")
@@ -397,6 +407,8 @@ def main() -> int:
     files = sorted(set(files))
 
     findings = [finding for path in files for finding in audit_file(path)]
+    repeated_across_pages = collect_image_usage(files)
+    high_reuse_images = {url: paths for url, paths in repeated_across_pages.items() if len(paths) > 2}
     counts: dict[str, int] = {}
     for finding in findings:
         counts[finding.kind] = counts.get(finding.kind, 0) + 1
@@ -405,6 +417,10 @@ def main() -> int:
         "audited_files": len(files),
         "finding_count": len(findings),
         "counts": dict(sorted(counts.items())),
+        "repeated_across_pages_count": len(repeated_across_pages),
+        "high_reuse_image_count": len(high_reuse_images),
+        "high_reuse_images": high_reuse_images,
+        "repeated_across_pages": repeated_across_pages,
         "findings": [asdict(finding) for finding in findings],
     }
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -416,6 +432,7 @@ def main() -> int:
         print(f"audited_files={len(files)}")
         print(f"image_teaching_findings={len(findings)}")
         print("counts=" + ", ".join(f"{key}:{value}" for key, value in sorted(counts.items())))
+        print(f"repeated_across_pages={len(repeated_across_pages)} high_reuse_images={len(high_reuse_images)}")
         print(f"report={rel(REPORT_PATH)}")
         for finding in findings[: args.max_findings]:
             print(

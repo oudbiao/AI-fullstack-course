@@ -19,7 +19,7 @@ head:
 
 脚本会创建这个文件夹：
 
-```tree
+```text
 multimodal_workshop_run/
   inputs/
     creative_brief.json

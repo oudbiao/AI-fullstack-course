@@ -19,7 +19,7 @@ This workshop uses only the Python standard library. TF-IDF and centroid classif
 
 You will create a folder called `nlp_workshop_run/` with this structure:
 
-```tree
+```text
 nlp_workshop_run/
   data/
     train_texts.csv

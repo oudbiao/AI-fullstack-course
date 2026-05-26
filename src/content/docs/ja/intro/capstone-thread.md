@@ -26,7 +26,7 @@ head:
 
 ## ディレクトリテンプレート
 
-```tree
+```text
 capstone-course-assistant/
   README.md
   data/
@@ -50,19 +50,19 @@ capstone-course-assistant/
 
 ## ポートフォリオ提出テンプレート
 
-各大きな stage の終わりに、同じ package format を使います。これにより、project は demo の寄せ集めではなく、review できる成果物になります。
+各大きな段階の終わりに、同じ提出形式を使います。これにより、プロジェクトはデモの寄せ集めではなく、レビューできる成果物になります。
 
 ```text
-README.md                  何をするか、どう実行するか、何をまだ支援しないか
-run.sh or commands.md       正確な rerun path
-data_note.md                source、fields、cleaning rules、privacy notes
-eval_cases.csv              比較に使う fixed questions または inputs
-failure_cases.md            少なくとも1つの honest failure と suspected cause
-screenshots/ or outputs/    visible result、chart、trace、API response
-release_note.md             この章で何が変わり、次に何を test するか
+README.md                  何をするか、どう実行するか、まだ支援しないこと
+run.sh or commands.md       正確な再実行手順
+data_note.md                出典、フィールド、整備ルール、プライバシーメモ
+eval_cases.csv              比較に使う固定質問または入力
+failure_cases.md            少なくとも1つの正直な失敗と推定原因
+screenshots/ or outputs/    見える結果、グラフ、トレース、API 応答
+release_note.md             この章で何が変わり、次に何をテストするか
 ```
 
-最小版は README、1つの run command、1つの output、1つの failure note です。強いポートフォリオ版は fixed eval set、before/after comparison、cost または latency note、safety boundary、短い demo script を含みます。
+最小版は README、1つの実行コマンド、1つの出力、1つの失敗メモです。強いポートフォリオ版では、固定評価セット、before/after 比較、コストまたは遅延メモ、安全境界、短いデモスクリプトまで含めます。
 
 ## 章ごとの成長
 

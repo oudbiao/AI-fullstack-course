@@ -26,7 +26,7 @@ head:
 
 ## 目录模板
 
-```tree
+```text
 capstone-course-assistant/
   README.md
   data/

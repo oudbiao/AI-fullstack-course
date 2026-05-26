@@ -19,7 +19,7 @@ This workshop is the shortest way to feel what the electives are for. You will r
 
 The script creates this folder:
 
-```tree
+```text
 elective_workshop_run/
   outputs/module_a_deployment_score.csv
   outputs/module_b_python_trace.json

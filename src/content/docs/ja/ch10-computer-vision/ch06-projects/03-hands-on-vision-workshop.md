@@ -26,7 +26,7 @@ head:
 
 実行後、フォルダは次のようになります。
 
-```tree
+```text
 cv_workshop_run/
   data/
     labels.csv

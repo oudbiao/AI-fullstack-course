@@ -156,6 +156,16 @@ body {
   border-collapse: collapse;
 }
 
+.sl-markdown-content table:has(tr > :nth-child(4)) {
+  font-size: 0.95rem;
+}
+
+.sl-markdown-content table:has(tr > :nth-child(4)) th,
+.sl-markdown-content table:has(tr > :nth-child(4)) td {
+  padding-inline: 0.72rem;
+  line-height: 1.52;
+}
+
 .sl-markdown-content th,
 .sl-markdown-content td {
   min-width: 0;
@@ -175,6 +185,10 @@ body {
   text-wrap: pretty;
 }
 
+.sl-markdown-content table:has(tr > :nth-child(4)) th {
+  text-wrap: pretty;
+}
+
 .sl-markdown-content .sl-heading-wrapper:has(:is([id="stage-exit-checks"], [id="阶段验收"], [id="各段階の終了チェック"])) + p + table th:first-child,
 .sl-markdown-content .sl-heading-wrapper:has(:is([id="stage-exit-checks"], [id="阶段验收"], [id="各段階の終了チェック"])) + p + table td:first-child {
   width: 18%;
@@ -190,6 +204,13 @@ body {
   padding-inline: 0.62rem;
   font-size: 0.9rem;
   line-height: 1.48;
+}
+
+.sl-markdown-content table:has(tr > :nth-child(8)) th,
+.sl-markdown-content table:has(tr > :nth-child(8)) td {
+  padding-inline: 0.48rem;
+  font-size: 0.84rem;
+  line-height: 1.42;
 }
 
 .sl-markdown-content table:has(tr > :nth-child(6)) th:first-child,
@@ -721,6 +742,7 @@ html[data-code-wrap="true"] .sl-markdown-content pre[data-language]:not([data-la
 .course-evidence-card {
   display: grid;
   gap: 0.65rem;
+  max-width: 58rem;
   margin: 1.25rem 0;
   padding: clamp(0.85rem, 2vw, 1.05rem);
   border: 1px solid var(--course-border);
@@ -733,7 +755,7 @@ html[data-code-wrap="true"] .sl-markdown-content pre[data-language]:not([data-la
 
 .course-evidence-card__row {
   display: grid;
-  grid-template-columns: minmax(6.75rem, 9.5rem) minmax(0, 1fr);
+  grid-template-columns: minmax(6.75rem, 9rem) minmax(0, 1fr);
   gap: 0.75rem;
   align-items: start;
   min-width: 0;

@@ -19,7 +19,7 @@ head:
 
 スクリプトは `nlp_workshop_run/` フォルダを作り、次の構造で成果物を保存します。
 
-```tree
+```text
 nlp_workshop_run/
   data/
     train_texts.csv

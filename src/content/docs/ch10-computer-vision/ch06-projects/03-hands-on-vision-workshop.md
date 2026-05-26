@@ -26,7 +26,7 @@ This example intentionally uses `opencv-python` and `numpy` instead of a deep le
 
 By the end, your folder will contain:
 
-```tree
+```text
 cv_workshop_run/
   data/
     labels.csv

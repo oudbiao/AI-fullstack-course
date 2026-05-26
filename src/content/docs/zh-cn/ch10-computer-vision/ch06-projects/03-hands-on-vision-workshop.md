@@ -26,7 +26,7 @@ head:
 
 运行完成后，文件夹会长这样：
 
-```tree
+```text
 cv_workshop_run/
   data/
     labels.csv

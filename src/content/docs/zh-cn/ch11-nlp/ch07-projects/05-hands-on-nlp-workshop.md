@@ -19,7 +19,7 @@ head:
 
 脚本会生成 `nlp_workshop_run/` 文件夹，结构如下：
 
-```tree
+```text
 nlp_workshop_run/
   data/
     train_texts.csv
