@@ -347,7 +347,7 @@ function auditHtmlFile(filePath, knownHtmlFiles, issues, summary) {
 
   if (isLegacyZhHansRoute(route)) {
     summary.legacyRedirectPages += 1;
-    assertLegacyRedirect(route, sanitizedHtml, issues);
+    issues.push(`${route}: legacy zh-Hans route should be handled by nginx 301, not generated as static HTML`);
   } else {
     assertNormalPage(route, sanitizedHtml, issues);
     assertLocalizedReferencesStayLocalized(route, sanitizedHtml, knownHtmlFiles, issues);

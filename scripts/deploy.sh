@@ -86,6 +86,13 @@ check_preflight_redirect() {
   docker run --rm --network proxy-net curlimages/curl:latest -sI --connect-timeout 5 "http://ai-fullstack-course-preflight:3000${path}" | grep -Fiq "location: ${expected_location}"
 }
 
+check_preflight_host_redirect() {
+  host="$1"
+  path="$2"
+  expected_location="$3"
+  docker run --rm --network proxy-net curlimages/curl:latest -sI --connect-timeout 5 -H "Host: ${host}" "http://ai-fullstack-course-preflight:3000${path}" | grep -Fiq "location: ${expected_location}"
+}
+
 check_preflight_status() {
   path="$1"
   expected_status="$2"
@@ -120,6 +127,18 @@ if ! check_preflight_html "/ja/" 'lang="ja-JP"'; then
 fi
 if ! check_preflight_redirect "/zh-Hans/" "/zh-cn/"; then
   echo "❌ 旧中文路径兼容跳转异常，停止替换线上容器"
+  docker logs --tail=50 ai-fullstack-course-preflight || true
+  cleanup_preflight
+  exit 1
+fi
+if ! check_preflight_host_redirect "learning.airoads.org" "/zh-cn/" "https://airoads.org/zh-cn/"; then
+  echo "❌ learning.airoads.org 没有 301 到主域名，停止替换线上容器"
+  docker logs --tail=50 ai-fullstack-course-preflight || true
+  cleanup_preflight
+  exit 1
+fi
+if ! check_preflight_host_redirect "www.airoads.org" "/zh-cn/" "https://airoads.org/zh-cn/"; then
+  echo "❌ www.airoads.org 没有 301 到主域名，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
   cleanup_preflight
   exit 1

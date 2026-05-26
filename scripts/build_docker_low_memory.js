@@ -70,6 +70,13 @@ function assertFileNotContains(relativePath, unexpectedText) {
   }
 }
 
+function assertPathAbsent(relativePath) {
+  const filePath = path.join(projectRoot, relativePath);
+  if (fs.existsSync(filePath)) {
+    throw new Error(`Expected ${relativePath} not to be generated`);
+  }
+}
+
 function validateOutput() {
   const checks = [
     ["dist/index.html", 'lang="en-US"'],
@@ -86,6 +93,7 @@ function validateOutput() {
   }
 
   assertFileNotContains("dist/sitemap-0.xml", "/zh-Hans");
+  assertPathAbsent("dist/zh-Hans");
   assertFileContains("docker/nginx.conf", "location /zh-Hans/");
   assertFileContains("docker/nginx.conf", "learning.airoads.org www.airoads.org");
   assertFileContains("docker/nginx.conf", "return 301 https://airoads.org$request_uri;");
