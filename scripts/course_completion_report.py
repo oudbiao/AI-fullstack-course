@@ -350,18 +350,19 @@ def write_markdown(report: dict[str, Any]) -> None:
             )
         )
 
-    lines.extend(
-        [
-            "",
-            "## Lowest Scoring Pages",
-            "",
-            "| Locale | Score | Status | Page | Main reasons |",
-            "|---|---:|---|---|---|",
-        ]
-    )
-    for page in report["lowest_pages"]:
-        reasons = "; ".join(page["deductions"][:3])
-        lines.append(f"| {page['locale']} | {page['score']} | {page['status']} | `{page['path']}` | {reasons} |")
+    lines.extend(["", "## Pages Needing Attention", ""])
+    if report["lowest_pages"]:
+        lines.extend(
+            [
+                "| Locale | Score | Status | Page | Main reasons |",
+                "|---|---:|---|---|---|",
+            ]
+        )
+        for page in report["lowest_pages"]:
+            reasons = "; ".join(page["deductions"][:3])
+            lines.append(f"| {page['locale']} | {page['score']} | {page['status']} | `{page['path']}` | {reasons} |")
+    else:
+        lines.append("No pages currently have completion deductions.")
 
     REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -380,12 +381,16 @@ def build_report() -> dict[str, Any]:
         locale: summarize_pages([page for page in pages if page.locale == locale])
         for locale in LOCALE_ROOTS
     }
-    low_pages = sorted(pages, key=lambda page: (page.score, page.locale, page.path))[:40]
+    low_pages = sorted(
+        (page for page in pages if page.deductions),
+        key=lambda page: (page.score, page.locale, page.path),
+    )[:40]
     return {
         "root": str(ROOT),
         "page_count": len(pages),
         "locale_summary": locale_summary,
         "chapter_summary": chapter_summaries(pages),
+        "attention_page_count": len(low_pages),
         "lowest_pages": [asdict(page) for page in low_pages],
         "pages": [asdict(page) for page in sorted(pages, key=lambda page: (page.locale, page.path))],
     }
@@ -414,9 +419,11 @@ def main() -> int:
                 f"{locale}: average={summary['average_score']} "
                 f"solid={summary['solid']} review={summary['review']} needs_work={summary['needs_work']}"
             )
+        print(f"attention_pages={report['attention_page_count']}")
         for page in report["lowest_pages"][: args.max_pages]:
             reasons = "; ".join(page["deductions"][:3])
-            print(f"LOW {page['locale']} {page['score']:>3} {page['path']} :: {reasons}")
+            label = "LOW" if page["score"] < 90 else "ATTN"
+            print(f"{label} {page['locale']} {page['score']:>3} {page['path']} :: {reasons}")
 
     if args.fail_under and any(page["score"] < args.fail_under for page in report["pages"]):
         return 1
