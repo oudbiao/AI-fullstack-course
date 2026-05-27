@@ -153,8 +153,32 @@ if ! check_preflight_redirect "/zh-Hans/" "/zh-cn/"; then
   cleanup_preflight
   exit 1
 fi
+if ! check_preflight_redirect "/sitemap.html" "/sitemap.xml"; then
+  echo "❌ 旧 sitemap.html 没有 301 到 sitemap.xml，停止替换线上容器"
+  docker logs --tail=50 ai-fullstack-course-preflight || true
+  cleanup_preflight
+  exit 1
+fi
+if ! check_preflight_redirect "/ja/ch06-deep-learning/ch01-nn-basics/optimizers" "/ja/ch06-deep-learning/ch01-nn-basics/03-optimizers/"; then
+  echo "❌ 旧日文章节路径没有 301 到新编号路径，停止替换线上容器"
+  docker logs --tail=50 ai-fullstack-course-preflight || true
+  cleanup_preflight
+  exit 1
+fi
+if ! check_preflight_redirect "/stage3/ch02-probability/distributions" "/ch04-ai-math/ch02-probability/02-distributions/"; then
+  echo "❌ 旧 stage 路径没有 301 到新课程路径，停止替换线上容器"
+  docker logs --tail=50 ai-fullstack-course-preflight || true
+  cleanup_preflight
+  exit 1
+fi
 if ! check_preflight_host_redirect "learning.airoads.org" "/zh-cn/" "https://airoads.org/zh-cn/"; then
   echo "❌ learning.airoads.org 没有 301 到主域名，停止替换线上容器"
+  docker logs --tail=50 ai-fullstack-course-preflight || true
+  cleanup_preflight
+  exit 1
+fi
+if ! check_preflight_host_redirect "learning.airoads.org" "/ja/ch06-deep-learning/ch01-nn-basics/optimizers" "https://airoads.org/ja/ch06-deep-learning/ch01-nn-basics/03-optimizers/"; then
+  echo "❌ learning.airoads.org 旧路径没有直接 301 到主域名新路径，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
   cleanup_preflight
   exit 1

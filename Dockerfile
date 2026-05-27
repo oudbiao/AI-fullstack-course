@@ -43,6 +43,7 @@ RUN npm run build:docker
 
 FROM nginx:1.27-alpine
 
+COPY --from=builder /app/docker/00-legacy_redirect_map.conf /etc/nginx/conf.d/00-legacy_redirect_map.conf
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 

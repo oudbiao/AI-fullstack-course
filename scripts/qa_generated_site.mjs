@@ -415,11 +415,16 @@ function auditSitemaps(issues, summary) {
 
   if (fs.existsSync(sitemapAlias)) {
     const content = fs.readFileSync(sitemapAlias, "utf8");
-    if (!/<sitemapindex\b/i.test(content)) {
-      issues.push("sitemap.xml: expected sitemapindex root");
+    if (/<sitemapindex\b/i.test(content)) {
+      issues.push("sitemap.xml: should be a direct urlset when the build has a single sitemap part");
     }
-    if (!content.includes(`${siteUrl}/sitemap-0.xml`)) {
-      issues.push("sitemap.xml: missing sitemap-0.xml location");
+    if (!/<urlset\b/i.test(content)) {
+      issues.push("sitemap.xml: expected urlset root for Google Search Console");
+    }
+    for (const expectedUrl of [`${siteUrl}/`, `${siteUrl}/zh-cn/`, `${siteUrl}/ja/`]) {
+      if (!content.includes(`<loc>${expectedUrl}</loc>`)) {
+        issues.push(`sitemap.xml: missing homepage URL ${expectedUrl}`);
+      }
     }
   }
 
@@ -486,6 +491,7 @@ function assertNginxSeoGuards(issues) {
 
   const config = fs.readFileSync(dockerNginx, "utf8");
   const requiredSnippets = [
+    ["generated legacy redirect map", "$legacy_redirect_uri"],
     ["legacy /zh-Hans exact redirect", "location = /zh-Hans"],
     ["legacy /zh-Hans slash redirect", "location /zh-Hans/"],
     ["legacy zh-cn target", "/zh-cn"],
@@ -497,6 +503,24 @@ function assertNginxSeoGuards(issues) {
   for (const [label, snippet] of requiredSnippets) {
     if (!config.includes(snippet)) {
       issues.push(`docker/nginx.conf: missing ${label} SEO guard`);
+    }
+  }
+
+  const redirectMap = path.join(projectRoot, "docker/00-legacy_redirect_map.conf");
+  if (!fs.existsSync(redirectMap)) {
+    issues.push("docker/00-legacy_redirect_map.conf: missing generated legacy redirect map");
+  } else {
+    const mapConfig = fs.readFileSync(redirectMap, "utf8");
+    const requiredRedirects = [
+      ["/sitemap.html", "/sitemap.xml"],
+      ["/zh-Hans/en", "/"],
+      ["/ja/ch06-deep-learning/ch01-nn-basics/optimizers", "/ja/ch06-deep-learning/ch01-nn-basics/03-optimizers/"],
+      ["/stage3/ch02-probability/distributions", "/ch04-ai-math/ch02-probability/02-distributions/"],
+    ];
+    for (const [source, target] of requiredRedirects) {
+      if (!mapConfig.includes(`"${source}" "${target}"`)) {
+        issues.push(`docker/00-legacy_redirect_map.conf: missing legacy redirect ${source} -> ${target}`);
+      }
     }
   }
 }

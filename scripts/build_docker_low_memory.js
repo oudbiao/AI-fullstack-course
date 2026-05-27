@@ -85,7 +85,7 @@ function validateOutput() {
     ["dist/zh-cn/index.html", 'lang="zh-CN"'],
     ["dist/ja/index.html", 'lang="ja-JP"'],
     ["dist/sitemap-index.xml", "sitemap-0.xml"],
-    ["dist/sitemap.xml", "sitemap-0.xml"],
+    ["dist/sitemap.xml", "<urlset"],
   ];
 
   for (const [relativePath, expectedText] of checks) {
@@ -93,10 +93,14 @@ function validateOutput() {
   }
 
   assertFileNotContains("dist/sitemap-0.xml", "/zh-Hans");
+  assertFileNotContains("dist/sitemap.xml", "<sitemapindex");
   assertPathAbsent("dist/zh-Hans");
+  assertFileContains("docker/00-legacy_redirect_map.conf", "/sitemap.html");
+  assertFileContains("docker/00-legacy_redirect_map.conf", "/ja/ch06-deep-learning/ch01-nn-basics/optimizers");
   assertFileContains("docker/nginx.conf", "location /zh-Hans/");
   assertFileContains("docker/nginx.conf", "learning.airoads.org www.airoads.org");
   assertFileContains("docker/nginx.conf", "return 301 https://airoads.org$request_uri;");
+  assertFileContains("docker/nginx.conf", "$legacy_redirect_uri");
   assertFileContains("docker/nginx.conf", "error_page 404 /404.html;");
   assertFileContains("docker/nginx.conf", "try_files $uri $uri/ =404;");
 
