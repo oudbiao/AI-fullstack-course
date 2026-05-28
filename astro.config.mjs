@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import remarkCourseTextBlocks from "./src/utils/remarkCourseTextBlocks.mjs";
 
 const siteDescription =
-  "A complete free learning path from AI fundamentals to AI Agent development and open-source LLM deployment, covering Python, data analysis, machine learning, deep learning, LLMs, RAG, AI Agents, multimodal AI, and model operations.";
+  "A free AI full-stack course for career switchers: learn Python, data, ML, LLM, RAG, Agents, multimodal AI, and open-source LLM deployment in projects.";
 
 const siteUrl = "https://airoads.org";
 const siteTitle = "AI Roads";

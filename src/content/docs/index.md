@@ -1,6 +1,6 @@
 ---
 title: "AI Full-Stack Engineering Course"
-description: "A practical AI full-stack course for career transition: build inspectable AI applications with Python, data, ML, LLM, RAG, Agent, multimodal delivery, and open-source model deployment."
+description: "A free AI full-stack course for career switchers: learn Python, data, ML, LLM, RAG, Agents, multimodal AI, and open-source LLM deployment in projects."
 sidebar:
   order: 0
 head:

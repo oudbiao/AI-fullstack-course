@@ -83,6 +83,10 @@ function getJsonLdPayloads(html) {
   return [...html.matchAll(pattern)].map((match) => match[2].trim());
 }
 
+function textLength(value) {
+  return [...value].length;
+}
+
 function schemaTypesFromPayload(payload, route, issues) {
   try {
     const parsed = JSON.parse(payload);
@@ -199,6 +203,36 @@ function assertLocalizedReferencesStayLocalized(route, sanitizedHtml, knownHtmlF
   }
 }
 
+function assertSearchMetadataQuality(route, sanitizedHtml, issues) {
+  if (route === "/404.html") return;
+
+  const title = decodeBasicEntities(getElementBlocks(sanitizedHtml, "title")[0]
+    ?.replace(/^<title>/i, "")
+    .replace(/<\/title>$/i, "")
+    .trim() ?? "");
+  const description = decodeBasicEntities(getMetaContentByAttr(sanitizedHtml, "name", "description")[0] ?? "");
+
+  if (title) {
+    if ((route === "/zh-cn/" || route.startsWith("/zh-cn/")) && !title.includes("简体中文")) {
+      issues.push(`${route}: localized title should include 简体中文 for Bing uniqueness`);
+    }
+    if ((route === "/ja/" || route.startsWith("/ja/")) && !title.includes("日本語")) {
+      issues.push(`${route}: localized title should include 日本語 for Bing uniqueness`);
+    }
+  }
+
+  if (description) {
+    const minLength = route === "/" || route.startsWith("/zh-cn/") || route.startsWith("/ja/") ? 80 : 90;
+    const length = textLength(description);
+    if (length < minLength) {
+      issues.push(`${route}: meta description is too short for Bing (${length} chars, minimum ${minLength})`);
+    }
+    if (length > 160) {
+      issues.push(`${route}: meta description is too long for Bing (${length} chars, maximum 160)`);
+    }
+  }
+}
+
 function assertNormalPage(route, sanitizedHtml, issues) {
   if (!/<html\b[^>]*\blang=(["'])[^"']+\1/i.test(sanitizedHtml)) {
     issues.push(`${route}: missing html lang attribute`);
@@ -239,6 +273,7 @@ function assertNormalPage(route, sanitizedHtml, issues) {
   } else if (!(getAttrs(descriptions[0], "content")[0] ?? "").trim()) {
     issues.push(`${route}: meta description is empty`);
   }
+  assertSearchMetadataQuality(route, sanitizedHtml, issues);
 
   const robots = getMetaTagsByAttr(sanitizedHtml, "name", "robots");
   if (robots.length !== 1) {
@@ -666,6 +701,43 @@ function assertLocalizedHomepageNavigation(issues) {
   }
 }
 
+function assertGlobalSearchMetadataUniqueness(htmlFiles, issues) {
+  const titleRoutes = new Map();
+  const descriptionRoutes = new Map();
+
+  for (const file of htmlFiles) {
+    const route = routeFromHtmlFile(file);
+    if (route === "/404.html" || isVerificationHtml(route)) continue;
+
+    const html = fs.readFileSync(file, "utf8");
+    const title = decodeBasicEntities(getElementBlocks(html, "title")[0]
+      ?.replace(/^<title>/i, "")
+      .replace(/<\/title>$/i, "")
+      .trim() ?? "");
+    const description = decodeBasicEntities(getMetaContentByAttr(html, "name", "description")[0]?.trim() ?? "");
+
+    if (title) {
+      if (!titleRoutes.has(title)) titleRoutes.set(title, []);
+      titleRoutes.get(title).push(route);
+    }
+    if (description) {
+      if (!descriptionRoutes.has(description)) descriptionRoutes.set(description, []);
+      descriptionRoutes.get(description).push(route);
+    }
+  }
+
+  for (const [title, routes] of titleRoutes) {
+    if (routes.length > 1) {
+      issues.push(`duplicate title "${title}" appears on ${routes.slice(0, 6).join(", ")}`);
+    }
+  }
+  for (const [description, routes] of descriptionRoutes) {
+    if (routes.length > 1) {
+      issues.push(`duplicate meta description "${description.slice(0, 120)}" appears on ${routes.slice(0, 6).join(", ")}`);
+    }
+  }
+}
+
 if (!fs.existsSync(distRoot)) {
   throw new Error(`Missing build output directory: ${distRoot}`);
 }
@@ -690,6 +762,7 @@ assertNginxSeoGuards(issues);
 assertCoreMetadata(issues);
 assertCoursePresentationSemantics(issues);
 assertLocalizedHomepageNavigation(issues);
+assertGlobalSearchMetadataUniqueness(htmlFiles, issues);
 
 if (issues.length > 0) {
   console.error(JSON.stringify({ ...summary, issues: issues.slice(0, 80), issueCount: issues.length }, null, 2));
