@@ -11,6 +11,19 @@ head:
 ---
 Transformer 是从深度学习走向现代 LLM 的桥。第一直觉很简单：每个 token 可以决定哪些其他 token 更重要。
 
+## Transformer 为什么会出现
+
+RNN/LSTM 能处理顺序，但它们有两个历史瓶颈：训练时很难完全并行，远距离信息要沿很多步传递。Attention 先解决“当前位置直接看哪些上下文”，Transformer 再把这个机制变成可大规模堆叠的架构。
+
+| 旧问题 | Attention / Transformer 的回答 |
+|---|---|
+| RNN 必须一步步读序列，训练并行度差 | self-attention 可以同时计算多个 token 的关系 |
+| 长距离依赖要穿过很多 hidden state | 每个 token 可以直接给远处 token 打分 |
+| 单个 attention 机制还不够稳定堆深 | Transformer block 加入残差、归一化和 FFN |
+| 序列模型需要同时处理上下文和生成约束 | mask 让生成模型只能看过去，不能偷看未来 |
+
+这就是为什么现代 LLM 几乎都建立在 Transformer decoder 或其变体上：它把“上下文选择”变成了可并行、可扩展、可堆叠的计算块。
+
 ## 先看 Attention 流程
 
 ![Transformer 章节关系图](/img/course/ch06-transformer-chapter-flow.webp)

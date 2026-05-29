@@ -66,6 +66,12 @@ Q 和 K 打分，然后用得到的权重混合 V。
 
 为了教学，令 `Q = K = V = X`。
 
+:::note[这一组实验的边界]
+这些实验证明：attention 的计算路径是“Q/K 打分 -> softmax 权重 -> 混合 V”，mask 会把未来位置屏蔽掉，MultiheadAttention 的 shape 可以被追踪。
+
+它们还不能证明：attention 权重就是最终决策原因，也不能证明模型已经理解语言。真实 Transformer 还要叠加参数学习、残差、归一化、FFN 和训练数据。
+:::
+
 ```python
 import numpy as np
 

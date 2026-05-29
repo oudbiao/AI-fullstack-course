@@ -178,6 +178,21 @@ print(readiness_check(deployment_config))
 - 生产就绪不是一种感觉
 - 而是一组可检查条件
 
+### trace 和回放最低要记录什么？
+
+Agent 上线后，最怕的是“用户说错了，但工程师只能看到最终答案”。生产环境至少要能回放一次请求的关键路径：
+
+| 记录项 | 为什么要留 |
+|---|---|
+| `request_id` | 把用户请求、日志、工具调用和最终答案串起来 |
+| `prompt_version` / `model_version` | 判断问题是否来自 Prompt 或模型变更 |
+| `tool_calls` | 看到调用了什么工具、参数是什么、返回了什么 |
+| `state_before` / `state_after` | 判断状态是否被错误更新 |
+| `latency_ms` / `cost` | 定位慢请求和成本异常 |
+| `fallback_or_handoff` | 记录是否触发降级、回滚或人工接管 |
+
+没有这些记录，回滚只能靠猜。真正可运维的 Agent，应该能回答：这次输出由哪个 Prompt、哪个模型、哪些工具、哪些状态共同产生。
+
 ![Agent 生产就绪、灰度与回滚图](/img/course/ch09-production-readiness-canary-rollback-map.webp)
 
 :::tip[读图提示]

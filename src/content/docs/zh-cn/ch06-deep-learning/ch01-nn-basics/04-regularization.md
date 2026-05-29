@@ -142,6 +142,12 @@ both           epochs=101 best_epoch=81  train_loss=0.159 val_loss=0.162 train_a
 
 ![正则化实验结果图](/img/course/ch06-regularization-generalization-result-map.webp)
 
+:::note[这个实验的边界]
+这个实验证明：训练 loss 更低不一定代表泛化更好，dropout、weight decay 和 early stopping 要看验证表现。
+
+它还不能证明：正则化参数越大越好，也不能证明这组参数适合所有数据集。真实项目要一次只改一个旋钮，并保留验证曲线。
+:::
+
 ## 读懂结果
 
 普通模型训练 loss 更低：

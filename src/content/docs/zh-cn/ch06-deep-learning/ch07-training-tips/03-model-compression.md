@@ -159,17 +159,28 @@ teacher logits 或输出 -> student 学标签 + teacher 行为
 压缩结果要保存为 before/after 报告：
 
 ```text
-基线大小：
-压缩大小：
-基线延迟：
-压缩延迟：
-基线指标：
-压缩指标：
-运行时硬件：
-决策：保留、调整或放弃压缩
+compression_method:
+baseline_model:
+compressed_model:
+baseline_size_mb:
+compressed_size_mb:
+baseline_latency_ms:
+compressed_latency_ms:
+baseline_throughput:
+compressed_throughput:
+baseline_metric:
+compressed_metric:
+hardware:
+runtime:
+measurement_command:
+quality_drop_allowed:
+decision: keep / adjust / reject
+reason:
 ```
 
 这能避免一个常见错误：文件变小了，但真实产品反而更慢或更不准。
+
+最重要的是 `decision` 和 `reason`。压缩不是越狠越好，而是要说明：在这个硬件和运行时上，压缩后的质量、延迟和体积是否满足产品约束。
 
 ## 常见错误
 

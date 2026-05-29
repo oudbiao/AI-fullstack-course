@@ -66,6 +66,12 @@ for batch_x, batch_y in train_loader:
 
 ## 实验 1：写最小可用 Dataset
 
+::::note[这一组实验的边界]
+这些实验主要证明数据管道的 contract：一个样本怎样返回、多个样本怎样组成 batch、训练/验证怎样切分，以及 loader 怎样接入训练循环。
+
+它们还不能证明模型质量。即使 loader 正确，标签噪声、数据泄漏、类别不平衡和真实文件读取错误仍然需要额外检查。
+::::
+
 ```python
 import torch
 from torch.utils.data import Dataset

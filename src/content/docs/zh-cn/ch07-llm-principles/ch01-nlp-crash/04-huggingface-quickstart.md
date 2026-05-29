@@ -20,6 +20,27 @@ text -> tokenizer -> input_ids / attention_mask -> model.forward -> hidden state
 
 理解这条链以后，`pipeline`、`Trainer`、`DataCollator`、`AutoModel...` 都只是便利封装，不再是神秘 API。
 :::
+
+## Hugging Face 先解决什么问题
+
+可以先把 Hugging Face 理解成两层东西：**模型和数据集共享平台**，以及围绕它的 **Transformers 工具库**。
+
+没有它时，想用一个预训练模型通常要自己处理很多重复工作：
+
+- 找模型权重文件；
+- 找 tokenizer 词表和切分规则；
+- 找模型结构参数，比如 hidden size、层数、词表大小；
+- 确认 tokenizer、config 和模型权重彼此匹配；
+- 自己写加载、推理、训练和保存逻辑。
+
+Hugging Face 把这些东西标准化了。`from_pretrained("bert-base-uncased")` 不是魔法，它是在按同一个名字找到仓库里的 tokenizer、config 和权重，再组装成本地可调用对象。
+
+所以学习 Hugging Face 时不要只记 API。高层的 `pipeline` 适合快速试功能；真正排错时，还是要回到这条底层链路：
+
+```text
+raw text -> tokenizer -> batch tensors -> model -> outputs
+```
+
 ## 四个对象
 
 | 对象 | 负责什么 | 常见字段 |

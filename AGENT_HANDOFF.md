@@ -10,6 +10,8 @@ This file is for future agents and maintainers. It is not course content. Keep i
 - Do not overwrite user changes.
 - Do not commit generated `__pycache__`, `tmp/`, `.codex/`, or stale report noise unless the current task explicitly creates a report.
 - After modifying course content, run `npm run clean` before the final build when possible, so stale Astro/Starlight cache does not hide issues.
+- For learner-facing explanations, follow `LEARNING_EXPLANATION_METHOD.md`: explain by functional blocks, data flow, shapes, and key-line zoom-ins instead of mechanical line-by-line translation. Update that file when the explanation method improves; do not use it as a progress log.
+- Track course-content issues found during tutoring in `COURSE_OPTIMIZATION_BACKLOG.md`. During learning, record issues only; defer actual course-content optimization until the user asks to review or implement the backlog.
 
 ## Course structure rules
 

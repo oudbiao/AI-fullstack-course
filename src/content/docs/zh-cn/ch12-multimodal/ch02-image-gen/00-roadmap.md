@@ -11,6 +11,23 @@ head:
 ---
 图像生成不是写一句提示词就结束，而是一套工作流：明确意图，记录提示词和参数，选择控制方式，对候选图做比较和审核。
 
+## GAN、VAE、Diffusion 为什么先后出现
+
+图像生成的发展可以先看成一条问题推动的历史线。每种方法都不是凭空替代前一种，而是在补前一种的短板。
+
+```text
+VAE -> GAN -> Diffusion -> Latent Diffusion / Stable Diffusion
+```
+
+| 方法 | 当时主要想解决什么 | 典型代价或短板 |
+|---|---|---|
+| VAE | 学一个连续、可采样的 latent space，可以重建、插值和生成相似样本 | 生成结果常偏平滑，细节不够锐利 |
+| GAN | 让生成器和判别器对抗，追求更真实、更锐利的图像 | 训练不稳定，容易模式崩塌，控制难 |
+| Diffusion | 从噪声逐步去噪，训练更稳定，质量和多样性更好 | 采样步数多，推理成本较高 |
+| Latent Diffusion / Stable Diffusion | 在潜变量空间去噪，降低图像生成成本，并接入文本条件控制 | 需要理解 text encoder、U-Net、VAE、scheduler 和提示词记录 |
+
+因此学习图像生成时，不要只背“哪个模型更强”。更重要的是看清：VAE 让 latent space 可采样，GAN 追求逼真图像，Diffusion 用逐步去噪换来稳定和质量，Stable Diffusion 把这套能力工程化到可控工作流里。
+
 ## 先看流程图
 
 ![图像生成章节学习流程图](/img/course/ch12-image-gen-chapter-flow.webp)

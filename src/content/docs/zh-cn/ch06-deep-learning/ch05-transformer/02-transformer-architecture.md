@@ -44,6 +44,12 @@ shape 常常没变，但表示会变得更理解上下文。
 
 ## 实验 1：检查 PyTorch Transformer Block
 
+::::note[这一组实验的边界]
+这些实验证明：Transformer block 的部件顺序、shape contract 和 encoder/decoder 数据流可以被拆开观察。
+
+它们还不能证明：一个 block 已经具备语言能力。语言能力来自大量参数、数据、训练目标和多层堆叠；本节只负责把“结构怎样执行”讲清楚。
+::::
+
 ```python
 import torch
 from torch import nn
@@ -187,6 +193,14 @@ FFN 会在内部扩展 hidden size，再投影回来。序列长度不变。
 ## 位置信息
 
 Self-attention 可以比较 token，但它天然不知道某个 token 是第一个、第二个还是最后一个。位置信息用来补上顺序。
+
+先把位置编码想成一张“多尺度位置身份证”。如果只给 token 一个简单编号，数值大小会很粗糙；如果只用一种周期信号，又会重复。经典 sinusoidal encoding 用多组不同频率的 `sin/cos`，就像很多根转速不同的钟表指针一起描述位置：
+
+- 快指针：容易区分相邻位置；
+- 慢指针：帮助覆盖更长距离；
+- `sin/cos` 成对：同一个频率下用二维坐标表示周期状态。
+
+所以这段代码的重点不是背公式，而是看懂：每个位置都会得到一个稳定、连续、多尺度的向量，注意力层才能利用顺序线索。
 
 ```python
 import torch
