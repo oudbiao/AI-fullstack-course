@@ -38116,6 +38116,57 @@ for job in IMAGE_JOBS:
         job["alt"] = method_choice_meta["alt"]
         job.pop("allow_landscape", None)
 
+
+CH07_PRETRAINED_SHARED_FOUNDATION_WHITEBOARD_PROMPTS = {
+    "ch07-pretrained-shared-foundation-heads-result-map.png": """
+生成一张竖版 9:16 简体中文教学位图，用于 7.1.4「预训练语言模型速览」。
+风格必须是浅色手绘白板 / 课堂讲解笔记 / 工程教学图。背景用温暖纸张或白板色，线条像马克笔和铅笔批注。禁止深色控制台、迁移学习标题、实验室仪表盘、科幻面板、SVG 贴图、圆角 UI 卡片堆叠、真实品牌 logo、水印和终端截图。
+
+画面从上到下保持一条清晰读图路径：
+1. 大语料预训练：画大量文本纸张进入 tokenizer，再进入一个共享 foundation model。标签只写「大语料」「tokenizer」「共享 foundation」。
+2. 共享表示：从 foundation model 输出一条向量/语义桥，标签写「同一个语义底座」。
+3. 两个任务头：分叉到两个小 head，一个是「意图分类 head」，一个是「情感 head」。每个 head 只画 2 条小输出纸条，使用定性标签，例如「退款意图」「重置密码」「正向」「负向」。不要写概率、分数、坐标轴或真实指标。
+4. 复用方式：底部画一排手绘选择：Prompt、RAG、Adapter、LoRA / fine-tune、评估集。强调先复用，再按任务加最小适配。
+
+顶部大标题必须是「预训练模型怎么复用」。
+底部一句必须是「先复用共享底座，再用评估决定要不要微调。」。
+文字要少而大，所有解释性文字必须是自然简体中文；技术词可以保留 foundation、tokenizer、Prompt、RAG、Adapter、LoRA、fine-tune、head。
+不要出现 CNN、backbone、冻结、迁移学习、具体数字、benchmark、API key、真实 URL、日期、小字乱码或英文说明句。
+""".strip(),
+    "ch07-pretrained-shared-foundation-heads-result-map-en.png": """
+Create a vertical 9:16 English teaching bitmap for lesson 7.1.4, "Pretrained Language Models at a Glance".
+Style must be a light hand-drawn whiteboard / classroom explanation note / engineering teaching diagram. Use warm paper or whiteboard background, marker strokes, pencil annotations, and generous whitespace. No dark console, no transfer-learning title, no lab dashboard, no sci-fi panels, no SVG sticker look, no stack of rounded UI cards, no real brand logos, no watermark, and no terminal screenshot.
+
+Keep one clear reading path from top to bottom:
+1. Large-corpus pretraining: draw many text sheets flowing into a tokenizer, then into one shared foundation model. Labels only: "large corpus", "tokenizer", "shared foundation".
+2. Shared representation: draw one vector / semantic bridge coming out of the foundation model. Label: "one semantic base".
+3. Two task heads: split into two small heads, one "intent head" and one "sentiment head". Each head has only two small output slips with qualitative labels such as "refund intent", "reset password", "positive", and "negative". Do not write probabilities, scores, axes, or real metrics.
+4. Reuse choices: bottom row of hand-drawn options: Prompt, RAG, Adapter, LoRA / fine-tune, eval set. Show the idea: reuse first, then add the smallest adaptation needed.
+
+Top title must be exactly: "How pretrained models are reused".
+Bottom sentence must be exactly: "Reuse the shared base first, then let evaluation decide whether to fine-tune."
+Keep text sparse and large. Explanatory text must be natural English; technical terms may include foundation, tokenizer, Prompt, RAG, Adapter, LoRA, fine-tune, and head.
+Do not include CNN, backbone, freezing, transfer learning, concrete numbers, benchmarks, API keys, real URLs, dates, tiny gibberish, or Chinese/Japanese text.
+""".strip(),
+    "ch07-pretrained-shared-foundation-heads-result-map-ja.png": """
+7.1.4「事前学習済み言語モデルの速覧」用に、縦長 9:16 の日本語教学ビットマップを生成してください。
+スタイルは明るい手描きホワイトボード / 授業ノート / エンジニアリング教材図。背景は温かい紙または白板色、線はマーカーと鉛筆メモ風、余白を十分に取る。暗いコンソール、転移学習タイトル、ラボ風 dashboard、SF パネル、SVG 貼り絵風、角丸 UI カードの積み重ね、実在ブランドロゴ、透かし、端末スクリーンショットは禁止。
+
+上から下へ 1 本の読み順を保つ：
+1. 大規模コーパス事前学習：多数のテキスト紙片が tokenizer に入り、1 つの共有 foundation model に入る図。ラベルは「大規模コーパス」「tokenizer」「共有 foundation」だけ。
+2. 共有表現：foundation model からベクトル / 意味の橋が出る。ラベルは「同じ意味の土台」。
+3. 2 つの task head：2 つの小さな head に分岐し、片方は「意図分類 head」、もう片方は「感情 head」。各 head には小さな出力紙を 2 枚だけ描き、「返金意図」「パスワード再設定」「ポジティブ」「ネガティブ」のような定性的ラベルだけを使う。確率、score、軸、実指標は書かない。
+4. 再利用の選択肢：下部に手描きで Prompt、RAG、Adapter、LoRA / fine-tune、評価セットを並べる。まず再利用し、必要最小限だけ適応する考えを示す。
+
+上部タイトルは必ず「事前学習モデルの再利用」。
+下部の一文は必ず「まず共有土台を再利用し、評価で微調整の必要を判断する。」。
+文字は少なく大きく、説明文は自然な日本語にする。技術語は foundation、tokenizer、Prompt、RAG、Adapter、LoRA、fine-tune、head のままでよい。
+CNN、backbone、freeze、転移学習、具体的な数値、benchmark、API key、実 URL、日付、小さな文字化け、英語や中国語の説明文は入れない。
+""".strip(),
+}
+
+IMAGE_JOB_PROMPT_OVERRIDES.update(CH07_PRETRAINED_SHARED_FOUNDATION_WHITEBOARD_PROMPTS)
+
 for job in IMAGE_JOBS:
     override_prompt = IMAGE_JOB_PROMPT_OVERRIDES.get(str(job.get("filename")))
     if override_prompt and not job.get("overlay"):

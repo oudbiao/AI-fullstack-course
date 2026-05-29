@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "pretrained models, transfer learning, BERT, GPT, T5, foundation models, fine-tuning"
 ---
-![転移学習の適応マップ](/img/course/ch06-transfer-learning-freeze-finetune-map-ja.webp)
+![共有 foundation と task head の結果図](/img/course/ch07-pretrained-shared-foundation-heads-result-map-ja.webp)
 
 :::tip[実務での判断]
 事前学習済みモデルは、あなたの業務を自動で理解する魔法ではありません。再利用できる言語 foundation です。大事なのは、その foundation を最小コストで信頼できる形に適応させることです。
@@ -115,8 +115,6 @@ intent: reset password -> ('password_intent', 0.654188113761243) {'refund_intent
 sentiment: great refund -> ('positive', 0.5793242521487495) {'positive': 0.579, 'negative': 0.421}
 sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'negative': 0.536}
 ```
-
-![共有 foundation と task head の結果図](/img/course/ch07-pretrained-shared-foundation-heads-result-map-ja.webp)
 
 読み方：
 

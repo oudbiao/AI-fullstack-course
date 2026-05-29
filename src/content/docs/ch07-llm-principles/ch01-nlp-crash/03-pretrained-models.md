@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "pretrained models, transfer learning, BERT, GPT, T5, foundation models, fine-tuning"
 ---
-![Transfer learning adaptation map](/img/course/ch06-transfer-learning-freeze-finetune-map-en.webp)
+![Shared foundation heads result map](/img/course/ch07-pretrained-shared-foundation-heads-result-map-en.webp)
 
 :::tip[One Practical Judgment]
 A pretrained model is not a magic model that knows your business. It is a reusable language foundation. Your job is to decide the cheapest reliable way to adapt that foundation to the task.
@@ -115,8 +115,6 @@ intent: reset password -> ('password_intent', 0.654188113761243) {'refund_intent
 sentiment: great refund -> ('positive', 0.5793242521487495) {'positive': 0.579, 'negative': 0.421}
 sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'negative': 0.536}
 ```
-
-![Shared foundation heads result map](/img/course/ch07-pretrained-shared-foundation-heads-result-map-en.webp)
 
 Read it like this:
 

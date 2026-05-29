@@ -9,7 +9,7 @@ head:
       name: keywords
       content: "pretrained models, transfer learning, BERT, GPT, T5, foundation models, fine-tuning"
 ---
-![迁移学习适配图](/img/course/ch06-transfer-learning-freeze-finetune-map.webp)
+![共享基础模型任务头结果图](/img/course/ch07-pretrained-shared-foundation-heads-result-map.webp)
 
 :::tip[一个实用判断]
 预训练模型不是自动懂你业务的魔法模型。它是可复用的语言基础。你的任务是选择最便宜、最可靠的方式，把这个基础适配到当前任务。
@@ -115,8 +115,6 @@ intent: reset password -> ('password_intent', 0.654188113761243) {'refund_intent
 sentiment: great refund -> ('positive', 0.5793242521487495) {'positive': 0.579, 'negative': 0.421}
 sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'negative': 0.536}
 ```
-
-![共享基础模型任务头结果图](/img/course/ch07-pretrained-shared-foundation-heads-result-map.webp)
 
 这样读：
 
