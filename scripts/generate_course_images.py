@@ -38552,6 +38552,330 @@ for job in MINI_GPT2_LAB_WHITEBOARD_JOBS:
         IMAGE_JOBS.append(job)
 
 
+LATEST_AI_TECH_WHITEBOARD_JOBS: list[dict[str, Any]] = [
+    {
+        "filename": "ch01-ai-coding-agent-workflow-whiteboard.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "AI Coding Agent 工作流白板",
+        "suggested_page": "src/content/docs/zh-cn/ch01-tools/ch04-workshop/02-ai-coding-agent-workflow.md",
+        "alt": "AI Coding Agent 工作流白板：背景、问题、任务范围、权限、测试、证据、审查和小练习。",
+        "prompt": """
+生成一张竖版 9:16 简体中文教学位图，用于“AI Coding Agent 工作流”课程页。
+风格必须是手绘白板或课堂黑板旁的浅色笔记纸；不要 SVG 风、贴图模板、软件截图、圆角卡片堆叠、真实品牌 logo。文字要清楚、较大、教学信息丰富。
+画面像老师在白板上讲一节课，包含 7 个手绘分区：
+1 背景：从 autocomplete 到 coding agent。
+2 为什么出现：模型 + 工具 + repo + tests 形成循环。
+3 解决的问题：大仓库导航、机械修改、测试失败、交接成本。
+4 概念图：human request -> scope -> permission -> edit -> test -> evidence -> review。
+5 判断表：low / medium / high risk；allow / confirm / deny。
+6 可运行代码角：agent_run_card.py、risk、gates、evidence_file。
+7 小练习与证据：change task、rerun、save diff, commands, result, rollback。
+使用手绘箭头、勾选框、代码小纸条、测试仪表、证据文件夹。不要写密集小字、具体日期、API key、真实 URL、benchmark 数字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch01-ai-coding-agent-workflow-whiteboard-en.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "AI Coding Agent workflow whiteboard",
+        "suggested_page": "src/content/docs/ch01-tools/ch04-workshop/02-ai-coding-agent-workflow.md",
+        "alt": "AI Coding Agent workflow whiteboard: background, problem, task scope, permission, tests, evidence, review, and exercise.",
+        "prompt": """
+Create a vertical 9:16 English teaching bitmap for an "AI Coding Agent Workflow" lesson.
+Style must be hand-drawn whiteboard or light classroom notebook paper. Do not use SVG style, pasted template layout, software screenshots, stacked rounded cards, or real brand logos. Text must be large, readable, and information-rich.
+Make it look like an instructor teaching on a whiteboard with 7 hand-drawn zones:
+1 Background: from autocomplete to coding agent.
+2 Why now: model + tools + repo + tests make a loop.
+3 Problems solved: repo navigation, mechanical edits, test failures, handoff cost.
+4 Concept map: human request -> scope -> permission -> edit -> test -> evidence -> review.
+5 Decision table: low / medium / high risk; allow / confirm / deny.
+6 Runnable code corner: agent_run_card.py, risk, gates, evidence_file.
+7 Exercise and evidence: change task, rerun, save diff, commands, result, rollback.
+Use hand-drawn arrows, checkboxes, code note, test gauge, evidence folder. Avoid tiny dense text, exact dates, API keys, real URLs, benchmark numbers, and gibberish.
+""".strip(),
+    },
+    {
+        "filename": "ch01-ai-coding-agent-workflow-whiteboard-ja.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "AI Coding Agent ワークフロー白板",
+        "suggested_page": "src/content/docs/ja/ch01-tools/ch04-workshop/02-ai-coding-agent-workflow.md",
+        "alt": "AI Coding Agent ワークフロー白板：背景、問題、scope、permission、test、evidence、review、exercise。",
+        "prompt": """
+「AI Coding Agent Workflow」教材用の縦長 9:16 日本語教学ビットマップを生成してください。
+スタイルは手描きホワイトボードまたは明るい授業ノート紙。SVG 風、貼り付けテンプレート、ソフト画面、角丸カードの積み重ね、実在ブランドロゴは禁止。文字は大きく読みやすく、教学情報を多めに。
+先生が白板で説明する構成で、7つの手描き区画を入れる：
+1 背景：autocomplete から coding agent へ。
+2 なぜ今：model + tools + repo + tests が loop を作る。
+3 解く問題：repo navigation、mechanical edits、test failures、handoff cost。
+4 概念図：human request -> scope -> permission -> edit -> test -> evidence -> review。
+5 判断表：low / medium / high risk、allow / confirm / deny。
+6 実行コード欄：agent_run_card.py、risk、gates、evidence_file。
+7 小演習と証拠：task を変える、rerun、diff、commands、result、rollback を保存。
+手描き矢印、チェックボックス、コードメモ、テストメーター、証拠フォルダを使う。小さすぎる文字、日付、API key、実 URL、benchmark 数字、文字化けは禁止。
+""".strip(),
+    },
+    {
+        "filename": "ch08-long-context-rag-memory-decision-whiteboard.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "长上下文 RAG 记忆选择白板",
+        "suggested_page": "src/content/docs/zh-cn/ch08-rag/ch04-engineering/05-context-rag-memory-decision.md",
+        "alt": "长上下文、RAG 与记忆选择白板：背景、权衡、概念图、判断表、代码实验、练习和证据。",
+        "prompt": """
+生成一张竖版 9:16 简体中文教学位图，用于“长上下文、RAG 与记忆选择”课程页。
+风格必须是手绘白板教学，不要 SVG 信息图、贴图模板、UI 卡片、真实产品 logo。文字要较大，像课程讲义。
+包含 7 个分区：
+1 背景：更大 context window 出现，但不等于万能。
+2 解决的问题：资料太多、资料会变、需要引用、需要跨会话偏好。
+3 概念图：Long Context / RAG / Memory / Hybrid 四象限。
+4 判断表：bounded packet -> long context；fresh+cited docs -> RAG；preference/state -> memory；production -> hybrid。
+5 可运行代码：context_strategy.py、corpus_tokens、needs_citations、has_private_docs、strategy。
+6 小练习：PDF contract、help center、personal assistant、internal KB。
+7 留下证据：source_scope、strategy、trace、memory_rule、failure_case、小结。
+用手绘资料堆、检索放大镜、记忆便签、混合管线箭头。不要小字、真实价格、日期、API key、真实 URL 或乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch08-long-context-rag-memory-decision-whiteboard-en.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "Long context RAG memory decision whiteboard",
+        "suggested_page": "src/content/docs/ch08-rag/ch04-engineering/05-context-rag-memory-decision.md",
+        "alt": "Long context, RAG, and memory decision whiteboard: background, trade-offs, concept map, decision table, runnable lab, exercise, evidence.",
+        "prompt": """
+Create a vertical 9:16 English teaching bitmap for "Long Context, RAG, and Memory Decision".
+Style: hand-drawn whiteboard teaching, not SVG infographic, not pasted template, not UI cards, no real product logos. Text must be large and lecture-note readable.
+Include 7 zones:
+1 Background: larger context windows exist, but not a universal answer.
+2 Problems solved: too many sources, changing docs, citation need, cross-session preferences.
+3 Concept map: Long Context / RAG / Memory / Hybrid four-quadrant map.
+4 Decision table: bounded packet -> long context; fresh+cited docs -> RAG; preference/state -> memory; production -> hybrid.
+5 Runnable code: context_strategy.py, corpus_tokens, needs_citations, has_private_docs, strategy.
+6 Mini exercise: PDF contract, help center, personal assistant, internal KB.
+7 Evidence: source_scope, strategy, trace, memory_rule, failure_case, summary.
+Use hand-drawn document stacks, retrieval magnifier, memory sticky notes, hybrid pipeline arrows. Avoid tiny text, exact prices, dates, API keys, real URLs, and gibberish.
+""".strip(),
+    },
+    {
+        "filename": "ch08-long-context-rag-memory-decision-whiteboard-ja.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "Long Context RAG Memory 判断白板",
+        "suggested_page": "src/content/docs/ja/ch08-rag/ch04-engineering/05-context-rag-memory-decision.md",
+        "alt": "Long Context、RAG、Memory の判断白板：背景、trade-off、概念図、判断表、実行コード、演習、証拠。",
+        "prompt": """
+「Long Context、RAG、Memory の選び方」教材用の縦長 9:16 日本語教学ビットマップを生成してください。
+スタイルは手描きホワイトボード授業。SVG インフォグラフィック、貼り付けテンプレート、UI カード、実在製品ロゴは禁止。文字は大きく、授業ノートとして読めること。
+7つの区画を含める：
+1 背景：context window は大きくなったが万能ではない。
+2 解く問題：sources が多い、docs が変わる、citation が必要、session をまたぐ preference。
+3 概念図：Long Context / RAG / Memory / Hybrid の4象限。
+4 判断表：bounded packet -> long context、fresh+cited docs -> RAG、preference/state -> memory、production -> hybrid。
+5 実行コード：context_strategy.py、corpus_tokens、needs_citations、has_private_docs、strategy。
+6 小演習：PDF contract、help center、personal assistant、internal KB。
+7 残す証拠：source_scope、strategy、trace、memory_rule、failure_case、summary。
+手描き文書束、検索ルーペ、memory 付箋、hybrid pipeline 矢印を使う。小さすぎる文字、価格、日付、API key、実 URL、文字化けは禁止。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-protocol-layer-mcp-a2a-whiteboard.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "MCP A2A Agent 协议层白板",
+        "suggested_page": "src/content/docs/zh-cn/ch09-agent/ch05-mcp/06-agent-protocols-mcp-a2a.md",
+        "alt": "MCP、A2A 与 Agent 协议层白板：背景、能力发现、交接、授权、trace、代码契约和证据。",
+        "prompt": """
+生成一张竖版 9:16 简体中文教学位图，用于“MCP、A2A 与 Agent 协议层”课程页。
+风格是手绘白板/工程课堂笔记，不要 SVG、贴图模板、软件截图、真实品牌 logo。文字要清楚，教学信息丰富。
+分成 7 个大区：
+1 背景：工具、模型、应用、peer agent 都需要共同边界。
+2 为什么出现：Function Calling 结构化调用，但生态仍需要发现、权限、错误、trace。
+3 概念图：Host -> MCP Client -> MCP Server；Agent -> Agent handoff。
+4 判断表：single function、MCP server、A2A-style handoff、protocol+policy。
+5 可运行代码：agent_protocol_contract.py、capability_server、peer_agent、authorize。
+6 小练习：新增 delete_doc，风险变 destructive，必须 block/confirm。
+7 证据卡：input_schema、output_schema、risk_level、auth_rule、trace_fields、artifact_contract。
+用手绘端口、插头、协议桥、授权闸门、交接文件夹。不要小字、真实 URL、API key、日期、benchmark 数字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-protocol-layer-mcp-a2a-whiteboard-en.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "MCP A2A agent protocol layer whiteboard",
+        "suggested_page": "src/content/docs/ch09-agent/ch05-mcp/06-agent-protocols-mcp-a2a.md",
+        "alt": "MCP, A2A, and agent protocol layer whiteboard: background, discovery, handoff, authorization, trace, code contract, evidence.",
+        "prompt": """
+Create a vertical 9:16 English teaching bitmap for "MCP, A2A, and the Agent Protocol Layer".
+Style: hand-drawn whiteboard / engineering class notes. Do not use SVG, pasted templates, software screenshots, or real brand logos. Text should be clear and information-rich.
+Split into 7 zones:
+1 Background: tools, models, apps, and peer agents need shared boundaries.
+2 Why now: function calling structures calls, but ecosystems need discovery, permission, errors, trace.
+3 Concept map: Host -> MCP Client -> MCP Server; Agent -> Agent handoff.
+4 Decision table: single function, MCP server, A2A-style handoff, protocol+policy.
+5 Runnable code: agent_protocol_contract.py, capability_server, peer_agent, authorize.
+6 Mini exercise: add delete_doc, risk becomes destructive, must block/confirm.
+7 Evidence card: input_schema, output_schema, risk_level, auth_rule, trace_fields, artifact_contract.
+Use hand-drawn ports, plugs, protocol bridge, authorization gate, handoff folder. Avoid tiny text, real URLs, API keys, dates, benchmark numbers, and gibberish.
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-protocol-layer-mcp-a2a-whiteboard-ja.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "MCP A2A Agent Protocol Layer 白板",
+        "suggested_page": "src/content/docs/ja/ch09-agent/ch05-mcp/06-agent-protocols-mcp-a2a.md",
+        "alt": "MCP、A2A、Agent protocol layer 白板：背景、discovery、handoff、authorization、trace、code contract、evidence。",
+        "prompt": """
+「MCP、A2A、Agent Protocol Layer」教材用の縦長 9:16 日本語教学ビットマップを生成してください。
+スタイルは手描きホワイトボード/エンジニアリング授業ノート。SVG、貼り付けテンプレート、ソフト画面、実在ブランドロゴは禁止。文字は明瞭で教学情報を多めに。
+7つの区画に分ける：
+1 背景：tools、models、apps、peer agents には共通 boundary が必要。
+2 なぜ今：function calling は calls を構造化するが、ecosystem には discovery、permission、errors、trace が必要。
+3 概念図：Host -> MCP Client -> MCP Server、Agent -> Agent handoff。
+4 判断表：single function、MCP server、A2A-style handoff、protocol+policy。
+5 実行コード：agent_protocol_contract.py、capability_server、peer_agent、authorize。
+6 小演習：delete_doc を追加、risk が destructive、block/confirm が必要。
+7 証拠カード：input_schema、output_schema、risk_level、auth_rule、trace_fields、artifact_contract。
+手描きポート、プラグ、protocol bridge、authorization gate、handoff folder を使う。小文字、実 URL、API key、日付、benchmark 数字、文字化けは禁止。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-permission-sandbox-whiteboard.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "Agent 权限沙箱白板",
+        "suggested_page": "src/content/docs/zh-cn/ch09-agent/ch08-eval-safety/06-agent-permission-sandbox.md",
+        "alt": "Agent 权限沙箱白板：prompt injection、工具投毒、allow/confirm/deny、代码实验、练习和安全证据。",
+        "prompt": """
+生成一张竖版 9:16 简体中文教学位图，用于“Agent 权限沙箱与工具投毒防御”课程页。
+风格必须是手绘白板安全课，不要 SVG、贴图模板、软件截图、真实品牌 logo。文字要大而清楚，像安全审查板。
+包含 7 个分区：
+1 背景：自然语言、外部网页、工具权限进入同一循环。
+2 风险：prompt injection、tool poisoning、over-permission、data leak、no trace。
+3 概念图：model 不能是唯一边界；policy 在模型外部。
+4 权限表：read=allow、write/network/message=confirm、delete/deploy=deny。
+5 可运行代码：agent_sandbox.py、policy、tool_requests、inspect_request、trace。
+6 小练习：run_shell 加 confirm；命令预览 + timeout。
+7 证据包：tool_manifest、permission_policy、external_content_rule、trace_log、blocked_case、rollback。
+用手绘盾牌、闸门、红色 blocked 标记、trace 日志、文件保险箱。不要小字、真实 URL、API key、具体漏洞编号数字、日期或乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-permission-sandbox-whiteboard-en.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "Agent permission sandbox whiteboard",
+        "suggested_page": "src/content/docs/ch09-agent/ch08-eval-safety/06-agent-permission-sandbox.md",
+        "alt": "Agent permission sandbox whiteboard: prompt injection, tool poisoning, allow/confirm/deny, runnable code, exercise, safety evidence.",
+        "prompt": """
+Create a vertical 9:16 English teaching bitmap for "Agent Permission Sandbox and Tool-Poisoning Defense".
+Style: hand-drawn whiteboard security class. Do not use SVG, pasted templates, software screenshots, or real brand logos. Text must be large and readable like a security review board.
+Include 7 zones:
+1 Background: natural language, external webpages, and tool permissions enter one loop.
+2 Risks: prompt injection, tool poisoning, over-permission, data leak, no trace.
+3 Concept map: the model is not the only boundary; policy lives outside the model.
+4 Permission table: read=allow, write/network/message=confirm, delete/deploy=deny.
+5 Runnable code: agent_sandbox.py, policy, tool_requests, inspect_request, trace.
+6 Mini exercise: add run_shell as confirm; command preview + timeout.
+7 Evidence pack: tool_manifest, permission_policy, external_content_rule, trace_log, blocked_case, rollback.
+Use hand-drawn shield, gates, red blocked marks, trace log, file safe. Avoid tiny text, real URLs, API keys, exact vulnerability IDs, dates, and gibberish.
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-permission-sandbox-whiteboard-ja.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "Agent Permission Sandbox 白板",
+        "suggested_page": "src/content/docs/ja/ch09-agent/ch08-eval-safety/06-agent-permission-sandbox.md",
+        "alt": "Agent permission sandbox 白板：prompt injection、tool poisoning、allow/confirm/deny、実行コード、演習、安全証拠。",
+        "prompt": """
+「Agent Permission Sandbox and Tool-Poisoning Defense」教材用の縦長 9:16 日本語教学ビットマップを生成してください。
+スタイルは手描きホワイトボードの security class。SVG、貼り付けテンプレート、ソフト画面、実在ブランドロゴは禁止。文字は大きく読みやすく、安全レビュー板のように。
+7つの区画を含める：
+1 背景：natural language、external webpages、tool permissions が1つの loop に入る。
+2 リスク：prompt injection、tool poisoning、over-permission、data leak、no trace。
+3 概念図：model は唯一の boundary ではない。policy は model の外側。
+4 権限表：read=allow、write/network/message=confirm、delete/deploy=deny。
+5 実行コード：agent_sandbox.py、policy、tool_requests、inspect_request、trace。
+6 小演習：run_shell を confirm に追加。command preview + timeout。
+7 証拠パック：tool_manifest、permission_policy、external_content_rule、trace_log、blocked_case、rollback。
+手描き盾、gate、赤い blocked 印、trace log、file safe を使う。小文字、実 URL、API key、具体的な脆弱性 ID、日付、文字化けは禁止。
+""".strip(),
+    },
+    {
+        "filename": "ch13-open-weight-model-routing-whiteboard.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "开放权重模型路线白板",
+        "suggested_page": "src/content/docs/zh-cn/ch13-open-source-llm/open-weight-models-2026.md",
+        "alt": "开放权重模型路线白板：模型卡、计算路线、runtime、评估、适配、可运行代码和证据。",
+        "prompt": """
+生成一张竖版 9:16 简体中文教学位图，用于“开放权重模型路线”课程页。
+风格必须是手绘白板/白板教学，不要深色图、SVG、贴图模板、软件截图、真实品牌 logo。文字要大、清楚、教学信息丰富。
+包含 7 个分区：
+1 背景：云 API 之外，需要数据控制、成本控制、延迟控制、可审计。
+2 模型卡：license、language、context、safety、intended use。
+3 计算路线：local CPU、free Colab、rented GPU 三条路。
+4 Runtime：Transformers、llama.cpp、Ollama、vLLM、SGLang。
+5 判断表：laptop -> tiny/quantized；temporary -> Colab；service -> rented GPU；private docs -> RAG first。
+6 可运行代码：open_weight_route.py、project、model_families、choose_route、evidence。
+7 小练习与证据：model_name、license_note、first_run、eval_cases、resource_note、shutdown、小结。
+用手绘路线图、模型卡、GPU 仪表、API 端点、评估表和关机开关。不要具体模型性能数字、真实价格、日期、API key、真实 URL 或乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch13-open-weight-model-routing-whiteboard-en.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "Open-weight model routing whiteboard",
+        "suggested_page": "src/content/docs/ch13-open-source-llm/open-weight-models-2026.md",
+        "alt": "Open-weight model routing whiteboard: model card, compute route, runtime, evaluation, adaptation, runnable code, and evidence.",
+        "prompt": """
+Create a vertical 9:16 English teaching bitmap for "Open-Weight Model Landscape and Routing".
+Style must be hand-drawn whiteboard teaching, light background. Do not use dark infographic style, SVG, pasted templates, software screenshots, or real brand logos. Text must be large, clear, and information-rich.
+Include 7 zones:
+1 Background: beyond cloud APIs, teams need data control, cost control, latency control, auditability.
+2 Model card: license, language, context, safety, intended use.
+3 Compute routes: local CPU, free Colab, rented GPU.
+4 Runtime: Transformers, llama.cpp, Ollama, vLLM, SGLang.
+5 Decision table: laptop -> tiny/quantized; temporary -> Colab; service -> rented GPU; private docs -> RAG first.
+6 Runnable code: open_weight_route.py, project, model_families, choose_route, evidence.
+7 Exercise and evidence: model_name, license_note, first_run, eval_cases, resource_note, shutdown, summary.
+Use a hand-drawn route map, model card, GPU gauge, API endpoint, eval table, shutdown switch. Avoid concrete model benchmark numbers, exact prices, dates, API keys, real URLs, and gibberish.
+""".strip(),
+    },
+    {
+        "filename": "ch13-open-weight-model-routing-whiteboard-ja.png",
+        "size": DEFAULT_COURSE_IMAGE_SIZE,
+        "quality": DEFAULT_COURSE_IMAGE_QUALITY,
+        "title": "Open-Weight Model Routing 白板",
+        "suggested_page": "src/content/docs/ja/ch13-open-source-llm/open-weight-models-2026.md",
+        "alt": "Open-weight model routing 白板：model card、compute route、runtime、evaluation、adaptation、実行コード、evidence。",
+        "prompt": """
+「Open-Weight Model Landscape and Routing」教材用の縦長 9:16 日本語教学ビットマップを生成してください。
+スタイルは明るい手描きホワイトボード授業。深色インフォグラフィック、SVG、貼り付けテンプレート、ソフト画面、実在ブランドロゴは禁止。文字は大きく明瞭で、教学情報を多めに。
+7つの区画を含める：
+1 背景：cloud API だけでなく、data control、cost control、latency control、auditability が必要。
+2 Model card：license、language、context、safety、intended use。
+3 Compute routes：local CPU、free Colab、rented GPU。
+4 Runtime：Transformers、llama.cpp、Ollama、vLLM、SGLang。
+5 判断表：laptop -> tiny/quantized、temporary -> Colab、service -> rented GPU、private docs -> RAG first。
+6 実行コード：open_weight_route.py、project、model_families、choose_route、evidence。
+7 演習と証拠：model_name、license_note、first_run、eval_cases、resource_note、shutdown、summary。
+手描き route map、model card、GPU gauge、API endpoint、eval table、shutdown switch を使う。具体的 benchmark 数字、実価格、日付、API key、実 URL、文字化けは禁止。
+""".strip(),
+    },
+]
+
+existing_filenames_for_latest_ai_tech = {str(job.get("filename")) for job in IMAGE_JOBS}
+for job in LATEST_AI_TECH_WHITEBOARD_JOBS:
+    if str(job["filename"]) not in existing_filenames_for_latest_ai_tech:
+        IMAGE_JOBS.append(job)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate course images and save them under public/img/course.")
     parser.add_argument("--dry-run", action="store_true", help="Print planned image jobs without calling the API.")

@@ -32,6 +32,7 @@ head:
 | `eval_questions.csv` | 至少 10 个固定问题，带期望来源或答案要点 |
 | `failure_cases.md` | 至少三个失败样本，标注 document、chunking、retrieval、generation、citation 或 deploy |
 | `rag_config.md` | chunk 大小、overlap、top-k、是否 rerank、Prompt 版本 |
+| `context_strategy.md` | long context、RAG、memory 或 hybrid 决策，并说明一个未选方案 |
 | `rag_app_workshop_output.txt` | [8.5.6 实操：第 8 章 RAG 应用完整工作坊](/zh-cn/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) 的输出 |
 | `README.md` | 运行命令、示例问题、带引用答案、评估结果、下一步修复 |
 
@@ -53,6 +54,7 @@ head:
 - 你能说明 chunk metadata 为什么对引用和排障必不可少吗？
 - 检索为空时，你能返回“资料不足”，而不是让模型猜吗？
 - 你能用同一组评估问题比较两个 RAG 版本吗？
+- 你能说明什么时候长上下文比 RAG 更简单，什么时候仍然必须使用 RAG 或记忆吗？
 
 <details>
 <summary>检查思路与讲解</summary>

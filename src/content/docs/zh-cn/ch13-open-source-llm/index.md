@@ -36,6 +36,7 @@ head:
 2. [13.2 实操：跑通并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)
 3. [13.3 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/)
 4. [13.4 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/)
+5. [13.5 开放权重模型路线](/zh-cn/ch13-open-source-llm/open-weight-models-2026/)
 
 如果你想直接跟做，也先从计算路线页开始。它会先帮你判断应该用本地 CPU、可用时的免费 Colab，还是租 GPU，然后再复制命令。
 
@@ -92,9 +93,10 @@ head:
 5. 跑一个小评估集，停在至少五个 Prompt 和通过/失败备注。
 6. 进入 [13.3 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 比较模型和运行时，停在“为什么当前组合足够”的说明。
 7. 进入 [13.4 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 整理发布路径，停在 README、命令、成本、限制和关机步骤。
-8. 判断是否需要微调，停在不微调、LoRA 或全参训练的理由。
+8. 阅读 [13.5 开放权重模型路线](/zh-cn/ch13-open-source-llm/open-weight-models-2026/)，停在能根据路线、许可证、隐私、runtime 和证据选择模型族。
+9. 判断是否需要微调，停在不微调、LoRA 或全参训练的理由。
 
-本阶段交付物是 `compute_route.md`、可运行 runbook、环境报告、五条样本评估表、模型/运行时决策说明，以及包含停止或回滚步骤的 README。
+本阶段交付物是 `compute_route.md`、可运行 runbook、环境报告、开放权重模型选择卡、五条样本评估表、模型/运行时决策说明，以及包含停止或回滚步骤的 README。
 
 ## 怎样配合 Self-LLM 使用
 

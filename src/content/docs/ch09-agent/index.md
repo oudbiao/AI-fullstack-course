@@ -49,7 +49,7 @@ Build a single traceable Agent before multi-agent systems. Follow the core singl
 | 9.4 | Memory | Separate current state from long-term memory | memory boundary notes |
 | 9.8 | Evaluation and safety | Score outputs, block risky actions, and inspect traces | trace logs, safety block, eval cases |
 | 9.10 | Stage project | Run [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](/ch09-agent/ch10-projects/04-stage-hands-on-workshop/) | `agent_traces.jsonl`, safety boundary, eval cases |
-| 9.5 | MCP | Understand MCP as a standard way to connect tools and data sources | one integration note |
+| 9.5 | MCP and protocols | Understand MCP plus agent handoff contracts as ways to connect tools, data sources, and peer agents | one capability card and integration note |
 | 9.6-9.7 | Frameworks and multi-agent | Study only after the single-Agent loop is stable | framework choice note |
 | 9.9 | Deployment and operations | Add runtime, recovery, cost, and production readiness after the core project works | launch checklist and rollback note |
 
@@ -189,7 +189,8 @@ Keep this page's proof of learning as a small evidence card:
 core_route: 9.1 -> 9.2 -> 9.3 -> 9.4 -> 9.8 -> 9.10 first
 agent_loop: goal -> plan -> tool/action -> observation -> memory -> evaluation
 trace_rule: every action should leave input, output, decision, and error record
-safety_rule: permissions, tool boundaries, guardrails, and rollback are part of design
+protocol_rule: tool discovery, authorization, and agent handoff should have a capability card
+safety_rule: permissions, tool boundaries, sandbox guardrails, and rollback are part of design
 depth_split: MCP/frameworks/multi-agent/deployment after single-Agent loop is stable
 ```
 
@@ -199,7 +200,7 @@ Before leaving this chapter, you should be able to:
 
 - explain goal, state, plan, tool, observation, memory, trace, and guardrail;
 - run the trace script and block a non-whitelisted tool;
-- save `agent_traces.jsonl`, `tools_schema.md`, `safety_boundary.md`, and `failure_cases.md`;
+- save `agent_traces.jsonl`, `tools_schema.md`, `protocol_card.md`, `safety_boundary.md`, and `failure_cases.md`;
 - judge whether a task needs workflow, RAG, function calling, or an Agent;
 - run the full Chapter 9 workshop and add one evaluation task plus one safety-block example.
 

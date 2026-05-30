@@ -64,6 +64,7 @@ scorecard: task, tools, safety, trace, cost
 | 3 | 安全与对齐 | 识别 prompt injection、越权、泄漏、幻觉 |
 | 4 | Guardrails | 加入输入过滤、输出校验、权限和人工确认 |
 | 5 | 可观测性 | 保存日志、追踪、错误、延迟、成本和失败原因 |
+| 6 | 权限沙箱 | 用 allow/confirm/deny 规则区分 read、write、network、message、destructive 动作 |
 
 ## 留下的证据
 
@@ -73,6 +74,7 @@ scorecard: task, tools, safety, trace, cost
 评估用例：固定任务和期望的安全行为
 评分卡：任务成功、工具正确性、trace 质量和安全性
 护栏：策略、权限、验证或人工确认
+沙箱 trace：action、source、decision、reason 和被阻止的投毒样本
 失败检查：工具使用不安全、提示注入、隐藏状态或未被观测的动作
 下一步动作：添加案例、护栏、日志、回滚或拒绝路径
 ```

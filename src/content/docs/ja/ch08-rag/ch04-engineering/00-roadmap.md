@@ -58,6 +58,7 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 | 2 | API 設計 | request/response スキーマ と error code を定義する |
 | 3 | ログと監視 | prompt version、retrieval hits、レイテンシ、cost、failures を記録する |
 | 4 | Docker デプロイ | 再現可能な実行手順でアプリを package する |
+| 5 | Long context、RAG、memory decision | 境界のある source、検索可能 corpus、永続 state に合わせて最小の evidence strategy を選ぶ |
 
 ## 残す証拠
 
@@ -67,6 +68,7 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 サービス契約: エンドポイント、入力スキーマ、出力スキーマ、エラースキーマ
 実行シグナル: レイテンシ、スループット、ログ、ヘルスチェック、またはコンテナ状態
 可観測性：request id、trace id、構造化ログ、または metric
+context strategy: long context、RAG、memory、hybrid の選択と理由
 失敗確認: タイムアウト、リトライの連鎖、ログ不足、デプロイ不一致
 運用アクション：バックオフ、キュー、アラート、段階展開、またはロールバック
 ```

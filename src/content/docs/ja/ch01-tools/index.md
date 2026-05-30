@@ -35,8 +35,9 @@ head:
 4. [1.2.1 Git の基礎](/ja/ch01-tools/ch02-git/01-git-basics/) と [1.2.2 Git の基本操作](/ja/ch01-tools/ch02-git/02-core-operations/): 最初のローカルプロジェクト記録を保存し、clean な Git commit を 1 回残す。
 5. [1.3.1 Python 環境](/ja/ch01-tools/ch03-devenv/01-python-env/)、[1.3.2 VS Code](/ja/ch01-tools/ch03-devenv/02-vscode/)、[1.3.3 Jupyter](/ja/ch01-tools/ch03-devenv/03-jupyter/): 正しい環境で Python を動かし、コードを編集し、Notebook を restart-and-run する。
 6. [1.4.1 ハンズオンワークショップ](/ja/ch01-tools/ch04-workshop/01-hands-on-tools-workshop/): ターミナル、Python、エディタ、Notebook、Git を再現可能な `ai-learning-lab` README にまとめる。
+7. [1.4.2 AI Coding Agent のワークフロー](/ja/ch01-tools/ch04-workshop/02-ai-coding-agent-workflow/): Agent に編集させる前に、scope、permission、test、evidence、review gate に分ける。
 
-ワークショップは最後に置きます。統合のための実践なので、先に部品を学び、そのあと組み合わせます。
+ワークショップは最後に置きます。統合のための実践なので、先に部品を学び、そのあと再現可能な証拠として組み合わせます。
 
 ## 最初の実行ループ
 

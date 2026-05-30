@@ -58,6 +58,7 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 | 2 | API 设计 | 定义请求/响应 结构约束 和错误码 |
 | 3 | 日志与监控 | 记录 Prompt 版本、检索命中、延迟、成本和失败 |
 | 4 | Docker 部署 | 用可复现运行说明打包应用 |
+| 5 | 长上下文、RAG 与记忆选择 | 为边界清晰资料、可搜索语料或持久状态选择最简单的证据策略 |
 
 ## 留下的证据
 
@@ -67,6 +68,7 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 服务契约：端点、输入模式、输出模式、错误模式
 运行信号：延迟、吞吐量、日志、健康检查，或容器状态
 可观测性：请求 ID、trace ID、结构化日志或指标
+上下文策略：long context、RAG、memory 或 hybrid 的选择与原因
 失败检查：超时、重试风暴、缺少日志或部署不匹配
 运维动作：backoff、queue、alert、rollout 或 rollback
 ```

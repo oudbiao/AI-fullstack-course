@@ -32,6 +32,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `eval_questions.csv` | at least 10 fixed questions with expected source or answer points |
 | `failure_cases.md` | at least three failures labeled as document, chunking, retrieval, generation, citation, or deploy |
 | `rag_config.md` | chunk size, overlap, top-k, rerank choice, prompt version |
+| `context_strategy.md` | long context, RAG, memory, or hybrid decision with one rejected alternative |
 | `rag_app_workshop_output.txt` | output from [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) |
 | `README.md` | run command, sample question, cited answer, evaluation result, next fix |
 
@@ -65,6 +66,7 @@ Expected result: your Chapter 8 project folder contains chunks, retrieval logs, 
 - Can you explain why chunk metadata is necessary for citations and debugging?
 - Can you handle empty retrieval with a no-answer response instead of a guess?
 - Can you compare two RAG versions using the same evaluation questions?
+- Can you explain when long context is simpler than RAG, and when RAG or memory is still required?
 
 <details>
 <summary>Check reasoning and explanation</summary>

@@ -73,11 +73,11 @@ A   付録
 - **6 深層学習**：PyTorch、ニューラルネット、CNN、RNN、Transformer、生成モデル。
 - **7 LLM 原理**：NLP 基礎、Transformer、事前学習、Prompt、微調整、アラインメント。
 - **8 RAG 応用**：文書処理、ベクトル DB、検索、評価、デプロイ。
-- **9 AI Agent**：計画、ツール、メモリ、MCP、マルチ Agent、可観測性、安全性。
+- **9 AI Agent**：計画、ツール、メモリ、MCP、Agent protocol contracts、permission sandbox、マルチ Agent、可観測性、安全性。
 - **10 Computer Vision**：分類、検出、セグメンテーション、OCR、動画、3D vision。
 - **11 NLP 専門**：テキスト表現、分類、抽出、Seq2Seq、事前学習モデル。
 - **12 マルチモーダル AIGC**：視覚言語モデル、画像/動画/音声生成、倫理、製品プロトタイプ。
-- **13 オープンソース LLM**：ローカル CPU、無料 Colab、レンタル GPU の3ルート、モデル実行、サービス化、評価、GPU 利用計画、LoRA 判断。
+- **13 オープンソース LLM**：ローカル CPU、無料 Colab、レンタル GPU の3ルート、open-weight model selection、モデル実行、サービス化、評価、GPU 利用計画、LoRA 判断。
 
 ## 技術スタック
 
@@ -146,6 +146,8 @@ npm run seo:indexnow:dry-run
 
 `npm run qa:completion` は `reports/course-completion-report.json` と `reports/course-completion-report.md` を出力し、言語・章ごとの低スコアページをまとめて、次の改善 backlog を安定させます。
 
+最新 AI 技術を定期的に確認してコースを更新するときは、[COURSE_UPDATE_POLICY.md](./COURSE_UPDATE_POLICY.md) を使います。
+
 直接検証する場合：
 
 ```bash
@@ -172,6 +174,7 @@ astro.config.mjs         Astro Starlight 設定、言語、sidebar、sitemap、m
 scripts/                 検証、sitemap、画像生成、SEO、保守スクリプト
 docker/                  Docker デプロイ用 Nginx 設定
 nginx/                   本番 proxy の例
+COURSE_UPDATE_POLICY.md  定期 AI 技術レビューとカリキュラム更新ルール
 ```
 
 ## ビジュアル素材

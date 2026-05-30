@@ -21,6 +21,7 @@ The default route is:
 2. [13.2 Hands-on: Run and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/)
 3. [13.3 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/)
 4. [13.4 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/)
+5. [13.5 Open-Weight Model Landscape](/ch13-open-source-llm/open-weight-models-2026/)
 
 If you want to follow commands immediately, still start with the compute route page. It will tell you whether to use local CPU, free Colab when available, or a rented GPU before you copy commands.
 
@@ -77,9 +78,10 @@ This is the reason the chapter may feel stricter than a model tutorial. Open-sou
 5. Run a tiny evaluation set; stop when you have at least five prompts and pass/fail notes.
 6. Compare model/runtime choices in [13.3 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/); stop when you know why this model/runtime pair is enough.
 7. Turn the result into [13.4 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/); stop when README, commands, cost, limits, and shutdown are written.
-8. Decide whether to fine-tune; stop when you can justify no tuning, LoRA, or full training.
+8. Read [13.5 Open-Weight Model Landscape](/ch13-open-source-llm/open-weight-models-2026/); stop when you can choose a model family from route, license, privacy, runtime, and evidence.
+9. Decide whether to fine-tune; stop when you can justify no tuning, LoRA, or full training.
 
-The stage deliverables are `compute_route.md`, a runnable runbook, environment report, five-case evaluation table, model/runtime decision memo, and README with shutdown or rollback notes.
+The stage deliverables are `compute_route.md`, a runnable runbook, environment report, open-weight model selection card, five-case evaluation table, model/runtime decision memo, and README with shutdown or rollback notes.
 
 ## How To Use This With Self-LLM
 

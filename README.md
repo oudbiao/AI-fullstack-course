@@ -75,11 +75,11 @@ The recommended route is to finish chapters 1-9 first, then choose chapters 10-1
 - **6 Deep Learning**: PyTorch, neural networks, CNN, RNN, Transformer, generative models.
 - **7 LLM Principles**: NLP basics, Transformer internals, pretraining, prompting, fine-tuning, alignment.
 - **8 RAG Applications**: document processing, vector databases, retrieval, evaluation, deployment.
-- **9 AI Agents**: planning, tools, memory, MCP, multi-agent systems, observability, safety.
+- **9 AI Agents**: planning, tools, memory, MCP, agent protocol contracts, permission sandboxing, multi-agent systems, observability, safety.
 - **10 Computer Vision**: classification, detection, segmentation, OCR, video, 3D vision.
 - **11 NLP Specialization**: text representation, classification, extraction, Seq2Seq, pretrained models.
 - **12 Multimodal AIGC**: vision-language models, image/video/audio generation, ethics, product prototypes.
-- **13 Open-Source LLMs**: local CPU, free Colab, and rented GPU routes; model runtime, serving, evaluation, GPU rental discipline, LoRA decisions.
+- **13 Open-Source LLMs**: local CPU, free Colab, and rented GPU routes; open-weight model selection, model runtime, serving, evaluation, GPU rental discipline, LoRA decisions.
 
 ## Website Stack
 
@@ -106,6 +106,7 @@ astro.config.mjs         Astro Starlight config, locales, sidebar, sitemap, meta
 scripts/                 Validation, sitemap, image generation, SEO, and maintenance scripts
 docker/                  Nginx runtime configuration for Docker deployment
 nginx/                   Production proxy examples
+COURSE_UPDATE_POLICY.md  Periodic AI technology review and curriculum update policy
 ```
 
 ## Local Development
@@ -163,6 +164,8 @@ npm run seo:indexnow:dry-run
 `npm run qa:readability` writes `reports/readability-audit.json` and highlights dense tables, long table headers, and plain-text blocks that may deserve cards, narrower tables, or terminal-output framing.
 
 `npm run qa:completion` writes `reports/course-completion-report.json` and `reports/course-completion-report.md`, then summarizes pages that still have completion deductions so improvement work has a stable backlog.
+
+Use [COURSE_UPDATE_POLICY.md](./COURSE_UPDATE_POLICY.md) for periodic AI technology scans and curriculum update rules.
 
 For direct script checks:
 

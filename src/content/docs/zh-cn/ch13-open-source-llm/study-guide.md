@@ -13,7 +13,7 @@ head:
 
 ![第13章学习检查表](/img/course/ch13-open-source-llm-study-checklist.webp)
 
-如果你还没有亲手运行，请先完成 [13.1 计算路线：本地 CPU、免费 Colab、租 GPU](/zh-cn/ch13-open-source-llm/compute-routes/)，再完成 [13.2 实操：跑通、训练并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)。然后用 [13.3 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/) 和 [13.4 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 补齐部署证据。
+如果你还没有亲手运行，请先完成 [13.1 计算路线：本地 CPU、免费 Colab、租 GPU](/zh-cn/ch13-open-source-llm/compute-routes/)，再完成 [13.2 实操：跑通、训练并服务化一个开源大模型](/zh-cn/ch13-open-source-llm/hands-on-open-llm-lab/)。然后用 [13.3 模型与运行时决策](/zh-cn/ch13-open-source-llm/model-runtime-decision/)、[13.4 服务化、评估与发布 Runbook](/zh-cn/ch13-open-source-llm/serving-evaluation-runbook/) 和 [13.5 开放权重模型路线](/zh-cn/ch13-open-source-llm/open-weight-models-2026/) 补齐部署证据。
 
 ## 两小时快速通读
 
@@ -43,6 +43,7 @@ head:
 - `environment_report.txt`：Python、torch、CUDA/device、platform、磁盘或实例说明。
 - `compute_route.md`：本地 CPU、免费 Colab 或租 GPU 选择，以及 fallback 和 stop rule。
 - `model_decision.md`：模型、尺寸、许可证、来源、理由、被拒方案。
+- `open_weight_route.json`：计算路线、候选模型族、runtime 适配、适配策略和必须证据。
 - `model_runtime_decision.json`：按本地 CPU、免费 Colab、租 GPU 路线输出的运行时建议。
 - `open_llm_runbook.json`：运行时选择、适配选择、需要保留的证据。
 - `api_smoke_test.json`：本地 OpenAI-compatible API 的健康检查和一次请求/响应证据。
@@ -64,6 +65,7 @@ head:
 ## 离章问题
 
 - 你能解释为什么选择这个模型尺寸和许可证吗？
+- 你能解释为什么这个开放权重模型族适合当前计算路线和 runtime 吗？
 - 你能解释为什么这次运行适合本地 CPU、免费 Colab 或租 GPU 吗？
 - 你能说明为什么这个运行时足够当前项目使用吗？
 - 你能运行或复现环境检查吗？

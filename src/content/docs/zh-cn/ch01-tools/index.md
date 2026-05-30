@@ -35,8 +35,9 @@ head:
 4. [1.2.1 Git 基础](/zh-cn/ch01-tools/ch02-git/01-git-basics/) 和 [1.2.2 Git 核心操作](/zh-cn/ch01-tools/ch02-git/02-core-operations/)：保存第一次本地项目快照，保留一次干净的 Git 提交。
 5. [1.3.1 Python 环境](/zh-cn/ch01-tools/ch03-devenv/01-python-env/)、[1.3.2 VS Code](/zh-cn/ch01-tools/ch03-devenv/02-vscode/) 和 [1.3.3 Jupyter](/zh-cn/ch01-tools/ch03-devenv/03-jupyter/)：在正确环境里运行 Python，编辑代码，并让 Notebook 重启后完整运行。
 6. [1.4.1 跟做工作坊](/zh-cn/ch01-tools/ch04-workshop/01-hands-on-tools-workshop/)：把终端、Python、编辑器、Notebook 和 Git 串成可复现的 `ai-learning-lab` README。
+7. [1.4.2 AI Coding Agent 工作流](/zh-cn/ch01-tools/ch04-workshop/02-ai-coding-agent-workflow/)：在让 Agent 改代码前，把需求拆成范围、权限、测试、证据和审查关卡。
 
-工作坊放在最后，因为它是综合实操：先学零件，再把零件装起来。
+工作坊放在最后，因为它们是综合实操：先学零件，再把零件装成可复现的证据链。
 
 ## 第一个可运行闭环
 

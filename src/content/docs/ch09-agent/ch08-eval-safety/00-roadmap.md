@@ -64,6 +64,7 @@ One smooth final answer is not enough evidence. Keep replayable tasks and proces
 | 3 | Safety and alignment | Identify prompt injection, over-permission, leakage, hallucination |
 | 4 | Guardrails | Add input filter, output validation, permissions, human confirmation |
 | 5 | Observability | Save logs, traces, errors, latency, cost, and failure reason |
+| 6 | Permission sandbox | Separate read, write, network, message, and destructive actions with allow/confirm/deny rules |
 
 ## Evidence to Keep
 
@@ -73,6 +74,7 @@ Keep this page's proof of learning as a small evidence card:
 eval_cases: fixed tasks and expected safe behavior
 scorecard: task success, tool correctness, trace quality, safety
 guardrail: policy, permission, validation, or human confirmation
+sandbox_trace: action, source, decision, reason, and blocked poisoning case
 failure_check: unsafe tool use, prompt injection, hidden state, or unobserved action
 next_action: add case, guardrail, log, rollback, or refusal path
 ```

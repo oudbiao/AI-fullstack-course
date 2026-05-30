@@ -30,6 +30,8 @@ head:
 | `tools_schema.md` | 1～2 个工具，写清名称、用途、参数、返回值、错误和风险等级 |
 | `agent_traces.jsonl` | 至少三次运行，记录 goal、步骤、action、input、observation、result |
 | `safety_boundary.md` | 最大步数、工具白名单、被拦截动作、人工确认规则 |
+| `protocol_card.md` | MCP/server 能力、peer-agent 交接字段、授权规则、trace 字段 |
+| `agent_sandbox_trace.json` | allow/confirm/deny 决策，并至少包含一个被阻止的 injection 或 tool-poisoning 样本 |
 | `failure_cases.md` | 至少三个失败：选错工具、参数错误、循环、权限拦截、不支持的回答 |
 | `eval_tasks.csv` | 3～5 个固定任务，包含期望结果和成功标准 |
 | `README.md` | 运行命令、追踪 示例、安全样例、评估结果、限制 |
@@ -50,6 +52,7 @@ head:
 - 你能说明 Agent 和普通 LLM 应用的区别吗？
 - 你能展示一条 追踪，并解释每次工具调用为什么发生吗？
 - 你能拦截高风险或不在白名单里的工具吗？
+- 你能把工具发现、授权和 Agent 交接分开吗？
 - 你能定义停止条件和最大步数吗？
 - 你能解释为什么多 Agent 应该在单 Agent 可靠之后再做吗？
 

@@ -32,6 +32,7 @@ head:
 | `eval_questions.csv` | 少なくとも10個の固定質問と期待出典または回答ポイント |
 | `failure_cases.md` | 少なくとも3つの失敗例。document、chunking、retrieval、generation、citation、deploy に分類 |
 | `rag_config.md` | chunk サイズ、overlap、top-k、rerank の有無、Prompt 版 |
+| `context_strategy.md` | long context、RAG、memory、hybrid の判断と、不採用案の理由 |
 | `rag_app_workshop_output.txt` | [8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](/ja/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) の出力 |
 | `README.md` | 実行コマンド、例の質問、引用付き回答、評価結果、次の修正 |
 
@@ -53,6 +54,7 @@ head:
 - chunk metadata が引用とデバッグに必須な理由を説明できますか？
 - 検索が空のとき、推測ではなく「資料不足」と返せますか？
 - 同じ評価質問で2つの RAG 版を比較できますか？
+- Long context が RAG より単純な場合と、RAG / memory がまだ必要な場合を説明できますか？
 
 <details>
 <summary>確認の考え方と解説</summary>

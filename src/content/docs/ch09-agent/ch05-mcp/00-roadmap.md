@@ -58,6 +58,7 @@ If the boundary is vague, permissions and debugging will be vague too.
 | 3 | Server development | Wrap one capability with clear input, output, and errors |
 | 4 | Client integration | Discover and call server capabilities safely |
 | 5 | Ecosystem | Connect MCP to IDEs, databases, browsers, knowledge bases, and Agents |
+| 6 | MCP, A2A, and protocol layer | Write a capability card that separates tool discovery, peer-agent handoff, authorization, and trace |
 
 ## Evidence to Keep
 
@@ -67,6 +68,7 @@ Keep this page's proof of learning as a small evidence card:
 capability: resource, prompt, or tool exposed by server
 contract: schema, transport, permissions, and error shape
 call_trace: discovery, invocation, response, and failure handling
+protocol_card: capability server, peer agent, authorization rule, handoff artifacts
 failure_check: incompatible schema, missing auth, unsafe tool, or server error
 integration_action: validate server contract before adding autonomy
 ```

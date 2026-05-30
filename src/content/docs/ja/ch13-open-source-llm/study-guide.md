@@ -13,7 +13,7 @@ head:
 
 ![第13章 OSS LLM 学習チェックリスト](/img/course/ch13-open-source-llm-study-checklist-ja.webp)
 
-まだ手を動かしていない場合は、まず [13.1 計算ルート：ローカル CPU、無料 Colab、レンタル GPU](/ja/ch13-open-source-llm/compute-routes/) を完了し、その後 [13.2 実践：オープンソース LLM を動かし、学習し、サービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) に進みます。続いて [13.3 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/) と [13.4 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/) で deployment evidence を完成させます。
+まだ手を動かしていない場合は、まず [13.1 計算ルート：ローカル CPU、無料 Colab、レンタル GPU](/ja/ch13-open-source-llm/compute-routes/) を完了し、その後 [13.2 実践：オープンソース LLM を動かし、学習し、サービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/) に進みます。続いて [13.3 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/)、[13.4 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/)、[13.5 Open-Weight Model Landscape](/ja/ch13-open-source-llm/open-weight-models-2026/) で deployment evidence を完成させます。
 
 ## 2時間の初回通読
 
@@ -43,6 +43,7 @@ head:
 - `environment_report.txt`：Python、torch、CUDA/device、platform、disk または instance note。
 - `compute_route.md`：local CPU、free Colab、rented GPU の選択、fallback、stop rule。
 - `model_decision.md`：model、size、license、source、reason、rejected alternatives。
+- `open_weight_route.json`：route、candidate family、runtime fit、adaptation choice、required evidence。
 - `model_runtime_decision.json`：local CPU、free Colab、rented GPU の route 別 runtime recommendation。
 - `open_llm_runbook.json`：runtime choice、adaptation choice、required evidence。
 - `api_smoke_test.json`：local OpenAI-compatible API の health check と sample request/response proof。
@@ -64,6 +65,7 @@ head:
 ## 章を出る前の質問
 
 - なぜこの model size と license を選んだか説明できますか？
+- この open-weight family が compute route と runtime に合う理由を説明できますか？
 - なぜこの run が local CPU、free Colab、rented GPU のどれに合うか説明できますか？
 - なぜこの runtime が今の project に十分か説明できますか？
 - environment check を実行または再現できますか？

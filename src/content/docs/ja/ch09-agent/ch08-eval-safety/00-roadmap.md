@@ -64,6 +64,7 @@ scorecard: task, tools, safety, trace, cost
 | 3 | 安全とアラインメント | prompt injection、過剰権限、漏えい、hallucination を識別する |
 | 4 | ガードレール | 入力フィルター、出力検証、権限、人間による確認を追加する |
 | 5 | 観測性 | ログ、トレース、エラー、レイテンシ、コスト、失敗理由を保存する |
+| 6 | Permission sandbox | read、write、network、message、destructive action を allow/confirm/deny で分ける |
 
 ## 残す証拠
 
@@ -73,6 +74,7 @@ scorecard: task, tools, safety, trace, cost
 評価ケース：固定タスクと期待される安全な挙動
 スコアカード: タスク成功、ツールの正確さ、trace の品質、安全性
 ガードレール：ポリシー、権限、検証、または人の確認
+sandbox trace: action、source、decision、reason、blocked poisoning case
 失敗確認: 危険なツール使用、プロンプトインジェクション、隠れた状態、または観測されていない操作
 次の行動：ケース、ガードレール、ログ、ロールバック、または拒否パスを追加する
 ```

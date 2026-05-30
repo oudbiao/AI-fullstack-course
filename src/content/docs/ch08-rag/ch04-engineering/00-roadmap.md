@@ -58,6 +58,7 @@ If these fields are missing, debugging becomes guesswork. Add logs before adding
 | 2 | API design | Define request/response schema and error codes |
 | 3 | Logging and monitoring | Record prompt version, retrieval hits, latency, cost, and failures |
 | 4 | Docker deployment | Package the app with reproducible run instructions |
+| 5 | Long context, RAG, and memory decision | Choose the simplest evidence strategy for bounded sources, searchable corpora, or persistent state |
 
 ## Evidence to Keep
 
@@ -67,6 +68,7 @@ Keep this page's proof of learning as a small evidence card:
 service_contract: endpoint, input schema, output schema, error schema
 run_signal: latency, throughput, logs, health check, or container status
 observability: request id, trace id, structured log, or metric
+context_strategy: long context, RAG, memory, or hybrid decision with reason
 failure_check: timeout, retry storm, missing log, deployment mismatch
 ops_action: backoff, queue, alert, rollout, or rollback
 ```

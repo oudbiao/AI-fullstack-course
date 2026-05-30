@@ -58,6 +58,7 @@ boundary: server exposes, client calls
 | 3 | サーバー開発 | 1 つの機能を明確な入力、出力、エラーで包む |
 | 4 | クライアント統合 | サーバー機能を安全に発見し、呼び出す |
 | 5 | エコシステム | MCP を IDE、データベース、ブラウザ、知識ベース、Agent につなげる |
+| 6 | MCP、A2A、protocol layer | Tool discovery、peer-agent handoff、authorization、trace を分けた capability card を書く |
 
 ## 残す証拠
 
@@ -67,6 +68,7 @@ boundary: server exposes, client calls
 機能：サーバーが公開するリソース、Prompt、またはツール
 契約: スキーマ、通信方式、権限、エラー形式
 呼び出しトレース：探索、呼び出し、応答、失敗時の処理
+protocol card: capability server、peer agent、authorization rule、handoff artifacts
 失敗確認：互換性のないスキーマ、認証不足、安全でないツール、またはサーバーエラー
 統合アクション：自律化を追加する前にサーバー契約を確認する
 ```

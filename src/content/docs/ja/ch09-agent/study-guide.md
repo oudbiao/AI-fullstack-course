@@ -30,6 +30,8 @@ head:
 | `tools_schema.md` | 1～2個のツール。名前、目的、パラメータ、戻り値、エラー、リスクレベルを記載 |
 | `agent_traces.jsonl` | 少なくとも3回の実行。目標、ステップ、行動、入力、観察、結果を記録 |
 | `safety_boundary.md` | 最大ステップ、ツールホワイトリスト、ブロック action、人間承認ルール |
+| `protocol_card.md` | MCP/server capability、peer-agent handoff fields、authorization rule、trace fields |
+| `agent_sandbox_trace.json` | allow/confirm/deny decisions と blocked injection または tool-poisoning の例 |
 | `failure_cases.md` | 少なくとも3つの失敗。誤ツール、悪い引数、ループ、権限ブロック、未対応回答 |
 | `eval_tasks.csv` | 3～5個の固定タスク。期待結果と成功基準を含む |
 | `README.md` | 実行コマンド、トレース 例、安全例、評価結果、制限 |
@@ -50,6 +52,7 @@ head:
 - Agent と普通の LLM アプリの違いを説明できますか？
 - トレース を示し、各ツール呼び出しがなぜ起きたか説明できますか？
 - 高リスクまたはホワイトリスト外のツールをブロックできますか？
+- Tool discovery、authorization、agent handoff を分けて説明できますか？
 - 停止条件と最大ステップ数を定義できますか？
 - 多 Agent は単一 Agent の信頼性のあとに進むべき理由を説明できますか？
 

@@ -35,8 +35,9 @@ Use this sequence as both the guide and the task list.
 4. [1.2.1 Git basics](/ch01-tools/ch02-git/01-git-basics/) and [1.2.2 Git core operations](/ch01-tools/ch02-git/02-core-operations/): save a first local project snapshot; keep one clean Git commit.
 5. [1.3.1 Python environment](/ch01-tools/ch03-devenv/01-python-env/), [1.3.2 VS Code](/ch01-tools/ch03-devenv/02-vscode/), and [1.3.3 Jupyter](/ch01-tools/ch03-devenv/03-jupyter/): run Python in the right environment, edit code, and restart-run a notebook.
 6. [1.4.1 Follow-along workshop](/ch01-tools/ch04-workshop/01-hands-on-tools-workshop/): combine terminal, Python, editor, notebook, and Git into a reproducible `ai-learning-lab` README.
+7. [1.4.2 AI Coding Agent Workflow](/ch01-tools/ch04-workshop/02-ai-coding-agent-workflow/): turn a coding request into scope, permission, test, evidence, and review gates before letting an Agent edit.
 
-The workshop stays at the end because it is the integration step: learn the pieces first, then connect them.
+The workshops stay at the end because they are integration steps: learn the pieces first, then connect them with reproducible evidence.
 
 ## First Runnable Loop
 

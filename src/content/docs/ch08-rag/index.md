@@ -43,7 +43,7 @@ Do the workshop after the basics. First make the retrieval chain visible; then w
 |---|---|---|---|
 | 8.1 | RAG basics, document processing, retrieval, evaluation | Build a tiny document-to-answer loop | chunks, top-k output, cited answer |
 | 8.3 | LLM app development | Wrap the RAG loop with API, tools, dialog, or document parsing | request/response sample and error path |
-| 8.4 | Engineering practices | Add async, logging, monitoring, API design, or Docker notes | logs, config, deployment checklist |
+| 8.4 | Engineering practices | Add operations notes and context strategy | logs, config, deployment checklist, strategy card |
 | 8.5 | Stage project | Run [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](/ch08-rag/ch05-projects/05-stage-hands-on-workshop/) | workshop output, one added doc, one added eval case |
 | 8.2 | Deployment and unified APIs | Understand cloud API, local model, and unified calling layer | one calling note or config comparison |
 

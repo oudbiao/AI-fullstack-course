@@ -13,7 +13,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![Chapter 13 open-source LLM study checklist](/img/course/ch13-open-source-llm-study-checklist-en.webp)
 
-If you have not run the lab yet, first complete [13.1 Compute Routes: Local CPU, Free Colab, Rented GPU](/ch13-open-source-llm/compute-routes/), then [13.2 Hands-on: Run, Train, and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/). Use [13.3 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/) and [13.4 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/) to finish the deployment evidence.
+If you have not run the lab yet, first complete [13.1 Compute Routes: Local CPU, Free Colab, Rented GPU](/ch13-open-source-llm/compute-routes/), then [13.2 Hands-on: Run, Train, and Serve an Open-Source LLM](/ch13-open-source-llm/hands-on-open-llm-lab/). Use [13.3 Model and Runtime Decision](/ch13-open-source-llm/model-runtime-decision/), [13.4 Serving, Evaluation, and Release Runbook](/ch13-open-source-llm/serving-evaluation-runbook/), and [13.5 Open-Weight Model Landscape](/ch13-open-source-llm/open-weight-models-2026/) to finish the deployment evidence.
 
 ## Two-Hour First Pass
 
@@ -43,6 +43,7 @@ If you have not run the lab yet, first complete [13.1 Compute Routes: Local CPU,
 - `environment_report.txt`: Python, torch, CUDA/device, platform, disk or instance note.
 - `compute_route.md`: local CPU, free Colab, or rented GPU choice with fallback and stop rule.
 - `model_decision.md`: model, size, license, source, reason, rejected alternatives.
+- `open_weight_route.json`: route, candidate family, runtime fit, adaptation choice, required evidence.
 - `model_runtime_decision.json`: route-specific local CPU, free Colab, or rented GPU runtime recommendation.
 - `open_llm_runbook.json`: runtime choice, adaptation choice, required evidence.
 - `api_smoke_test.json`: health check and sample request/response proof for the local OpenAI-compatible API.
@@ -64,6 +65,7 @@ If you have not run the lab yet, first complete [13.1 Compute Routes: Local CPU,
 ## Exit Questions
 
 - Can you explain why you chose this model size and license?
+- Can you explain why this open-weight family fits the compute route and runtime?
 - Can you explain why this run belongs on local CPU, free Colab, or rented GPU?
 - Can you say why this runtime is enough for the current project?
 - Can you run or reproduce the environment check?

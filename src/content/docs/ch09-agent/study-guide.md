@@ -30,6 +30,8 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `tools_schema.md` | 1-2 tools with name, purpose, parameters, return value, errors, and risk level |
 | `agent_traces.jsonl` | at least three runs with goal, step, action, input, observation, and result |
 | `safety_boundary.md` | maximum steps, tool whitelist, blocked actions, human approval rules |
+| `protocol_card.md` | MCP/server capability, peer-agent handoff fields, authorization rule, trace fields |
+| `agent_sandbox_trace.json` | allow/confirm/deny decisions with at least one blocked injection or tool-poisoning case |
 | `failure_cases.md` | at least three failures: wrong tool, bad parameter, loop, blocked permission, unsupported answer |
 | `eval_tasks.csv` | 3-5 fixed tasks with expected outcome and success criteria |
 | `README.md` | run command, trace example, safety example, evaluation result, limitation |
@@ -40,9 +42,9 @@ Keep this page's proof of learning as a small evidence card:
 
 ```text
 single_agent_trace: one complete goal-plan-action-observation loop
-tool_contract: schema, permission, error behavior, and observation
+tool_contract: schema, permission, protocol card, error behavior, and observation
 memory_note: what is written, retrieved, forgotten, or updated
-eval_note: success score, safety check, and failure reason
+eval_note: success score, safety check, sandbox trace, and failure reason
 project_readme: run command, trace, limitations, and next action
 ```
 
@@ -62,6 +64,7 @@ Expected result: your Chapter 9 project folder contains tool schemas, replayable
 - Can you explain why an Agent is different from a normal LLM application?
 - Can you show a trace and explain why each tool call happened?
 - Can you block a risky or non-whitelisted tool?
+- Can you separate tool discovery from authorization and agent handoff?
 - Can you define a stop condition and maximum step count?
 - Can you explain why multi-agent should come after single-Agent reliability?
 

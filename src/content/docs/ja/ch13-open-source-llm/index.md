@@ -21,6 +21,7 @@ head:
 2. [13.2 実践：オープンソース LLM を動かしてサービス化する](/ja/ch13-open-source-llm/hands-on-open-llm-lab/)
 3. [13.3 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/)
 4. [13.4 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/)
+5. [13.5 Open-Weight Model Landscape](/ja/ch13-open-source-llm/open-weight-models-2026/)
 
 すぐにコマンドを動かしたい場合でも、まず計算ルートページから始めます。そこで local CPU、利用できる場合の free Colab、または rented GPU のどれを使うかを決めてから command をコピーします。
 
@@ -77,9 +78,10 @@ head:
 5. 小さな評価セットを動かし、5つ以上の prompt と pass/fail notes を残します。
 6. [13.3 モデルと Runtime の決定](/ja/ch13-open-source-llm/model-runtime-decision/) で model/runtime を比較し、この pair で十分な理由を書きます。
 7. [13.4 Serving、評価、Release Runbook](/ja/ch13-open-source-llm/serving-evaluation-runbook/) で release path をまとめ、README、commands、cost、limits、shutdown を残します。
-8. 微調整が必要か判断し、no tuning、LoRA、full training の理由を書きます。
+8. [13.5 Open-Weight Model Landscape](/ja/ch13-open-source-llm/open-weight-models-2026/) を読み、route、license、privacy、runtime、evidence から model family を選べるところで止めます。
+9. 微調整が必要か判断し、no tuning、LoRA、full training の理由を書きます。
 
-この段階の成果物は、`compute_route.md`、実行できる runbook、環境レポート、5ケース評価表、model/runtime decision memo、shutdown または rollback を含む README です。
+この段階の成果物は、`compute_route.md`、実行できる runbook、環境レポート、open-weight model selection card、5ケース評価表、model/runtime decision memo、shutdown または rollback を含む README です。
 
 ## Self-LLM との使い分け
 
