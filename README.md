@@ -216,6 +216,7 @@ For SEO maintenance:
 
 ```bash
 npm run seo:indexnow
+npm run seo:indexnow -- --sitemap-url https://airoads.org/sitemap.xml
 ```
 
 ## Contributing

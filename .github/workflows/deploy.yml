@@ -259,3 +259,11 @@ jobs:
           check_location "https://learning.airoads.org/zh-cn/" "https://airoads.org/zh-cn/"
           check_location "https://www.airoads.org/zh-cn/" "https://airoads.org/zh-cn/"
           check_status "https://airoads.org/not-real-page-for-status-test" "404"
+
+      - name: Submit IndexNow URLs
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci --no-audit --no-fund
+          npm run seo:indexnow:dry-run -- --sitemap-url https://airoads.org/sitemap.xml
+          npm run seo:indexnow -- --sitemap-url https://airoads.org/sitemap.xml

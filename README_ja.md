@@ -148,6 +148,14 @@ npm run seo:indexnow:dry-run
 
 最新 AI 技術を定期的に確認してコースを更新するときは、[COURSE_UPDATE_POLICY.md](./COURSE_UPDATE_POLICY.md) を使います。
 
+## SEO メンテナンス
+
+デプロイ後、現在の sitemap に含まれる URL を IndexNow に送信できます。
+
+```bash
+npm run seo:indexnow -- --sitemap-url https://airoads.org/sitemap.xml
+```
+
 直接検証する場合：
 
 ```bash
